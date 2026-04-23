@@ -15,25 +15,25 @@ The default output of AI systems tends toward junior-level code and generic desi
 
 ## Chapters
 
-- `SUMMARY.md` — Condensed cheat sheet of every chapter. Load this when context is tight.
-- `AGENTS.md` — Navigation index for LLMs. Task-to-chapter map, chapter relationships, running order for new projects. Every agent should read this first.
-- `USAGE.md` — How to wire this guide into Warp, Cursor, Claude Projects, Copilot, and other tools; prompt patterns that work.
-- `01-philosophy-and-psychology.md` — Intent, craft, Laws of UX, Nielsen heuristics, Cialdini's 7 principles of persuasion, Gestalt principles, emotional design.
-- `02-brand-and-copywriting.md` — Jungian brand archetypes, voice attributes with "but not" qualifiers, tone ladder by context, voice-of-customer research and language harvesting, copywriting frameworks (AIDA, PAS, BAB, 4Ps, FAB, StoryBrand) with worked examples, headline formulas, hero and value-proposition patterns, page-type copy skeletons (home, pricing, product, about, blog, contact, 404/500, legal, transactional email), microcopy, CTA psychology, social proof, navigation labels, notifications, cookie/consent banners, power words and specificity, reading-level targets, editing passes, copy measurement and testing, SEO in the AI-search era, JSON-LD structured data.
-- `03-visual-design.md` — Visual hierarchy, spacing scales, typography (scales, variable fonts, fluid), color systems (OKLCH, APCA, Radix, tooling), design styles.
-- `04-css-and-layout.md` — CSS units, responsive strategy, modern CSS (container queries, `:has()`, `@layer`, subgrid, view transitions, `@property`, `@function`, `if()`), motion principles.
-- `05-accessibility.md` — WCAG 2.2, semantic HTML, the five ARIA rules, keyboard navigation, focus management, screen reader testing, automated auditing.
-- `06-performance.md` — Core Web Vitals (LCP, INP, CLS), bfcache, image optimization, font loading, third-party script strategy, critical rendering path, RUM.
-- `07-javascript-and-html.md` — ECMAScript 2025 and 2026, Temporal, iterator helpers, the Signals proposal, web components, runtime selection (Node/Deno/Bun), modern HTML primitives.
-- `08-stack-and-architecture.md` — Framework selection, project-type stack recipes, rendering strategies (SSG, SSR, ISR, streaming, CSR, edge, islands, resumability, React Server Components), API styles (REST + OpenAPI, tRPC, GraphQL, Server Actions, gRPC/Connect, WebSockets, SSE, webhooks), backend language choice, database and CMS and auth and hosting selection, Tailwind v4, shadcn/ui, design tokens, component architecture, scaling ladder, maintainability and the boring-technology budget.
-- `09-anti-patterns-and-process.md` — Common AI and junior-level mistakes to avoid, review checklist, design-and-ship workflow.
-- `10-resources.md` — Trusted external references, tools, calculators, and libraries.
-- `11-browser-compatibility.md` — Choosing a support matrix, Baseline, `@supports` and feature detection, polyfills, per-feature status, cross-browser testing.
-- `12-testing.md` — The testing trophy, Vitest + Testing Library, MSW, Playwright E2E, visual regression, accessibility automation, CI integration.
-- `13-internationalization.md` — Intl API, ICU MessageFormat, RTL support, locale detection, hreflang, text expansion, translation workflow, pseudo-localization.
-- `14-security.md` — HTTP security headers, CSP with nonces, HSTS, OWASP Top 10, XSS prevention, CSRF, input validation, auth patterns, CORS, dependency auditing.
-- `15-discovery-and-communication.md` — What to ask the user before building, what to default, staged disclosure, red-flag phrases, scope trade-offs, checkpoints, non-frontend concerns, and what never to ask.
-- `16-code-style-and-quality.md` — Cross-language code style, formatter and linter stacks (Prettier, Biome, ESLint flat config, Stylelint, EditorConfig), repository hygiene (.gitignore, .gitattributes, PR template, CODEOWNERS), naming conventions, imports and module organization, comments, error handling, structured logging, dependency management, build toolchain, Conventional Commits and git hooks, and CI enforcement.
+- [SUMMARY.md](SUMMARY.md) — Condensed cheat sheet of every chapter. Load this when context is tight.
+- [AGENTS.md](AGENTS.md) — Navigation index for LLMs. Task-to-chapter map, chapter relationships, running order for new projects. Every agent should read this first.
+- [USAGE.md](USAGE.md) — How to wire this guide into Warp, Cursor, Claude Projects, Copilot, and other tools; prompt patterns that work.
+- [01-philosophy-and-psychology.md](01-philosophy-and-psychology.md) — Intent, craft, Laws of UX, Nielsen heuristics, Cialdini's 7 principles of persuasion, Gestalt principles, emotional design.
+- [02-brand-and-copywriting.md](02-brand-and-copywriting.md) — Jungian brand archetypes, voice attributes with "but not" qualifiers, tone ladder by context, voice-of-customer research and language harvesting, copywriting frameworks (AIDA, PAS, BAB, 4Ps, FAB, StoryBrand) with worked examples, headline formulas, hero and value-proposition patterns, page-type copy skeletons (home, pricing, product, about, blog, contact, 404/500, legal, transactional email), microcopy, CTA psychology, social proof, navigation labels, notifications, cookie/consent banners, power words and specificity, reading-level targets, editing passes, copy measurement and testing, SEO in the AI-search era, JSON-LD structured data.
+- [03-visual-design.md](03-visual-design.md) — Visual hierarchy, spacing scales, typography (scales, variable fonts, fluid), color systems (OKLCH, APCA, Radix, tooling), design styles.
+- [04-css-and-layout.md](04-css-and-layout.md) — CSS units, responsive strategy, modern CSS (container queries, `:has()`, `@layer`, subgrid, view transitions, `@property`, `@function`, `if()`), motion principles.
+- [05-accessibility.md](05-accessibility.md) — WCAG 2.2, semantic HTML, the five ARIA rules, keyboard navigation, focus management, screen reader testing, automated auditing.
+- [06-performance.md](06-performance.md) — Core Web Vitals (LCP, INP, CLS), bfcache, image optimization, font loading, third-party script strategy, critical rendering path, RUM.
+- [07-javascript-and-html.md](07-javascript-and-html.md) — ECMAScript 2025 and 2026, Temporal, iterator helpers, the Signals proposal, web components, runtime selection (Node/Deno/Bun), modern HTML primitives.
+- [08-stack-and-architecture.md](08-stack-and-architecture.md) — Framework selection, project-type stack recipes, rendering strategies (SSG, SSR, ISR, streaming, CSR, edge, islands, resumability, React Server Components), API styles (REST + OpenAPI, tRPC, GraphQL, Server Actions, gRPC/Connect, WebSockets, SSE, webhooks), backend language choice, database and CMS and auth and hosting selection, Tailwind v4, shadcn/ui, design tokens, component architecture, scaling ladder, maintainability and the boring-technology budget.
+- [09-anti-patterns-and-process.md](09-anti-patterns-and-process.md) — Common AI and junior-level mistakes to avoid, review checklist, design-and-ship workflow.
+- [10-resources.md](10-resources.md) — Trusted external references, tools, calculators, and libraries.
+- [11-browser-compatibility.md](11-browser-compatibility.md) — Choosing a support matrix, Baseline, `@supports` and feature detection, polyfills, per-feature status, cross-browser testing.
+- [12-testing.md](12-testing.md) — The testing trophy, Vitest + Testing Library, MSW, Playwright E2E, visual regression, accessibility automation, CI integration.
+- [13-internationalization.md](13-internationalization.md) — Intl API, ICU MessageFormat, RTL support, locale detection, hreflang, text expansion, translation workflow, pseudo-localization.
+- [14-security.md](14-security.md) — HTTP security headers, CSP with nonces, HSTS, OWASP Top 10, XSS prevention, CSRF, input validation, auth patterns, CORS, dependency auditing.
+- [15-discovery-and-communication.md](15-discovery-and-communication.md) — What to ask the user before building, what to default, staged disclosure, red-flag phrases, scope trade-offs, checkpoints, non-frontend concerns, and what never to ask.
+- [16-code-style-and-quality.md](16-code-style-and-quality.md) — Cross-language code style, formatter and linter stacks (Prettier, Biome, ESLint flat config, Stylelint, EditorConfig), repository hygiene (.gitignore, .gitattributes, PR template, CODEOWNERS), naming conventions, imports and module organization, comments, error handling, structured logging, dependency management, build toolchain, Conventional Commits and git hooks, and CI enforcement.
 
 ## Non-negotiables
 
