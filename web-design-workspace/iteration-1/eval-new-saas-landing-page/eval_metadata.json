@@ -1,0 +1,27 @@
+{
+  "eval_id": 1,
+  "eval_name": "new-saas-landing-page",
+  "prompt": "I need a landing page for my SaaS. It is a time-tracking app for remote engineering teams. We integrate with Jira, GitHub, and Slack. Our differentiator is that we automatically categorize time by project and client using AI, so managers get reports without anyone filling timesheets. Target audience: engineering managers at 50-500 person remote-first companies. I want it to feel calm and professional, not another loud productivity tool. I need it live in 3 weeks. No compliance requirements. English only for now. I have a logo and 3 product screenshots.",
+  "assertions": [
+    {
+      "name": "follows_staged_workflow",
+      "description": "Agent proposes or follows a multi-stage workflow (discovery → voice → architecture → copy → tokens → stack → scaffold → pages → tests → audits → launch)",
+      "check": "output_contains_stages"
+    },
+    {
+      "name": "asks_discovery_questions",
+      "description": "Agent asks audience, primary action, differentiator, feel, metric, deadline, browser matrix, locales, compliance, or assets before producing artifacts",
+      "check": "output_asks_questions"
+    },
+    {
+      "name": "mentions_non_negotiables",
+      "description": "Output references img width/height/alt, WCAG contrast, font-display, prefers-reduced-motion, native HTML first, no positive tabindex, or two-space indent without being explicitly asked",
+      "check": "output_contains_non_negotiables"
+    },
+    {
+      "name": "no_chapter_dump",
+      "description": "Agent does not paste large chunks of the 16 reference files verbatim into output",
+      "check": "output_no_dump"
+    }
+  ]
+}

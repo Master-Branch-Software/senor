@@ -24,23 +24,23 @@ Prompt opener:
 Before you answer anything, read these files and treat them as
 canonical conventions for the rest of this session:
 
-- web-design-guide/README.md
-- web-design-guide/01-philosophy-and-psychology.md
-- web-design-guide/02-brand-and-copywriting.md
-- web-design-guide/03-visual-design.md
-- web-design-guide/04-css-and-layout.md
-- web-design-guide/05-accessibility.md
-- web-design-guide/06-performance.md
-- web-design-guide/07-javascript-and-html.md
-- web-design-guide/08-stack-and-architecture.md
-- web-design-guide/09-anti-patterns-and-process.md
-- web-design-guide/10-resources.md
-- web-design-guide/11-browser-compatibility.md
-- web-design-guide/12-testing.md
-- web-design-guide/13-internationalization.md
-- web-design-guide/14-security.md
-- web-design-guide/15-discovery-and-communication.md
-- web-design-guide/16-code-style-and-quality.md
+- web-design/README.md
+- web-design/01-philosophy-and-psychology.md
+- web-design/02-brand-and-copywriting.md
+- web-design/03-visual-design.md
+- web-design/04-css-and-layout.md
+- web-design/05-accessibility.md
+- web-design/06-performance.md
+- web-design/07-javascript-and-html.md
+- web-design/08-stack-and-architecture.md
+- web-design/09-anti-patterns-and-process.md
+- web-design/10-resources.md
+- web-design/11-browser-compatibility.md
+- web-design/12-testing.md
+- web-design/13-internationalization.md
+- web-design/14-security.md
+- web-design/15-discovery-and-communication.md
+- web-design/16-code-style-and-quality.md
 
 Apply every non-negotiable from README.md without exception.
 When a rule conflicts with a habit, follow the rule. When a rule
@@ -58,7 +58,7 @@ Load `AGENTS.md` and `README.md`. Roughly 5–8 K tokens. Use when:
 Prompt opener:
 
 ```
-Read web-design-guide/AGENTS.md and web-design-guide/README.md.
+Read web-design/AGENTS.md and web-design/README.md.
 Apply the non-negotiables from README.md on every suggestion. Use
 the "Task to chapters" map in AGENTS.md to decide which chapters
 to read next for the current task. Ask only what changes the
@@ -76,7 +76,7 @@ Load `SUMMARY.md` alone. Roughly 3 K tokens. Use when:
 Prompt opener:
 
 ```
-Read web-design-guide/SUMMARY.md and apply its non-negotiables
+Read web-design/SUMMARY.md and apply its non-negotiables
 to every suggestion. If depth is needed on a topic, ask me for
 the corresponding numbered chapter.
 ```
@@ -114,7 +114,7 @@ Task-to-chapter mapping:
 
 ### Cursor rules (`.cursor/rules`)
 
-Create `.cursor/rules/web-design-guide.mdc` in the project:
+Create `.cursor/rules/web-design.mdc` in the project:
 
 ```
 ---

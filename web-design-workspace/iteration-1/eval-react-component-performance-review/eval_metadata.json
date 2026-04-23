@@ -1,0 +1,32 @@
+{
+  "eval_id": 3,
+  "eval_name": "react-component-performance-review",
+  "prompt": "Review this React component for performance issues.\n\n```tsx\nexport function ProductGrid({ products }) {\n  const [filtered, setFiltered] = useState(products);\n  const [sort, setSort] = useState('price');\n\n  useEffect(() => {\n    const sorted = [...products].sort((a, b) => a[sort] - b[sort]);\n    setFiltered(sorted);\n  }, [products, sort]);\n\n  return (\n    <div className=\"grid grid-cols-3 gap-4\">\n      {filtered.map((p) => (\n        <ProductCard\n          key={p.id}\n          product={p}\n          onAddToCart={() => addToCart(p)}\n        />\n      ))}\n    </div>\n  );\n}\n```\n\nIt renders up to 500 products. The parent re-renders every 2 seconds because of a polling hook. Users complain the page feels sluggish on mobile.",
+  "assertions": [
+    {
+      "name": "identifies_memoization_issue",
+      "description": "Agent identifies missing memoization: useMemo for sorting, React.memo for ProductCard, or useCallback for handler",
+      "check": "output_memoization"
+    },
+    {
+      "name": "identifies_inline_function_issue",
+      "description": "Agent identifies inline onAddToCart causing re-render on every parent render",
+      "check": "output_inline_function"
+    },
+    {
+      "name": "identifies_grid_responsive_issue",
+      "description": "Agent notes grid-cols-3 without responsive breakpoints hurts mobile",
+      "check": "output_responsive_grid"
+    },
+    {
+      "name": "mentions_virtualization",
+      "description": "Agent suggests windowing/virtualization for 500 items",
+      "check": "output_virtualization"
+    },
+    {
+      "name": "mentions_web_vitals",
+      "description": "Agent mentions INP, CLS, or web-vitals measurement",
+      "check": "output_web_vitals"
+    }
+  ]
+}

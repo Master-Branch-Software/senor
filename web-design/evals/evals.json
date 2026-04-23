@@ -1,0 +1,26 @@
+{
+  "skill_name": "web-design",
+  "evals": [
+    {
+      "id": 1,
+      "eval_name": "new-saas-landing-page",
+      "prompt": "I need a landing page for my SaaS. It is a time-tracking app for remote engineering teams. We integrate with Jira, GitHub, and Slack. Our differentiator is that we automatically categorize time by project and client using AI, so managers get reports without anyone filling timesheets. Target audience: engineering managers at 50-500 person remote-first companies. I want it to feel calm and professional, not another loud productivity tool. I need it live in 3 weeks. No compliance requirements. English only for now. I have a logo and 3 product screenshots.",
+      "expected_output": "The agent follows the 11-stage running order from SKILL.md. It asks discovery questions one at a time, produces brief.md and constraints.md, then brand.md, then sitemap + wireframes, then copy, then tokens, then stack, then scaffold, then pages, then tests, then audits, then launch.md. It applies non-negotiables without being asked (img width/height/alt, WCAG contrast, font-display, prefers-reduced-motion, native HTML first, no positive tabindex, two-space indent). It does not dump all 16 chapters at once.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "eval_name": "pricing-page-a11y-contrast-fix",
+      "prompt": "Make my pricing page accessible and fix the color contrast. The page has three tiers: Starter ($29/mo), Pro ($79/mo), Enterprise (custom). The Pro card has a 'Most Popular' badge. Currently the badge text is white on a light orange (#FFA500) background, and the disabled 'Current Plan' button uses a light gray (#CCCCCC) background with white text. The page uses a serif font for headings and a sans-serif for body. There is a comparison table with 12 features. The page is built in Next.js with Tailwind.",
+      "expected_output": "The agent loads 05-accessibility.md and 03-visual-design.md. It identifies the contrast failures (white on #FFA500, white on #CCCCCC), proposes accessible color alternatives using OKLCH or hex that meet WCAG 2.2 AA (4.5:1 for body, 3:1 for large text/UI), restructures the comparison table with proper semantic HTML (scope, headers, captions), checks heading hierarchy, ensures keyboard navigation through the pricing cards, verifies focus-visible styles, audits the 'Most Popular' badge for color-not-alone meaning, and writes a concise report with severity and fix order. It does not spontaneously scaffold a full repo.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "eval_name": "react-component-performance-review",
+      "prompt": "Review this React component for performance issues.\n\n```tsx\nexport function ProductGrid({ products }) {\n  const [filtered, setFiltered] = useState(products);\n  const [sort, setSort] = useState('price');\n\n  useEffect(() => {\n    const sorted = [...products].sort((a, b) => a[sort] - b[sort]);\n    setFiltered(sorted);\n  }, [products, sort]);\n\n  return (\n    <div className=\"grid grid-cols-3 gap-4\">\n      {filtered.map((p) => (\n        <ProductCard\n          key={p.id}\n          product={p}\n          onAddToCart={() => addToCart(p)}\n        />\n      ))}\n    </div>\n  );\n}\n```\n\nIt renders up to 500 products. The parent re-renders every 2 seconds because of a polling hook. Users complain the page feels sluggish on mobile.",
+      "expected_output": "The agent loads 06-performance.md, 07-javascript-and-html.md, and 09-anti-patterns-and-process.md. It identifies: (1) new array reference in useEffect causing re-sort every 2s, (2) inline onAddToCart function causing ProductCard re-render every parent render, (3) grid-cols-3 without responsive breakpoints hurting mobile, (4) missing memoization (useMemo for sorting, React.memo for ProductCard or useCallback for handler), (5) no virtualization for 500 items (windowing). It proposes concrete fixes in order of impact, mentions INP and CLS considerations, and suggests measuring before/after with web-vitals. It does not rewrite the entire app or add unnecessary dependencies.",
+      "files": []
+    }
+  ]
+}
