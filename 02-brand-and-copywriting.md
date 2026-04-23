@@ -204,34 +204,37 @@ One sentence, on the home page, that states:
 If any of those four elements is missing, the proposition is generic.
 
 ## SEO in the AI-search era
-
-Search increasingly includes LLM-driven answers and AI overviews alongside the ten blue links. In 2026, over 70% of Google searches display rich results, and AI-generated answers pull directly from structured data. Pages without schema are invisible to a growing share of how people find information.
+Google Search increasingly includes AI features alongside classic results. For AI Overviews and AI Mode, Google documents the same foundational SEO practices as Search overall: the page must be indexed, eligible to appear with a standard snippet, and compliant with Search policies. Google does not document additional technical requirements for appearing as a supporting link.
 
 ### Content and E-E-A-T
 
 - Write for genuine expertise, experience, authoritativeness, and trust (E-E-A-T). Cite sources, name authors, show credentials.
-- Structure content so that a single paragraph or table answers a single question. That paragraph is what LLMs will quote.
+- Structure content so that a paragraph, list, or table can answer one clear question without surrounding context.
 - Use descriptive, unique, question-aligned headings. Write them as the question the user is asking, not a category label.
 - Keep Core Web Vitals in the green; page experience affects rankings.
 - Maintain a stable, readable URL structure. Avoid query-string-heavy paths for evergreen content.
-- Write meta descriptions as short, truthful summaries — not keyword soup.
-- Ensure crawlability; do not gate primary content behind client-side JavaScript without server rendering.
+- Write meta descriptions as short, truthful summaries, not keyword stuffing.
+- Ensure crawlability; do not gate primary content behind client-side JavaScript without a server-rendered or prerendered path.
+- Make important content available in text form.
+- Use internal links so important pages are discoverable from the rest of the site.
 
 ### Structured data (JSON-LD)
+Structured data helps Google understand page content and can enable rich results when the page type and properties qualify. It is not a substitute for crawlability, indexing, or visible page content. JSON-LD is Google's recommended format because it is easier to implement and maintain at scale.
 
-JSON-LD is Google's recommended format for structured data. It lives in a `<script type="application/ld+json">` block, separate from your HTML. Implement it at the page-type level so every new page automatically gets correct schema.
+Implement schema at the page-type level so every new page automatically gets consistent markup, and make sure the markup matches the visible text on the page.
 
 Key schema types by site type:
 
-| Type | Use for | Effect |
+| Type | Use for | Notes |
 | --- | --- | --- |
-| `Organization` | Homepage | Knowledge Panel, brand identity |
-| `BreadcrumbList` | All inner pages | Readable path in SERP, not raw URL |
-| `Article` / `BlogPosting` | Blog posts | Top Stories eligibility, Discover cards |
-| `FAQPage` | Pages with Q&A | Expands SERP listing with dropdowns |
-| `HowTo` | Tutorials | Numbered steps in rich results |
-| `Product` | Product pages | Price, availability, star ratings |
-| `LocalBusiness` | Physical locations | Google Maps, local pack |
+| `Organization` | Homepage | Brand and entity details |
+| `BreadcrumbList` | All inner pages | Breadcrumb display where Google chooses to show it |
+| `Article` / `BlogPosting` | Blog posts | Article-related search features where the page qualifies |
+| `Product` | Product pages | Price, availability, and rating data where supported |
+| `LocalBusiness` | Physical locations | Local entity information |
+| `FAQPage` | Pages with one authoritative answer per question and visible FAQ content | Rich-result availability is currently limited to well-known, authoritative government-focused and health-focused sites |
+
+- Do not depend on `HowTo` markup for a Search rich result. Google deprecated How-to rich results in Search in 2023.
 
 Example Article schema:
 
@@ -251,7 +254,7 @@ Example Article schema:
 </script>
 ```
 
-FAQ schema expands SERP real estate significantly. Every question in the schema must be visible on the page (not hidden in accordions that require interaction to open):
+Use `FAQPage` only when the page contains a single authoritative answer to each question and the same content is visible on the page. Google allows the answer to be hidden behind an expandable section that the user can open. Do not rely on FAQ markup as a general-purpose SERP-expansion tactic.
 
 ```html path=null start=null
 <script type="application/ld+json">
@@ -272,7 +275,9 @@ FAQ schema expands SERP real estate significantly. Every question in the schema 
 </script>
 ```
 
-FAQPage schema is also the single highest-impact schema type for AI Overview citations. Write each answer as a complete, self-contained fact.
+Write each answer as a complete, self-contained answer. The markup must match the visible question and answer text on the page.
+
+For AI features, treat structured data as clarification rather than as a dedicated AI citation mechanism. Google documents no additional technical requirements for AI Overviews or AI Mode beyond standard Search eligibility.
 
 ### Sitemaps and crawlability
 
@@ -281,11 +286,17 @@ FAQPage schema is also the single highest-impact schema type for AI Overview cit
 - Use `lastmod` dates accurately — stale or auto-generated dates signal distrust to crawlers.
 - Robots.txt controls crawling, not indexing. Never block pages you want indexed, even accidentally.
 
+### Preview controls
+
+- Use `nosnippet`, `data-nosnippet`, `max-snippet`, or `noindex` when Search preview controls must limit what appears in Search snippets or AI features.
+- Validate preview-control changes in URL Inspection and allow time for recrawling.
+
 ### Validation and monitoring
 
 - Validate structured data using Google's Rich Results Test before deploying.
-- Monitor Search Console Enhancements weekly for schema errors.
-- Track CTR before and after schema implementation — valid rich results consistently improve CTR by 15–30% at the same ranking position.
+- Monitor Search Console rich-result and performance reports for schema errors and traffic changes.
+- Search Console reports AI-feature traffic inside the overall `Web` search type.
+- Track impressions, clicks, and CTR before and after changes. Eligibility for a rich result does not guarantee that Google will show it.
 
 ## Inclusive copy
 

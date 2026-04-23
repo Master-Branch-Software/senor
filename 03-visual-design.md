@@ -148,7 +148,7 @@ APCA (Accessible Perceptual Contrast Algorithm) is perceptually weighted and oft
 - Lc 45+ for large text (24 px+).
 - Lc 30+ for non-text UI, large headings.
 
-Important context on APCA's status: it was proposed for WCAG 3 as exploratory content but was removed from WCAG 3 working drafts in July 2023 and is not currently part of any approved W3C standard. WCAG 3 itself is years from completion (2030 at the earliest per the W3C's own timeline), and its contrast algorithm is explicitly listed as "yet to be determined." APCA's own compliance documentation prohibits any claim of "WCAG 3 compliance."
+Important context on APCA's status: APCA was exploratory content in earlier WCAG 3 drafts, was pulled from the drafts during the 2023 rework, and is not currently part of any approved W3C standard. WCAG 3 itself remains in draft and its contrast algorithm is still to be determined. APCA's own compliance documentation prohibits any claim of "WCAG 3 compliance."
 
 The practical rule:
 

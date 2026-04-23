@@ -16,7 +16,7 @@ If each of these is true, most accessibility problems are already solved.
 
 ## WCAG 2.2 at a glance
 
-WCAG 2.2 is the 2024-and-later standard; 2.1 is still referenced by some laws. Conformance has three levels (A, AA, AAA). AA is the practical target for most products and the legal threshold in many jurisdictions.
+WCAG 2.2 became a W3C Recommendation on 5 October 2023 (revised 12 December 2024); 2.1 is still referenced by some laws. SC 4.1.1 Parsing is obsolete and removed in 2.2. Conformance has three levels (A, AA, AAA). AA is the practical target for most products and the legal threshold in many jurisdictions.
 
 The four POUR principles:
 
@@ -38,7 +38,8 @@ Notable success criteria to memorize:
 - 2.4.3 Focus order — focus follows a meaningful order.
 - 2.4.7 Focus visible — keyboard focus is always visible.
 - 2.4.11 Focus not obscured — focused elements are not hidden by overlays (new in 2.2).
-- 2.5.5 / 2.5.8 Target size — at least 24 × 24 CSS pixels (AA) with exceptions, 44 × 44 preferred.
+- 2.5.8 Target Size (Minimum) — at least 24 × 24 CSS pixels (AA), with exceptions for inline, user-agent, and essential targets.
+- 2.5.5 Target Size (Enhanced) — at least 44 × 44 CSS pixels (AAA).
 - 3.2.1 / 3.2.2 On focus / on input — focus or input does not cause unexpected changes.
 - 3.3.1 Error identification — errors are identified and described in text.
 - 3.3.7 Redundant entry — previously entered information is auto-filled or available (new in 2.2).
@@ -134,7 +135,7 @@ Inside a modal, focus must cycle within the modal. `<dialog>` with `showModal()`
 - Escape must close the modal.
 - Use the `inert` attribute on siblings to remove them from the accessibility tree.
 
-Libraries that do this correctly: React Aria, Radix UI, Reach UI, Headless UI, Chakra UI.
+Libraries that do this correctly: React Aria, Radix UI, Headless UI, Chakra UI.
 
 ### Skip links
 
@@ -278,7 +279,6 @@ Prefer libraries that handle accessibility by default:
 - React Aria and React Aria Components (Adobe) — most rigorous accessibility implementation available.
 - Radix UI Primitives — unstyled, accessible primitives; excellent default keyboard and focus behavior.
 - Headless UI (Tailwind) — accessible primitives for React and Vue.
-- Reach UI — accessible primitives for React.
 - shadcn/ui — accessible components built on Radix, copied into the project source for full control.
 
 Avoid rolling custom menus, dialogs, comboboxes, or date pickers. The ARIA Authoring Practices Guide has approximate patterns, but the details are easy to get wrong.

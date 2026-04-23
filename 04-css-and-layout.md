@@ -93,7 +93,7 @@ Container queries do not replace media queries. Media queries handle device-leve
 
 ## Style queries
 
-`@container style(--variant: primary)` allows styling children based on custom property values set on the container. Useful for theming variants without class plumbing.
+`@container style(--variant: primary)` allows styling children based on custom property values set on the container. Useful for theming variants without class plumbing, but support is still limited; treat style queries as progressive enhancement.
 
 ## The `:has()` selector
 
@@ -110,7 +110,7 @@ form:has(:invalid) .submit { opacity: 0.6; }
 body:has(#dark-toggle:checked) { color-scheme: dark; }
 ```
 
-Browser support is now universal. Prefer `:has()` to JavaScript class toggling whenever style alone is needed.
+Modern-browser support is strong, but `:has()` is still a newly available Baseline feature rather than a universal guarantee. Prefer `:has()` to JavaScript class toggling when style alone is needed, and provide fallbacks if older browsers matter.
 
 ## Cascade layers (`@layer`)
 
@@ -180,7 +180,7 @@ Every card's title, body, and footer now align across the grid, even though the 
 }
 ```
 
-Useful for content-management-system articles where downstream elements must escape the scope. Use sparingly; most component CSS is fine with regular nesting or layers.
+Useful for content-management-system articles where downstream elements must escape the scope. Use sparingly; most component CSS is fine with regular nesting or layers. Support is newly available across current browsers, so if older browsers matter, keep the underlying layout readable without relying on scoped rules as the only styling path.
 
 ## View transitions
 
@@ -387,11 +387,11 @@ When to use GSAP versus CSS:
 textarea { field-sizing: content; min-block-size: 4lh; max-inline-size: 100%; }
 ```
 
-Removes a common JavaScript responsibility; wider support arriving rapidly.
+Removes a common JavaScript responsibility, but support remains limited; use it as progressive enhancement and keep fixed-size fallbacks usable.
 
 ## Popover and anchor positioning
 
-Native `popover` attribute plus anchor positioning remove the last genuine reasons for libraries that tether floating UI to elements:
+Native `popover` attribute plus anchor positioning can remove many reasons for floating-UI libraries. `popover` is newly available across current browsers, while anchor positioning is still partial, so provide a fallback or polyfill.
 
 ```html path=null start=null
 <button popovertarget="menu">Options</button>
@@ -410,7 +410,7 @@ button { anchor-name: --menu-anchor; }
 }
 ```
 
-Still partially shipping across browsers; polyfills exist for both APIs.
+Polyfills exist for both APIs when the support matrix requires them.
 
 ## Forms and `:user-invalid`
 

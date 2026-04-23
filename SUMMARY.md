@@ -9,12 +9,12 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 ## Non-negotiables
 
 - Every `<img>` has `width`, `height`, and meaningful `alt`.
-- The LCP image is preloaded with `fetchpriority="high"` and never lazy-loaded.
+- The likely LCP image is never lazy-loaded. Use `fetchpriority="high"` on the `<img>` and preload it when the browser would otherwise discover it late.
 - Body text ≥ 16 px, line-height 1.5, line length 60–75 characters.
 - WCAG 2.2 AA contrast: 4.5:1 body text, 3:1 large text, 3:1 UI and focus rings.
 - Visible `:focus-visible` on every focusable element.
 - `prefers-reduced-motion` is honored.
-- Native HTML first: `<button>`, `<dialog>`, `<details>`, `<popover>` before custom.
+- Native HTML first: `<button>`, `<dialog>`, `<details>`, `popover` attribute before custom.
 - Fonts use `font-display: swap` with matched-metric fallbacks or `font-display: optional`.
 - No positive `tabindex`.
 - Two-space indent, kebab-case files, `visible` not `isVisible`, logical properties, `.DS_Store` in `.gitignore`.
@@ -36,7 +36,8 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Frameworks: AIDA, PAS, BAB, 4Ps, FAB, StoryBrand. Frameworks are scaffolds — edit ruthlessly.
 - Hero pattern: specific 6–12-word headline, one-sentence proof, verb+noun primary CTA, evidence, product screenshot (not stock).
 - Microcopy: verbs on buttons, visible labels on inputs, error messages that identify and fix, preserve user input on failure.
-- SEO for AI era: E-E-A-T, single-question paragraphs, JSON-LD, crawlable server-rendered content.
+- SEO for AI era: the same foundational SEO applies to AI features; keep content crawlable, text-forward, and internally linked.
+- Structured data: JSON-LD, visible-content parity, Rich Results Test, and page-type schema only where Google documents support.
 
 ## 03 — Visual design
 
@@ -57,12 +58,12 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Responsive preference order: natural flow → flex-wrap → grid `auto-fit` → `clamp()` → container queries → media queries.
 - Canonical breakpoint-free grid: `grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr))`.
 - Container queries for component-level adaptation; name containers; `container-type: inline-size` is the default.
-- `:has()` replaces many class-toggle JS patterns.
+- `:has()` replaces many class-toggle JS patterns in current browsers; verify fallbacks if older browsers matter.
 - `@layer reset, base, components, utilities` makes specificity predictable.
-- Other modern features: native nesting, subgrid, `@scope`, View Transitions, scroll-driven animations, `@property`, `color-mix()`, `light-dark()`, `@starting-style`, `@function`, `if()`.
+- Other modern features: native nesting, subgrid, `@scope`, View Transitions, scroll-driven animations, `@property`, `color-mix()`, `light-dark()`, `@starting-style`, `@function`, `if()` — use newly available and limited-availability features as progressive enhancement.
 - Logical properties always (`margin-inline`, `padding-block`).
 - Motion: ease-out for entry, ease-in for exit, springs for tactile, 150–300 ms, interruptible, animate `transform`/`opacity` only, respect reduced motion.
-- `field-sizing: content` for auto-growing inputs; `popover` + anchor positioning for tooltips/menus; `:user-invalid` for post-interaction validation.
+- `field-sizing: content` and anchor positioning are progressive enhancement; `popover` is broadly available in current browsers; `:user-invalid` supports post-interaction validation.
 
 ## 05 — Accessibility
 
@@ -80,7 +81,7 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 ## 06 — Performance
 
 - Core Web Vitals thresholds: LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1 (at the 75th percentile of real users).
-- LCP: preload the hero image with `fetchpriority="high"`, use AVIF/WebP, defer non-critical CSS/JS, self-host fonts, server-render above-the-fold content.
+- LCP: identify the likely hero image early, use `fetchpriority="high"`, preload when discovery would otherwise be late, use AVIF/WebP, defer non-critical CSS/JS, self-host fonts, server-render above-the-fold content.
 - INP: keep tasks < 50 ms, use `scheduler.yield()`, debounce handlers, avoid forced sync layout, move heavy work to Web Workers, defer third-party scripts, hydrate selectively.
 - CLS: always set `width`/`height`, reserve space for ads and embeds, use matched-metric font fallbacks or `font-display: optional`, never inject content above existing content.
 - Images: resize to display size, `srcset`/`sizes`, modern formats, `loading="lazy"` below fold, image CDN.
@@ -88,6 +89,7 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Third parties are the main INP offender; facade-load video/map/chat embeds.
 - Critical path: inline critical CSS, small initial HTML, `defer` scripts, `preconnect`/`dns-prefetch`, Brotli + HTTP/2 or HTTP/3.
 - Caching: immutable fingerprinted assets for a year; HTML with `stale-while-revalidate`.
+- bfcache: never use `unload`, observe `pageshow` / `pagehide`, and restore transient state correctly on history navigation.
 - Bundle discipline: audit monthly, tree-shake, replace heavy libs with platform or lighter alternatives.
 - Rendering: SSG for static, ISR for mostly-static, SSR for per-request, edge for latency-sensitive.
 - Monitoring: `web-vitals` RUM + CrUX + Lighthouse CI + synthetic; enforce budgets in CI.
@@ -95,7 +97,7 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 
 ## 07 — JavaScript and HTML
 
-- Use native: `<dialog>`, `<details>`, `<popover>`, `inert`, `content-visibility`, `IntersectionObserver`, `ResizeObserver`, `AbortController`.
+- Use native: `<dialog>`, `<details>`, `popover` attribute, `inert`, `content-visibility`, `IntersectionObserver`, `ResizeObserver`, `AbortController`.
 - ES2025 (approved June 2025) adds: iterator helpers, Set methods, `RegExp.escape`, regex flag modifiers, duplicate named capture groups, `Promise.try`, import attributes (`with { type: "json" }`, `with { type: "css" }`), JSON modules, `Float16Array`.
 - Temporal — Stage 4, ships in ES2026; native in Firefox 139+ and Chrome/Edge 144+; Safari not shipped as of April 2026, so use `temporal-polyfill` for cross-browser support. Any new code should prefer Temporal over `Date`.
 - Signals (TC39 Stage 1): cross-framework reactive primitive; use `signal-polyfill` today.
@@ -192,7 +194,7 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Security headers set on every response: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.
 - CSP: start with `Content-Security-Policy-Report-Only` to discover violations; use nonces for inline scripts; avoid `'unsafe-inline'` for `script-src`.
 - HSTS: `max-age=63072000; includeSubDomains; preload`. Start with `max-age=300` during testing.
-- OWASP Top 10 (2026): Broken Access Control, Cryptographic Failures, Injection, Insecure Design, Security Misconfiguration, Vulnerable Components, Authentication Failures, Data Integrity Failures, Logging Failures, SSRF.
+- OWASP Top 10 (2025 RC1): Broken Access Control (SSRF merged in), Security Misconfiguration, Software Supply Chain Failures, Cryptographic Failures, Injection, Insecure Design, Authentication Failures, Software or Data Integrity Failures, Security Logging & Alerting Failures, Mishandling of Exceptional Conditions.
 - XSS: use framework native rendering; DOMPurify for user HTML; never `eval()` with untrusted input; consider Trusted Types.
 - CSRF: `SameSite: Lax` cookies as the primary defence; CSRF tokens for state-changing forms.
 - Input validation: client-side is UX; server-side is security. Use Zod schemas derived from a single source of truth.

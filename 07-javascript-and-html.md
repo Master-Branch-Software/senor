@@ -8,7 +8,7 @@ The HTML specification has quietly added powerful elements. Prefer them over cus
 
 - `<dialog>` — modal and non-modal dialogs with `showModal()`, focus trap, `::backdrop`, Escape-to-close.
 - `<details>` / `<summary>` — zero-JavaScript disclosure. Combine with `name="group"` for exclusive accordions.
-- `<popover>` attribute — declarative tooltips, menus, and info cards with built-in show/hide and light dismiss.
+- `popover` attribute — declarative tooltips, menus, and info cards with built-in show/hide and light dismiss.
 - `invoker` commands and `command`/`commandfor` attributes — declarative wiring of buttons to actions (open, close, toggle) on target elements.
 - `<input type="search">`, `<input type="tel">`, `<input type="email">`, `<input type="url">`, `<input type="date">`, `<input type="time">`, `<input type="color">` — correct mobile keyboards and native pickers.
 - `<datalist>` — suggest-as-you-type combobox without a library.

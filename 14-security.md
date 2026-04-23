@@ -146,20 +146,20 @@ Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
 
 Empty parentheses deny the feature entirely. Use `(self)` to allow only your own origin.
 
-## OWASP Top 10 (2026)
+## OWASP Top 10 (2025 RC1)
 
-The most critical web application security risks:
+The most critical web application security risks. OWASP Top 10:2025 was published as Release Candidate 1 in November 2025; ranking and category structure may shift at final release, but the list below reflects the current RC:
 
-1. **Broken Access Control** — users acting outside their permissions.
-2. **Cryptographic Failures** — sensitive data exposed via weak or missing encryption.
-3. **Injection** — untrusted data sent to an interpreter (SQL, XSS, OS commands).
-4. **Insecure Design** — missing security controls in the architecture itself.
-5. **Security Misconfiguration** — default credentials, unnecessary features, verbose errors.
-6. **Vulnerable Components** — libraries and frameworks with known vulnerabilities.
+1. **Broken Access Control** — users acting outside their permissions. SSRF is now consolidated under this category.
+2. **Security Misconfiguration** — default credentials, unnecessary features, verbose errors. Moved up from #5 as misconfigurations dominate cloud, container, and API ecosystems.
+3. **Software Supply Chain Failures** — compromises across dependencies, build systems, and distribution infrastructure. Expands the 2021 "Vulnerable and Outdated Components" category.
+4. **Cryptographic Failures** — sensitive data exposed via weak, missing, or misused cryptography.
+5. **Injection** — untrusted data sent to an interpreter (SQL, XSS, OS commands).
+6. **Insecure Design** — missing security controls in the architecture itself.
 7. **Authentication Failures** — broken login, session management, or identity verification.
-8. **Data Integrity Failures** — unverified software updates, insecure CI/CD pipelines.
-9. **Logging and Monitoring Failures** — insufficient logging makes breaches undetectable.
-10. **SSRF** — server fetches a URL supplied by the attacker, accessing internal systems.
+8. **Software or Data Integrity Failures** — unverified software updates, insecure CI/CD pipelines, tampered artifacts.
+9. **Security Logging & Alerting Failures** — insufficient logging and alerting makes breaches undetectable.
+10. **Mishandling of Exceptional Conditions** — improper error handling, fail-open behaviour, and vulnerabilities arising from unexpected states.
 
 ## Cross-Site Scripting (XSS) prevention
 
@@ -408,7 +408,7 @@ Never:
 
 ## Dependency security
 
-Vulnerabilities in third-party packages are a primary attack vector (OWASP #6):
+Vulnerabilities in third-party packages are a primary attack vector (OWASP A03 Software Supply Chain Failures in the 2025 RC1 list):
 
 ```bash path=null start=null
 # Audit for known vulnerabilities
@@ -416,15 +416,12 @@ npm audit
 
 # Automatically fix non-breaking vulnerabilities
 npm audit fix
-
-# Check dependencies weekly in CI
-npx update-browserslist-db@latest
 ```
 
 - Enable Dependabot (GitHub) or Renovate for automated dependency updates.
 - Pin exact versions in lock files and commit them.
 - Audit the dependency tree quarterly — remove unused packages aggressively.
-- Never install packages with `--ignore-scripts` vulnerabilities.
+- Treat lifecycle install scripts as a privileged execution path; consider `npm install --ignore-scripts` as a default and re-enable only for audited packages that require them.
 
 ## Secret management
 

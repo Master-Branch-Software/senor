@@ -200,13 +200,19 @@ A quick reference for the non-obvious features used elsewhere in the guide. Veri
 
 ### Widely available (ship without guards)
 
-- CSS Grid, Flexbox, `gap`, `aspect-ratio`, `clamp()`, `min()`, `max()`, container size queries, `:has()`, native CSS nesting, `@layer`, `:focus-visible`, subgrid, `text-wrap: balance`, `color-mix()`, `light-dark()`, logical properties.
+- CSS Grid, Flexbox, `gap`, `aspect-ratio`, `clamp()`, `min()`, `max()`, container size queries, native CSS nesting, `@layer`, `:focus-visible`, `color-mix()`, `light-dark()`, logical properties.
 - `image-set()`, `hyphens`, `hyphenate-character`, `@counter-style`, `contain-intrinsic-size`, overflow media queries (`overflow-block`, `overflow-inline`), `update` media query, `dirname` attribute on form inputs, `<link rel="modulepreload">`.
 - Variable fonts, WOFF2, `font-display`, `fetchpriority`, `loading="lazy"`, `decoding="async"`, `<picture>` with AVIF/WebP, `inert`, `content-visibility: auto`, native lazy loading.
 - `fetch`, `AbortController`, `IntersectionObserver`, `ResizeObserver`, `PerformanceObserver`, `structuredClone`, `URL`, `URLSearchParams`, `BroadcastChannel`, `navigator.storage`, Device Orientation events, `Array.prototype.at`, optional chaining, nullish coalescing.
 - `<dialog>`, `<details>`, `<summary>`, `<datalist>`.
 
 ### Newly available (guard or accept a minor degradation)
+
+Shipped December 2023 in all four core engines and expected to reach Baseline Widely Available in mid-2026:
+
+- `:has()` pseudo-class.
+- CSS subgrid.
+- `text-wrap: balance`.
 
 Reached Baseline Newly Available between October 2025 and March 2026:
 

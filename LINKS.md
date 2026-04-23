@@ -56,7 +56,10 @@ https://web.dev/articles/lcp
 https://web.dev/articles/inp
 https://web.dev/articles/cls
 https://web.dev/articles/optimize-lcp
+https://web.dev/articles/fetch-priority
 https://web.dev/articles/optimize-inp
+https://web.dev/learn/performance/resource-hints
+https://web.dev/articles/bfcache
 https://web.dev/articles/find-slow-interactions-in-the-field
 https://web.dev/blog/inp-cwv-march-12
 https://web.dev/blog/inp-cwv-launch
@@ -114,6 +117,7 @@ https://contrast.tools/
 https://colorable.jxnblk.com/
 https://apcacontrast.com/
 https://github.com/Myndex/SAPC-APCA
+https://git.apcacontrast.com/documentation/minimum_compliance.html
 https://adrianroselli.com/2026/04/wcag3-contrast-as-of-april-2026.html
 
 ## Motion and animation
@@ -344,16 +348,18 @@ https://www.flexsubmit.com/blog/multi-step-form-examples-and-templates
 https://ma-x.im/blog/complex-forms-done-right
 
 ## Technical SEO
+https://developers.google.com/search/docs/essentials
+https://developers.google.com/search/docs/appearance/ai-overviews
 
 https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+https://developers.google.com/search/docs/appearance/structured-data/faqpage
 https://search.google.com/test/rich-results
 https://validator.schema.org/
 https://schema.org/
 https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview
+https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag
 https://search.google.com/search-console
-https://schemavalidator.org/guides/schema-markup-seo-strategy-2026
-https://www.aiocopilot.com/blog/schema-markup-complete-guide-2026
-https://mostlycopyandpaste.com/articles/2026/01/seo-enhancements-deep-dive-implementing-2024-2025-best-practices/
+https://developers.google.com/search/blog/2023/08/howto-faq-changes
 
 ## Key articles referenced
 

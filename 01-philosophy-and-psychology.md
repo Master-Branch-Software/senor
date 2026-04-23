@@ -119,11 +119,11 @@ Christopher Alexander, in his work on architecture, described a central quality 
 
 This quality is the result of craft: the deliberate attention put into making something excellent — not because someone is checking, but because it matters to the maker.
 
-Jony Ive described working on a Sunday afternoon worrying about how a cable was coiled in a box. Millions of people would encounter that detail. He could have ignored it. Instead: "I knew that when somebody unwrapped that box and took out that cable, they'll think, 'Somebody gave a shit about me.' I think that's a spiritual thing."
+Jony Ive has described working on a Sunday afternoon worrying about how a cable was coiled in a box. Millions of people would encounter that detail. He could have ignored it. Instead, as he put it: "I knew that when somebody unwrapped that box and took out that cable, they'll think, 'Somebody gave a shit about me.' I think that's a spiritual thing."
 
-Karri Saarinen, co-founder of Linear, observed the same pattern: "When something is crafted with care and attention, it possesses a certain feeling — a quality that's difficult to define but impossible to miss." Linear became profitable in year two, reached 10,000 paying customers by year four with effectively zero marketing spend — because people who experienced it told others.
+Karri Saarinen, co-founder of Linear, has observed the same pattern: "When something is crafted with care and attention, it possesses a certain feeling — a quality that's difficult to define but impossible to miss." Linear is frequently cited for reaching early profitability and steady paid growth with effectively zero marketing spend — because people who experienced the product told others.
 
-Stripe's head of design documented a 20% conversion increase from an email redesign. Not from A/B-tested copy optimization, but from applying craft: improving hierarchy, improving visuals, improving how the journey felt at each step.
+Stripe's design team has reported material conversion lifts from email and flow redesigns grounded in craft rather than copy optimization: improving hierarchy, improving visuals, improving how each step of the journey felt.
 
 The practical implications:
 

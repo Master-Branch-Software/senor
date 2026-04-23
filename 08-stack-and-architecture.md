@@ -70,6 +70,7 @@ Tailwind v4 is the current default for most greenfield projects.
 - Oxide Rust-based engine for significantly faster builds.
 - `@apply` still supported, though best reserved for component-level extraction.
 - Designed to work with the native cascade layer pattern.
+- Requires Safari 16.4+, Chrome 111+, Firefox 128+ because of native `@property`, `color-mix()`, and cascade-layer usage. Projects with older browser targets should stay on v3.4.
 
 Tailwind pros:
 

@@ -222,7 +222,7 @@ Treat the guide as a living document.
 When the guide is working, expect to see:
 
 - `<img>` tags that always include `width`, `height`, `alt`, and an appropriate `loading` attribute.
-- Hero images accompanied by a `<link rel="preload" fetchpriority="high">`.
+- Likely LCP images prioritized with `fetchpriority="high"` and preloaded when the browser would otherwise discover them late.
 - CSS authored in `@layer`-scoped files with logical properties and modular tokens.
 - Copy that names the audience and leads with a verb.
 - Components built on Radix or React Aria rather than hand-rolled.
@@ -237,10 +237,10 @@ For single-turn help in a fresh session where loading the guide is not possible,
 
 ```
 Follow these non-negotiables:
-- <img> always has width, height, alt; LCP image is preloaded with fetchpriority="high".
+- <img> always has width, height, alt; likely LCP image is never lazy-loaded, uses fetchpriority="high", and is preloaded only when discovered late.
 - Body text ≥ 16 px, line-height 1.5, line length 60–75 ch.
 - WCAG 2.2 AA contrast; visible :focus-visible; prefers-reduced-motion respected.
-- Native HTML first (<button>, <dialog>, <details>, <popover>).
+- Native HTML first (<button>, <dialog>, <details>, popover attribute).
 - OKLCH color, fluid type via clamp(), container queries for component breakpoints.
 - Tailwind v4 + shadcn/ui + Radix as the default React stack; Astro for content sites.
 - No positive tabindex; no color-only meaning; no 100vh on mobile (use 100dvh).

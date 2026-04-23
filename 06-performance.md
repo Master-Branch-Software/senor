@@ -16,10 +16,12 @@ Lab metrics (Lighthouse) are helpful for debugging but are not what Google uses 
 
 The LCP element is almost always the hero image, a large heading, or a video poster. The LCP timeline has four phases: TTFB, resource load delay, resource load duration, element render delay.
 
+Preload is for late-discovered critical resources, not for every image by default. If the browser can discover the likely LCP image immediately from the HTML, `fetchpriority="high"` on the `<img>` may be sufficient; overusing preload can create bandwidth contention.
+
 Practical fixes, in order of impact:
 
-1. Serve the LCP image from a CDN with a fast TTFB.
-2. Preload it in the document head:
+1. Serve the likely LCP image from a CDN with a fast TTFB.
+2. If the LCP image is discovered late, preload it in the document head:
 
 ```html path=null start=null
 <link
@@ -32,7 +34,7 @@ Practical fixes, in order of impact:
 />
 ```
 
-3. Use `fetchpriority="high"` and `loading="eager"` on the `<img>`:
+3. Use `fetchpriority="high"` and `loading="eager"` on the likely LCP `<img>`:
 
 ```html path=null start=null
 <img
@@ -187,6 +189,15 @@ The browser cannot paint until it has parsed enough HTML and CSS. Shrink the cri
 - HTML: short or zero max-age, with `must-revalidate` or `stale-while-revalidate`. Revalidate on every request.
 - API responses: pick `s-maxage` plus `stale-while-revalidate` to let CDNs serve stale while refreshing.
 - Use a service worker only when the app genuinely benefits (offline support, custom caching strategy). Service workers add complexity and can regress performance if misconfigured.
+
+## bfcache
+
+Back/forward cache (bfcache) restores a full page from memory on history navigation. It is distinct from the HTTP cache and can make back and forward navigation nearly instant. Chrome usage data shows that about 1 in 10 desktop navigations and 1 in 5 mobile navigations are back or forward navigations, so eligibility matters.
+
+- Never use the `unload` event. It is one of the most common bfcache blockers.
+- Observe `pageshow` and `pagehide`; use `event.persisted` to distinguish bfcache restores from normal loads.
+- Revalidate transient state on `pageshow` and, where available, `resume`, instead of assuming a full reload.
+- Test history navigation after adding analytics, permissions, IndexedDB workflows, or teardown logic. These integrations often break bfcache eligibility.
 
 ## JavaScript bundle discipline
 
