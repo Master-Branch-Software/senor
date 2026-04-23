@@ -16,6 +16,7 @@ The default output of AI systems tends toward junior-level code and generic desi
 ## Chapters
 
 - `SUMMARY.md` — Condensed cheat sheet of every chapter. Load this when context is tight.
+- `AGENTS.md` — Navigation index for LLMs. Task-to-chapter map, chapter relationships, running order for new projects. Every agent should read this first.
 - `USAGE.md` — How to wire this guide into Warp, Cursor, Claude Projects, Copilot, and other tools; prompt patterns that work.
 - `01-philosophy-and-psychology.md` — Intent, craft, Laws of UX, Nielsen heuristics, Cialdini's 7 principles of persuasion, Gestalt principles, emotional design.
 - `02-brand-and-copywriting.md` — Jungian brand archetypes, voice attributes with "but not" qualifiers, tone ladder by context, voice-of-customer research and language harvesting, copywriting frameworks (AIDA, PAS, BAB, 4Ps, FAB, StoryBrand) with worked examples, headline formulas, hero and value-proposition patterns, page-type copy skeletons (home, pricing, product, about, blog, contact, 404/500, legal, transactional email), microcopy, CTA psychology, social proof, navigation labels, notifications, cookie/consent banners, power words and specificity, reading-level targets, editing passes, copy measurement and testing, SEO in the AI-search era, JSON-LD structured data.
@@ -63,234 +64,60 @@ Chapter 16 is the canonical reference for code style, formatters, linters, namin
 
 ## How to prompt an LLM to build a website
 
-A twelve-stage workflow. Each stage has an objective, a prompt template, and the artifact it should produce. The stages build on each other; skipping one degrades every stage that follows. Start every session by pasting the "Full load" opener from `USAGE.md`, or at minimum the "minimal session primer" block at the end of that file.
+The LLM reads the guide itself through `AGENTS.md` (the navigation index). Prompts below only name the project and stage; the rules live in the chapters. Keep the prompts short; let the agent pull depth on demand.
 
-### Rules that apply to every stage
+### One-prompt kickoff (recommended)
 
-- Produce the artifact in writing before any code. Text reveals unclear thinking; code hides it.
-- Keep answers specific. Reject vague verbs ("empower," "unleash," "transform," "learn more"), generic audiences ("users," "customers"), and stock promises ("the leading," "the #1").
-- End each stage with a short self-review that names any deviation from the guide.
-- Treat every artifact as read-only input for the next stage. If a later stage exposes a flaw upstream, fix the upstream artifact before continuing.
-
-### Stage 1 — Brief
-
-Objective: a one-page document that answers who, what, why, and feel.
-
-Prompt:
+Paste this once at the start of a new project. The agent interviews stage by stage, produces each artifact, and pauses for review.
 
 ```
-Act as a senior product designer. Interview me to produce a project
-brief. Ask one question at a time. Capture:
-- audience (one sentence, job-to-be-done, not demographic)
-- primary action (one sentence, one verb)
-- differentiator (one sentence, grounded in truth)
-- target feel (one adjective)
-- success metric
-- known constraints (budget, deadline, tech, compliance)
-When finished, summarize the brief in under 150 words and save it
-as brief.md.
+Read web-design-guide/AGENTS.md and drive a new website project per
+its "Running order for a new website". At each stage, ask me the
+questions you need — one at a time — produce the named artifact,
+and pause for my review. Ask only what changes the output. Do not
+restate the guide's rules in your answers.
 ```
 
-### Stage 2 — Brand voice
+### Per-stage prompts
 
-Objective: archetype, personality, voice attributes, and tone map.
+Use these when jumping into a stage mid-project. Each one is a trigger; the agent pulls the relevant chapters from `AGENTS.md`.
 
-Prompt:
+- Discovery: `Interview me for brief.md and constraints.md (AGENTS.md stage 1), one question at a time.`
+- Voice: `Produce brand.md from brief.md (AGENTS.md stage 2).`
+- Architecture: `Produce sitemap.md and wireframes/<page>.md (AGENTS.md stage 3).`
+- Copy: `Write copy/<page>.md for each page in sitemap.md (AGENTS.md stage 4). Voice: brand.md.`
+- Tokens: `Produce tokens.css (AGENTS.md stage 5) with a WCAG 2.2 AA audit for every foreground/background pair.`
+- Stack: `Produce stack.md (AGENTS.md stage 6). List exact packages and current versions.`
+- Scaffold: `Scaffold the repository (AGENTS.md stage 7). Commit each sub-step separately.`
+- Pages: `Implement /<page> (AGENTS.md stage 8). End with a self-review naming any deviation.`
+- Testing: `Wire the testing harness (AGENTS.md stage 9). Output testing.md.`
+- Accessibility audit: `Audit /<page> per chapter 05. Report violations with impact; apply fixes after I approve.`
+- Performance audit: `Audit /<page> per chapter 06. Same reporting format.`
+- Security audit: `Audit the app per chapter 14. Same reporting format.`
+- Launch: `Prepare launch.md (AGENTS.md stage 11). Do not deploy until the pre-merge checklist and the security baseline pass.`
 
-```
-From brief.md, pick one primary Jungian archetype from
-02-brand-and-copywriting.md and justify it in two sentences. Then
-write brand.md containing:
-- 3-5 voice attributes, each with a "but not" modifier
-- a tone map for onboarding, error, destructive confirmation,
-  celebration, and marketing copy
-- a "words to use / words to avoid" pair of lists
-```
+### Targeted tasks on an existing project
 
-### Stage 3 — Information architecture
+One-line prompts for common maintenance. The agent finds the matching row in `AGENTS.md` "Task to chapters" and reads what it needs.
 
-Objective: sitemap and page goals.
-
-Prompt:
-
-```
-Using brief.md, propose a sitemap with 3-7 top-level pages. For each
-page, list:
-- the single primary goal
-- the primary CTA (verb + noun)
-- the evidence types that belong on it (testimonial, screenshot,
-  stat, logo bar)
-Output as a markdown outline in sitemap.md.
-```
-
-### Stage 4 — Copywriting
-
-Objective: hero and section copy per page.
-
-Prompt:
-
-```
-Write the hero section for each page in sitemap.md, following the
-hero pattern in 02-brand-and-copywriting.md:
-- a 6-12-word headline that names audience and benefit
-- a 15-25-word subhead with concrete proof
-- a verb+noun primary CTA
-- an optional lower-commitment secondary CTA
-- one evidence element
-Voice: brand.md. Do not invent customer names or statistics.
-Output under copy/<page>.md.
-```
-
-### Stage 5 — Design tokens
-
-Objective: colors, type, spacing, radius, shadow, with accessibility audit.
-
-Prompt:
-
-```
-Propose design tokens for the site. Generate:
-- a 12-step OKLCH scale for 1 neutral and 1 accent, in both light
-  and dark modes, following the Radix model
-- a type scale with 8 steps built from a 1.2 ratio, expressed as
-  clamp() values
-- an 8-pt spacing scale with 9 steps
-- a radius scale (sm, md, lg, xl, 2xl) and a shadow scale
-  (sm, md, lg, xl)
-Audit every foreground/background pair against WCAG 2.2 AA and
-report the contrast ratios. Output tokens.css with @theme or :root
-custom properties.
-```
-
-### Stage 6 — Wireframes
-
-Objective: low-fi structural plan per page.
-
-Prompt:
-
-```
-For each page in sitemap.md, produce a wireframe as a markdown
-outline showing sections top-to-bottom. For each section, state:
-- its role (hero, feature grid, testimonial, pricing, faq, cta)
-- the hierarchy (h1, h2, key body)
-- the interactive elements
-- approximate vertical density (sparse, regular, dense)
-Do not describe visuals or colors. Output wireframes/<page>.md.
-```
-
-### Stage 7 — Stack
-
-Objective: framework and library selection, justified.
-
-Prompt:
-
-```
-Using 08-stack-and-architecture.md, pick a framework, styling
-approach, component primitives, image pipeline, and deployment
-target for this project. Justify each choice in one sentence
-against the criteria in that chapter. List exact packages and
-current versions. Output stack.md.
-```
-
-### Stage 8 — Scaffold
-
-Objective: a minimal running project that satisfies the non-negotiables before any page is built.
-
-Prompt:
-
-```
-Scaffold the project chosen in stack.md with:
-- the folder structure from 08-stack-and-architecture.md (by-feature
-  or by-type; pick one and justify)
-- tokens.css wired into the design system
-- a modern CSS reset inside @layer reset, base, components,
-  utilities
-- primitive components: Button, Card, Section, Container, Stack,
-  Grid, built on the tokens
-- accessibility defaults: visible :focus-visible, skip link,
-  prefers-reduced-motion handler, viewport meta without
-  user-scalable=no
-- lint, format, type-check, and test runners configured
-- CI workflow running type check, tests, axe, Lighthouse CI, and
-  bundle-size budgets
-Commit each step separately.
-```
-
-### Stage 9 — Pages
-
-Objective: implement each page from its wireframe and copy using the primitives.
-
-Prompt:
-
-```
-Implement /<page> from wireframes/<page>.md and copy/<page>.md
-using the primitives from Stage 8. Requirements:
-- every <img> has width, height, alt, and appropriate loading and
-  fetchpriority attributes
-- type sizes come from the token scale, not hardcoded values
-- layouts use grid auto-fit or container queries where appropriate
-- focus is visible on every interactive element
-- no positive tabindex, no <div onClick>, no <a href="#">
-End with a self-review that names any deviation from the guide.
-```
-
-### Stage 10 — Accessibility pass
-
-Objective: zero automated violations, clean keyboard and screen-reader flow.
-
-Prompt:
-
-```
-Audit /<page> per 05-accessibility.md. Report:
-- axe and Lighthouse violations with counts and severities
-- a keyboard walk-through covering tab order, focus return on
-  modal close, and skip link
-- a screen-reader walk-through (VoiceOver or NVDA) noting missing
-  names, landmarks, or live regions
-Propose fixes ordered by impact. Apply them only after I approve
-each.
-```
-
-### Stage 11 — Performance pass
-
-Objective: LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1 in field data.
-
-Prompt:
-
-```
-Audit /<page> per 06-performance.md. Break LCP into its four
-phases; identify INP offenders, especially third-party scripts;
-verify every image reserves dimensions and that the LCP image is
-preloaded with fetchpriority="high"; confirm fonts use metric-
-matched fallbacks or font-display: optional.
-Propose fixes ordered by expected impact and the CI budget changes
-needed to prevent regressions.
-```
-
-### Stage 12 — Launch
-
-Objective: staged rollout with monitoring and a rollback plan.
-
-Prompt:
-
-```
-Prepare a launch plan:
-- a staging deploy with a preview URL
-- smoke tests covering the primary user flow defined in brief.md
-- monitoring hooks: web-vitals RUM, error tracking with source maps,
-  uptime checks
-- a rollback procedure
-- a 30-day and 90-day review tied to the success metric in brief.md
-Do not deploy until the pre-merge checklist in
-09-anti-patterns-and-process.md passes for every page.
-```
+- `Revise the pricing-page copy. Voice: brand.md.`
+- `Update security for this website.`
+- `Improve LCP on /products/*.`
+- `Add Dutch and French locales.`
+- `Set up tests for the /<path> route.`
+- `Add a Combobox component.`
+- `Pick a browser support matrix for this project.`
+- `Do a pre-merge review on this PR.`
 
 ### Common failure modes
 
-- A vague brief poisons every stage that follows. Force specificity in Stage 1; rewrite if in doubt.
-- Copy written before voice is decided sounds AI-generic. Stage 2 always precedes Stage 4.
-- Tokens chosen for aesthetics without contrast audit produce accessible-looking but inaccessible designs. Stage 5 requires the audit.
-- Pages written before primitives exist re-invent the same Button five times. Stage 8 always precedes Stage 9.
-- Accessibility and performance treated as end-of-project gates produce rework. Stages 10 and 11 are run continuously during Stage 9, not after it.
+- A vague brief poisons every stage. Force specificity in discovery; rewrite if in doubt.
+- Constraints left unstated (browser matrix, locales, compliance) surface as rework in the audits. Nail them in discovery.
+- Copy written before voice sounds AI-generic. Voice precedes copy.
+- Tokens chosen for aesthetics without a contrast audit produce accessible-looking but inaccessible designs.
+- Code-quality tooling added at the end rewrites history. Scaffold precedes pages.
+- Tests bolted on after the feature set is complete never catch up.
+- Accessibility, performance, and security treated as end-of-project gates produce rework. Run them continuously during implementation.
 
 ## When in doubt
 

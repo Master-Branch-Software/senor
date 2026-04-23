@@ -2,13 +2,17 @@
 
 The guide is designed to prime any LLM (Warp/Oz, Cursor, Claude, ChatGPT, Gemini, Copilot, local models) with the knowledge needed to produce professional, maintainable, human-feeling websites. This document describes the invocation patterns that work in practice.
 
+## Start with `AGENTS.md`
+
+`AGENTS.md` is the navigation index. An agent reads it first, then pulls the chapters relevant to the task from the task-to-chapter map. For most work, priming with `AGENTS.md` plus the non-negotiables in `README.md` is enough — the agent will request deeper chapters on demand.
+
 ## Three ways to load the guide
 
 Pick one based on how much context the session has available.
 
 ### 1. Full load — best quality, largest context
 
-Load `README.md` plus every numbered chapter at the start of a session. Roughly 60–80 K tokens. Use when:
+Load `README.md` plus every numbered chapter at the start of a session. Roughly 80–100 K tokens. Use when:
 
 - Starting a new project or significant refactor.
 - Producing multi-page designs or a design system.
@@ -36,13 +40,32 @@ canonical conventions for the rest of this session:
 - web-design-guide/13-internationalization.md
 - web-design-guide/14-security.md
 - web-design-guide/15-discovery-and-communication.md
+- web-design-guide/16-code-style-and-quality.md
 
 Apply every non-negotiable from README.md without exception.
 When a rule conflicts with a habit, follow the rule. When a rule
 conflicts with my explicit instruction, follow my instruction.
 ```
 
-### 2. Summary load — lightweight priming
+### 2. Agent-index load — recommended default
+
+Load `AGENTS.md` and `README.md`. Roughly 5–8 K tokens. Use when:
+
+- Most day-to-day work, including new-project kickoffs.
+- You want the agent to pull deeper chapters only as needed.
+- The environment supports on-demand file reads (Warp/Oz, Cursor, Claude Code, Codex).
+
+Prompt opener:
+
+```
+Read web-design-guide/AGENTS.md and web-design-guide/README.md.
+Apply the non-negotiables from README.md on every suggestion. Use
+the "Task to chapters" map in AGENTS.md to decide which chapters
+to read next for the current task. Ask only what changes the
+output.
+```
+
+### 3. Summary load — lightweight priming
 
 Load `SUMMARY.md` alone. Roughly 3 K tokens. Use when:
 
@@ -58,7 +81,7 @@ to every suggestion. If depth is needed on a topic, ask me for
 the corresponding numbered chapter.
 ```
 
-### 3. Targeted load — per-task
+### 4. Targeted load — per-task
 
 Load `README.md` (short) plus the one or two chapters relevant to the current task. Use when working on a single concern for a block of time.
 
@@ -78,6 +101,7 @@ Task-to-chapter mapping:
 - Internationalization, Intl API, RTL, hreflang, locale patterns — `13-internationalization.md`.
 - Security headers, CSP, XSS, CSRF, auth, CORS, OWASP — `14-security.md`.
 - Discovery questions for a new brief, what to default, when to ask, checkpoints, and communication patterns with the user — `15-discovery-and-communication.md`.
+- Code style and formatting, ESLint/Prettier/Biome/Stylelint setup, `tsconfig` baseline, repository hygiene, naming, imports, error handling, structured logging, dependency management, Conventional Commits, git hooks, CI enforcement — `16-code-style-and-quality.md`.
 
 ## Integrations
 
@@ -229,7 +253,8 @@ When the guide is working, expect to see:
 - Copy that names the audience and leads with a verb.
 - Components built on Radix or React Aria rather than hand-rolled.
 - Motion that honors `prefers-reduced-motion` by default.
-- Bundle, a11y, and Lighthouse checks wired into CI.
+- Prettier, ESLint flat config, Stylelint, EditorConfig, `commitlint`, and `lint-staged` wired up on every fresh repo.
+- Bundle, a11y, typecheck, test, and Lighthouse checks wired into CI with explicit budgets.
 
 When the guide is not working, outputs fall back to junior defaults: `<div onClick>`, pixel everything, generic stock imagery, "Learn more" buttons, and no respect for `prefers-reduced-motion`. That is the signal to re-prime the session.
 
@@ -248,6 +273,7 @@ Follow these non-negotiables:
 - No positive tabindex; no color-only meaning; no 100vh on mobile (use 100dvh).
 - Copy uses verbs on CTAs, labels on inputs, concrete error messages.
 - Drop "is" prefix from boolean names; prefer logical properties; two-space indent.
+- Prettier + ESLint flat config + Stylelint + EditorConfig on every project; Conventional Commits; no console.log in production; strict tsconfig.
 Produce work to these standards without asking for confirmation.
 ```
 
