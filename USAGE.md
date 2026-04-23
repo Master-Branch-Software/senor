@@ -1,12 +1,12 @@
 # How to Use This Guide in Prompts
 
-The guide is designed to prime any LLM (Warp/Oz, Cursor, Claude, ChatGPT, Gemini, Copilot, local models) with the knowledge needed to produce professional, maintainable, human-feeling websites. This document describes the invocation patterns that work in practice.
+The guide is designed to prime any LLM (Warp/Oz, Cursor, Claude, ChatGPT, Gemini, Copilot, local models) with the knowledge needed to produce professional, maintainable websites. This document describes the invocation patterns that work in practice.
 
 ## Start with `AGENTS.md`
 
 `AGENTS.md` is the navigation index. An agent reads it first, then pulls the chapters relevant to the task from the task-to-chapter map. For most work, priming with `AGENTS.md` plus the non-negotiables in `README.md` is enough — the agent will request deeper chapters on demand.
 
-## Three ways to load the guide
+## Four ways to load the guide
 
 Pick one based on how much context the session has available.
 
@@ -108,7 +108,7 @@ Task-to-chapter mapping:
 ### Warp (Oz) rules
 
 1. Open Warp settings → Rules.
-2. Create a project rule at `/Users/bert/Documents/dev/web-design-guide` or a global rule.
+2. Create a project rule at `/home/bert/Documents/dev/ai-web-designer` or a global rule.
 3. Paste the "Full load" or "Summary load" prompt opener above as the rule content.
 4. Oz will then apply the guide automatically to conversations in that directory.
 
@@ -123,7 +123,7 @@ globs: ["**/*.{html,css,js,ts,jsx,tsx,mdx,astro,svelte,vue}"]
 alwaysApply: true
 ---
 
-Follow the conventions in /Users/bert/Documents/dev/web-design-guide.
+Follow the conventions in /home/bert/Documents/dev/ai-web-designer.
 The non-negotiables in README.md apply to every suggestion.
 Load SUMMARY.md for context; ask to load numbered chapters on demand.
 ```
@@ -139,7 +139,7 @@ For Claude Projects specifically, upload every numbered chapter as a knowledge f
 Create `.github/copilot-instructions.md` at the repo root with a short pointer:
 
 ```
-Use the conventions in ../web-design-guide for all HTML, CSS,
+Use the conventions in /home/bert/Documents/dev/ai-web-designer for all HTML, CSS,
 JavaScript, and copy. Non-negotiables are listed in README.md.
 ```
 

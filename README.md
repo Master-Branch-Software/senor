@@ -4,13 +4,13 @@ A reference for building professional-grade websites in LLM-assisted workflows. 
 
 ## Purpose
 
-AI systems default to junior-level output: media-query soup, hard-coded pixels, unlabelled forms, bland copy, low-contrast color, motion that ignores user preferences. This guide encodes the practices that separate professional, maintainable, human-feeling websites from that default.
+AI systems default to junior-level output: media-query soup, hard-coded pixels, unlabelled forms, bland copy, low-contrast color, motion that ignores user preferences. This guide encodes the practices that separate professional, maintainable websites from that default.
 
 ## How to use
 
 1. Read the relevant chapter first. Color questions → `03-visual-design.md`. Performance questions → `06-performance.md`.
 2. Apply stable requirements directly. For new features, verify the support matrix and fallback strategy in `11-browser-compatibility.md` before implementation.
-3. Follow the user over the guide when they conflict. Follow the guide over habit when they conflict.
+3. When user instructions conflict with this guide, follow the user. When habit conflicts with this guide, follow the guide.
 
 ## Chapters
 

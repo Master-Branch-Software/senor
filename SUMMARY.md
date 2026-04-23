@@ -1,10 +1,10 @@
 # Summary
 
-A condensed version of the full guide. Load this file alone when context is tight; load the full chapters for depth.
+Condensed guide. Load alone when context tight; full chapters for depth.
 
 ## Premise
 
-A website serves a specific person, to accomplish a specific goal, in a specific brand voice. Every choice — color, word, spacing, motion — is evaluated against those three variables. Craft is the input; beauty is the output.
+Website serves specific person, specific goal, specific brand voice. Every choice — color, word, spacing, motion — evaluated against those three. Craft input; beauty output.
 
 ## Non-negotiables
 
@@ -21,20 +21,20 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 
 ## 01 — Philosophy and psychology
 
-- Answer four questions before designing: who is this for, what is the primary action, why trust this, what feeling.
-- Laws of UX to apply: Jakob (conventions), Hick (fewer choices), Fitts (target size), Miller (7 ± 2), Doherty (< 400 ms feels fast), Peak–End (invest in hero and final states), Zeigarnik (show progress).
+- 4 questions before designing: who, primary action, why trust, what feeling.
+- Laws of UX: Jakob (conventions), Hick (fewer choices), Fitts (target size), Miller (7±2), Doherty (<400ms), Peak–End (hero+final states), Zeigarnik (progress).
 - Nielsen's 10 heuristics; Gestalt (proximity, similarity, continuity, closure).
 - Cialdini's 7 principles: reciprocity, commitment, social proof, authority, liking, scarcity, unity.
-- Don Norman's three levels: visceral, behavioral, reflective.
-- 5-second test: what is this, who is it for, what can you do.
+- Don Norman 3 levels: visceral, behavioral, reflective.
+- 5-sec test: what is this, who for, what to do.
 
 ## 02 — Brand and copywriting
 
-- Document brand in writing: audience, offer, reason-to-exist, personality, archetype, voice-with-but-not modifiers, use/avoid word lists.
-- Pick one of Jung's 12 archetypes; mixing more than two produces incoherence.
-- Voice is fixed; tone adapts along four dials (formality, warmth, urgency, playfulness) per context (hero, onboarding, error, destructive confirmation, outage, churn, legal).
+- Document brand in writing: audience, offer, reason-to-exist, personality, archetype, voice with "but not" modifiers, use/avoid word lists.
+- Pick one Jung archetype (12 total); mixing >2 = incoherence.
+- Voice fixed; tone adapts on 4 dials (formality, warmth, urgency, playfulness) per context (hero, onboarding, error, destructive confirm, outage, churn, legal).
 - Voice-of-customer research: harvest 150–300 verbatim quotes from interviews, sales calls, support, reviews, community, win/loss, search queries; cluster; extract 20–50-word audience vocabulary; never paraphrase testimonials.
-- Frameworks: AIDA, PAS, BAB, 4Ps, FAB, StoryBrand. Frameworks are scaffolds — edit ruthlessly.
+- Frameworks: AIDA, PAS, BAB, 4Ps, FAB, StoryBrand. Scaffolds — edit ruthlessly.
 - Headline formulas: "How to X without Y", "[Outcome] for [audience]", "The [N] [thing] that [outcome]", question-form, "[Time] to [outcome]", "Stop X. Start Y.", "[Category] without the [drawback]", Ogilvy fact-first.
 - Hero: specific 6–12-word headline, 15–25-word subhead, verb+noun primary CTA, optional lower-commitment secondary, evidence, product screenshot (not stock).
 - Value proposition: one sentence naming end-benefit, audience, alternative, unique mechanism.
@@ -49,12 +49,12 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Reading level: grade 7–9 marketing, 8–10 onboarding, 10–12 docs; sentences 14–18 words average, cap 25; paragraphs 2–4 sentences.
 - Editing in 5 passes: truth → specificity → rhythm → voice → cut (remove 20%).
 - Copy measurement: hypothesis first; test highest-traffic element; instrument downstream conversions; segment by source and device; qualitative 5-second test on the winner.
-- SEO for AI era: the same foundational SEO applies to AI features; keep content crawlable, text-forward, and internally linked.
+- SEO: same foundational rules apply to AI features; crawlable, text-forward, internally linked.
 - Structured data: JSON-LD, visible-content parity, Rich Results Test, and page-type schema only where Google documents support.
 
 ## 03 — Visual design
 
-- Rank content first; most-important element becomes visual anchor; others defer.
+- Rank content first; most-important element = visual anchor.
 - Hierarchy tools in order: size, weight, color, spacing, position, contrast, motion. Combine 2–3.
 - Safe defaults: near-black/near-white, saturated neutrals, optical alignment, 12-column grid, nested corners (outer = inner + padding), 16 px+ body, 60–75 ch line length.
 - Spacing from a single scale (4, 8, 12, 16, 24, 32, 48, 64, 96 px).
@@ -106,13 +106,13 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Bundle discipline: audit monthly, tree-shake, replace heavy libs with platform or lighter alternatives.
 - Rendering: SSG for static, ISR for mostly-static, SSR for per-request, edge for latency-sensitive.
 - Monitoring: `web-vitals` RUM + CrUX + Lighthouse CI + synthetic; enforce budgets in CI.
-- Progressive enhancement — HTML-first so the page works before JS arrives.
+- Progressive enhancement: HTML-first; page works before JS.
 
 ## 07 — JavaScript and HTML
 
 - Use native: `<dialog>`, `<details>`, `popover` attribute, `inert`, `content-visibility`, `IntersectionObserver`, `ResizeObserver`, `AbortController`.
 - ES2025 (approved June 2025) adds: iterator helpers, Set methods, `RegExp.escape`, regex flag modifiers, duplicate named capture groups, `Promise.try`, import attributes (`with { type: "json" }`, `with { type: "css" }`), JSON modules, `Float16Array`.
-- Temporal — Stage 4, ships in ES2026; native in Firefox 139+ and Chrome/Edge 144+; Safari not shipped as of April 2026, so use `temporal-polyfill` for cross-browser support. Any new code should prefer Temporal over `Date`.
+- Temporal — Stage 4/ES2026; Firefox 139+, Chrome/Edge 144+; Safari not shipped (Apr 2026) — use `temporal-polyfill`. Prefer Temporal over `Date`.
 - Signals (TC39 Stage 1): cross-framework reactive primitive; use `signal-polyfill` today.
 - Web components: Shadow DOM for encapsulated design-system widgets; Light DOM for HTML-with-superpowers; form-associated with `attachInternals()`; declarative Shadow DOM via `<template shadowrootmode="open">`; Lit for non-trivial scale.
 - Runtimes: Node for default, Bun for speed and simple tooling, Deno for security and single-binary distribution; WinterCG Web-standard APIs (`fetch`, `Request`, `Response`, streams) are portable across all three.
@@ -139,7 +139,7 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Deployment: CI runs type/lint/a11y/LHCI/bundle checks; preview deploys per PR; canary rollouts; RUM from day one.
 - Scaling ladder: single server → read replica → Redis → CDN → background queues → worker containers → search index → cache-ahead → partition/shard → split the monolith. Only when the current step actually hurts.
 - Maintainability: boring technology, one language in the hot path, no bleeding edge in critical code, every dependency is a liability, platform primitives over libraries.
-- Boring-technology budget: spend novelty on one or two components that give real advantage; keep the rest conventional.
+- Boring-tech budget: novelty on 1–2 components with real advantage; rest conventional.
 - Docs: `README`, `ARCHITECTURE`, `CONTRIBUTING`, `DESIGN_TOKENS` kept up to date.
 
 ## 09 — Anti-patterns and process
@@ -199,7 +199,7 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - CI: typecheck → lint → unit+integration → Playwright E2E → a11y. Fail the build on any failure.
 
 ## 13 — Internationalization
-- i18n (architectural) vs l10n (translation/adaptation). Retrofitting costs 3–5× more than building from the start.
+- i18n (architectural) vs l10n (translation/adaptation). Retrofitting costs 3–5× more.
 - Intl API: `DateTimeFormat`, `NumberFormat`, `RelativeTimeFormat`, `ListFormat`, `PluralRules`, `Collator`, `Segmenter` — all built-in, zero bundle cost.
 - ICU MessageFormat for pluralization and interpolation. Never concatenate translated fragments with variables.
 - Locale detection order: saved preference → URL segment → `navigator.language` → default.
@@ -260,4 +260,4 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 
 ## The shortest review
 
-One question covers most cases: does the change make the site easier to use, easier to understand, easier to maintain, and faster? If not, it should not ship.
+Does change make site easier to use, understand, maintain, faster? If not, don't ship.
