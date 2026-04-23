@@ -21,12 +21,14 @@ Canonical `.prettierrc.json`:
   "useTabs": false,
   "arrowParens": "always",
   "bracketSpacing": true,
+  "htmlWhitespaceSensitivity": "ignore",
   "endOfLine": "lf",
   "plugins": ["prettier-plugin-tailwindcss"]
 }
 ```
 - `trailingComma: "all"` is the Prettier 3 default and produces cleaner diffs when items are added to arrays, objects, or function signatures.
 - `printWidth: 100` balances legibility against diff noise. 80 is still defensible for prose-heavy codebases; above 120 is a code smell.
+- Use `htmlWhitespaceSensitivity: "ignore"` when Prettier output becomes hard to read because inline HTML text and tags are fragmented across lines.
 - `endOfLine: "lf"` combined with a `.gitattributes` entry (see below) prevents line-ending wars between macOS, Linux, and Windows contributors.
 - `prettier-plugin-tailwindcss` sorts Tailwind utility classes into Tailwind's recommended order. Install it whenever Tailwind is in use.
 Canonical `.prettierignore`:
