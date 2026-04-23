@@ -119,12 +119,19 @@ https://adrianroselli.com/2026/04/wcag3-contrast-as-of-april-2026.html
 ## Motion and animation
 
 https://gsap.com/
+https://gsap.com/docs/v3/Plugins/ScrollTrigger/
+https://gsap.com/docs/v3/Plugins/ScrollSmoother/
+https://gsap.com/blog/why-gsap/
+https://gsap.com/resources/get-started/
 https://motion.dev/
 https://rauno.me/
 https://emilkowal.ski/
 https://cubic-bezier.com/
 https://www.joshwcomeau.com/
 https://lottiefiles.com/
+https://tympanus.net/codrops/2025/11/04/creating-3d-scroll-driven-text-animations-with-css-and-gsap/
+https://tympanus.net/codrops/2025/10/29/building-a-layered-zoom-scroll-effect-with-gsap-scrollsmoother-and-scrolltrigger/
+https://gsapvault.com/blog/scroll-image-sequence-tutorial
 
 ## Accessibility
 
@@ -253,11 +260,108 @@ https://toyfight.co/
 https://www.metalab.com/
 https://lusion.co/
 
+## Testing
+
+https://vitest.dev/
+https://testing-library.com/
+https://playwright.dev/
+https://mswjs.io/
+https://github.com/nicolo-ribaudo/jest-axe
+https://github.com/dequelabs/axe-core
+https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications
+https://umesh-malik.com/blog/frontend-testing-strategies-2025
+https://softaims.com/blog/react-testing-strategy-vitest-playwright-2026
+https://markus.oberlehner.net/blog/visual-regression-testing-with-vitest
+https://oneuptime.com/blog/post/2026-01-27-playwright-visual-testing/view
+https://vitest.dev/guide/browser/component-testing.html
+https://www.devtoolsguide.com/frontend-testing-tools/
+
+## Internationalization
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Internationalization
+https://next-intl-docs.vercel.app/
+https://www.i18next.com/
+https://formatjs.io/
+https://unicode-org.github.io/icu/userguide/format_parse/messages/
+https://w3c.github.io/i18n-drafts/articles/intl/index.en.html
+https://web.dev/learn/design/internationalization
+https://developers.google.com/search/docs/specialty/international/localized-versions
+https://smashingmagazine.com/2025/08/power-intl-api-guide-browser-native-internationalization
+https://intlpull.com/blog/complete-developers-guide-to-internationalization-2026
+https://better-i18n.com/en/blog/multilingual-website-design
+https://frontenddigest.com/architecture/internationalization-i18n
+
+## Security
+
+https://owasp.org/www-project-top-ten/
+https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html
+https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
+https://web.dev/security-headers/
+https://securityheaders.com/
+https://csp-evaluator.withgoogle.com/
+https://hstspreload.org/
+https://www.npmjs.com/package/helmet
+https://github.com/cure53/DOMPurify
+https://nextool.app/blog/http-security-headers-complete-guide.html
+https://hyperwebenable.com/web-development/web-security-headers-csp-cors-hsts-guide/
+https://webscore.now/blog/security-headers-implementation-guide
+https://github.com/OWASP/www-project-secure-headers/blob/master/tab_bestpractices.md
+
+## Craft and quality
+
+https://linear.app/blog/why-is-quality-so-rare
+https://linear.app/quality
+https://stripe.com/en-ch/sessions/2024/craft-and-beauty-the-business-value-of-form-in-function
+https://www.youtube.com/watch?v=wLb9g_8r-mE
+https://www.figma.com/reports/state-of-the-designer-2026/
+https://www.designative.info/2025/05/21/jony-ives-design-reckoning-from-minimalism-to-meaning/
+https://www.subtle.so/jony-ive-spirituality-of-design.html
+https://www.one-fs.com/p/building-with-love-a-lesson-in-product
+https://www.illustration.app/blog/stripe-payment-ux-gold-standard
+https://medium.com/@filipagribeiro/on-craft-beauty-and-good-taste-250ff5396382
+
+## Dark mode design
+
+https://m3.material.io/foundations/adaptive-design/color-scheme
+https://developer.apple.com/design/human-interface-guidelines/dark-mode
+https://blog.greeden.me/en/2026/02/23/complete-accessibility-guide-for-dark-mode-and-high-contrast-color-design-contrast-validation-respecting-os-settings-icons-images-and-focus-visibility-wcag-2-1-aa/
+https://ekolsoft.com/en/b/dark-mode-design-best-practices-guide
+https://gendesigns.ai/blog/dark-mode-design-guide-apps
+https://www.highmountainstudio.com/blog/dark-mode-design-systems-web-apps
+https://xsoneconsultants.com/blog/dark-mode-ui-implementation-standards-and-design-best-practices/
+https://colorhero.io/blog/dark-mode-color-palettes-2025
+
+## Forms
+
+https://react-hook-form.com/
+https://tanstack.com/form
+https://valibot.dev/
+https://usepixelform.com/blog/file-upload-forms-guide/
+https://www.caduh.com/blog/forms-that-dont-fail-users
+https://frontenddigest.com/system-design/design-file-uploader
+https://www.flexsubmit.com/blog/multi-step-form-examples-and-templates
+https://ma-x.im/blog/complex-forms-done-right
+
+## Technical SEO
+
+https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+https://search.google.com/test/rich-results
+https://validator.schema.org/
+https://schema.org/
+https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview
+https://search.google.com/search-console
+https://schemavalidator.org/guides/schema-markup-seo-strategy-2026
+https://www.aiocopilot.com/blog/schema-markup-complete-guide-2026
+https://mostlycopyandpaste.com/articles/2026/01/seo-enhancements-deep-dive-implementing-2024-2025-best-practices/
+
 ## Key articles referenced
 
 https://frontendmasters.com/blog/ai-generated-ui-is-inaccessible-by-default/
 https://frontendmasters.com/blog/what-you-need-to-know-about-modern-css-2025-edition/
 https://frontendmasters.com/blog/what-to-know-in-javascript-2026-edition/
+https://www.shopify.com/blog/website-copywriting
+https://www.twilio.com/en-us/blog/insights/11-rules-for-writing-website-copy
 https://frontendmasters.com/blog/the-coyier-css-starter/
 https://frontendmasters.com/blog/architecture-through-component-colocation/
 https://frontendmasters.com/blog/post-mortem-rewriting-agnosticui-with-lit-web-components/

@@ -225,6 +225,154 @@ src/
 
 Pick one, apply it everywhere, and enforce with ESLint import rules.
 
+## Form architecture
+
+Forms are their own category of state management. Complex forms — multi-step wizards, dynamic field arrays, conditional visibility, async validation, file uploads — require a different architecture than general application state.
+
+### Schema-first design
+
+Define the form schema before writing any UI. The schema is the single source of truth for field types, validation rules, error messages, and TypeScript types:
+
+```ts path=null start=null
+import { z } from 'zod';
+
+const userSchema = z.object({
+  email: z.string().email('Enter a valid email'),
+  password: z
+    .string()
+    .min(8, 'At least 8 characters')
+    .regex(/[A-Z]/, 'Needs uppercase letter')
+    .regex(/[0-9]/, 'Needs a number'),
+  confirmPassword: z.string(),
+  address: z.object({
+    street: z.string().min(1, 'Required'),
+    city: z.string().min(1, 'Required'),
+    postalCode: z.string().regex(/^\d{5}$/, 'Invalid postal code'),
+  }),
+}).refine((d) => d.password === d.confirmPassword, {
+  message: "Passwords don't match",
+  path: ['confirmPassword'],
+});
+
+type UserFormData = z.infer<typeof userSchema>;
+```
+
+### Multi-step forms
+
+Break complex forms into steps when there are 8+ fields or natural groupings. Each step reduces cognitive load. Validate before advancing; never wipe data when going back:
+
+```tsx path=null start=null
+function MultiStepForm() {
+  const [step, setStep] = useState(1);
+  const methods = useForm<FormData>();
+
+  const onSubmit = async (data: FormData) => {
+    if (step < 3) { setStep(step + 1); return; }
+    await createUser(data);
+  };
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        {/* Progress indicator */}
+        <p>Step {step} of 3</p>
+
+        {step === 1 && <PersonalInfoStep />}
+        {step === 2 && <AddressStep />}
+        {step === 3 && <ReviewStep />}
+
+        <div>
+          {step > 1 && <button type="button" onClick={() => setStep(s => s - 1)}>Back</button>}
+          <button type="submit">{step < 3 ? 'Next' : 'Submit'}</button>
+        </div>
+      </form>
+    </FormProvider>
+  );
+}
+```
+
+### Validation timing
+
+Show errors at the right moment — not on every keystroke:
+
+```tsx path=null start=null
+const { register, formState: { errors, touchedFields, isSubmitted } } = useForm({
+  mode: 'onBlur', // validate on blur, not on change
+});
+
+// Show error only after user has touched the field OR tried to submit
+const showError = error && (touchedFields[name] || isSubmitted);
+```
+
+Validating on every keystroke produces red error messages while a user is still typing. Validate on blur for individual fields, and on all fields at submission.
+
+### Dynamic field arrays
+
+```tsx path=null start=null
+import { useFieldArray } from 'react-hook-form';
+
+function SkillsList() {
+  const { fields, append, remove } = useFieldArray({ control, name: 'skills' });
+
+  return (
+    <>
+      {fields.map((field, index) => (
+        <div key={field.id}>
+          <input {...register(`skills.${index}.name`)} />
+          <button type="button" onClick={() => remove(index)}>Remove</button>
+        </div>
+      ))}
+      <button type="button" onClick={() => append({ name: '' })}>Add Skill</button>
+    </>
+  );
+}
+```
+
+### File uploads
+
+For simple uploads, use FormData with multipart:
+
+```tsx path=null start=null
+const FileSchema = z
+  .instanceof(File)
+  .refine(f => f.size <= 5 * 1024 * 1024, 'Max 5 MB')
+  .refine(f => ['image/jpeg', 'image/png', 'image/webp'].includes(f.type), 'JPEG, PNG, or WebP only');
+
+// After form submission:
+async function uploadFile(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+  await fetch('/api/upload', { method: 'POST', body: formData });
+}
+```
+
+For large files, use chunked uploads with resume capability. Show progress per file. Handle all states: queued, uploading, success, error. Validate MIME type on the server from actual file bytes, not the extension.
+
+### Server-side error propagation
+
+Preserve user input on server errors. Map server field errors back into the form:
+
+```ts path=null start=null
+const onSubmit = async (data: FormData) => {
+  const res = await fetch('/api/signup', { method: 'POST', body: JSON.stringify(data) });
+  if (!res.ok) {
+    const { fieldErrors } = await res.json();
+    // Map server errors to fields without wiping values
+    Object.entries(fieldErrors).forEach(([field, message]) => {
+      setError(field as keyof FormData, { message: message as string });
+    });
+  }
+};
+```
+
+### Form stack selection
+
+- React Hook Form + Zod — default for React. Uncontrolled forms with minimal re-renders.
+- Valibot — smaller bundle than Zod, compatible API.
+- TanStack Form — framework-agnostic, type-safe, supports async validation out of the box.
+
+Treat forms as their own category, not general state. Do not use Zustand or Redux for form state.
+
 ## State management
 
 - Local, component-only state — component state hooks or signals.

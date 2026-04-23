@@ -149,6 +149,45 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Runtimes: Node.js, Bun, Deno.
 - Study: Stripe, Linear, Vercel, Figma, Apple, Ramp, Mercury, Raycast, Superhuman, GitHub Primer, Awwwards.
 
+## 12 — Testing
+- The testing trophy: static analysis → integration (largest) → unit → E2E → visual regression.
+- Vitest replaces Jest for Vite-based projects: 4–10× faster, native TypeScript/ESM, Jest-compatible API.
+- MSW intercepts at the network layer — components call real `fetch`, tests exercise actual data-fetching code.
+- Integration tests: render with real hooks and MSW-mocked API; query by role, label, and text; no snapshot tests of HTML.
+- Playwright for E2E: Chromium/Firefox/WebKit in parallel, auto-waiting, trace viewer, codegen; prefer role selectors over `data-testid`.
+- Visual regression: `toHaveScreenshot` with `animations: 'disabled'`; Docker for consistent cross-OS rendering; mask dynamic content.
+- Accessibility automation: axe-core in integration tests; `@axe-core/playwright` in E2E; zero-violation policy in CI.
+- Flaky tests are worse than no tests. Auto-waiting over `waitForTimeout`. Run `--repeat-each 10` before committing.
+- CI: typecheck → lint → unit+integration → Playwright E2E → a11y. Fail the build on any failure.
+
+## 13 — Internationalization
+- i18n (architectural) vs l10n (translation/adaptation). Retrofitting costs 3–5× more than building from the start.
+- Intl API: `DateTimeFormat`, `NumberFormat`, `RelativeTimeFormat`, `ListFormat`, `PluralRules`, `Collator`, `Segmenter` — all built-in, zero bundle cost.
+- ICU MessageFormat for pluralization and interpolation. Never concatenate translated fragments with variables.
+- Locale detection order: saved preference → URL segment → `navigator.language` → default.
+- URL structure: subdirectories (`/de/`) are the pragmatic default.
+- RTL: use logical properties (`margin-inline-start` not `margin-left`) everywhere; `dir="rtl"` on `<html>`; mirror directional icons.
+- Text expansion: German ~30% longer than English. Use `min-width`, not `width`, on buttons. Test with longest locale.
+- hreflang: reciprocal, self-referencing, always include `x-default`. For 1000+ pages, use XML sitemap not HTML.
+- Language switcher: label in the target language ("Deutsch" not "German"); use language names not flags; persist choice.
+- Performance: lazy-load the active locale; split by namespace for large apps.
+- Pseudo-localization in dev to catch hardcoded strings and layout overflow early.
+- WCAG 1.3.2: `lang` on `<html>` is Level A. Screen readers use it for speech synthesizer selection.
+
+## 14 — Security
+- Security headers set on every response: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.
+- CSP: start with `Content-Security-Policy-Report-Only` to discover violations; use nonces for inline scripts; avoid `'unsafe-inline'` for `script-src`.
+- HSTS: `max-age=63072000; includeSubDomains; preload`. Start with `max-age=300` during testing.
+- OWASP Top 10 (2026): Broken Access Control, Cryptographic Failures, Injection, Insecure Design, Security Misconfiguration, Vulnerable Components, Authentication Failures, Data Integrity Failures, Logging Failures, SSRF.
+- XSS: use framework native rendering; DOMPurify for user HTML; never `eval()` with untrusted input; consider Trusted Types.
+- CSRF: `SameSite: Lax` cookies as the primary defence; CSRF tokens for state-changing forms.
+- Input validation: client-side is UX; server-side is security. Use Zod schemas derived from a single source of truth.
+- Auth: `HttpOnly`, `Secure`, `SameSite` cookies; Argon2id or bcrypt (work factor 12); prefer managed auth over custom.
+- CORS: whitelist specific origins; never blindly reflect the incoming `Origin` header.
+- File uploads: validate MIME type from actual bytes; sanitize filenames; serve uploads from a separate origin.
+- Dependencies: `npm audit` in CI; Dependabot or Renovate for automated updates; quarterly manual audit.
+- Secrets: never committed to source; rotated on schedule; rotate immediately if accidentally committed.
+
 ## 11 — Browser compatibility
 
 - Global market share (StatCounter, February 2026): Chrome 68.98%, Safari 16.39%, Edge 5.46%, Firefox 2.29%, Samsung Internet 2.01%, Opera 1.78%. Regional skew: Safari higher in North America and Oceania; Samsung Internet meaningful in Africa and parts of Asia.

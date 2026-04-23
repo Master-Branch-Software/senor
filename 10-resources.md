@@ -221,6 +221,40 @@ Sites with consistently high craft. Each pays for itself in time spent pulling a
 - JavaScript Weekly — `https://javascriptweekly.com/`
 - Smashing Newsletter — `https://www.smashingmagazine.com/the-smashing-newsletter/`
 
+## Testing
+
+- Vitest — `https://vitest.dev/`
+- Testing Library — `https://testing-library.com/`
+- Playwright — `https://playwright.dev/`
+- MSW (Mock Service Worker) — `https://mswjs.io/`
+- axe DevTools / jest-axe — `https://www.deque.com/axe/`
+
+## Internationalization
+
+- MDN Intl reference — `https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl`
+- next-intl — `https://next-intl-docs.vercel.app/`
+- react-i18next — `https://react.i18next.com/`
+- FormatJS (react-intl) — `https://formatjs.io/`
+- ICU MessageFormat — `https://unicode-org.github.io/icu/userguide/format_parse/messages/`
+- web.dev internationalization guide — `https://web.dev/learn/design/internationalization`
+
+## Security
+
+- OWASP Top 10 — `https://owasp.org/www-project-top-ten/`
+- OWASP HTTP Headers Cheat Sheet — `https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html`
+- Google Security Headers Quick Reference — `https://web.dev/security-headers/`
+- Security Headers grader — `https://securityheaders.com/`
+- CSP Evaluator — `https://csp-evaluator.withgoogle.com/`
+- Helmet (Express) — `https://helmetjs.github.io/`
+- DOMPurify — `https://github.com/cure53/DOMPurify`
+
+## Technical SEO
+
+- Google Structured Data docs — `https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data`
+- Rich Results Test — `https://search.google.com/test/rich-results`
+- Schema.org vocabulary — `https://schema.org/`
+- Google Search Console — `https://search.google.com/search-console`
+
 ## Last note
 
 Tooling churns; principles do not. When a link in this file is stale, the principle it pointed to almost certainly is not.

@@ -32,6 +32,9 @@ canonical conventions for the rest of this session:
 - web-design-guide/09-anti-patterns-and-process.md
 - web-design-guide/10-resources.md
 - web-design-guide/11-browser-compatibility.md
+- web-design-guide/12-testing.md
+- web-design-guide/13-internationalization.md
+- web-design-guide/14-security.md
 
 Apply every non-negotiable from 00-README.md without exception.
 When a rule conflicts with a habit, follow the rule. When a rule
@@ -60,16 +63,19 @@ Load `00-README.md` (short) plus the one or two chapters relevant to the current
 
 Task-to-chapter mapping:
 
-- Visual design, typography, color, layout visuals — `03-visual-design.md`.
-- CSS authoring, responsive behavior, animation — `04-css-and-layout.md`.
+- Visual design, typography, color, layout visuals, dark mode — `03-visual-design.md`.
+- CSS authoring, responsive behavior, animation, GSAP — `04-css-and-layout.md`.
 - Accessibility audits, keyboard flows, screen reader support — `05-accessibility.md`.
 - Core Web Vitals, image/font optimization, third-party scripts — `06-performance.md`.
 - Modern JavaScript features, HTML elements, web components, runtimes — `07-javascript-and-html.md`.
-- Framework choice, Tailwind v4, shadcn/ui, tokens, state — `08-stack-and-architecture.md`.
-- Copywriting, hero sections, brand voice — `02-brand-and-copywriting.md`.
-- Design reviews, anti-pattern audits, pre-merge checks — `09-anti-patterns-and-process.md`.
+- Framework choice, Tailwind v4, shadcn/ui, tokens, state, forms — `08-stack-and-architecture.md`.
+- Copywriting, hero sections, brand voice, SEO, structured data — `02-brand-and-copywriting.md`.
+- Design reviews, anti-pattern audits, pre-merge checks, AI pitfalls — `09-anti-patterns-and-process.md`.
 - Research or tool lookup — `10-resources.md`.
 - Browser support matrix, `@supports`/feature detection, polyfill choices, cross-browser testing — `11-browser-compatibility.md`.
+- Testing strategy, Vitest, Playwright, MSW, visual regression, CI — `12-testing.md`.
+- Internationalization, Intl API, RTL, hreflang, locale patterns — `13-internationalization.md`.
+- Security headers, CSP, XSS, CSRF, auth, CORS, OWASP — `14-security.md`.
 
 ## Integrations
 

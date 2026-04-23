@@ -232,6 +232,133 @@ Serifs, hang-lines, generous leading, magazine-like compositions. Ideal for cont
 
 Useful accents; poor all-page strategies. Contrast is hard to preserve, and they date quickly.
 
+## Dark mode
+
+Dark mode is no longer a power-user preference — between 55% and 82% of users have it enabled on at least one device. A website that forces bright white on a dark-mode user creates an uncomfortable, jarring experience, especially in low light. Treat dark mode as a parallel design system, not a CSS inversion filter.
+
+### The core principle: dark does not mean black
+
+Pure `#000000` against pure `#FFFFFF` creates extreme contrast (21:1) that causes visual fatigue and a halation effect where text appears to blur. Most professional dark interfaces use dark gray as the base:
+
+- Spotify: `#121212`
+- VS Code: `#1E1E1E`
+- Twitter/X: `#15202B`
+- Material Design baseline: `#121212`
+
+A subtle tonal quality — slightly warm, slightly cool, or slightly blue-tinted — makes dark interfaces feel premium rather than simply inverted.
+
+### Elevation through lightness, not shadows
+
+In light mode, depth is communicated through shadows. In dark mode, shadows are nearly invisible against dark backgrounds. Instead, use progressively lighter surface colors to indicate elevation:
+
+```css path=null start=null
+[data-theme="dark"] {
+  --color-bg:         #121212; /* base page */
+  --color-surface-1:  #1e1e1e; /* cards, dialogs */
+  --color-surface-2:  #232323; /* raised cards */
+  --color-surface-3:  #2c2c2c; /* modals, popovers */
+}
+```
+
+Each level is slightly lighter. The visual rule: higher elevation = lighter surface.
+
+### Color adaptation
+
+Colors that work on white backgrounds often feel aggressive on dark backgrounds. Reduce saturation by 10–20% and increase lightness slightly:
+
+| Role | Light mode | Dark mode |
+| --- | --- | --- |
+| Primary blue | `#1976D2` | `#64B5F6` |
+| Success green | `#22C55E` | `#4ADE80` |
+| Warning amber | `#F59E0B` | `#FCD34D` |
+| Error red | `#EF4444` | `#F87171` |
+| Primary text | `#1D1729` | `rgba(255,255,255,0.87)` |
+| Secondary text | `#6B7280` | `rgba(255,255,255,0.60)` |
+| Disabled text | `#9CA3AF` | `rgba(255,255,255,0.38)` |
+
+Do not use pure white (`#FFFFFF`) for body text — use `rgba(255,255,255,0.87)` or `#ECECEC`. Pure white is too harsh and causes halation.
+
+### Images and media
+
+- Photographs generally work well in dark mode without modification.
+- Illustrations with white backgrounds create jarring bright rectangles. Either provide dark-mode-specific versions or apply a subtle backdrop.
+- SVG icons should use `fill: currentColor` so they inherit the text color and adapt automatically.
+- Logos that are pure black on white need a light version for dark mode:
+
+```html path=null start=null
+<picture>
+  <source srcset="/logo-dark.svg" media="(prefers-color-scheme: dark)" />
+  <img src="/logo-light.svg" alt="Company name" />
+</picture>
+```
+
+For photography, a subtle brightness reduction integrates the image with the dark UI: `filter: brightness(0.85)` in dark mode. Use this carefully — it should not be perceptible as a desaturation, only as a slightly less jarring brightness.
+
+### CSS implementation
+
+```css path=null start=null
+/* Define tokens for both modes */
+:root {
+  --bg: #ffffff;
+  --surface: #f5f7fa;
+  --text: #1d1729;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --primary: #1976d2;
+}
+
+/* System preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:            #121212;
+    --surface:       #1e1e1e;
+    --text:          rgba(255, 255, 255, 0.87);
+    --text-secondary: rgba(255, 255, 255, 0.60);
+    --border:        rgba(255, 255, 255, 0.12);
+    --primary:       #64b5f6;
+  }
+}
+
+/* Explicit override */
+[data-theme="dark"] {
+  --bg:            #121212;
+  --surface:       #1e1e1e;
+  --text:          rgba(255, 255, 255, 0.87);
+  --text-secondary: rgba(255, 255, 255, 0.60);
+  --border:        rgba(255, 255, 255, 0.12);
+  --primary:       #64b5f6;
+}
+```
+
+```js path=null start=null
+// Prevent flash of wrong theme on page load
+// Place this inline script in <head>, before any content
+(function () {
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+```
+
+Always detect and apply the theme before the first paint to prevent the "flash of incorrect theme" — a white flash on a dark-mode page is one of the most jarring UX failures in dark mode implementation.
+
+### Typography in dark mode
+
+- Text appears heavier on dark backgrounds due to the irradiation illusion. Consider a slightly lighter font weight for body text in dark mode.
+- Slightly increase letter-spacing for improved readability on dark backgrounds.
+- Links must remain distinguishable from body text — pair color with underline, as color contrast alone is harder to perceive against dark surfaces.
+
+### Dark mode anti-patterns
+
+- Pure black background (`#000000`) — use dark gray instead.
+- Automatic color inversion (`filter: invert(1)`) — photos become negatives, colors shift unpredictably.
+- Forgetting shadows — light-mode shadows disappear on dark backgrounds. Use lighter surface colors for elevation instead.
+- Inconsistent text colors — mixing pure white with off-whites looks sloppy.
+- Only testing in mockups — test on a real phone in a dark room.
+- Treating dark mode as an afterthought — design both modes in parallel from the beginning.
+
 ## Feel targets
 
 Set one word for each project and audit against it. Examples:

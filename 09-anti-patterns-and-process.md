@@ -97,8 +97,21 @@ The difference between professional and junior output rarely comes from knowing 
 
 ## AI-generated code pitfalls
 
-Known patterns that AI assistants fall into by default. Watch for them on every review:
+AI code generation tools optimize for visual output while generating near-zero semantic information for the accessibility layer. Testing across multiple tools consistently reveals the same patterns: `<div>` soup instead of semantic HTML, missing ARIA state attributes, absent keyboard handling, and landmarks that never appear. The render tree looks correct; the accessibility tree is broken.
 
+A representative AI-generated sidebar component has been found to contain ten distinct accessibility failures in twenty-nine lines: no landmark role, no heading, no list structure, wrong role on the toggle, not focusable, no `aria-expanded`, no `aria-controls`, no keyboard interaction, unlabeled icon, and fake links that are `<span>` elements with click handlers. These failures compound — a screen reader user hears flat, unstructured text with no affordance for interaction.
+
+Known patterns to check on every review:
+
+- `<div onClick>` and `<span onClick>` instead of `<button>` — no role, no keyboard, no focus.
+- Missing `aria-expanded` on disclosure widgets. The chevron rotates visually; the state is never announced.
+- Missing `aria-controls` linking triggers to their panels.
+- Interactive elements not in the tab order.
+- SVG icons without `aria-hidden` or an accessible name.
+- `<a href="#">` or navigation `<span onClick>` — hostile to assistive technology.
+- Landmarks generated as unsemantic divs: no `<nav>`, `<main>`, `<header>`, `<footer>`.
+- Headings generated as styled `<p>` or `<span>` elements — missing from heading navigation.
+- Interactive content inside `<ul>` items that are not `<li>` elements.
 - Producing plausible-looking imports that do not exist in the current version of the library.
 - Skipping `width`/`height` on images.
 - Hard-coding pixel values for everything.
@@ -111,11 +124,20 @@ Known patterns that AI assistants fall into by default. Watch for them on every 
 - Reaching for Lodash, moment, or jQuery when modern JS, CSS, or DOM APIs cover it.
 - Implementing modals, menus, dialogs, and comboboxes from scratch instead of using accessible primitives (shadcn/ui, Radix, React Aria).
 - Using `any` in TypeScript without narrowing.
-- Missing key accessibility primitives: focus rings, labels, keyboard handlers.
 - Using outdated package versions or deprecated APIs.
 - Losing track of responsive behavior at intermediate viewport widths.
 
-Every AI-generated block should be read once as a human would read a junior's first draft.
+### The five-layer enforcement system
+
+To make semantic correctness automatic rather than aspirational in AI-assisted workflows:
+
+1. **Prompt constraints** — bake accessibility rules into your workspace context file (`.cursorrules`, `.github/copilot-instructions.md`). Explicitly require `<button>` for actions, `<nav>` for landmarks, `aria-expanded` on disclosure widgets, and that all complex patterns use Radix, Headless UI, or React Aria.
+2. **ESLint with `eslint-plugin-jsx-a11y`** — catches missing labels, roles, and keyboard handlers at save time.
+3. **Automated testing** — axe-core in CI on every pull request. A zero-violation policy.
+4. **Playwright accessibility assertions** — `@axe-core/playwright` in E2E tests for critical pages.
+5. **Manual keyboard and screen reader review** — tab through every interactive component; run VoiceOver or NVDA on every significant new feature.
+
+Every AI-generated block should be read once as a human would read a junior's first draft. The visual rendering is the most unreliable signal of correctness — it says nothing about the accessibility tree.
 
 ## Pre-merge checklist
 

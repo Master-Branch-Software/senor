@@ -300,6 +300,85 @@ html { interpolate-size: allow-keywords; }
 
 Use GSAP for timeline-based, orchestrated animations; use Motion (formerly Framer Motion) inside React projects that need spring physics and gesture handling; use plain CSS for single-property transitions.
 
+### GSAP and ScrollTrigger
+
+GSAP (GreenSock Animation Platform) is the industry standard for complex scripted animations. It is faster than CSS animations in many cases, handles transforms independently (rotate and scale with different timings, which CSS cannot), and irons out cross-browser inconsistencies. Over 11 million sites use it, including the majority of Awwwards winners.
+
+Core concepts:
+
+```js path=null start=null
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Tween: animate to a target state
+gsap.to('.hero-text', { y: 0, opacity: 1, duration: 1.2, ease: 'power4.out' });
+
+// Timeline: sequence multiple animations
+const tl = gsap.timeline();
+tl.from('.headline', { y: 100, opacity: 0, duration: 1.2, ease: 'power4.out' })
+  .from('.cta', { y: 20, opacity: 0, duration: 1, ease: 'back.out(1.7)' }, '-=0.5');
+```
+
+ScrollTrigger ties animations to scroll position:
+
+```js path=null start=null
+// Animate on scroll entry
+gsap.utils.toArray('.section').forEach(section => {
+  gsap.from(section, {
+    y: 80,
+    opacity: 0,
+    duration: 1,
+    scrollTrigger: {
+      trigger: section,
+      start: 'top 85%',
+      toggleActions: 'play none none reverse',
+    },
+  });
+});
+
+// Pin and scrub (animation progress tied to scroll position)
+gsap.to('.image-reveal', {
+  scale: 1,
+  opacity: 1,
+  ease: 'none',
+  scrollTrigger: {
+    trigger: '.image-section',
+    start: 'top top',
+    end: '+=600',
+    pin: true,
+    scrub: 0.5,
+  },
+});
+```
+
+Responsive and reduced-motion handling:
+
+```js path=null start=null
+// Respect reduced motion
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  gsap.registerPlugin(ScrollTrigger);
+  // ... animations
+}
+
+// Adapt animations per breakpoint
+gsap.matchMedia({
+  '(min-width: 768px)': function () {
+    gsap.from('.sidebar', { x: -100, opacity: 0, duration: 1 });
+  },
+  '(max-width: 767px)': function () {
+    gsap.from('.sidebar', { y: 50, opacity: 0, duration: 0.6 });
+  },
+});
+```
+
+When to use GSAP versus CSS:
+- CSS transitions and `@keyframes`: single-property state changes, hover effects, simple entrances.
+- CSS scroll-driven animations (`animation-timeline: view()`): simple scroll-linked effects where Chromium-only support is acceptable.
+- GSAP + ScrollTrigger: complex timelines, pinning, scrubbing, staggered sequences, image sequences, cross-browser consistency required.
+- Motion (Framer Motion): React projects with gesture-driven interactions and spring physics.
+
 ## Field sizing
 
 `field-sizing: content` lets inputs and textareas grow with their content natively:

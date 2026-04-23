@@ -205,16 +205,87 @@ If any of those four elements is missing, the proposition is generic.
 
 ## SEO in the AI-search era
 
-Search increasingly includes LLM-driven answers and AI overviews alongside the ten blue links. The practical consequences:
+Search increasingly includes LLM-driven answers and AI overviews alongside the ten blue links. In 2026, over 70% of Google searches display rich results, and AI-generated answers pull directly from structured data. Pages without schema are invisible to a growing share of how people find information.
+
+### Content and E-E-A-T
 
 - Write for genuine expertise, experience, authoritativeness, and trust (E-E-A-T). Cite sources, name authors, show credentials.
 - Structure content so that a single paragraph or table answers a single question. That paragraph is what LLMs will quote.
-- Use descriptive, unique, question-aligned headings.
-- Keep Core Web Vitals in the green; page experience still affects rankings.
-- Provide structured data (JSON-LD) for articles, products, FAQs, and events.
+- Use descriptive, unique, question-aligned headings. Write them as the question the user is asking, not a category label.
+- Keep Core Web Vitals in the green; page experience affects rankings.
 - Maintain a stable, readable URL structure. Avoid query-string-heavy paths for evergreen content.
 - Write meta descriptions as short, truthful summaries — not keyword soup.
 - Ensure crawlability; do not gate primary content behind client-side JavaScript without server rendering.
+
+### Structured data (JSON-LD)
+
+JSON-LD is Google's recommended format for structured data. It lives in a `<script type="application/ld+json">` block, separate from your HTML. Implement it at the page-type level so every new page automatically gets correct schema.
+
+Key schema types by site type:
+
+| Type | Use for | Effect |
+| --- | --- | --- |
+| `Organization` | Homepage | Knowledge Panel, brand identity |
+| `BreadcrumbList` | All inner pages | Readable path in SERP, not raw URL |
+| `Article` / `BlogPosting` | Blog posts | Top Stories eligibility, Discover cards |
+| `FAQPage` | Pages with Q&A | Expands SERP listing with dropdowns |
+| `HowTo` | Tutorials | Numbered steps in rich results |
+| `Product` | Product pages | Price, availability, star ratings |
+| `LocalBusiness` | Physical locations | Google Maps, local pack |
+
+Example Article schema:
+
+```html path=null start=null
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Page title here",
+  "author": { "@type": "Person", "name": "Author Name", "url": "https://example.com/team/author" },
+  "publisher": { "@type": "Organization", "name": "Site Name", "url": "https://example.com" },
+  "datePublished": "2026-04-23",
+  "dateModified": "2026-04-23",
+  "image": "https://example.com/og-image.jpg",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://example.com/article-slug" }
+}
+</script>
+```
+
+FAQ schema expands SERP real estate significantly. Every question in the schema must be visible on the page (not hidden in accordions that require interaction to open):
+
+```html path=null start=null
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the question?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A self-contained 2–4 sentence answer that makes sense without surrounding context."
+      }
+    }
+  ]
+}
+</script>
+```
+
+FAQPage schema is also the single highest-impact schema type for AI Overview citations. Write each answer as a complete, self-contained fact.
+
+### Sitemaps and crawlability
+
+- Submit an XML sitemap to Google Search Console and Bing Webmaster Tools.
+- Include only canonical, indexable URLs. Exclude redirected pages, `noindex` pages, and error URLs.
+- Use `lastmod` dates accurately — stale or auto-generated dates signal distrust to crawlers.
+- Robots.txt controls crawling, not indexing. Never block pages you want indexed, even accidentally.
+
+### Validation and monitoring
+
+- Validate structured data using Google's Rich Results Test before deploying.
+- Monitor Search Console Enhancements weekly for schema errors.
+- Track CTR before and after schema implementation — valid rich results consistently improve CTR by 15–30% at the same ranking position.
 
 ## Inclusive copy
 

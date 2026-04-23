@@ -28,6 +28,9 @@ The default output of AI systems tends toward junior-level code and generic desi
 - `09-anti-patterns-and-process.md` — Common AI and junior-level mistakes to avoid, review checklist, design-and-ship workflow.
 - `10-resources.md` — Trusted external references, tools, calculators, and libraries.
 - `11-browser-compatibility.md` — Choosing a support matrix, Baseline, `@supports` and feature detection, polyfills, per-feature status, cross-browser testing.
+- `12-testing.md` — The testing trophy, Vitest + Testing Library, MSW, Playwright E2E, visual regression, accessibility automation, CI integration.
+- `13-internationalization.md` — Intl API, ICU MessageFormat, RTL support, locale detection, hreflang, text expansion, translation workflow, pseudo-localization.
+- `14-security.md` — HTTP security headers, CSP with nonces, HSTS, OWASP Top 10, XSS prevention, CSRF, input validation, auth patterns, CORS, dependency auditing.
 
 ## Non-negotiables
 
