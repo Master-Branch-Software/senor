@@ -8,7 +8,7 @@ Pick one based on how much context the session has available.
 
 ### 1. Full load — best quality, largest context
 
-Load `00-README.md` plus every numbered chapter at the start of a session. Roughly 60–80 K tokens. Use when:
+Load `README.md` plus every numbered chapter at the start of a session. Roughly 60–80 K tokens. Use when:
 
 - Starting a new project or significant refactor.
 - Producing multi-page designs or a design system.
@@ -20,7 +20,7 @@ Prompt opener:
 Before you answer anything, read these files and treat them as
 canonical conventions for the rest of this session:
 
-- web-design-guide/00-README.md
+- web-design-guide/README.md
 - web-design-guide/01-philosophy-and-psychology.md
 - web-design-guide/02-brand-and-copywriting.md
 - web-design-guide/03-visual-design.md
@@ -36,7 +36,7 @@ canonical conventions for the rest of this session:
 - web-design-guide/13-internationalization.md
 - web-design-guide/14-security.md
 
-Apply every non-negotiable from 00-README.md without exception.
+Apply every non-negotiable from README.md without exception.
 When a rule conflicts with a habit, follow the rule. When a rule
 conflicts with my explicit instruction, follow my instruction.
 ```
@@ -59,7 +59,7 @@ the corresponding numbered chapter.
 
 ### 3. Targeted load — per-task
 
-Load `00-README.md` (short) plus the one or two chapters relevant to the current task. Use when working on a single concern for a block of time.
+Load `README.md` (short) plus the one or two chapters relevant to the current task. Use when working on a single concern for a block of time.
 
 Task-to-chapter mapping:
 
@@ -98,7 +98,7 @@ alwaysApply: true
 ---
 
 Follow the conventions in /Users/bert/Documents/dev/web-design-guide.
-The non-negotiables in 00-README.md apply to every suggestion.
+The non-negotiables in README.md apply to every suggestion.
 Load SUMMARY.md for context; ask to load numbered chapters on demand.
 ```
 
@@ -114,7 +114,7 @@ Create `.github/copilot-instructions.md` at the repo root with a short pointer:
 
 ```
 Use the conventions in ../web-design-guide for all HTML, CSS,
-JavaScript, and copy. Non-negotiables are listed in 00-README.md.
+JavaScript, and copy. Non-negotiables are listed in README.md.
 ```
 
 ### IDE-less / CLI agents
@@ -149,7 +149,7 @@ component breakdown third. Do not write CSS yet.
 ```
 Audit /index.html against the pre-merge checklist in
 09-anti-patterns-and-process.md. For each item that fails, quote
-the relevant non-negotiable from 00-README.md and propose a fix.
+the relevant non-negotiable from README.md and propose a fix.
 Do not apply edits until I approve.
 ```
 
@@ -203,7 +203,7 @@ If instructions conflict, resolve in this order:
 
 1. The user's explicit message in the current turn.
 2. Project-specific rules (for example `WARP.md`, `.cursor/rules`) that override the guide.
-3. The non-negotiables in `00-README.md`.
+3. The non-negotiables in `README.md`.
 4. The specific chapter relevant to the task.
 5. `SUMMARY.md` when a chapter is not available.
 6. The model's general training.
