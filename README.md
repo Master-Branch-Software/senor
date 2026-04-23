@@ -24,13 +24,14 @@ The default output of AI systems tends toward junior-level code and generic desi
 - `05-accessibility.md` — WCAG 2.2, semantic HTML, the five ARIA rules, keyboard navigation, focus management, screen reader testing, automated auditing.
 - `06-performance.md` — Core Web Vitals (LCP, INP, CLS), bfcache, image optimization, font loading, third-party script strategy, critical rendering path, RUM.
 - `07-javascript-and-html.md` — ECMAScript 2025 and 2026, Temporal, iterator helpers, the Signals proposal, web components, runtime selection (Node/Deno/Bun), modern HTML primitives.
-- `08-stack-and-architecture.md` — Framework selection criteria, Tailwind v4, shadcn/ui, design tokens, component architecture, co-location, state management.
+- `08-stack-and-architecture.md` — Framework selection, project-type stack recipes, rendering strategies (SSG, SSR, ISR, streaming, CSR, edge, islands, resumability, React Server Components), API styles (REST + OpenAPI, tRPC, GraphQL, Server Actions, gRPC/Connect, WebSockets, SSE, webhooks), backend language choice, database and CMS and auth and hosting selection, Tailwind v4, shadcn/ui, design tokens, component architecture, scaling ladder, maintainability and the boring-technology budget.
 - `09-anti-patterns-and-process.md` — Common AI and junior-level mistakes to avoid, review checklist, design-and-ship workflow.
 - `10-resources.md` — Trusted external references, tools, calculators, and libraries.
 - `11-browser-compatibility.md` — Choosing a support matrix, Baseline, `@supports` and feature detection, polyfills, per-feature status, cross-browser testing.
 - `12-testing.md` — The testing trophy, Vitest + Testing Library, MSW, Playwright E2E, visual regression, accessibility automation, CI integration.
 - `13-internationalization.md` — Intl API, ICU MessageFormat, RTL support, locale detection, hreflang, text expansion, translation workflow, pseudo-localization.
 - `14-security.md` — HTTP security headers, CSP with nonces, HSTS, OWASP Top 10, XSS prevention, CSRF, input validation, auth patterns, CORS, dependency auditing.
+- `15-discovery-and-communication.md` — What to ask the user before building, what to default, staged disclosure, red-flag phrases, scope trade-offs, checkpoints, non-frontend concerns, and what never to ask.
 
 ## Non-negotiables
 

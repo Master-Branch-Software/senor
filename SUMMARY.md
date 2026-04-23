@@ -110,14 +110,23 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 ## 08 — Stack and architecture
 
 - Framework choice: Astro for content; Next.js for React apps; SvelteKit for smallest bundles; Remix/React Router v7 for web-standards-first; no framework for static micro-sites.
+- Project-type recipes: marketing/blog (Astro + CMS + Vercel), small SaaS (Next.js + Postgres + Clerk + Stripe + Vercel), dashboard (Next.js + TanStack + Postgres), real-time (Liveblocks/PartyKit + Yjs + Fly.io), e-commerce (Shopify headless or Medusa), enterprise (SSO + RLS + audit), AI-augmented (FastAPI/Vercel AI SDK + pgvector).
+- Rendering per route: SSG for marketing/docs, ISR for semi-dynamic, SSR for personalized and authenticated, streaming SSR for mixed-latency pages, CSR only behind a login with no SEO, edge for global personalization, islands for mostly-static sites with interactive widgets, resumability (Qwik) for instant interactivity, React Server Components for server-heavy trees with client islands. Mix strategies; never SPA a public marketing site.
+- Backend and API style: Next.js route handlers or Server Actions for same-team React; tRPC for TypeScript monorepos; REST + OpenAPI for multi-consumer and partner APIs (define the contract first, codegen clients, version explicitly); GraphQL only when the graph is genuine and persisted queries, cost limits, and field-level authorization are in place; gRPC or Connect for service-to-service; WebSockets for bidirectional real-time, SSE for server push; webhooks with signed payloads, idempotency keys, and fast 2xx.
+- Database default: PostgreSQL. SQLite/Turso for embedded; ClickHouse/TimescaleDB for analytical; Redis for cache/sessions/rate limiting; pgvector before specialized vector stores.
+- CMS choice: Markdown for docs; Sanity or Payload for small editorial teams; Storyblok for visual editing; Contentful for enterprise governance; Directus over an existing SQL database.
+- Auth provider: Clerk (fastest), Auth.js/Better Auth (self-hosted), WorkOS/Auth0/Okta/Entra ID (enterprise SSO). Never hand-roll.
+- Hosting: Vercel/Netlify/Cloudflare for stateless web; Fly.io/Railway/ECS for containers and long-lived processes; AWS/GCP/Azure via IaC for heavy custom infra.
 - Styling: Tailwind v4 (CSS-first `@theme`, OKLCH palette) is the default; CSS Modules or Vanilla Extract as alternatives; plain CSS with `@layer` is viable.
 - Design tokens in tiers: primitive → semantic → component. Name by intent, not value.
 - shadcn/ui + Radix + CVA for React component defaults. React Aria for rigorous a11y.
 - Composition over configuration; co-locate component assets (template, styles, tests, types).
 - Naming: PascalCase components, camelCase utilities, kebab-case files and classes, `visible` not `isVisible`, `set*` setters.
 - State scope: local state first, then lift, then small store (Zustand/Jotai/Nanostores); server state via TanStack Query/SWR; forms via React Hook Form.
-- Auth: framework- or platform-provided; session in `HttpOnly` cookies; Argon2id for passwords.
 - Deployment: CI runs type/lint/a11y/LHCI/bundle checks; preview deploys per PR; canary rollouts; RUM from day one.
+- Scaling ladder: single server → read replica → Redis → CDN → background queues → worker containers → search index → cache-ahead → partition/shard → split the monolith. Only when the current step actually hurts.
+- Maintainability: boring technology, one language in the hot path, no bleeding edge in critical code, every dependency is a liability, platform primitives over libraries.
+- Boring-technology budget: spend novelty on one or two components that give real advantage; keep the rest conventional.
 - Docs: `README`, `ARCHITECTURE`, `CONTRIBUTING`, `DESIGN_TOKENS` kept up to date.
 
 ## 09 — Anti-patterns and process
@@ -203,6 +212,19 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - File uploads: validate MIME type from actual bytes; sanitize filenames; serve uploads from a separate origin.
 - Dependencies: `npm audit` in CI; Dependabot or Renovate for automated updates; quarterly manual audit.
 - Secrets: never committed to source; rotated on schedule; rotate immediately if accidentally committed.
+
+## 15 — Discovery and communication
+- Ask when the answer changes the output; default silently when a strong answer exists in this guide.
+- Minimum brief before building: audience, primary action, differentiator, target feel, success metric, deadline and scope, existing brand assets, content status, technical constraints, compliance, i18n, expected scale.
+- Stage-gated questions: brief → voice → sitemap → copy → tokens → components → pages → a11y/perf passes → launch. Do not ask ahead of the stage.
+- Always default, never ask: body type and spacing scales, focus styles, WCAG 2.2 AA thresholds, reset CSS, `prefers-reduced-motion`, image defaults, lint/format, security-header baseline.
+- Always ask before committing: framework, hosting, CMS, database, auth provider, payments, analytics, email provider, brand archetype, any irreversible choice (domain, schema, URL slugs).
+- Surface trade-offs, state assumptions, preserve user copy verbatim, flag non-negotiable violations before following a user override.
+- Red-flag phrases to clarify: "make it pop", "like [brand]", "SEO-optimized", "responsive", "simple" + long feature list, "enterprise" for small audience, "AI-powered" with no use case, "just the basics", "like before but better".
+- Offer explicit scope trade-offs when features exceed deadline; never half-ship everything silently.
+- Confirm non-frontend inputs when relevant: data model, user roles, content workflow, payments, email, uploads, search, notifications, background work, observability, legal, handoff.
+- Do not ask questions answered by the brief or by this guide; do not ask twice.
+- Close the loop: produce a post-launch note listing what shipped, what was deferred, assumptions made, and the 30/90-day review against the success metric.
 
 ## The shortest review
 

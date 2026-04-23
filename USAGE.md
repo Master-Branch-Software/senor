@@ -35,6 +35,7 @@ canonical conventions for the rest of this session:
 - web-design-guide/12-testing.md
 - web-design-guide/13-internationalization.md
 - web-design-guide/14-security.md
+- web-design-guide/15-discovery-and-communication.md
 
 Apply every non-negotiable from README.md without exception.
 When a rule conflicts with a habit, follow the rule. When a rule
@@ -76,6 +77,7 @@ Task-to-chapter mapping:
 - Testing strategy, Vitest, Playwright, MSW, visual regression, CI — `12-testing.md`.
 - Internationalization, Intl API, RTL, hreflang, locale patterns — `13-internationalization.md`.
 - Security headers, CSP, XSS, CSRF, auth, CORS, OWASP — `14-security.md`.
+- Discovery questions for a new brief, what to default, when to ask, checkpoints, and communication patterns with the user — `15-discovery-and-communication.md`.
 
 ## Integrations
 

@@ -190,6 +190,34 @@ https://reactrouter.com/
 https://nuxt.com/
 https://start.solidjs.com/
 https://qwik.dev/
+https://payloadcms.com/
+
+## Backend frameworks and APIs
+
+https://hono.dev/
+https://fastify.dev/
+https://nestjs.com/
+https://expressjs.com/
+https://fastapi.tiangolo.com/
+https://www.djangoproject.com/
+https://flask.palletsprojects.com/
+https://go-chi.io/
+https://gofiber.io/
+https://www.phoenixframework.org/
+https://docs.rs/axum/
+https://trpc.io/
+https://www.apollographql.com/
+https://pothos-graphql.dev/
+https://grpc.io/
+
+## Documentation site generators
+
+https://starlight.astro.build/
+https://docusaurus.io/
+https://vitepress.dev/
+https://nextra.site/
+https://docs.mintlify.com/
+https://pagefind.app/
 
 ## Runtimes
 
@@ -202,10 +230,221 @@ https://deno.com/
 https://vercel.com/
 https://www.netlify.com/
 https://workers.cloudflare.com/
+https://pages.cloudflare.com/
 https://fly.io/
 https://deno.com/deploy
 https://railway.com/
+https://render.com/
 https://pages.github.com/
+https://www.digitalocean.com/
+https://www.hetzner.com/cloud
+https://coolify.io/
+https://dokku.com/
+https://sst.dev/
+https://www.terraform.io/
+https://www.pulumi.com/
+https://aws.amazon.com/cdk/
+
+## Monorepo and build tooling
+
+https://turbo.build/
+https://nx.dev/
+https://pnpm.io/workspaces
+https://moonrepo.dev/
+https://vitejs.dev/
+https://rollupjs.org/
+https://esbuild.github.io/
+https://rolldown.rs/
+https://swc.rs/
+https://biomejs.dev/
+https://github.com/unjs/unbuild
+
+## Databases and ORMs
+
+https://www.postgresql.org/
+https://www.sqlite.org/
+https://turso.tech/
+https://neon.tech/
+https://supabase.com/database
+https://planetscale.com/
+https://www.crunchybridge.com/
+https://aws.amazon.com/rds/postgresql/
+https://cloud.google.com/sql
+https://www.mongodb.com/
+https://www.mongodb.com/atlas
+https://redis.io/
+https://valkey.io/
+https://upstash.com/
+https://clickhouse.com/
+https://www.timescale.com/
+https://duckdb.org/
+https://dgraph.io/
+https://www.prisma.io/
+https://orm.drizzle.team/
+https://kysely.dev/
+https://mikro-orm.io/
+https://typeorm.io/
+https://www.sqlalchemy.org/
+https://docs.sqlalchemy.org/en/20/orm/
+
+## Authentication and identity
+
+https://clerk.com/
+https://authjs.dev/
+https://www.better-auth.com/
+https://supabase.com/auth
+https://firebase.google.com/docs/auth
+https://workos.com/
+https://auth0.com/
+https://www.okta.com/
+https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id
+https://www.keycloak.org/
+https://www.ory.sh/
+https://webauthn.guide/
+https://passkeys.dev/
+
+## Headless CMS
+
+https://www.sanity.io/
+https://payloadcms.com/
+https://www.contentful.com/
+https://www.storyblok.com/
+https://strapi.io/
+https://directus.io/
+https://hygraph.com/
+https://prismic.io/
+https://decapcms.org/
+https://tina.io/
+https://keystonejs.com/
+https://www.cosmicjs.com/
+https://jamstack.org/headless-cms/
+
+## E-commerce
+
+https://www.shopify.com/
+https://shopify.dev/docs/storefronts/headless
+https://vercel.com/templates/next.js/nextjs-commerce
+https://www.bigcommerce.com/
+https://medusajs.com/
+https://commercelayer.io/
+https://saleor.io/
+https://swell.is/
+https://www.shopware.com/
+https://woocommerce.com/
+
+## Payments and billing
+
+https://stripe.com/
+https://docs.stripe.com/billing
+https://docs.stripe.com/checkout
+https://paddle.com/
+https://www.lemonsqueezy.com/
+https://www.adyen.com/
+https://www.mollie.com/
+https://www.braintreepayments.com/
+https://polar.sh/
+
+## Email and transactional
+
+https://resend.com/
+https://react.email/
+https://postmarkapp.com/
+https://sendgrid.com/
+https://loops.so/
+https://mailgun.com/
+https://aws.amazon.com/ses/
+https://mjml.io/
+
+## Web and product analytics
+
+https://plausible.io/
+https://usefathom.com/
+https://posthog.com/
+https://umami.is/
+https://mixpanel.com/
+https://amplitude.com/
+https://developers.google.com/analytics
+https://www.simpleanalytics.com/
+
+## Search
+
+https://www.algolia.com/
+https://www.meilisearch.com/
+https://typesense.org/
+https://www.elastic.co/elasticsearch
+https://opensearch.org/
+https://www.postgresql.org/docs/current/textsearch.html
+https://pagefind.app/
+
+## Vector stores and embeddings
+
+https://github.com/pgvector/pgvector
+https://qdrant.tech/
+https://weaviate.io/
+https://www.pinecone.io/
+https://www.trychroma.com/
+https://lancedb.com/
+https://supabase.com/docs/guides/ai
+
+## Background jobs and queues
+
+https://docs.bullmq.io/
+https://www.inngest.com/
+https://trigger.dev/
+https://temporal.io/
+https://www.defer.run/
+https://quirrel.dev/
+https://kafka.apache.org/
+https://redis.io/docs/latest/develop/data-types/streams/
+
+## AI, agents, and evaluation
+
+https://sdk.vercel.ai/
+https://mastra.ai/
+https://langchain-ai.github.io/langgraph/
+https://www.llamaindex.ai/
+https://ai.pydantic.dev/
+https://python.langchain.com/
+https://smith.langchain.com/
+https://langfuse.com/
+https://braintrust.dev/
+https://openai.com/api/
+https://docs.anthropic.com/
+https://ai.google.dev/
+https://modelcontextprotocol.io/
+
+## Real-time and collaboration
+
+https://liveblocks.io/
+https://www.partykit.io/
+https://yjs.dev/
+https://automerge.org/
+https://ably.com/
+https://pusher.com/
+https://socket.io/
+https://supabase.com/realtime
+https://centrifugal.dev/
+
+## Error tracking and observability
+
+https://sentry.io/
+https://www.datadoghq.com/
+https://newrelic.com/
+https://grafana.com/
+https://opentelemetry.io/
+https://www.honeycomb.io/
+https://betterstack.com/
+https://axiom.co/
+https://openobserve.ai/
+https://docs.logrocket.com/
+
+## PWA and offline
+
+https://developer.chrome.com/docs/workbox
+https://web.dev/learn/pwa
+https://vite-pwa-org.netlify.app/
+https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps
+https://web.dev/explore/offline
 
 ## Tailwind and styling
 
@@ -299,14 +538,22 @@ https://frontenddigest.com/architecture/internationalization-i18n
 ## Security
 
 https://owasp.org/www-project-top-ten/
+https://owasp.org/Top10/2025/
+https://owasp.org/Top10/2021/
 https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html
 https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html
+https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html
+https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
 https://web.dev/security-headers/
+https://web.dev/articles/trusted-types
 https://securityheaders.com/
 https://csp-evaluator.withgoogle.com/
 https://hstspreload.org/
 https://www.npmjs.com/package/helmet
 https://github.com/cure53/DOMPurify
+https://csrc.nist.gov/Projects/ssdf
 https://nextool.app/blog/http-security-headers-complete-guide.html
 https://hyperwebenable.com/web-development/web-security-headers-csp-cors-hsts-guide/
 https://webscore.now/blog/security-headers-implementation-guide
