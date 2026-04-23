@@ -65,21 +65,34 @@ WITHOUT skill violated two named rules (never guilt, named human sender) and add
 
 ---
 
+## Eval 6: structural-ai-dna-rewrite
+
+**WITH skill:**
+The response loaded the AI copy DNA section from chapter 02 and applied all 14 patterns plus the 10-step quick checklist systematically. It correctly identified all 8 patterns called out in the expected output: pattern 12 (present participial overload — three stacked participles in 52 words), pattern 13 (nominalization chain — "implementing the optimization of error grouping"), pattern 1 (5 abstract corporate verbs), pattern 2 (4 vague collectives), pattern 9 (no sentence-length variance — both sentences 25–27 words), pattern 10 (no numbers or named mechanisms), checklist step 4 (zero contractions), and pattern 14 (no interpersonal language). Each pattern was cited by number. The three rewrites applied all fixes: concrete verbs, varied sentence lengths (9/6/31 words in Draft A; 9/6/7/4/2 in Draft B), contractions, a direct question opening, verbed nominalizations, and specific numbers. A placement recommendation mapped each draft to a use case. One explicit caveat: the number "40" was noted as illustrative and flagged to replace with a real stat.
+
+**WITHOUT skill:**
+The response identified the most visible problems (abstract verbs, buzzword collectives, passive structure, no specifics) and produced three usable rewrites. However, the audit was informal — no pattern taxonomy, no pattern numbers, no named checklist. It called the nominalization chain "five words where two would do" without naming the nominalization pattern. It missed the zero-contractions signal entirely (its own rewrites also avoided contractions in options 1 and 3). It missed the sentence-length variance problem (pattern 9) — the diagnosis mentioned "short and varied" as a goal but did not identify consistent sentence length as a failure in the original. The rewrites were generally good and used Flint's vocabulary (root cause, on-call), but the audit was surface-level compared to the systematic teardown the skill enables.
+
+**Delta:**
+The without-skill response was closer to the with-skill response here than in evals 2 or 5 — both caught the main issues and produced reasonable rewrites. The skill's advantage is precision: naming patterns by number, catching zero contractions (a strong AI-DNA signal the without-skill run missed), and diagnosing sentence-length variance. For a user who wants to understand _why_ copy is AI-sounding and _which_ structural rule to apply to each problem, the with-skill response is substantially more useful. For a user who just wants better copy, both outputs are usable.
+
+---
+
 ## Overall assessment
 
-**Verdict: skill is ready with one minor note.**
+**Verdict: skill is ready.**
 
-Across all five evals, the WITH skill responses:
+Across all six evals, the WITH skill responses:
 - Applied correct chapters without loading all 16.
 - Named WCAG SC numbers, measured contrast ratios, and caught an SC 1.4.1 failure not in the original prompt.
 - Connected React performance issues to INP/CLS metrics and gave measurement guidance.
 - Applied tone ladder positions from chapter 02 before writing, then hit every rule.
-- Audited copy against named patterns rather than intuition.
+- Audited copy against named pattern taxonomies (both anti-AI patterns and AI DNA patterns) rather than intuition.
 - Produced no technical errors.
 
-The WITHOUT skill responses ranged from "reasonable but shallow" (evals 1, 4) to "contains a technical error" (evals 2, 3) to "violates the primary rule of the task" (eval 5).
+The WITHOUT skill responses ranged from "reasonable but shallow" (evals 1, 4, 6) to "contains a technical error" (evals 2, 3) to "violates the primary rule of the task" (eval 5).
+
+Eval 6 is the only case where the without-skill output was genuinely usable — both runs produced good rewrites. The skill's value there is precision of diagnosis (numbered patterns, zero-contractions catch, sentence-length variance) rather than correctness of output. This is worth noting: the skill's benefit scales with the complexity of the audit. For structural copy rewrites, the gap is narrower than for accessibility audits or transactional email tone rules.
 
 **One note for SKILL.md:**
-The task-to-chapter map entry for "Audit/improve performance" lists chapter 06 as primary and 07 + 09 as secondary, which is correct. For the React performance task (eval 3), loading all three was appropriate and the boundary between them was clean. No change needed.
-
-The chapter 02 churn tone ladder rule ("never guilt") was the single most decisive differentiator in eval 5 — a rule the without-skill response knew about conceptually but failed to apply to its own output. This suggests the skill's operating principle ("apply rules silently; never paraphrase back into output") is working correctly for the with-skill run, and the evaluation surfaces a real failure mode in the without-skill case. The skill is ready for production use.
+The task-to-chapter map entry for "Revise copy, voice, microcopy" correctly lists `02-brand-and-copywriting.md` as primary. Eval 6 confirms that the AI copy DNA section in chapter 02 is a meaningful differentiator — it should stay in that chapter rather than being split out. No structural changes to SKILL.md needed.
