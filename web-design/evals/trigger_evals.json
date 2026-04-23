@@ -1,0 +1,102 @@
+[
+  {
+    "query": "I need a landing page for my new SaaS. It's a time-tracking app for remote engineering teams that auto-categorizes work from Jira and Slack. Target audience is engineering managers at 50-500 person companies. Need it live in 3 weeks, calm/professional feel. I have a logo and screenshots.",
+    "should_trigger": true,
+    "notes": "New website from scratch — core skill domain"
+  },
+  {
+    "query": "My pricing page has three tiers (Starter $29, Pro $79, Enterprise custom). The 'Most Popular' badge is white text on orange (#FFA500) and the disabled button is white on gray (#CCCCCC). Built in Next.js + Tailwind. Fix accessibility and contrast.",
+    "should_trigger": true,
+    "notes": "Accessibility + visual design audit"
+  },
+  {
+    "query": "Review this React component for perf issues. It renders 500 products, re-sorts in useEffect every 2s, has grid-cols-3 with no responsive breakpoints, and creates new inline handlers per item. Mobile users say it's sluggish.",
+    "should_trigger": true,
+    "notes": "Performance review + code quality"
+  },
+  {
+    "query": "Rewrite my hero copy. Current: 'Empower your team to unlock the full potential of your workflow with our robust AI-powered platform.' Product is CI/CD observability for platform engineers. Brand: direct-but-not-curt, technical-but-not-jargon.",
+    "should_trigger": true,
+    "notes": "Copywriting + brand voice — copywriting is a subdomain of web-design"
+  },
+  {
+    "query": "Write the downgrade email for my error-tracking SaaS. User went Pro → Free. Brand voice: wry-but-not-snarky, senior-but-not-condescending. Tone: warm, no guilt, no play.",
+    "should_trigger": true,
+    "notes": "Transactional microcopy + tone ladder — copywriting subdomain"
+  },
+  {
+    "query": "My blog post hero image is the LCP element but it's lazy-loaded and there's no width/height on the img tag. Also the body text is 14px with 1.2 line-height. Fix the performance and layout issues.",
+    "should_trigger": true,
+    "notes": "Performance + CSS layout + non-negotiables"
+  },
+  {
+    "query": "I need to pick a stack for a static marketing site with a blog and one interactive pricing calculator. Should I use Astro, Next.js, or SvelteKit? Also need to choose between tRPC and REST for a partner API.",
+    "should_trigger": true,
+    "notes": "Stack selection + architecture — chapter 08"
+  },
+  {
+    "query": "Set up tests for my Next.js app. I need unit tests for utility functions, integration tests for API routes, and E2E tests for the checkout flow. Also want visual regression on the design system components.",
+    "should_trigger": true,
+    "notes": "Testing strategy — chapter 12"
+  },
+  {
+    "query": "Add Dutch and French locales to my existing React app. Need to handle RTL for Arabic later too. Current setup uses plain strings everywhere.",
+    "should_trigger": true,
+    "notes": "Internationalization — chapter 13"
+  },
+  {
+    "query": "Audit my app for security. It's a Next.js app with Postgres, Clerk auth, and Stripe payments. I think my CSP might be too permissive and I'm not sure about my session cookie settings.",
+    "should_trigger": true,
+    "notes": "Security audit — chapter 14"
+  },
+  {
+    "query": "Write a Python script to download all images from a given URL and resize them to 800px wide using Pillow. Output as WebP.",
+    "should_trigger": false,
+    "notes": "Image processing script — no web design, frontend, or copy involved"
+  },
+  {
+    "query": "Debug why my Kubernetes pod keeps crashing with OOMKilled. The container is a Go microservice processing Kafka messages.",
+    "should_trigger": false,
+    "notes": "DevOps/infrastructure — not web design"
+  },
+  {
+    "query": "Design a database schema for a multi-tenant SaaS with row-level security in Postgres. Each tenant has users, projects, and billing data.",
+    "should_trigger": false,
+    "notes": "Database design — not frontend, though it touches SaaS; web-design skill covers stack selection but not deep schema design"
+  },
+  {
+    "query": "Refactor this pandas DataFrame operation to use Polars instead. The current code groups by user_id and calculates rolling 7-day averages.",
+    "should_trigger": false,
+    "notes": "Data engineering — completely unrelated"
+  },
+  {
+    "query": "Write a cover letter for a senior frontend engineer position at Vercel. Highlight my 5 years of React, Next.js, and design system experience.",
+    "should_trigger": false,
+    "notes": "Personal writing/career — not web design or copywriting for a product"
+  },
+  {
+    "query": "Explain how blockchain consensus mechanisms work. Compare Proof of Work vs Proof of Stake with concrete examples.",
+    "should_trigger": false,
+    "notes": "General technology explanation — not web-specific"
+  },
+  {
+    "query": "Set up a CI/CD pipeline using GitHub Actions that runs lint, test, and deploy to AWS ECS on every push to main.",
+    "should_trigger": false,
+    "notes": "DevOps/CI pipeline — web-design covers CI in chapter 16 but this is a pure infrastructure task"
+  },
+  {
+    "query": "My WiFi keeps dropping on Ubuntu 22.04. The router is fine, other devices work. dmesg shows iwlwifi errors. How do I fix this?",
+    "should_trigger": false,
+    "notes": "System troubleshooting — completely unrelated"
+  },
+  {
+    "query": "Write a short story about a sentient toaster that falls in love with a microwave. Make it funny but emotionally resonant.",
+    "should_trigger": false,
+    "notes": "Creative fiction — not copywriting for a product/website"
+  },
+  {
+    "query": "How do I file taxes as a freelancer in Germany? I moved there last year and have clients in the US and UK.",
+    "should_trigger": false,
+    "notes": "Legal/tax advice — completely unrelated"
+  }
+]

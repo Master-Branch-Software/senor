@@ -782,6 +782,90 @@ For AI features, treat structured data as clarification rather than as a dedicat
 - Prefer active construction that credits the user: "You saved your changes," not "Changes were saved."
 - Avoid ableist language ("crazy," "insane," "blind to") and violent metaphors ("kill it," "hit a home run") in product copy; they are lazy and alienating.
 
+## AI copy DNA — patterns to cut
+
+The default output of large language models carries detectable stylistic fingerprints. Research across multiple corpora and model families (GPT-4o, Llama 3, Claude) identifies systematic differences between LLM and human prose. The patterns are not individual mistakes; they are structural tendencies that persist across prompts and genres. Cut them during editing.
+
+### What research shows
+
+- **Instruction-tuned models write a noun-heavy, informationally dense style** even when prompted for informal speech. The style is "informationally dense" — more nouns and nominalizations per sentence, fewer light verbs, less interpersonal language.
+- **Present participial clauses (-ing) appear 2–5× the human rate.** Example: "Bryan, leaning on his agility, dances around the ring, evading Show's heavy blows." Two present participles in one sentence is diagnostic.
+- **Nominalizations (nouns formed from verbs/adjectives) appear 1.5–2× the human rate.** Example: "These schemes can help to reduce deforestation, habitat destruction, and pollution, while also promoting sustainable consumption patterns." Four nominalizations in one sentence.
+- **Lexical diversity is lower; repetition is higher.** AI revisits the same vocabulary set within a paragraph. Humans introduce new words and idioms.
+- **Contractions average 0.00 per chunk in AI output; human reference averages 0.17.** The absence of contractions is a strong signal.
+- **Flesch-Kincaid grade level is roughly 4 points higher in AI text.** AI defaults to more formal, longer words and more complex syntax.
+- **Sentence-length variance (burstiness) is lower in AI.** Humans mix short punchy sentences with longer ones. AI clusters near a consistent length.
+- **Emotion and negative sentiment are rarer in AI.** Humans express frustration, excitement, doubt. AI hedges toward neutral agreement.
+
+### The 14 AI DNA patterns to scan for
+
+| # | Pattern | Example (AI-sounding) | Why humans don't do this |
+|---|---|---|---|
+| 1 | **Abstract corporate verbs** | empower, streamline, unlock, leverage, foster, drive, optimize, harness, cultivate, unleash, revolutionize | Humans name the specific action: "ship it", "debug it", "page the on-call" |
+| 2 | **Vague collectives** | full potential, seamless collaboration, innovation at scale, robust platform, holistic approach | Humans name the specific thing: "the deploy pipeline", "the Slack #alerts channel" |
+| 3 | **"From X to Y" range constructions** | "From startups to enterprises, our solution scales." | Humans pick one anchor point: "Teams at Linear use this." |
+| 4 | **"Not just A, but B" antithesis** | "Not just a tool, but a transformation." | Humans state the point directly: "It's a tool that stops the 3 a.m. page." |
+| 5 | **Rule of Three lists** | "Fast, reliable, and secure." (every list is exactly 3) | Humans use 2, 4, 5, or 7. They break the pattern. |
+| 6 | **Hedging qualifiers** | "typically, generally, often, may, can be, in many cases" | Humans hedge with modals ("might", "could") but not with abstract frequency adverbs |
+| 7 | **Formal filler transitions** | moreover, furthermore, additionally, it's worth noting that, it's important to remember | Humans say "also", "and", or just start the next sentence |
+| 8 | **"In today's fast-paced world" temporal clichés** | "In an increasingly competitive landscape..." | Humans don't open with temporal framing unless it's the specific year |
+| 9 | **Perfectly balanced sentence length** | Every sentence 18–22 words | Humans write 7-word sentences next to 34-word ones |
+| 10 | **Missing specificity** | No numbers, no named people, no concrete mechanisms | Humans drop a "$2,400 invoice", a "Friday 3 p.m. deploy", "Sarah from Platform" |
+| 11 | **Opinions that aren't opinions** | "Leadership requires empathy and clear communication." (no one disagrees) | Humans say things that split the room: "Most leadership advice is generic because the people writing it have never done a layoff." |
+| 12 | **Present participial overload** | "Using our platform, teams can deploy faster, reducing downtime and improving reliability." | Humans break into two sentences or use "When teams use our platform, they deploy faster." |
+| 13 | **Nominalization chains** | "The implementation of the optimization of the deployment process." | Humans verb it: "We optimized how we deploy." |
+| 14 | **Missing interpersonal language** | No questions, no direct address, no modal politeness, no fillers | Humans ask "Right?", say "You know what I mean?", use "might" and "could" |
+
+### Quick checklist for any draft
+
+1. **Ctrl+F scan.** Search the draft for: `delve`, `leverage`, `foster`, `holistic`, `robust`, `seamless`, `streamline`, `unlock`, `empower`, `tapestry`, `landscape`, `navigate`, `multifaceted`, `paradigm`, `moreover`, `furthermore`, `additionally`. Any hit is a candidate for rewrite.
+2. **Count the lists.** Are they all exactly 3 items? Break the pattern. Use 2, 4, 5, or 7.
+3. **Measure sentence lengths.** Are they all 18–22 words? Insert a 7-word punch and a 34-word ramble.
+4. **Check contractions.** Are there any? If not, add them where speech would use them: "it's", "don't", "can't", "we've", "you'll".
+5. **Check modals and interpersonal language.** Are there questions to the reader? Modal verbs (might, could, should)? First/second person pronouns (I, you, we)? If absent, add them.
+6. **Check for numbers and names.** Is there a specific dollar amount, a named person, a time, a place? If not, add one or note that it's missing.
+7. **Read aloud.** Does any sentence stumble? Is there a present participial clause that twists the tongue? Rewrite it.
+8. **Check hedging density.** Is every third sentence qualified with "often", "typically", "generally"? Cut the qualifiers and make the claim directly, or replace with a modal.
+9. **Verb the nominalizations.** Find nouns formed from verbs and turn them back into verbs: "implementation" → "implement", "optimization" → "optimize".
+10. **Check for questions.** Humans ask mid-thought: "See what I mean?" "Right?" "What would you do?" Add at least one if the tone permits.
+
+### Before / after examples
+
+**Abstract verbs → concrete verbs**
+
+AI: "Empower your team to unlock the full potential of your workflow."
+Human: "Let your team ship faster." (4 words vs. 11; specific verb, no abstraction)
+
+**Rule of Three → broken pattern**
+
+AI: "The platform is fast, reliable, and secure."
+Human: "It's fast. It stays up. And it doesn't leak your data." (3 sentences, not 3 adjectives; adds a specific consequence)
+
+**Nominalization chain → verbed**
+
+AI: "The implementation of the optimization of the deployment process led to a reduction in downtime."
+Human: "We optimized how we deploy. Downtime dropped." (2 sentences; 3 words and 3 words)
+
+**Present participial overload → broken into clauses**
+
+AI: "Using our platform, engineering teams can deploy faster, reducing downtime and improving reliability."
+Human: "Engineering teams deploy faster on our platform. Downtime drops. Reliability improves." (3 sentences, 3 subjects, no participles)
+
+**Missing contractions → added**
+
+AI: "It is important to note that the system does not support this feature."
+Human: "The system doesn't support this." (5 words vs. 14)
+
+**Missing interpersonal language → added**
+
+AI: "Users may experience improved performance."
+Human: "You should notice it's snappier. Let us know if it isn't." (direct address + question + invitation)
+
+**Opinion that isn't → opinion with teeth**
+
+AI: "Effective communication is essential for team success."
+Human: "Most standups are theater. Replace them with async updates and a 10-minute weekly sync." (takes a position, names specific mechanism)
+
 ## A final test
 
 Read the finished copy aloud to someone outside the project. If they can repeat the promise in their own words, the copy works. If they restate it with the brand's marketing jargon, rewrite.
