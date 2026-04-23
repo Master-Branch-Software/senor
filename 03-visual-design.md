@@ -133,14 +133,14 @@ Use OKLCH for authoring and interpolation. Compared to HSL:
 
 Syntax: `oklch(L C H)` where `L` is perceived lightness (0 to 1), `C` is chroma (roughly 0 to 0.4), `H` is hue in degrees.
 
-### Contrast: WCAG vs APCA
+### Contrast: WCAG 2.2 and APCA
 
-WCAG 2.2 contrast is based on relative luminance and is the current legal standard. Targets:
+WCAG 2.2 contrast is based on relative luminance and is the standard recognized by accessibility law (ADA, EAA, Section 508, EN 301 549). Targets:
 
 - 4.5:1 for body text and 3:1 for large text (≥ 18 pt or 14 pt bold).
 - 3:1 for non-text UI components and focus indicators.
 
-APCA (Accessible Perceptual Contrast Algorithm) is perceptually weighted and more predictive of real readability. It scores with `Lc` values:
+APCA (Accessible Perceptual Contrast Algorithm) is perceptually weighted and often more predictive of real readability, especially for dark-mode text and mid-lightness hues. It scores with `Lc` values:
 
 - Lc 90+ for fluent reading body text.
 - Lc 75+ for small text.
@@ -148,7 +148,13 @@ APCA (Accessible Perceptual Contrast Algorithm) is perceptually weighted and mor
 - Lc 45+ for large text (24 px+).
 - Lc 30+ for non-text UI, large headings.
 
-Verify WCAG AA for legal compliance. Use APCA as a sanity check when WCAG gives results that look wrong (common around mid-lightness blues and oranges).
+Important context on APCA's status: it was proposed for WCAG 3 as exploratory content but was removed from WCAG 3 working drafts in July 2023 and is not currently part of any approved W3C standard. WCAG 3 itself is years from completion (2030 at the earliest per the W3C's own timeline), and its contrast algorithm is explicitly listed as "yet to be determined." APCA's own compliance documentation prohibits any claim of "WCAG 3 compliance."
+
+The practical rule:
+
+- Always verify WCAG 2.2 AA for legal compliance and as the primary threshold.
+- Use APCA as a secondary, design-time sanity check when WCAG gives results that feel wrong (common around mid-lightness blues and oranges, and in dark mode).
+- If a color pair fails WCAG 2.2 but passes APCA, document the decision and accept the legal risk; do not substitute APCA for WCAG 2.2 in audit reports or compliance statements.
 
 ### Palette construction
 

@@ -24,7 +24,7 @@ Use these first; reach for JavaScript only when the native primitive cannot expr
 
 ## ECMAScript 2025 and 2026
 
-ECMAScript ships yearly. The 2025 additions (published June 2025) and Stage-4 2026 candidates worth learning:
+ECMAScript ships yearly. ES2025 was approved by the Ecma General Assembly on June 25, 2025. ES2026 candidates are already at Stage 4 and scheduled for the June 2026 release.
 
 ### Iterator helpers (ES2025)
 
@@ -50,9 +50,9 @@ After fifteen years, a standard way to escape user-supplied strings before feedi
 const re = new RegExp(RegExp.escape(userInput), "g");
 ```
 
-### Regex flag modifiers (ES2025)
+### Regex flag modifiers and duplicate named groups (ES2025)
 
-Inline `(?i:...)` and `(?-i:...)` to enable or disable flags for parts of a regex.
+Inline `(?i:...)` and `(?-i:...)` enable or disable flags for parts of a regex. Duplicate named capture groups are also legal across alternatives, so `/(?<id>a+)|(?<id>b+)/` is valid in ES2025 where it was a syntax error before.
 
 ### `Promise.try()` (ES2025)
 
@@ -64,18 +64,22 @@ Promise.try(() => maybeSyncOrAsync())
   .catch(report);
 ```
 
-### Import attributes
+### Import attributes and JSON modules (ES2025)
 
-A supported syntax for typed imports:
+A supported syntax for typed imports, plus native JSON module support:
 
 ```js path=null start=null
 import data  from "./data.json" with { type: "json" };
 import sheet from "./styles.css" with { type: "css" };
 ```
 
-CSS module scripts (supported now in Chromium and Firefox 147+) allow importing CSS as a constructable stylesheet — useful for applying scoped styles to a web component's shadow root without an extra fetch.
+CSS module scripts (supported in Chromium and Firefox 147+) allow importing CSS as a constructable stylesheet — useful for applying scoped styles to a web component's shadow root without an extra fetch.
 
-### Temporal API (landing in ES2026)
+### `Float16Array` (ES2025)
+
+A half-precision typed array alongside `Float32Array` and `Float64Array`, with matching `DataView.prototype.getFloat16` / `setFloat16` and `Math.f16round`. Useful for memory-constrained numeric workloads: WebGL/WebGPU textures, ML inference weights, audio buffers.
+
+### Temporal API (Stage 4; shipping in ES2026)
 
 A modern replacement for `Date`. Covers plain dates, plain times, time zones, instants, durations, and calendars; immutable, well-typed, and correct.
 
@@ -85,7 +89,7 @@ const later = now.add({ hours: 2, minutes: 30 });
 const diff  = later.since(now, { largestUnit: "minute" });
 ```
 
-Supported natively in most engines as of 2026; use a polyfill where needed. Any new code should prefer Temporal over `Date`.
+Status: reached Stage 4 and is being merged into ECMA-262 for ES2026. Shipped natively in Firefox 139 (May 2025) and Chrome 144 / Edge 144 (January 2026). Safari and iOS Safari do not support Temporal as of April 2026, so cross-browser code should still use `@js-temporal/polyfill` or `temporal-polyfill`. Any new code should prefer Temporal over `Date` through the polyfill.
 
 ## Signals (TC39 Stage 1, 2026)
 
