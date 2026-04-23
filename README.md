@@ -35,32 +35,8 @@ The default output of AI systems tends toward junior-level code and generic desi
 - [15-discovery-and-communication.md](15-discovery-and-communication.md) — What to ask the user before building, what to default, staged disclosure, red-flag phrases, scope trade-offs, checkpoints, non-frontend concerns, and what never to ask.
 - [16-code-style-and-quality.md](16-code-style-and-quality.md) — Cross-language code style, formatter and linter stacks (Prettier, Biome, ESLint flat config, Stylelint, EditorConfig), repository hygiene (.gitignore, .gitattributes, PR template, CODEOWNERS), naming conventions, imports and module organization, comments, error handling, structured logging, dependency management, build toolchain, Conventional Commits and git hooks, and CI enforcement.
 
-## Non-negotiables
 
-Apply these on every project, without exception:
 
-- Every `<img>` has `width`, `height`, and meaningful `alt`.
-- The likely LCP image is never lazy-loaded. Use `fetchpriority="high"` on the `<img>` and preload it when the browser would otherwise discover it late.
-- Body text is at least 16 px with a line-height of 1.5 and a line length around 60–75 characters.
-- Color contrast passes WCAG 2.2 AA (4.5:1 for body text, 3:1 for large text and non-text components). APCA may be used as a secondary design check, not as a substitute for WCAG conformance.
-- Focus indicators are visible and have at least 3:1 contrast against the adjacent color.
-- `prefers-reduced-motion` is honored; animation is not forced on users who opt out.
-- Native HTML elements are used before custom ones: `<button>` before `<div role="button">`, `<dialog>` before a hand-rolled modal.
-- Fonts use `font-display: swap` with matched-metric fallbacks or `font-display: optional` for decorative faces.
-- No positive `tabindex` values.
-- Copy is written in a consistent voice defined up front, not improvised per page.
-
-## Stylistic conventions for generated code
-
-Chapter 16 is the canonical reference for code style, formatters, linters, naming, imports, comments, error handling, logging, dependency management, git workflow, and CI enforcement. Every project inherits that chapter; the handful of conventions below repeat here only because they appear in almost every file:
-
-- Two-space indentation.
-- Lowercase HTML element and attribute names.
-- Kebab-case file names; class naming per project choice documented in chapter 16.
-- Boolean variable names drop the `is` prefix: prefer `visible`, `active`, `disabled`.
-- Prefer logical properties (`margin-inline`, `padding-block`) over physical ones.
-- Use `rem` for typography and spacing related to text, `px` for hairline borders and small fixed UI details, container or viewport units only where they scale meaningfully with a container.
-- Include `.DS_Store` in `.gitignore`.
 
 ## How to prompt an LLM to build a website
 
