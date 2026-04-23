@@ -149,6 +149,20 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Runtimes: Node.js, Bun, Deno.
 - Study: Stripe, Linear, Vercel, Figma, Apple, Ramp, Mercury, Raycast, Superhuman, GitHub Primer, Awwwards.
 
+## 11 — Browser compatibility
+
+- Global market share (StatCounter, February 2026): Chrome 68.98%, Safari 16.39%, Edge 5.46%, Firefox 2.29%, Samsung Internet 2.01%, Opera 1.78%. Regional skew: Safari higher in North America and Oceania; Samsung Internet meaningful in Africa and parts of Asia.
+- Pick a support matrix before writing code: analytics-driven, Baseline-driven, or contractual. Write it into the project README.
+- Baseline tiers: Widely Available (ship unguarded, interoperable 30+ months), Newly Available (feature-detect, interoperable across core browsers now), Limited Availability (experiment, polyfill).
+- Browserslist v4.26+ accepts `baseline widely available`, `baseline newly available`, `baseline 2024` (or any year), and `baseline widely available with downstream` queries. Share one `browserslist` across Autoprefixer, Babel, PostCSS, ESLint, Stylelint.
+- Feature-detect with `@supports`, `CSS.supports()`, and object checks; never user-agent sniff.
+- Prefer ponyfills over global polyfills; load only after detection fails.
+- Now Baseline Newly Available (do not overlook): `@scope`, invoker commands (`command`/`commandfor`), `scrollbar-color`, `scrollend`, Navigation API, CSS `shape()`, Trusted Types, Zstandard, WebTransport, `view-transition-class`, `rcap`/`rch`/`rex`/`ric` units, `Iterator.concat()`, `Map.getOrInsert()`.
+- Still Limited Availability (April 2026): anchor positioning, `field-sizing`, scroll-driven animations, `interpolate-size` / `calc-size()`, container style queries, CSS `@function`/`if()`, Temporal (Safari-only gap), Signals, scoped `CustomElementRegistry`, `URLPattern`, WebGPU.
+- Test locally on latest Chrome + Safari on macOS; on real iOS and Android devices; against the matrix in CI via Playwright, BrowserStack, or Sauce.
+- CI enforcement: `eslint-plugin-compat` v7.x, `stylelint-no-unsupported-browser-features` v8.x (or `stylelint-browser-compat` / `stylelint-plugin-use-baseline` alternatives), shared `browserslist` config, RUM segmented by browser.
+- Interop 2026 is tracked at `wpt.fyi/interop-2026`.
+
 ## 12 — Testing
 - The testing trophy: static analysis → integration (largest) → unit → E2E → visual regression.
 - Vitest replaces Jest for Vite-based projects: 4–10× faster, native TypeScript/ESM, Jest-compatible API.
@@ -187,20 +201,6 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - File uploads: validate MIME type from actual bytes; sanitize filenames; serve uploads from a separate origin.
 - Dependencies: `npm audit` in CI; Dependabot or Renovate for automated updates; quarterly manual audit.
 - Secrets: never committed to source; rotated on schedule; rotate immediately if accidentally committed.
-
-## 11 — Browser compatibility
-
-- Global market share (StatCounter, February 2026): Chrome 68.98%, Safari 16.39%, Edge 5.46%, Firefox 2.29%, Samsung Internet 2.01%, Opera 1.78%. Regional skew: Safari higher in North America and Oceania; Samsung Internet meaningful in Africa and parts of Asia.
-- Pick a support matrix before writing code: analytics-driven, Baseline-driven, or contractual. Write it into the project README.
-- Baseline tiers: Widely Available (ship unguarded, interoperable 30+ months), Newly Available (feature-detect, interoperable across core browsers now), Limited Availability (experiment, polyfill).
-- Browserslist v4.26+ accepts `baseline widely available`, `baseline newly available`, `baseline 2024` (or any year), and `baseline widely available with downstream` queries. Share one `browserslist` across Autoprefixer, Babel, PostCSS, ESLint, Stylelint.
-- Feature-detect with `@supports`, `CSS.supports()`, and object checks; never user-agent sniff.
-- Prefer ponyfills over global polyfills; load only after detection fails.
-- Now Baseline Newly Available (do not overlook): `@scope`, invoker commands (`command`/`commandfor`), `scrollbar-color`, `scrollend`, Navigation API, CSS `shape()`, Trusted Types, Zstandard, WebTransport, `view-transition-class`, `rcap`/`rch`/`rex`/`ric` units, `Iterator.concat()`, `Map.getOrInsert()`.
-- Still Limited Availability (April 2026): anchor positioning, `field-sizing`, scroll-driven animations, `interpolate-size` / `calc-size()`, container style queries, CSS `@function`/`if()`, Temporal (Safari-only gap), Signals, scoped `CustomElementRegistry`, `URLPattern`, WebGPU.
-- Test locally on latest Chrome + Safari on macOS; on real iOS and Android devices; against the matrix in CI via Playwright, BrowserStack, or Sauce.
-- CI enforcement: `eslint-plugin-compat` v7.x, `stylelint-no-unsupported-browser-features` v8.x (or `stylelint-browser-compat` / `stylelint-plugin-use-baseline` alternatives), shared `browserslist` config, RUM segmented by browser.
-- Interop 2026 is tracked at `wpt.fyi/interop-2026`.
 
 ## The shortest review
 
