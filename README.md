@@ -32,6 +32,7 @@ The default output of AI systems tends toward junior-level code and generic desi
 - `13-internationalization.md` — Intl API, ICU MessageFormat, RTL support, locale detection, hreflang, text expansion, translation workflow, pseudo-localization.
 - `14-security.md` — HTTP security headers, CSP with nonces, HSTS, OWASP Top 10, XSS prevention, CSRF, input validation, auth patterns, CORS, dependency auditing.
 - `15-discovery-and-communication.md` — What to ask the user before building, what to default, staged disclosure, red-flag phrases, scope trade-offs, checkpoints, non-frontend concerns, and what never to ask.
+- `16-code-style-and-quality.md` — Cross-language code style, formatter and linter stacks (Prettier, Biome, ESLint flat config, Stylelint, EditorConfig), repository hygiene (.gitignore, .gitattributes, PR template, CODEOWNERS), naming conventions, imports and module organization, comments, error handling, structured logging, dependency management, build toolchain, Conventional Commits and git hooks, and CI enforcement.
 
 ## Non-negotiables
 
@@ -50,10 +51,12 @@ Apply these on every project, without exception:
 
 ## Stylistic conventions for generated code
 
+Chapter 16 is the canonical reference for code style, formatters, linters, naming, imports, comments, error handling, logging, dependency management, git workflow, and CI enforcement. Every project inherits that chapter; the handful of conventions below repeat here only because they appear in almost every file:
+
 - Two-space indentation.
 - Lowercase HTML element and attribute names.
-- Kebab-case for file names and CSS class names.
-- Boolean variable names drop the `is` prefix: prefer `visible`, `active`, `disabled` over `isVisible`, `isActive`, `isDisabled`.
+- Kebab-case file names; class naming per project choice documented in chapter 16.
+- Boolean variable names drop the `is` prefix: prefer `visible`, `active`, `disabled`.
 - Prefer logical properties (`margin-inline`, `padding-block`) over physical ones.
 - Use `rem` for typography and spacing related to text, `px` for hairline borders and small fixed UI details, container or viewport units only where they scale meaningfully with a container.
 - Include `.DS_Store` in `.gitignore`.

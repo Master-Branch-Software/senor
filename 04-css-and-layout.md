@@ -456,3 +456,84 @@ A minimal, modern base that solves common annoyances without over-specifying:
 ```
 
 Put it in a `reset` layer and never think about `margin: 8px` on `body` again.
+
+## CSS code style
+
+See chapter 16 for the cross-cutting formatting toolchain, linting stack, and naming conventions. This section covers the CSS-specific rules that chapter 16 defers here.
+
+### Property ordering
+
+A consistent property order inside a rule makes diffs readable and forces an author to think about which layer of the cascade they are writing. Two mainstream orders are acceptable:
+
+- Concentric (outside-in): positioning, display, box model, typography, appearance, effects, transitions.
+- Logical/alphabetical via `stylelint-config-clean-order` — the pragmatic default because tooling enforces it.
+
+Pick one and enforce it with Stylelint. Do not rely on manual discipline. Recommended:
+
+```json path=null start=null
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-clean-order"]
+}
+```
+
+Inside a single declaration list, group related declarations with blank lines only when the block exceeds ~15 properties; otherwise keep the block tight.
+
+### Nesting depth
+
+Max nesting depth is three levels, counting the root selector as level one. Deeper nesting mirrors HTML structure, multiplies specificity, and breaks under refactor. Enforce with `stylelint` `max-nesting-depth: 3`.
+
+`&` chaining for pseudo-classes and pseudo-elements is cheap and readable:
+
+```css path=null start=null
+.button {
+  padding: 0.5rem 1rem;
+
+  &:hover { background: var(--hover); }
+  &:focus-visible { outline: 2px solid currentColor; }
+  &[aria-pressed="true"] { background: var(--active); }
+}
+```
+
+### Selector specificity ceiling
+
+Keep specificity low and flat. A single class is the default unit of styling. Rules:
+
+- No IDs in selectors (`#foo`). IDs belong in HTML for anchoring and JavaScript hooks, not styling.
+- No `!important` outside utility layers. Utilities live in the last `@layer`, which wins naturally.
+- No qualified selectors like `div.card`. The tag adds specificity without meaning.
+- Descendant combinators (`.card .title`) are allowed but prefer child combinators (`.card > .title`) when the relationship is direct.
+
+Stylelint `selector-max-specificity: "0,3,0"` enforces a three-class ceiling per selector.
+
+### Class naming approaches
+
+Three mainstream approaches. Chapter 16 documents the project-wide choice; this subsection captures the CSS-layer implications:
+
+- BEM (`block__element--modifier`): explicit, readable, works in vanilla CSS and hand-authored stylesheets. Ideal for design-system component libraries. Drawback: verbose class names.
+- Utility-first (Tailwind): composition at the HTML layer, near-zero custom CSS. Requires the Prettier Tailwind plugin for deterministic class order and a design-token contract in `tailwind.config`. Drawback: HTML carries styling concerns; requires discipline around extracting repeated combinations.
+- CSS Modules / scoped styles: automatic scoping through build-time class hashing; authored in plain CSS. Ideal inside component frameworks (Next.js, Astro, Vue SFCs). Drawback: global utilities still need a separate strategy.
+
+Mixing approaches inside one codebase is acceptable when the boundary is explicit: BEM for layout primitives, utilities for one-off tweaks, Modules for components. Do not mix approaches inside a single component.
+
+### Custom property naming
+
+Two tiers:
+
+- Design tokens (global): `--color-brand-500`, `--space-4`, `--radius-md`, `--font-size-lg`. Defined on `:root` or a theme root; never overridden locally.
+- Component properties (local): `--card-padding`, `--button-bg`. Defined on the component root and allowed to cascade into children.
+
+Do not invent ad-hoc custom properties mid-declaration. If a value is used twice in the component, promote it to a named property on the component root.
+
+### File size and organization
+
+- Maximum ~400 lines per `.css` file. Beyond that, split by component or layer.
+- One component per file when the project uses a component model. File name matches the component (`card.css` for `.card`).
+- Global files: `reset.css`, `tokens.css`, `typography.css`, `utilities.css`. Import order mirrors the `@layer` order.
+- Keep `@layer` declarations at the top of the entry stylesheet so the cascade is visible in one place.
+
+### Comments
+
+- Single-line `/* */` for section dividers and rule intent.
+- Block comments for the file header when the file is not self-explanatory.
+- No commented-out code. Delete it; version control remembers.
+- Use `TODO:`, `FIXME:`, `HACK:` markers consistent with chapter 16, with an author initial or ticket reference.

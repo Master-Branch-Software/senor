@@ -270,12 +270,257 @@ The browser does most of the work when given the chance:
 
 ## TypeScript
 
-- Use TypeScript on any project expected to live longer than a weekend.
-- Keep `strict` mode on. `noImplicitAny`, `strictNullChecks`, and `noUncheckedIndexedAccess` catch entire bug classes.
-- Prefer inference. Avoid redundant type annotations.
-- Model domain data with discriminated unions; avoid `any` and use `unknown` with narrowing when genuinely uncertain.
-- Derive types from single sources of truth (Zod, Valibot, or database schemas) rather than duplicating them.
+Use TypeScript on any project expected to live longer than a weekend. The cost of adding types after the fact exceeds the cost of writing them from day one.
+
+### Recommended `tsconfig` baseline
+
+```json path=null start=null
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true
+  }
+}
+```
+
+Why each setting matters:
+
+- `noUncheckedIndexedAccess` forces narrowing after `array[i]` and `record[key]`. Removes an entire class of undefined bugs.
+- `exactOptionalPropertyTypes` distinguishes `prop?: string` (omit or string) from `prop: string | undefined` (must be present). Rarely enabled, high signal.
+- `verbatimModuleSyntax` rejects implicit type-only imports; import values with `import` and types with `import type`. Required for bundlers that erase types at parse time.
+- `isolatedModules` ensures every file can be transpiled alone, which matches how modern bundlers and Bun/Deno process TypeScript.
+- `noPropertyAccessFromIndexSignature` distinguishes `obj.x` (known) from `obj['x']` (index-signature lookup). Keeps intent explicit.
+
+Use project references (`references` + `composite: true`) for monorepos. Split types and runtime into separate `tsconfig.build.json` and `tsconfig.json` when the editor needs a wider view than production builds.
+
+### Branded types
+
+Brands prevent accidental mixing of structurally identical primitives (user IDs, order IDs, slugs, emails).
+
+```ts path=null start=null
+type Brand<T, B> = T & { readonly __brand: B };
+
+type UserId  = Brand<string, "UserId">;
+type OrderId = Brand<string, "OrderId">;
+
+const asUserId = (value: string): UserId => value as UserId;
+
+function loadUser(id: UserId) { /* ... */ }
+
+loadUser(asUserId("u_123")); // ok
+loadUser("u_123");            // type error
+```
+
+Constructor functions (`asUserId`) are the only sanctioned place for the cast. Keep them next to the type and reuse them everywhere the primitive enters the domain.
+
+### Exhaustiveness checking with `never`
+
+Discriminated unions paired with an `assertNever` helper guarantee every case is handled at compile time.
+
+```ts path=null start=null
+type Event =
+  | { kind: "click"; x: number; y: number }
+  | { kind: "keypress"; key: string }
+  | { kind: "scroll"; delta: number };
+
+function assertNever(value: never): never {
+  throw new Error(`Unhandled variant: ${JSON.stringify(value)}`);
+}
+
+function describe(event: Event): string {
+  switch (event.kind) {
+    case "click":    return `click ${event.x},${event.y}`;
+    case "keypress": return `key ${event.key}`;
+    case "scroll":   return `scroll ${event.delta}`;
+    default:         return assertNever(event);
+  }
+}
+```
+
+Adding a new variant to `Event` triggers a compile error at the `default` branch. Never use `default: return ...` without `assertNever` when switching on a discriminant.
+
+### Zod and inferred types
+
+Write the schema once; derive the TypeScript type from it. Never hand-write both.
+
+```ts path=null start=null
+import { z } from "zod";
+
+const User = z.object({
+  id:    z.string().uuid(),
+  email: z.string().email(),
+  role:  z.enum(["admin", "member", "viewer"]),
+});
+
+type User = z.infer<typeof User>;
+
+export async function fetchUser(id: string): Promise<User> {
+  const data = await api.get(`/users/${id}`);
+  return User.parse(data); // throws on mismatch
+}
+```
+
+Preserve the boundary: validate at every edge where untrusted data enters (HTTP requests, message queues, environment variables, third-party APIs, file reads). Once past the boundary, trust the static type.
+
+Valibot is a lighter alternative with the same pattern (`v.InferOutput<typeof Schema>`). Pick one per project.
+
+### `@ts-expect-error` discipline
+
+- Prefer `@ts-expect-error` over `@ts-ignore`. It errors when the suppressed error disappears, keeping the suppression list accurate.
+- Every `@ts-expect-error` must include a short justification and, ideally, a ticket reference: `// @ts-expect-error upstream types missing, fixed in #1234`.
+- Never suppress type errors to ship; the suppression must be a conscious decision with a plan to remove it.
+- Fail CI if the project's total `@ts-expect-error` count grows over the last merge to `main`.
+
+### General TypeScript rules
+
+- Prefer inference. Add explicit types at module boundaries (exported functions, public APIs) and let the rest infer.
+- Model domain data with discriminated unions. Avoid `any`; use `unknown` with narrowing when genuinely uncertain.
+- Derive types from single sources of truth (Zod, Valibot, Prisma, Drizzle). Never duplicate.
+- `interface` for public object shapes consumers may extend; `type` for unions, intersections, mapped types, and internal aliases. Consistency matters more than the choice.
+- `readonly` on fields and `ReadonlyArray<T>` on parameters that must not be mutated.
 - Treat the type system as a design tool, not a syntax tax.
+
+## JavaScript idioms
+
+Conventions that apply equally to plain JavaScript and TypeScript. Formatter and linter take care of layout; these rules govern intent.
+
+### Equality and truthiness
+
+- `===` and `!==` always. `==` and `!=` are banned outside the single idiom `value == null` (matches `null` and `undefined`). Prefer explicit `value === null || value === undefined` when team reads diverge.
+- Do not rely on implicit truthiness for numbers or strings that could legitimately be `0` or `""`. Write the explicit check: `if (count > 0)`, `if (name !== "")`.
+- Boolean identifiers drop the `is` prefix: `visible`, `dirty`, `ready`, `enabled`. Event handlers that answer a predicate question may keep it (`shouldClose`).
+
+### Async code
+
+- `async`/`await` is the default. `.then()` chains are acceptable only for one-off transformations where a variable name would be noise.
+- Never mix `await` inside a `.then()` callback. Pick one.
+- `Promise.all` for independent parallel work; `Promise.allSettled` when one failure must not abort the others; `Promise.any` for first-success races.
+- Always `await` or explicitly `void` a promise. Unhandled promise returns are a bug class the linter can catch (`no-floating-promises`).
+- Cancel long-running async work with `AbortController`; pass the `signal` through to `fetch`, timers, and custom loops.
+
+### Control flow
+
+- Early return over nested `if`. Guard clauses at the top, happy path at the bottom.
+- Prefer `switch` on discriminated unions with `assertNever`; prefer object lookup (`const handlers = { click: ..., scroll: ... }`) for simple dispatch.
+- No `for`-loops when `for...of`, `map`, `filter`, `reduce`, or iterator helpers express the intent. Fall back to `for` only for hot-path numeric work where the profiler says so.
+
+### Optional chaining and nullish coalescing
+
+- `value?.x?.y` to read through potentially missing objects.
+- `value ?? fallback` for nullish-only fallback. `||` only when falsy-zero or falsy-empty-string should also fall back (and document why).
+- Chain both: `(config.retry ?? defaults.retry)?.strategy`.
+
+### Event handlers and naming
+
+- Functions that receive events: `handleClick`, `handleSubmit`, `handleKeydown`. Props that accept handlers: `onClick`, `onSubmit`, `onKeydown`.
+- Do not inline complex handlers in JSX/template attributes. Extract to a named function once the body exceeds a single expression.
+
+### Immutability
+
+- Use `const` by default; `let` only when reassignment is required. Never `var`.
+- Prefer non-mutating array methods (`map`, `filter`, `toSorted`, `toReversed`, `toSpliced`, `with`) in application code. In-place sorts and reverses in hot paths only, with a comment.
+- Spread (`{ ...obj, key: value }`, `[...arr, item]`) for shallow copies. Use `structuredClone` for deep copies instead of JSON round-tripping.
+
+### Error handling
+
+- Always `throw new Error("...")` with a message that identifies the operation. Never `throw "string"`.
+- Use `Error` subclasses or `cause` to preserve context: `throw new Error("failed to load user", { cause: err })`.
+- Catch at boundaries (request handlers, job workers, CLI entry points). Inside business logic, let errors propagate unless there is a specific recovery.
+- Reference chapter 16 for the broader error-handling taxonomy and the `Result` pattern option.
+
+### Modules
+
+- Named exports by default. Default exports only for single-component files where the filename already carries the name (React components, Astro pages).
+- No `export *` barrels. They defeat tree-shaking and make import graphs opaque.
+- Use path aliases (`@/components/button`) from the `tsconfig` `paths` setting. Never import via many `../../`.
+
+## HTML code style
+
+### Casing and quoting
+
+- Lowercase element names and attribute names. SVG elements that must be camelCase (`viewBox`, `preserveAspectRatio`) keep their canonical casing.
+- Double quotes around attribute values, always. Single quotes are reserved for attribute values that themselves contain double quotes.
+- Boolean attributes appear without a value: `<input disabled>`, `<details open>`. Never `disabled="disabled"` or `disabled="true"`.
+- Void elements (`<img>`, `<br>`, `<hr>`, `<input>`, `<meta>`, `<link>`) have no trailing slash in HTML. The self-closing form is only required inside JSX and XHTML.
+
+### Attribute ordering
+
+Consistent order inside a single tag makes scanning fast and diffs small:
+
+1. `class`
+2. `id`
+3. `name`
+4. `data-*` attributes
+5. `src`, `href`, `for`, `type`, `value`
+6. `alt`, `title`, `placeholder`
+7. `aria-*` and `role`
+8. `tabindex`
+9. Event handlers (in HTML, avoid; use unobtrusive JS)
+10. `style` (avoid; use classes)
+
+```html path=null start=null
+<a
+  class="button button--primary"
+  id="signup"
+  data-test="cta"
+  href="/signup"
+  aria-label="Create an account"
+>
+  Sign up
+</a>
+```
+
+### Indentation and wrapping
+
+- Two-space indentation.
+- Break long opening tags onto multiple lines when they exceed ~100 characters or carry more than three attributes. One attribute per line, closing `>` on its own line.
+- Keep text content on the same line as the opening tag when it fits; break text out when the opening tag is multi-line.
+
+### Semantic first
+
+- Use the element that carries the semantic: `<button>`, `<nav>`, `<main>`, `<article>`, `<header>`, `<footer>`, `<aside>`.
+- Never build buttons out of `<div>` with a click handler. Accessibility, focus, keyboard support, and form integration are free on `<button>`.
+- `<a>` for navigation (moves document, changes URL). `<button>` for in-page actions (opens modal, submits form, toggles state).
+- Headings (`h1`–`h6`) follow document outline order. Do not skip levels for styling; restyle the element instead.
+
+### Landmark and ARIA hygiene
+
+- One `<main>` per page. Landmarks (`nav`, `header`, `footer`, `aside`, `section` with `aria-labelledby`) structure the page for assistive tech.
+- Do not add `role="button"` to a `<button>`. Native roles are authoritative; ARIA is for elements that cannot be expressed natively.
+- Label every interactive element: visible `<label for>` first, `aria-label` or `aria-labelledby` only when a visible label is impossible.
+
+### Comments
+
+- HTML comments (`<!-- -->`) for structural landmarks in long templates.
+- Never ship conditional comments for IE.
+- Remove commented-out markup. Version control remembers.
 
 ## Date and time discipline
 

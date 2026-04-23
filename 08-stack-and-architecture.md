@@ -453,9 +453,7 @@ Stacks live for years. Optimize for the engineer reading the code six months aft
 - Keep the critical path in one language and runtime when possible. TypeScript across client and server removes whole categories of bugs at the boundary.
 - Avoid bleeding edge in the hot path. Let the ecosystem find the sharp edges first.
 - Avoid architectures that cannot be explained on a whiteboard in five minutes.
-- Every new dependency is a liability. Evaluate bus factor, release cadence, open issues, last commit, bundle cost, and license before adding it.
-- Prefer platform primitives to libraries when the platform suffices (`fetch`, `IntersectionObserver`, `structuredClone`, `Intl`, `<dialog>`, `popover`).
-- Pin exact versions in lockfiles. Audit upgrades deliberately rather than drift with `caret` ranges.
+- Prefer platform primitives to libraries when the platform suffices (`fetch`, `IntersectionObserver`, `structuredClone`, `Intl`, `<dialog>`, `popover`). See the Dependency management section for the evaluation checklist.
 - Document the "why" for any non-obvious choice. `ARCHITECTURE.md` is where an outsider should start.
 - Delete rather than deprecate. Unused code confuses more than it helps.
 
@@ -844,13 +842,137 @@ Rule of thumb: the smallest scope that works is the right scope. Do not reach fo
 - Front-end Real-User Monitoring for Core Web Vitals and long tasks.
 - Dashboards for the three or four metrics that predict user pain: TTFB, LCP, INP, error rate.
 
+### Logging standards
+
+Chapter 16 covers the logger choice (`pino` on Node, `tslog` elsewhere) and the level taxonomy. This subsection covers the runtime contract the platform must enforce:
+
+- Every request generates a correlation ID. Propagate it via `x-request-id` header and include it in every log line the request produces.
+- Every log line is a single-line JSON object. No `console.log` statements reach production.
+- Every log line carries `service`, `env`, `version`, `request_id`. User-identifying fields (`user_id`, `tenant_id`) are attached at the earliest point they are known.
+- Sensitive fields (passwords, tokens, full payment details, personal identifiers) are redacted by the logger configuration, not by the caller. Redaction lives in one place.
+- Log levels match severity, not verbosity. `error` means a human must act. `warn` means a potentially degraded state. `info` is the default operational narrative. `debug` is off in production unless a flag is flipped for a short window.
+- Sampling is acceptable for high-volume `info` lines. Never sample `error`.
+- Ship logs to a queryable backend (Grafana Loki, Datadog, Honeycomb, Axiom, CloudWatch Logs Insights). Local file logging is a development convenience, not a production strategy.
+
 ## Source control and collaboration
 
-- Conventional commits are optional; clear commits are not. The first line states the change and affected area.
-- Pull requests describe the "why," link to the ticket, and include screenshots for UI changes.
-- Enforce review for any change touching shared infrastructure, auth, payments, or schemas.
-- Protect the main branch; require passing CI.
-- Use `.gitignore` to exclude build artifacts, secrets, and OS detritus (`.DS_Store`, `Thumbs.db`, `node_modules`, `.env`, `dist/`).
+Chapter 16 details the exact commit format, tooling installation (Husky, Lefthook, lint-staged, commitlint), and release automation. This section captures the workflow and repository conventions every project inherits.
+
+### Commit messages
+
+Conventional Commits is the default on every new project. It enables automated changelogs, semantic versioning, and machine-readable history.
+
+```text path=null start=null
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+- Types: `feat`, `fix`, `perf`, `refactor`, `docs`, `test`, `build`, `ci`, `chore`, `revert`. `feat!` or a `BREAKING CHANGE:` footer triggers a major bump.
+- Scope is optional but recommended; use package or feature name (`auth`, `billing`, `ui/button`).
+- Subject is imperative, lowercase, no trailing period, ≤72 characters.
+- Body explains the "why," wrapped at 72 characters. Reference tickets in the footer (`Refs: JIRA-123`).
+- Enforce with `commitlint` + `@commitlint/config-conventional` on the `commit-msg` hook.
+
+### Branch naming
+
+- `main` is the only long-lived branch. No `develop`, no `staging` unless a specific deploy strategy requires it.
+- Feature branches: `feat/short-description`, `fix/short-description`, `chore/short-description`. Include a ticket number when available: `feat/AUTH-42-passkeys`.
+- Delete branches after merge. Never force-push to `main`.
+
+### Merge strategy
+
+Pick one per project and enforce it in branch-protection settings:
+
+- Squash and merge (default): keeps `main` linear, one commit per PR, Conventional Commits applied to the squashed message.
+- Rebase and merge: preserves individual commits when the branch history is already meaningful. Requires discipline from every contributor.
+- Merge commit: only when preserving the branch topology carries real information (release branches, long-lived integration work).
+
+### Pull request template
+
+Every repository ships `.github/PULL_REQUEST_TEMPLATE.md` with four sections: Summary (what and why), Change details (list of notable changes), Testing (what was run), Checklist (tests, docs, accessibility, screenshots for UI). PRs that skip the template are sent back.
+
+### CODEOWNERS and review
+
+- `.github/CODEOWNERS` assigns default reviewers per path. Critical paths (auth, billing, schemas, infrastructure) require review from the owning team.
+- Branch protection requires at least one approving review for every PR touching `main`. Protected paths require review from the CODEOWNERS entry.
+- Every PR must pass CI (lint, type-check, test, build, bundle budget) before merge.
+- Reviewer checklist: does the change match the ticket, is the test coverage appropriate, does the copy match the voice guide (chapter 02), does the styling honor the design tokens (chapter 04 and the token tiers).
+
+### Git hooks
+
+Chapter 16 covers setup details. Every repository installs hooks for:
+
+- `pre-commit`: `lint-staged` running formatter and linter on changed files only.
+- `commit-msg`: `commitlint` validating Conventional Commits.
+- `pre-push` (optional): type check and fast unit tests.
+
+Hooks must be installable automatically (`postinstall` script or Lefthook's self-install) so a fresh clone is compliant without manual steps.
+
+### Signed commits
+
+Enforce GPG or SSH-signed commits on any repository handling production code, secrets, or customer data. Require verified signatures in branch protection.
+
+### Repository hygiene
+
+- `.gitignore` excludes build artifacts, secrets, and OS detritus (`.DS_Store`, `Thumbs.db`, `node_modules`, `.env`, `dist/`, coverage reports).
+- `.gitattributes` normalizes line endings (`* text=auto eol=lf`) and marks binaries.
+- `.editorconfig` aligns indentation, charset, and final newline across editors.
+- `.nvmrc` or `.tool-versions` pins the runtime used in development and CI.
+- Secrets never enter the repository. Use a secret manager; commit `.env.example` with placeholder values only.
+
+## Dependency management
+
+Every new dependency is a liability. The cost surfaces as bundle size, security advisories, supply-chain risk, type incompatibilities, and eventual deprecation. Manage it like a budget.
+
+### Evaluating a new dependency
+
+Before adding a package, check:
+
+- Last release date; weekly download volume.
+- Open issue and PR counts; responsiveness to security reports.
+- Bundle impact via `bundlephobia` or `package-size`.
+- License compatibility (MIT, Apache-2.0, BSD are safe; GPL, AGPL, custom licenses require approval).
+- Alternatives, including "no dependency." Platform APIs often suffice.
+- Maintainer footprint (single maintainer is a risk; corporate backing or a steering committee reduces it).
+
+### Package manager
+
+- pnpm is the default. Fast, strict, disk-efficient, workspace-aware.
+- npm is acceptable for single-package projects when toolchain mandates it.
+- Bun's package manager is acceptable for solo Bun projects; mixing managers inside one repo is not.
+- Yarn Classic is end-of-life; Yarn Berry is acceptable when a team already runs it at scale.
+
+### Lockfile policy
+
+- Commit the lockfile. Always. `pnpm-lock.yaml`, `package-lock.json`, or `bun.lockb`.
+- Pin runtime and package manager via `packageManager` in `package.json` and enforce in CI.
+- Prefer exact versions (`"react": "19.1.0"`) over ranges. Ranges drift silently; exact versions make upgrades an explicit event.
+- Use `overrides` / `resolutions` to patch a transitive vulnerability rather than waiting for upstream.
+
+### Upgrade automation
+
+- Renovate is the default. Group patch and minor updates into a single weekly PR; major upgrades ship individually with release notes in the PR body.
+- Dependabot is acceptable on GitHub-only workflows with simple graphs. Renovate wins at scale.
+- Security advisories (GitHub Dependabot alerts, `npm audit`, `osv-scanner`) must block merges in CI.
+- Review the weekly upgrade PR like any other change. Never merge without CI passing.
+
+### Monorepo tooling
+
+- Turborepo is the default task runner for pnpm workspaces. Remote caching on Vercel or a self-hosted store.
+- Nx is acceptable when the project needs graph-aware generators, code splitting, and tight framework plugins.
+- Moon is a newer contender worth evaluating for Rust-heavy or polyglot repositories.
+- Keep the number of root-level tools minimal; chapter 16 covers the exact setup.
+
+### Supply-chain hygiene
+
+- Run `npm audit` / `pnpm audit` in CI and fail on high-severity advisories.
+- Scan dependencies with `osv-scanner` or Socket.dev on every PR.
+- Limit install-time scripts with `pnpm` `ignoreBuiltDependencies` or `npm` `--ignore-scripts` in CI; allowlist the ones needed.
+- Keep `resolutions` / `overrides` documented in `ARCHITECTURE.md` so the next engineer understands why they exist.
+- For binary dependencies, verify checksums; for Docker base images, pin digests, not tags.
 
 ## Documentation
 

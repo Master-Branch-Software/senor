@@ -239,6 +239,25 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 - Do not ask questions answered by the brief or by this guide; do not ask twice.
 - Close the loop: produce a post-launch note listing what shipped, what was deferred, assumptions made, and the 30/90-day review against the success metric.
 
+## 16 — Code style and quality
+
+- Formatting is mechanical: Prettier 3 with `trailingComma: "all"`, `printWidth: 100`, `singleQuote: false`, `semi: true`; Biome acceptable as a unified formatter+linter when the stack is JS/TS-only. Never debate layout in review.
+- EditorConfig mirrors the formatter; `.editorconfig` is the baseline: `indent_size = 2`, `end_of_line = lf`, `insert_final_newline = true`, `trim_trailing_whitespace = true`.
+- Lint with ESLint 9+ flat config and `typescript-eslint` unified package. Use `@eslint/js`, `typescript-eslint`, `eslint-plugin-import-x`, `eslint-plugin-jsx-a11y`, `eslint-plugin-unicorn`, `eslint-plugin-promise`. Stylelint with `stylelint-config-standard` and `stylelint-config-clean-order` for CSS.
+- `tsconfig` baseline: `strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `verbatimModuleSyntax`, `isolatedModules`, `noPropertyAccessFromIndexSignature`.
+- Repository hygiene: `.gitignore` (build output, `.env`, `.DS_Store`), `.gitattributes` (`* text=auto eol=lf`), `.editorconfig`, `.nvmrc` or `.tool-versions`, `.vscode/` with workspace settings and recommended extensions, `.github/PULL_REQUEST_TEMPLATE.md`, `.github/CODEOWNERS`.
+- Naming: PascalCase for classes/components/types; camelCase for functions, methods, variables; UPPER_SNAKE_CASE for constants; kebab-case for file names (except framework conventions that dictate PascalCase components); CSS classes kebab-case; drop the `is` prefix on booleans.
+- Imports: group 1 node builtins, 2 third-party, 3 internal path aliases (`@/`), 4 relative; alphabetize within groups; one blank line between groups; named exports by default; no `export *` barrels; no deep relative imports (`../../`).
+- Comments: explain "why," never "what the code does." `TODO:` and `FIXME:` carry author initials and a ticket reference; `HACK:` documents the limitation. No AI narration in production code.
+- Error handling: never silently swallow; `throw new Error("operation: context")`; preserve cause (`new Error(msg, { cause })`); catch at boundaries; use `Result<T, E>` (neverthrow) for expected failures in hot paths; treat `unknown` as the default catch type.
+- Logging: `pino` on Node, `tslog` elsewhere; JSON single-line output; required fields `service`, `env`, `version`, `request_id`; redact secrets at the logger level; levels mean severity, not verbosity; never log user PII by default.
+- Dependency management: pnpm default, exact versions, commit the lockfile, `packageManager` pinned, Renovate for automation, audit in CI, document `overrides` in `ARCHITECTURE.md`, evaluate every new dependency.
+- Build toolchain: Vite for apps (Rolldown when stable); tsdown or tsup for libraries; ESM-only new code; emit source maps; lazy-load route chunks.
+- Git: Conventional Commits enforced by `commitlint`; `main` is the only long-lived branch; squash-merge default; Husky or Lefthook for hooks; `lint-staged` runs formatter and linter on changed files; `pre-push` runs type check and fast tests; signed commits on production repos.
+- Release: `changesets` for monorepos, `semantic-release` for single packages. Tie release to Conventional Commit history.
+- Readability limits: max ~80 lines per function before extraction; max ~400 lines per file; cyclomatic complexity warning at 10.
+- CI enforcement: type check, lint, format-check, test, bundle-size budget, dependency audit, license check. Fail fast; fail loud.
+
 ## The shortest review
 
 One question covers most cases: does the change make the site easier to use, easier to understand, easier to maintain, and faster? If not, it should not ship.
