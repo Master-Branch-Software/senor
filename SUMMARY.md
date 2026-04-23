@@ -30,12 +30,25 @@ A website serves a specific person, to accomplish a specific goal, in a specific
 
 ## 02 — Brand and copywriting
 
-- Document brand in writing: audience, offer, reason-to-exist, personality, archetype, voice-with-but-not modifiers.
+- Document brand in writing: audience, offer, reason-to-exist, personality, archetype, voice-with-but-not modifiers, use/avoid word lists.
 - Pick one of Jung's 12 archetypes; mixing more than two produces incoherence.
-- Voice is fixed; tone adapts per context (onboarding, error, celebration, destructive confirmation).
+- Voice is fixed; tone adapts along four dials (formality, warmth, urgency, playfulness) per context (hero, onboarding, error, destructive confirmation, outage, churn, legal).
+- Voice-of-customer research: harvest 150–300 verbatim quotes from interviews, sales calls, support, reviews, community, win/loss, search queries; cluster; extract 20–50-word audience vocabulary; never paraphrase testimonials.
 - Frameworks: AIDA, PAS, BAB, 4Ps, FAB, StoryBrand. Frameworks are scaffolds — edit ruthlessly.
-- Hero pattern: specific 6–12-word headline, one-sentence proof, verb+noun primary CTA, evidence, product screenshot (not stock).
-- Microcopy: verbs on buttons, visible labels on inputs, error messages that identify and fix, preserve user input on failure.
+- Headline formulas: "How to X without Y", "[Outcome] for [audience]", "The [N] [thing] that [outcome]", question-form, "[Time] to [outcome]", "Stop X. Start Y.", "[Category] without the [drawback]", Ogilvy fact-first.
+- Hero: specific 6–12-word headline, 15–25-word subhead, verb+noun primary CTA, optional lower-commitment secondary, evidence, product screenshot (not stock).
+- Value proposition: one sentence naming end-benefit, audience, alternative, unique mechanism.
+- Page-type copy patterns: home (hero → trust → problem → solution → proof → objections → secondary CTA), pricing (3–4 tiers, anchored middle, "Everything in X, plus:", no dark patterns), feature (JTBD headline → mechanism → benefits with proof), about (user-facing mission → origin → team → values → hiring), blog (question-aligned title → deck → byline → TOC → TL;DR), 404/500 (acknowledge, redirect, no stack trace), legal/footer (plain-language summary on top), transactional email (subject states outcome, one action per email).
+- Microcopy: verbs on buttons, visible labels on inputs, error messages that identify and fix, preserve user input on failure, bad→good example in every state.
+- CTA psychology: name the outcome not the action; friction reducer beneath; unique primary per page; test button copy separately.
+- Social proof: logos only with written permission, stats with source and denominator, testimonials with objection + person + outcome, case studies Before→Intervention→After→Quote.
+- Nav and IA: nouns for destinations, verbs for actions, user vocabulary over org terminology.
+- Notifications: toast (ephemeral) vs banner (persistent) vs modal (blocking); severity conveyed by icon + text, not color alone.
+- Cookie consent: symmetric Accept/Reject/Manage; no pre-checked non-essential categories.
+- Power words and specificity: sensory verbs over managerial; specific nouns over abstract; numbers over adjectives; avoid "revolutionary", "world-class", "cutting-edge" without evidence.
+- Reading level: grade 7–9 marketing, 8–10 onboarding, 10–12 docs; sentences 14–18 words average, cap 25; paragraphs 2–4 sentences.
+- Editing in 5 passes: truth → specificity → rhythm → voice → cut (remove 20%).
+- Copy measurement: hypothesis first; test highest-traffic element; instrument downstream conversions; segment by source and device; qualitative 5-second test on the winner.
 - SEO for AI era: the same foundational SEO applies to AI features; keep content crawlable, text-forward, and internally linked.
 - Structured data: JSON-LD, visible-content parity, Rich Results Test, and page-type schema only where Google documents support.
 
