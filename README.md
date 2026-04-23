@@ -1,50 +1,46 @@
 # Web Design & Development Master Guide
 
-A curated, opinionated reference for designing and building professional-grade websites. Written to be loaded at the start of any LLM session that will produce or review web code, copy, or visual design decisions.
+A reference for building professional-grade websites in LLM-assisted workflows. Load this at the start of any session that will produce or review web code, copy, or visual design.
 
 ## Purpose
 
-The default output of AI systems tends toward junior-level code and generic design: media-query soup, hard-coded pixel values, unlabelled form fields, bland copy, low-contrast color, and motion that ignores user preferences. This guide encodes the practices that separate professional, maintainable, human-feeling websites from that default.
+AI systems default to junior-level output: media-query soup, hard-coded pixels, unlabelled forms, bland copy, low-contrast color, motion that ignores user preferences. This guide encodes the practices that separate professional, maintainable, human-feeling websites from that default.
 
 ## How to use
 
-1. Read the relevant chapter before touching code. If a task concerns color, read `03-visual-design.md`. If it concerns performance, read `06-performance.md`.
-2. Apply stable requirements directly. For performance hints and newly available features, verify the discovery path, support matrix, and fallback strategy before implementation.
-3. Prefer the documented pattern when it fits the page architecture and support matrix. Use `11-browser-compatibility.md` for guard, polyfill, and fallback decisions.
-4. When a rule conflicts with a user requirement, follow the user. When a rule conflicts with a habit, follow the rule.
+1. Read the relevant chapter first. Color questions → `03-visual-design.md`. Performance questions → `06-performance.md`.
+2. Apply stable requirements directly. For new features, verify the support matrix and fallback strategy in `11-browser-compatibility.md` before implementation.
+3. Follow the user over the guide when they conflict. Follow the guide over habit when they conflict.
 
 ## Chapters
 
 - [SUMMARY.md](SUMMARY.md) — Condensed cheat sheet of every chapter. Load this when context is tight.
 - [AGENTS.md](AGENTS.md) — Navigation index for LLMs. Task-to-chapter map, chapter relationships, running order for new projects. Every agent should read this first.
 - [USAGE.md](USAGE.md) — How to wire this guide into Warp, Cursor, Claude Projects, Copilot, and other tools; prompt patterns that work.
-- [01-philosophy-and-psychology.md](01-philosophy-and-psychology.md) — Intent, craft, Laws of UX, Nielsen heuristics, Cialdini's 7 principles of persuasion, Gestalt principles, emotional design.
-- [02-brand-and-copywriting.md](02-brand-and-copywriting.md) — Jungian brand archetypes, voice attributes with "but not" qualifiers, tone ladder by context, voice-of-customer research and language harvesting, copywriting frameworks (AIDA, PAS, BAB, 4Ps, FAB, StoryBrand) with worked examples, headline formulas, hero and value-proposition patterns, page-type copy skeletons (home, pricing, product, about, blog, contact, 404/500, legal, transactional email), microcopy, CTA psychology, social proof, navigation labels, notifications, cookie/consent banners, power words and specificity, reading-level targets, editing passes, copy measurement and testing, SEO in the AI-search era, JSON-LD structured data.
-- [03-visual-design.md](03-visual-design.md) — Visual hierarchy, spacing scales, typography (scales, variable fonts, fluid), color systems (OKLCH, APCA, Radix, tooling), design styles.
-- [04-css-and-layout.md](04-css-and-layout.md) — CSS units, responsive strategy, modern CSS (container queries, `:has()`, `@layer`, subgrid, view transitions, `@property`, `@function`, `if()`), motion principles.
-- [05-accessibility.md](05-accessibility.md) — WCAG 2.2, semantic HTML, the five ARIA rules, keyboard navigation, focus management, screen reader testing, automated auditing.
-- [06-performance.md](06-performance.md) — Core Web Vitals (LCP, INP, CLS), bfcache, image optimization, font loading, third-party script strategy, critical rendering path, RUM.
-- [07-javascript-and-html.md](07-javascript-and-html.md) — ECMAScript 2025 and 2026, Temporal, iterator helpers, the Signals proposal, web components, runtime selection (Node/Deno/Bun), modern HTML primitives.
-- [08-stack-and-architecture.md](08-stack-and-architecture.md) — Framework selection, project-type stack recipes, rendering strategies (SSG, SSR, ISR, streaming, CSR, edge, islands, resumability, React Server Components), API styles (REST + OpenAPI, tRPC, GraphQL, Server Actions, gRPC/Connect, WebSockets, SSE, webhooks), backend language choice, database and CMS and auth and hosting selection, Tailwind v4, shadcn/ui, design tokens, component architecture, scaling ladder, maintainability and the boring-technology budget.
-- [09-anti-patterns-and-process.md](09-anti-patterns-and-process.md) — Common AI and junior-level mistakes to avoid, review checklist, design-and-ship workflow.
-- [10-resources.md](10-resources.md) — Trusted external references, tools, calculators, and libraries.
-- [11-browser-compatibility.md](11-browser-compatibility.md) — Choosing a support matrix, Baseline, `@supports` and feature detection, polyfills, per-feature status, cross-browser testing.
-- [12-testing.md](12-testing.md) — The testing trophy, Vitest + Testing Library, MSW, Playwright E2E, visual regression, accessibility automation, CI integration.
-- [13-internationalization.md](13-internationalization.md) — Intl API, ICU MessageFormat, RTL support, locale detection, hreflang, text expansion, translation workflow, pseudo-localization.
-- [14-security.md](14-security.md) — HTTP security headers, CSP with nonces, HSTS, OWASP Top 10, XSS prevention, CSRF, input validation, auth patterns, CORS, dependency auditing.
-- [15-discovery-and-communication.md](15-discovery-and-communication.md) — What to ask the user before building, what to default, staged disclosure, red-flag phrases, scope trade-offs, checkpoints, non-frontend concerns, and what never to ask.
-- [16-code-style-and-quality.md](16-code-style-and-quality.md) — Cross-language code style, formatter and linter stacks (Prettier, Biome, ESLint flat config, Stylelint, EditorConfig), repository hygiene (.gitignore, .gitattributes, PR template, CODEOWNERS), naming conventions, imports and module organization, comments, error handling, structured logging, dependency management, build toolchain, Conventional Commits and git hooks, and CI enforcement.
+- [01-philosophy-and-psychology.md](01-philosophy-and-psychology.md) — Laws of UX, Nielsen heuristics, Cialdini principles, Gestalt, emotional design.
+- [02-brand-and-copywriting.md](02-brand-and-copywriting.md) — Brand archetypes, voice and tone, copywriting frameworks (AIDA, PAS, BAB, StoryBrand), headlines, hero patterns, microcopy, SEO, JSON-LD.
+- [03-visual-design.md](03-visual-design.md) — Hierarchy, spacing, typography, color systems (OKLCH, APCA, Radix).
+- [04-css-and-layout.md](04-css-and-layout.md) — Units, responsive strategy, modern CSS (container queries, `:has()`, `@layer`, subgrid, view transitions).
+- [05-accessibility.md](05-accessibility.md) — WCAG 2.2, semantic HTML, ARIA rules, keyboard navigation, screen reader testing.
+- [06-performance.md](06-performance.md) — Core Web Vitals, bfcache, image optimization, font loading, critical rendering path.
+- [07-javascript-and-html.md](07-javascript-and-html.md) — ECMAScript 2025–2026, Temporal, web components, modern HTML primitives.
+- [08-stack-and-architecture.md](08-stack-and-architecture.md) — Framework selection, rendering strategies, API styles, Tailwind v4, design tokens.
+- [09-anti-patterns-and-process.md](09-anti-patterns-and-process.md) — AI and junior-level mistakes, review checklist, design-and-ship workflow.
+- [10-resources.md](10-resources.md) — External references, tools, calculators, libraries.
+- [11-browser-compatibility.md](11-browser-compatibility.md) — Support matrix, Baseline, `@supports`, polyfills, cross-browser testing.
+- [12-testing.md](12-testing.md) — Testing trophy, Vitest, Playwright, visual regression, accessibility automation.
+- [13-internationalization.md](13-internationalization.md) — Intl API, ICU MessageFormat, RTL, hreflang, pseudo-localization.
+- [14-security.md](14-security.md) — HTTP headers, CSP, OWASP Top 10, XSS, CSRF, auth patterns.
+- [15-discovery-and-communication.md](15-discovery-and-communication.md) — Discovery questions, red-flag phrases, scope trade-offs, staged disclosure.
+- [16-code-style-and-quality.md](16-code-style-and-quality.md) — Formatters, linters, Conventional Commits, repository hygiene, CI.
 
+## How to prompt an LLM
 
+The LLM reads `AGENTS.md` (the navigation index) and pulls the relevant chapters. Keep prompts short; let the agent expand on demand.
 
+### One-prompt kickoff
 
-## How to prompt an LLM to build a website
-
-The LLM reads the guide itself through `AGENTS.md` (the navigation index). Prompts below only name the project and stage; the rules live in the chapters. Keep the prompts short; let the agent pull depth on demand.
-
-### One-prompt kickoff (recommended)
-
-Paste this once at the start of a new project. The agent interviews stage by stage, produces each artifact, and pauses for review.
+Paste this once at project start. The agent interviews stage by stage, produces each artifact, and pauses for review.
 
 ```
 Read web-design-guide/AGENTS.md and drive a new website project per
@@ -56,7 +52,7 @@ restate the guide's rules in your answers.
 
 ### Per-stage prompts
 
-Use these when jumping into a stage mid-project. Each one is a trigger; the agent pulls the relevant chapters from `AGENTS.md`.
+Use these when jumping into a stage mid-project.
 
 - Discovery: `Interview me for brief.md and constraints.md (AGENTS.md stage 1), one question at a time.`
 - Voice: `Produce brand.md from brief.md (AGENTS.md stage 2).`
@@ -67,14 +63,14 @@ Use these when jumping into a stage mid-project. Each one is a trigger; the agen
 - Scaffold: `Scaffold the repository (AGENTS.md stage 7). Commit each sub-step separately.`
 - Pages: `Implement /<page> (AGENTS.md stage 8). End with a self-review naming any deviation.`
 - Testing: `Wire the testing harness (AGENTS.md stage 9). Output testing.md.`
-- Accessibility audit: `Audit /<page> per chapter 05. Report violations with impact; apply fixes after I approve.`
+- Accessibility audit: `Audit /<page> per chapter 05. Report violations with impact; apply after approval.`
 - Performance audit: `Audit /<page> per chapter 06. Same reporting format.`
 - Security audit: `Audit the app per chapter 14. Same reporting format.`
-- Launch: `Prepare launch.md (AGENTS.md stage 11). Do not deploy until the pre-merge checklist and the security baseline pass.`
+- Launch: `Prepare launch.md (AGENTS.md stage 11). Do not deploy until the pre-merge checklist and security baseline pass.`
 
-### Targeted tasks on an existing project
+### Targeted tasks
 
-One-line prompts for common maintenance. The agent finds the matching row in `AGENTS.md` "Task to chapters" and reads what it needs.
+One-line prompts for common maintenance. The agent finds the matching row in `AGENTS.md` and reads what it needs.
 
 - `Revise the pricing-page copy. Voice: brand.md.`
 - `Update security for this website.`
@@ -87,13 +83,13 @@ One-line prompts for common maintenance. The agent finds the matching row in `AG
 
 ### Common failure modes
 
-- A vague brief poisons every stage. Force specificity in discovery; rewrite if in doubt.
-- Constraints left unstated (browser matrix, locales, compliance) surface as rework in the audits. Nail them in discovery.
-- Copy written before voice sounds AI-generic. Voice precedes copy.
-- Tokens chosen for aesthetics without a contrast audit produce accessible-looking but inaccessible designs.
-- Code-quality tooling added at the end rewrites history. Scaffold precedes pages.
-- Tests bolted on after the feature set is complete never catch up.
-- Accessibility, performance, and security treated as end-of-project gates produce rework. Run them continuously during implementation.
+- **Vague briefs poison every stage.** Force specificity in discovery; rewrite if in doubt.
+- **Unstated constraints surface as rework.** Browser matrix, locales, and compliance belong in discovery, not in audit.
+- **Copy written before voice reads as generic.** Produce `brand.md` before `copy/<page>.md`.
+- **Tokens chosen without contrast audits look accessible but are not.** Audit every foreground/background pair in `tokens.css`.
+- **Code-quality tooling added at the end rewrites history.** Scaffold precedes pages.
+- **Tests bolted on after the feature set never catch up.** Wire the harness during scaffold.
+- **Accessibility, performance, and security as end-of-project gates produce rework.** Run them continuously during implementation.
 
 ## When in doubt
 
