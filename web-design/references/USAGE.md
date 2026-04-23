@@ -2,9 +2,9 @@
 
 The guide is designed to prime any LLM (Warp/Oz, Cursor, Claude, ChatGPT, Gemini, Copilot, local models) with the knowledge needed to produce professional, maintainable websites. This document describes the invocation patterns that work in practice.
 
-## Start with `AGENTS.md`
+## Start with `SKILL.md`
 
-`AGENTS.md` is the navigation index. An agent reads it first, then pulls the chapters relevant to the task from the task-to-chapter map. For most work, priming with `AGENTS.md` plus the non-negotiables in `README.md` is enough — the agent will request deeper chapters on demand.
+`SKILL.md` is the navigation index. An agent reads it first, then pulls the chapters relevant to the task from the task-to-chapter map. For most work, priming with `SKILL.md` is enough — the agent will request deeper chapters on demand.
 
 ## Four ways to load the guide
 
@@ -12,7 +12,7 @@ Pick one based on how much context the session has available.
 
 ### 1. Full load — best quality, largest context
 
-Load `README.md` plus every numbered chapter at the start of a session. Roughly 80–100 K tokens. Use when:
+Load `SKILL.md` plus every numbered chapter from `references/` at the start of a session. Roughly 80–100 K tokens. Use when:
 
 - Starting a new project or significant refactor.
 - Producing multi-page designs or a design system.
@@ -24,32 +24,32 @@ Prompt opener:
 Before you answer anything, read these files and treat them as
 canonical conventions for the rest of this session:
 
-- web-design/README.md
-- web-design/01-philosophy-and-psychology.md
-- web-design/02-brand-and-copywriting.md
-- web-design/03-visual-design.md
-- web-design/04-css-and-layout.md
-- web-design/05-accessibility.md
-- web-design/06-performance.md
-- web-design/07-javascript-and-html.md
-- web-design/08-stack-and-architecture.md
-- web-design/09-anti-patterns-and-process.md
-- web-design/10-resources.md
-- web-design/11-browser-compatibility.md
-- web-design/12-testing.md
-- web-design/13-internationalization.md
-- web-design/14-security.md
-- web-design/15-discovery-and-communication.md
-- web-design/16-code-style-and-quality.md
+- web-design/SKILL.md
+- web-design/references/01-philosophy-and-psychology.md
+- web-design/references/02-brand-and-copywriting.md
+- web-design/references/03-visual-design.md
+- web-design/references/04-css-and-layout.md
+- web-design/references/05-accessibility.md
+- web-design/references/06-performance.md
+- web-design/references/07-javascript-and-html.md
+- web-design/references/08-stack-and-architecture.md
+- web-design/references/09-anti-patterns-and-process.md
+- web-design/references/10-resources.md
+- web-design/references/11-browser-compatibility.md
+- web-design/references/12-testing.md
+- web-design/references/13-internationalization.md
+- web-design/references/14-security.md
+- web-design/references/15-discovery-and-communication.md
+- web-design/references/16-code-style-and-quality.md
 
-Apply every non-negotiable from README.md without exception.
+Apply every non-negotiable from SKILL.md without exception.
 When a rule conflicts with a habit, follow the rule. When a rule
 conflicts with my explicit instruction, follow my instruction.
 ```
 
 ### 2. Agent-index load — recommended default
 
-Load `AGENTS.md` and `README.md`. Roughly 5–8 K tokens. Use when:
+Load `SKILL.md` and `SKILL.md`. Roughly 5–8 K tokens. Use when:
 
 - Most day-to-day work, including new-project kickoffs.
 - You want the agent to pull deeper chapters only as needed.
@@ -58,9 +58,9 @@ Load `AGENTS.md` and `README.md`. Roughly 5–8 K tokens. Use when:
 Prompt opener:
 
 ```
-Read web-design/AGENTS.md and web-design/README.md.
-Apply the non-negotiables from README.md on every suggestion. Use
-the "Task to chapters" map in AGENTS.md to decide which chapters
+Read web-design/SKILL.md.
+Apply the non-negotiables from SKILL.md on every suggestion. Use
+the "Task-to-chapter map" in SKILL.md
 to read next for the current task. Ask only what changes the
 output.
 ```
@@ -76,14 +76,14 @@ Load `SUMMARY.md` alone. Roughly 3 K tokens. Use when:
 Prompt opener:
 
 ```
-Read web-design/SUMMARY.md and apply its non-negotiables
+Read web-design/references/SUMMARY.md and apply its non-negotiables
 to every suggestion. If depth is needed on a topic, ask me for
 the corresponding numbered chapter.
 ```
 
 ### 4. Targeted load — per-task
 
-Load `README.md` (short) plus the one or two chapters relevant to the current task. Use when working on a single concern for a block of time.
+Load `SKILL.md` (short) plus the one or two chapters relevant to the current task. Use when working on a single concern for a block of time.
 
 Task-to-chapter mapping:
 
@@ -124,7 +124,7 @@ alwaysApply: true
 ---
 
 Follow the conventions in /home/bert/Documents/dev/ai-web-designer.
-The non-negotiables in README.md apply to every suggestion.
+The non-negotiables in SKILL.md apply to every suggestion.
 Load SUMMARY.md for context; ask to load numbered chapters on demand.
 ```
 
@@ -140,7 +140,7 @@ Create `.github/copilot-instructions.md` at the repo root with a short pointer:
 
 ```
 Use the conventions in /home/bert/Documents/dev/ai-web-designer for all HTML, CSS,
-JavaScript, and copy. Non-negotiables are listed in README.md.
+JavaScript, and copy. Non-negotiables are listed in SKILL.md.
 ```
 
 ### IDE-less / CLI agents
@@ -175,7 +175,7 @@ component breakdown third. Do not write CSS yet.
 ```
 Audit /index.html against the pre-merge checklist in
 09-anti-patterns-and-process.md. For each item that fails, quote
-the relevant non-negotiable from README.md and propose a fix.
+the relevant non-negotiable from SKILL.md and propose a fix.
 Do not apply edits until I approve.
 ```
 
@@ -229,7 +229,7 @@ If instructions conflict, resolve in this order:
 
 1. The user's explicit message in the current turn.
 2. Project-specific rules (for example `WARP.md`, `.cursor/rules`) that override the guide.
-3. The non-negotiables in `README.md`.
+3. The non-negotiables in `SKILL.md`.
 4. The specific chapter relevant to the task.
 5. `SUMMARY.md` when a chapter is not available.
 6. The model's general training.
