@@ -14,7 +14,7 @@ This repo needs to go **private** as the first step. The chapters already live i
 ┌──────────────────────────────────────────────────────────┐
 │  User IDE (Cursor / Continue.dev / Aider / Claude Code)  │
 │  API base URL → https://your-domain/v1                   │
-│  Authorization: Bearer <Clerk session token>             │
+│  Authorization: Bearer <JWT token>                       │
 └────────────────────────┬─────────────────────────────────┘
                          │ POST /v1/chat/completions
                          ▼
@@ -24,7 +24,7 @@ This repo needs to go **private** as the first step. The chapters already live i
                          ▼
 ┌──────────────────────────────────────────────────────────┐
 │  Falcon Ruby Proxy (server/)                             │
-│  1. Verify Clerk JWT                                     │
+│  1. Verify JWT (Rodauth)                                 │
 │  2. Check active Stripe subscription                     │
 │  3. Validate user's provider API key (flag: valid=true)  │
 │  4. Classify message → select relevant chapters          │
@@ -41,9 +41,9 @@ This repo needs to go **private** as the first step. The chapters already live i
    │  api_keys     │
    │  subscriptions│    ┌────────────────────┐
    └───────────────┘    │  Redis             │
-                        │  Chapter cache     │
-                        │  JWKS cache        │
                         │  Classifier cache  │
+                        │  Session state     │
+                        │  JWKS cache        │
                         └────────────────────┘
 ```
 
@@ -59,12 +59,12 @@ Designed for millions of users. The proxy is almost entirely I/O-bound (waiting 
 | HTTP server | **Falcon** | Fiber-based async; proven at 1M concurrent WebSocket connections per process; HTTP/2 native |
 | Application framework | Rails 8 (API mode) | Dashboard + business logic; Falcon replaces Puma as the server |
 | ORM | ActiveRecord | Bundled with Rails; PostgreSQL support |
-| Auth | Clerk (JWT) | Language-agnostic; verify JWT in Ruby with `jwt` gem; never hand-roll auth |
+| Auth | **Rodauth** (JWT) | Self-hosted; JWT-native; enterprise-grade (MFA, audit); Rails 8 via `rodauth-rails`; no SaaS dependency |
 | Billing | Stripe | `stripe-ruby` gem; webhook verification built-in |
 | DB connection pool | **PgBouncer** | Critical at millions of users — keeps Postgres connections bounded |
-| Cache | **Redis** | Chapter cache, JWKS cache, classifier result cache |
+| Cache | **Redis** | Classifier result cache, session state (injected chapters per conversation), JWKS cache |
 | Encryption | Ruby `openssl` (AES-256-GCM) | Built into stdlib; no extra gem needed |
-| Classifier LLM | Claude Haiku / GPT-4o-mini | Cheap routing model — detects relevant chapters per request |
+| Classifier LLM | **Gemini 2.0 Flash Lite** (fallback: Claude Haiku 4.5) | $0.06/1k calls; structured JSON output; server pays, not user |
 | Hosting | Fly.io → AWS (see section) | Start simple; migrate at scale |
 | Package manager | Bundler / Gemfile | Ruby standard |
 | Edge proxy | Nginx | TLS termination, connection fan-out, streaming pass-through |
@@ -88,7 +88,7 @@ server/
       keys_controller.rb     — CRUD for stored API keys
       dashboard_controller.rb — Account page, subscription status (our own UI)
     middleware/
-      clerk_auth.rb          — Rack middleware: verify Clerk JWT → req.env["user_id"]
+      jwt_auth.rb            — Rack middleware: verify Rodauth JWT → req.env["user_id"]
       subscription_gate.rb   — Rack middleware: check active subscription → 402 if not
     services/
       chapter_classifier.rb  — Calls cheap LLM to select relevant chapters + detect language
@@ -116,7 +116,7 @@ server/
 ### 1. DB schema (`server/db/schema.rb`)
 
 ```ruby
-# users: id, clerk_user_id (unique), email, created_at
+# users: id, email (unique), created_at
 
 # api_keys: id, user_id (fk), provider ("openai"|"anthropic"),
 #           encrypted_key (text), iv (text), auth_tag (text),
@@ -133,20 +133,28 @@ server/
 
 **Do not inject all chapters on every request.** At 9K lines, injecting the full set burns significant tokens from the user's BYOK budget on every call. Instead, a classifier selects only the relevant chapters.
 
+#### Classifier model
+
+Use **Gemini 2.0 Flash Lite** as the classifier: $0.075/M input, $0.30/M output — roughly **$0.06 per 1,000 classifications** at our input/output sizes (~700 in / ~50 out tokens). It supports structured output (response schema enforcement) for reliable JSON. If reliability issues arise in production, fall back to **Claude Haiku 4.5** ($1.00/$5.00 per M — ~$0.82/1k, but 99.8% schema compliance via tool use).
+
+The classifier BYOK is the server's own key (not the user's) — use whichever provider is cheapest at the time. Store as `CLASSIFIER_API_KEY` + `CLASSIFIER_PROVIDER` env vars.
+
 #### `chapter_classifier.rb` — relevance detection
 
 On each request, before forwarding to the AI provider:
-1. Call a **cheap classifier LLM** (Claude Haiku at ~$0.25/M input tokens, or GPT-4o-mini) with:
-   - The user's message (last turn only, no history needed)
-   - `routing.yml` — a compact YAML map of chapter slugs → one-line descriptions (this is the `SKILL.md` routing table, compressed)
-2. Classifier returns JSON: `{ "language": "ruby", "chapters": ["security", "css", "images"] }`
-3. Cache the classifier result in Redis keyed by a hash of the message content (short TTL: 5 min) — repeated similar prompts skip the classifier call
+1. Derive a **session fingerprint** from the first user message in the `messages` array (SHA-256 hash, first 16 bytes). This identifies a conversation across multiple turns without requiring the client to send a session ID header.
+2. Look up `session:<fingerprint>:injected_chapters` in Redis (TTL: 2 h) — set of chapter slugs already injected in this conversation.
+3. Call the classifier LLM only if needed: pass the user's latest message + `routing.yml`, get back `{ "language": "ruby", "chapters": ["security", "css", "images"] }`. Cache the classifier result keyed by SHA-256(message content) with TTL 5 min — repeated similar prompts skip the LLM call entirely.
+4. Subtract already-injected chapters from the result. Only load and prepend the **new** chapters for this turn.
+5. Add the new chapter slugs to `session:<fingerprint>:injected_chapters` in Redis.
 
-The classifier call adds ~100–200ms latency, but saves the user potentially thousands of tokens per request.
+This avoids re-injecting chapters already in the model's context window, saving the user tokens on every follow-up turn.
 
-#### `chapter_store.rb` — per-chapter cache
+#### `chapter_store.rb` — per-process in-memory cache
 
-Each chapter is cached individually in Redis by slug (e.g. `chapter:web:security`). Loaded once on first access, invalidated on deploy. Loading a chapter = one Redis GET, no disk I/O in steady state.
+All 15 chapters (~400–600 KB total) are loaded from disk once at process boot and held in a module-level Ruby constant (`CHAPTERS = {}` hash). Subsequent accesses are sub-microsecond; no Redis hop, no disk I/O. Each Falcon worker process has its own copy — this is fine since the files are static and processes are identical. On deploy, Falcon restarts reload the constants automatically.
+
+Redis is **not** used for chapter content. Redis is only used for: JWKS cache, classifier result cache, and per-session injected-chapter tracking.
 
 #### Language routing
 
@@ -155,10 +163,6 @@ Each chapter is cached individually in Redis by slug (e.g. `chapter:web:security
 - Each subfolder uses the same `NN-topic.md` naming pattern
 - The `routing.yml` has one section per language; the classifier picks the right section
 - Adding a new language = add a new folder + add its section to `routing.yml`. No code changes.
-
-#### Bad decision detection (Phase 2)
-
-After the proxy receives the provider's response (streamed), run a second cheap classifier on the full assistant turn. If it detects an architectural or security concern (e.g. storing secrets in plaintext, God Object pattern), inject a corrective note into the *next* request's system prompt via a per-user short-lived Redis key. This is optional and adds latency — implement only if users request it.
 
 ### 3. Key storage (`server/app/services/key_store.rb`)
 
@@ -185,7 +189,7 @@ On each proxy request:
 Route: `POST /v1/chat/completions`
 
 Request flow:
-1. Auth middleware verifies Clerk JWT → `userId`
+1. Auth middleware verifies Rodauth JWT → `userId`
 2. Billing middleware checks `subscriptions` table: `status = "active"` AND `current_period_end > now()` → 402 if not
 3. Decrypt user's provider API key from DB → 400 if not found or `valid = false`
 4. Run `ChapterClassifier` on the user's message → list of relevant chapter slugs + detected language
@@ -196,9 +200,9 @@ Request flow:
 
 Also expose `GET /v1/models` returning a static list — required for Cursor's "verify connection" check.
 
-### 5. Auth middleware (`server/app/middleware/clerk_auth.rb`)
+### 5. Auth middleware (`server/app/middleware/jwt_auth.rb`)
 
-Rack middleware. Verifies the Clerk JWT using the `jwt` gem + Clerk's JWKS endpoint. User provides their Clerk session token as the `Bearer` token in IDE settings. Fetches JWKS once and caches in Redis — no Clerk API call per request.
+Rack middleware. Verifies the JWT issued by Rodauth using the `jwt` gem. Users generate a long-lived API token from the dashboard (Rodauth's `jwt` feature) and paste it as the `Bearer` token in their IDE settings. No external auth service; JWT secret is a local env var (`JWT_SECRET`). JWKS caching in Redis is unnecessary — symmetric HS256 verification is local and instant.
 
 ### 6. Billing middleware (`server/app/middleware/subscription_gate.rb`)
 
@@ -207,12 +211,18 @@ Rack middleware. Verifies the Clerk JWT using the `jwt` gem + Clerk's JWKS endpo
 
 ### 7. MCP server — DROPPED
 
-MCP resource delivery is not a safe way to protect guideline IP. A user (or their AI) can trivially issue a prompt like "read all the guidelines and write them to disk" — which Claude Code would execute faithfully. Exposing chapters as readable MCP resources is equivalent to making them public.
+MCP resource delivery is not a safe way to protect guideline IP. A user (or their AI) can trivially prompt "read all the guidelines and write them to disk" — which any MCP-capable tool would execute. Exposing chapters as readable MCP resources is equivalent to making them public.
 
-**Claude Code users use the proxy path** (same as Cursor/Continue.dev), not MCP:
-- Configure API base URL to `https://your-domain/v1` in Claude Code settings
-- Guidelines are injected server-side; the model sees them in context but can never retrieve them as a structured downloadable resource
-- More secure than MCP for IP protection
+**All IDEs and all model providers use the same proxy path:**
+
+| IDE / Tool | How to configure | Supported providers |
+|---|---|---|
+| Cursor | Settings → Models → OpenAI-compatible base URL | OpenAI, Anthropic, others |
+| Continue.dev | `config.json` → `apiBase` | OpenAI, Anthropic, others |
+| Aider | `--openai-api-base` flag | OpenAI, Anthropic, others |
+| Claude Code | `ANTHROPIC_BASE_URL` env var | **Anthropic / Claude** |
+
+Guidelines are injected server-side into the system prompt; the model sees them in context but they are never exposed as a retrievable resource. This architecture is provider-agnostic — the proxy speaks OpenAI's API format for most IDEs, and Anthropic's format for Claude Code users (detected via the request path or a `provider` query param).
 
 MCP may be reconsidered for non-sensitive tooling (account status, subscription queries) but never for chapter content.
 
@@ -230,7 +240,7 @@ Build our own — no external dashboard service. Simple Rails views + Tailwind. 
 We never store or log user code or AI responses. This is both a legal protection and a feature.
 
 **What we store:**
-- User account data (email, Clerk user ID)
+- User account data (email, user ID)
 - Encrypted API keys
 - Subscription status (Stripe-derived)
 - Request metadata for billing/monitoring: timestamp, user_id (hashed), provider, response_time_ms — no content
@@ -245,7 +255,7 @@ We never store or log user code or AI responses. This is both a legal protection
 
 **At rest:** Postgres volume encryption (AWS RDS encryption or LUKS). API keys AES-256-GCM encrypted at the application layer as a second layer.
 
-**Third parties:** No analytics services, no session recording, no tracking pixels. Clerk (auth) and Stripe (billing) each receive only what they need to function — Clerk gets user identity; Stripe gets subscription events.
+**Third parties:** No analytics services, no session recording, no tracking pixels. Auth is self-hosted (Rodauth — no data leaves the server). Stripe (billing) receives only subscription events — no user code or content.
 
 **GDPR:** User can request full account deletion at any time — deletes all rows across all tables. Because we store no content, deletion is complete and immediate.
 
@@ -275,15 +285,14 @@ We never store or log user code or AI responses. This is both a legal protection
 
 ```
 DATABASE_URL          — Postgres connection string (via PgBouncer at scale)
-REDIS_URL             — Redis connection string (chapter cache + JWKS cache)
-CLERK_SECRET_KEY      — Clerk backend secret (JWKS fetch)
-CLERK_PUBLISHABLE_KEY — Clerk frontend key
+REDIS_URL             — Redis connection string (JWKS cache, classifier cache, session state)
+JWT_SECRET            — HS256 signing secret for Rodauth-issued JWTs (min 32 bytes)
 STRIPE_SECRET_KEY     — Stripe API key
 STRIPE_WEBHOOK_SECRET — Stripe webhook signing secret
-ENCRYPTION_KEY        — 32-byte hex key for AES-256-GCM
-CLASSIFIER_API_KEY    — API key for the cheap classifier LLM (Haiku or GPT-4o-mini)
-CLASSIFIER_PROVIDER   — "anthropic" or "openai" (picks which cheap model to use for routing)
-GUIDELINES_PATH       — Absolute path to guidelines/ folder on disk
+ENCRYPTION_KEY        — 32-byte hex key for AES-256-GCM (API key encryption)
+CLASSIFIER_API_KEY    — Server's own key for the classifier LLM (Gemini Flash Lite default)
+CLASSIFIER_PROVIDER   — "google" | "anthropic" | "openai" (picks classifier model)
+GUIDELINES_PATH       — Absolute path to guidelines/ folder on disk (loaded into memory at boot)
 PORT                  — Server port (default 3000)
 RAILS_ENV             — production / development
 ```
@@ -314,7 +323,7 @@ PostgreSQL primary + N read replicas
 
 - App servers are **stateless** — scale by incrementing replica count: `fly scale count 20`
 - PgBouncer keeps total Postgres connection count bounded regardless of app server count
-- Redis holds shared chapter cache and JWKS; cache misses = disk read + Clerk API call, not a crash
+- Redis holds classifier cache and session state; cache misses = one extra LLM call, not a crash
 
 ### Vertical scaling
 
@@ -342,7 +351,6 @@ PostgreSQL primary + N read replicas
 
 ## What Is NOT in Scope (MVP)
 
-- Bad decision detection (Phase 2 classifier on responses)
 - Language-specific guideline folders (`guidelines/ruby/`) — web is first; architecture is in place
 - Anthropic commercial partnership application (Phase 3)
 - Rate limiting beyond Stripe subscription check (add `rack-attack` in Phase 2)
@@ -351,7 +359,7 @@ PostgreSQL primary + N read replicas
 
 ## Verification
 
-1. **Proxy happy path:** Configure Cursor with base URL, valid Clerk token, stored OpenAI key. Send image-related question. Confirm response references image-specific guidance without being asked — classifier selected the images chapter.
+1. **Proxy happy path:** Configure Cursor with base URL, valid Rodauth JWT, stored OpenAI key. Send image-related question. Confirm response references image-specific guidance without being asked — classifier selected the images chapter.
 2. **Chapter routing:** Send CSS question. Confirm only CSS chapter slugs selected, not all 15.
 3. **Auth gate:** No/invalid Bearer → 401. Valid token, canceled subscription → 402.
 4. **Key validation:** Submit wrong API key. Confirm dashboard shows "Key invalid". Confirm proxy returns 400.
