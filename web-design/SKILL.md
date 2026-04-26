@@ -17,10 +17,6 @@ description: |
 
 # Web Design Guide
 
-A reference for building professional-grade websites in LLM-assisted workflows.
-Load this skill at the start of any session that will produce or review web code,
-copy, or visual design.
-
 ## Non-negotiables
 
 Apply these on every task without asking:
@@ -109,53 +105,6 @@ When a more specialized skill is installed, consult it alongside this one:
 - Infrastructure provisioning, CI/CD pipelines, container orchestration → `devops`, `cloud-deploy`, or `platform` skill.
 - Database schema design, query optimization, migrations → `database-design` or `sql` skill.
 - Long-form content strategy, editorial calendars, SEO beyond structured data → `copywriting`, `content-strategy`, or `seo` skill.
-
-## How to read references
-
-1. Start with this SKILL.md.
-2. Load the primary chapter for the current task.
-3. Load SUMMARY.md only when context is tight and you need a quick refresher.
-4. Load USAGE.md when the user asks how to wire this guide into Warp, Cursor, Claude Projects, Copilot, or other tools.
-5. Do not load all reference files at once. Progressive disclosure keeps context usable.
-
-## How to prompt an LLM using this guide
-
-### One-prompt kickoff
-
-```
-Read web-design/SKILL.md and drive a new website project per its
-"Running order for a new website". At each stage, ask me the questions
-you need — one at a time — produce the named artifact, and pause for my
-review. Ask only what changes the output. Do not restate the guide's
-rules in your answers.
-```
-
-### Per-stage prompts
-
-- Discovery: `Interview me for brief.md and constraints.md, one question at a time.`
-- Voice: `Produce brand.md from brief.md.`
-- Architecture: `Produce sitemap.md and wireframes/<page>.md.`
-- Copy: `Write copy/<page>.md for each page in sitemap.md. Voice: brand.md.`
-- Tokens: `Produce tokens.css with a WCAG 2.2 AA audit for every foreground/background pair.`
-- Stack: `Produce stack.md. List exact packages and current versions.`
-- Scaffold: `Scaffold the repository. Commit each sub-step separately.`
-- Pages: `Implement /<page>. End with a self-review naming any deviation.`
-- Testing: `Wire the testing harness. Output testing.md.`
-- Accessibility audit: `Audit /<page>. Report violations with impact; apply after approval.`
-- Performance audit: `Audit /<page>. Same reporting format.`
-- Security audit: `Audit the app. Same reporting format.`
-- Launch: `Prepare launch.md. Do not deploy until the pre-merge checklist and security baseline pass.`
-
-### Targeted tasks
-
-- `Revise the pricing-page copy. Voice: brand.md.`
-- `Update security for this website.`
-- `Improve LCP on /products/*.`
-- `Add Dutch and French locales.`
-- `Set up tests for the /<path> route.`
-- `Add a Combobox component.`
-- `Pick a browser support matrix for this project.`
-- `Do a pre-merge review on this PR.`
 
 ## When in doubt
 
