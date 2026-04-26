@@ -10,8 +10,25 @@ Per `AGENTS.md`:
 
 ## Articles referenced
 
+Component / repo organization:
+
 - [Frontend Masters — Architecture through component colocation](https://frontendmasters.com/blog/architecture-through-component-colocation/)
 - [Frontend Masters — When Deno or Bun is a better solution than Node.js](https://frontendmasters.com/blog/when-deno-or-bun-is-a-better-solution-than-node-js/)
+- [Turborepo — Structuring a repository](https://turborepo.dev/docs/crafting-your-repository/structuring-a-repository) — backs the `apps/` + `packages/` monorepo convention and the rule against importing across package boundaries via relative paths.
+
+Application architecture patterns:
+
+- [Alistair Cockburn — Hexagonal Architecture (2005)](https://alistair.cockburn.us/hexagonal-architecture/) — canonical source for ports/adapters and the goal of "developed and tested in isolation from its eventual run-time devices and databases." (Site occasionally returns expired-cert errors; use the Wikipedia mirror as a stable backup.)
+- [Wikipedia — Hexagonal architecture (software)](<https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)>) — secondary mirror for the Cockburn pattern definition.
+- [Robert C. Martin — The Clean Architecture (2012)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) — Dependency Rule ("source code dependencies can only point inwards") and the four concentric layers (entities, use cases, interface adapters, frameworks/drivers).
+- [Jimmy Bogard — Vertical Slice Architecture (2018)](https://www.jimmybogard.com/vertical-slice-architecture/) — coining of the term and the principle "minimize coupling between slices, and maximize coupling in a slice."
+- [Three Dots Labs — Is Clean Architecture Overengineering?](https://threedots.tech/episode/is-clean-architecture-overengineering/) — backs the "adopt when team has shipped it before, decline for small teams or simple projects" framing.
+- [Martin Fowler — DomainDrivenDesign (2020)](https://martinfowler.com/bliki/DomainDrivenDesign.html) — DDD overview and attribution to Eric Evans's _Domain-Driven Design: Tackling Complexity in the Heart of Software_ (Addison-Wesley, 2003); names the Evans Classification (entities, value objects, services), aggregates, bounded contexts, ubiquitous language.
+- [Martin Fowler — BoundedContext (2014)](https://martinfowler.com/bliki/BoundedContext.html) — definition of bounded context as "a central pattern in DDD" and the polysemic-term example (a utility company where "meter" meant three different things).
+
+Frontend architecture methodology:
+
+- [Feature-Sliced Design — Overview](https://feature-sliced.design/docs/get-started/overview) — backs the six-layer list (`app`, `pages`, `widgets`, `features`, `entities`, `shared`; `processes` is deprecated in v2.1) and the dependency rule "modules on one layer can only know about and import from modules from the layers strictly below."
 
 ## Note on tool catalogs
 
@@ -92,6 +109,12 @@ The catalogs below are vetted recommendations the chapter may surface. When a sp
 - SWC — `https://swc.rs/`
 - Biome — `https://biomejs.dev/`
 - unbuild (UnJS) — `https://github.com/unjs/unbuild`
+
+## Module boundary enforcement
+
+- eslint-plugin-boundaries — `https://github.com/javierbrea/eslint-plugin-boundaries` (declarative architectural rules tied to folder patterns; docs at `https://jsboundaries.dev/`)
+- eslint-plugin-import — `https://github.com/import-js/eslint-plugin-import` (zone-based restriction via `no-restricted-paths`: `https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-restricted-paths.md`)
+- dependency-cruiser — `https://github.com/sverweij/dependency-cruiser` (graph analysis, default-rule cycle detection, CI-friendly text output)
 
 ## Databases and ORMs
 

@@ -457,6 +457,73 @@ Stacks live for years. Optimize for the engineer reading the code six months aft
 - Document the "why" for any non-obvious choice. `ARCHITECTURE.md` is where an outsider should start.
 - Delete rather than deprecate. Unused code confuses more than it helps.
 
+## Application architecture patterns
+
+How the codebase organizes responsibility beyond folders. Patterns are paid for in indirection, file count, and onboarding friction. Most web apps need none by name — a thin layered or vertical-slice structure covers CRUD SaaS, content sites, dashboards, internal tools. Reach for a named pattern only when changing the current shape costs more than adopting the pattern.
+
+### Layered (default)
+
+Routes / controllers handle HTTP. Services hold business rules. Repositories or query modules handle data access. Each layer depends only on the one below.
+
+- Fits: most web apps. Next.js, Remix, SvelteKit, Rails, Django, Laravel land here whether or not the team names it.
+- Strengths: easy to teach; trivial test boundary; maps to framework conventions.
+- Weaknesses: services drift into god objects; data access leaks into controllers; infrastructure swaps require touching service code.
+
+### Vertical slice
+
+Organize by feature/use-case, not technical layer. Each slice cuts top-to-bottom (HTTP → handler → data) and owns its own validation, business rule, and persistence call. Cross-slice imports are forbidden. Bogard's principle: minimize coupling between slices, maximize coupling inside a slice.
+
+- Fits: feature-heavy APIs, growing SaaS, teams shipping many features in parallel.
+- Strengths: change is local; deleting a feature is one folder; new engineers find the whole feature in one place; pairs naturally with Feature-Sliced Design on the frontend.
+- Weaknesses: cross-slice duplication is real and intentional — junior engineers DRY too early; senior judgement required on when an abstraction earns its keep.
+- Adopt when: features outnumber shared concepts and the team can resist premature abstraction.
+
+### Hexagonal (ports and adapters)
+
+Domain defines interfaces (ports). Infrastructure (DB, broker, payment, third-party APIs) implements them (adapters). Domain depends on nothing outside itself. Cockburn coined the pattern in 2005 to "allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases."
+
+- Fits: services with infrastructure that genuinely swaps (Postgres ↔ DynamoDB, Stripe ↔ Adyen, in-process ↔ message bus); heavy test discipline; domain logic that outlives the framework.
+- Strengths: domain testable without infrastructure; vendor swap is a new adapter, not a rewrite; framework migrations stay shallow.
+- Weaknesses: indirection cost; adapter glue inflates file count; over-engineered for CRUD.
+- Adopt when: at least one adapter is genuinely interchangeable today, or the domain is the long-lived asset and the framework is not.
+
+### Clean Architecture
+
+Concentric layers — entities → use cases → interface adapters → frameworks. The Dependency Rule (Martin, 2012): "source code dependencies can only point inwards." Builds on hexagonal with explicit use-case granularity.
+
+- Fits: large systems with hundreds of use cases and a long planned lifetime; teams who have shipped hexagonal in production before.
+- Strengths: structured testability and replaceability; explicit use-case boundaries.
+- Weaknesses: ceremonial; teams new to it produce six-file features that do one thing; tests devolve into mocks of mocks; fighting Next.js or Rails costs more than it saves.
+- Adopt when: senior leads have shipped it before, the domain is genuinely complex, and the framework cooperates.
+
+### Domain-Driven Design
+
+DDD is vocabulary for modelling complex domains, not a folder layout. Two halves:
+
+- **Strategic** — bounded contexts (explicit boundaries between models that share a name but mean different things; a `User` in billing is not a `User` in support), context maps, ubiquitous language (code, docs, conversations share business terms).
+- **Tactical** — entities (identity persists across changes), value objects (immutable, equality by value: `Money`, `EmailAddress`, `DateRange`), aggregates (a cluster with one root enforcing invariants), domain events, repositories.
+
+Strategic DDD is almost always worth applying — naming bounded contexts and aligning code to business language costs little and pays back in clarity. Full tactical DDD (aggregates, domain events, event sourcing) is justified only when the domain itself is the hard part. Most CRUD has no domain in this sense.
+
+### Choosing
+
+The honest decision tree:
+
+1. CRUD-heavy app, small team, framework conventions cover most needs → layered.
+2. Many independent features, experienced team, want fast feature ship → vertical slice. Pair with strategic DDD when the business has clear bounded contexts.
+3. One adapter genuinely swaps today, or domain logic must outlive the framework → hexagonal. Add tactical DDD if the domain is rich.
+4. Hundreds of use cases, long lifetime, senior team that has shipped this style before → Clean Architecture.
+5. Combine when slicing is large enough — vertical slices on the outside, hexagonal inside the slices that need it.
+
+### Anti-patterns
+
+- Hexagonal scaffolding around one Postgres call. Strip it; reintroduce when a second adapter actually arrives.
+- "Clean Architecture by the book" inside a Next.js or Rails app. The framework is one of the rings; fighting it costs more than it saves.
+- DDD vocabulary as decoration. `UserRepository` wrapping a single Drizzle query is not DDD.
+- Microservice per aggregate. Modules give bounded contexts inside one process; deploy boundaries are an organizational decision, not an architectural one.
+- Forcing every feature through the same template when only some need the protection. A simple CRUD endpoint and a complex billing flow should not have the same layer count.
+- Adopting a pattern for hypothetical scale or hypothetical vendor swaps. Refactor toward the pattern when the code asks for it (repeated change in the same shape, repeated test pain).
+
 ## The boring-technology budget
 
 Every project has a small budget for novel technology — usually one or two components. Spend it where the novel tool creates a measurable advantage the boring alternative cannot match. Spend it everywhere and the result is ten half-understood components instead of one well-understood system.
@@ -581,17 +648,17 @@ Co-location makes components easy to move, easy to delete, and easy to understan
 Modern CSS module scripts allow the same pattern without a bundler:
 
 ```js path=null start=null
-import sheet from "./button.css" with { type: "css" };
+import sheet from './button.css' with { type: 'css' };
 
 export class MyButton extends HTMLElement {
   constructor() {
     super();
-    const root = this.attachShadow({ mode: "open" });
+    const root = this.attachShadow({ mode: 'open' });
     root.adoptedStyleSheets = [sheet];
     root.innerHTML = `<button part="btn"><slot></slot></button>`;
   }
 }
-customElements.define("my-button", MyButton);
+customElements.define('my-button', MyButton);
 ```
 
 Supported in Chromium and Firefox 147+. For cross-browser parity today, wrap with a minimal bundler.
@@ -607,29 +674,11 @@ Supported in Chromium and Firefox 147+. For cross-browser parity today, wrap wit
 
 ### Folder structure
 
-There is no universal right structure; consistency matters more than any specific shape. Two reasonable defaults:
+No universal right structure; consistency matters more than shape. Pick one and apply everywhere.
+
+By type — small apps, single-purpose tools:
 
 ```
-# By feature
-src/
-  features/
-    billing/
-      components/
-      lib/
-      routes/
-      tests/
-    auth/
-      components/
-      lib/
-      routes/
-      tests/
-  shared/
-    components/
-    lib/
-```
-
-```
-# By type (smaller projects)
 src/
   components/
   hooks/
@@ -639,7 +688,55 @@ src/
   tests/
 ```
 
-Pick one, apply it everywhere, and enforce with ESLint import rules.
+By feature — most apps. Each feature owns its UI, logic, routes, and tests. Cross-feature reuse lives in `shared/`:
+
+```
+src/
+  features/
+    billing/
+      components/
+      lib/
+      routes/
+      tests/
+      index.ts          # public API
+    auth/
+      components/
+      lib/
+      routes/
+      tests/
+      index.ts
+  shared/
+    components/
+    lib/
+```
+
+Feature-Sliced Design — large apps with multiple teams. Six layers (`app`, `pages`, `widgets`, `features`, `entities`, `shared`); a module may import only from layers strictly below it. Worth the rigor once informal conventions start to drift.
+
+Monorepo — multiple deployable apps sharing code:
+
+```
+apps/
+  web/
+  admin/
+  api/
+packages/
+  ui/                   # shared components
+  config/               # eslint, tsconfig, prettier
+  schema/               # shared Zod / DB schemas
+  utils/
+```
+
+Tooling: pnpm workspaces + Turborepo (default), Nx for graph-heavy polyglot repos.
+
+### Module boundaries
+
+A folder is not a boundary unless something enforces it. Without enforcement, every refactor leaks across modules.
+
+- Each module exposes one entry point (`index.ts`). Internals stay internal.
+- Forbid deep imports across modules. `import { X } from 'features/billing/lib/internal'` is a smell.
+- Enforce with one of: `eslint-plugin-boundaries` (declarative rules tied to folder patterns), `eslint-plugin-import`'s `no-restricted-paths` (zone-based, no extra plugin), or `dependency-cruiser` (graph analysis, cycle detection, runs in CI).
+- Cross-feature dependencies go through `shared/` or explicit injection. Feature A directly importing Feature B couples deploy and refactor cadence.
+- Circular dependencies are design defects, not style issues. Detect in CI; fail the build.
 
 ## Form architecture
 
@@ -652,23 +749,25 @@ Define the form schema before writing any UI. The schema is the single source of
 ```ts path=null start=null
 import { z } from 'zod';
 
-const userSchema = z.object({
-  email: z.string().email('Enter a valid email'),
-  password: z
-    .string()
-    .min(8, 'At least 8 characters')
-    .regex(/[A-Z]/, 'Needs uppercase letter')
-    .regex(/[0-9]/, 'Needs a number'),
-  confirmPassword: z.string(),
-  address: z.object({
-    street: z.string().min(1, 'Required'),
-    city: z.string().min(1, 'Required'),
-    postalCode: z.string().regex(/^\d{5}$/, 'Invalid postal code'),
-  }),
-}).refine((d) => d.password === d.confirmPassword, {
-  message: "Passwords don't match",
-  path: ['confirmPassword'],
-});
+const userSchema = z
+  .object({
+    email: z.string().email('Enter a valid email'),
+    password: z
+      .string()
+      .min(8, 'At least 8 characters')
+      .regex(/[A-Z]/, 'Needs uppercase letter')
+      .regex(/[0-9]/, 'Needs a number'),
+    confirmPassword: z.string(),
+    address: z.object({
+      street: z.string().min(1, 'Required'),
+      city: z.string().min(1, 'Required'),
+      postalCode: z.string().regex(/^\d{5}$/, 'Invalid postal code'),
+    }),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 
 type UserFormData = z.infer<typeof userSchema>;
 ```
@@ -683,7 +782,10 @@ function MultiStepForm() {
   const methods = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
-    if (step < 3) { setStep(step + 1); return; }
+    if (step < 3) {
+      setStep(step + 1);
+      return;
+    }
     await createUser(data);
   };
 
@@ -698,7 +800,11 @@ function MultiStepForm() {
         {step === 3 && <ReviewStep />}
 
         <div>
-          {step > 1 && <button type="button" onClick={() => setStep(s => s - 1)}>Back</button>}
+          {step > 1 && (
+            <button type="button" onClick={() => setStep((s) => s - 1)}>
+              Back
+            </button>
+          )}
           <button type="submit">{step < 3 ? 'Next' : 'Submit'}</button>
         </div>
       </form>
@@ -712,7 +818,10 @@ function MultiStepForm() {
 Show errors at the right moment — not on every keystroke:
 
 ```tsx path=null start=null
-const { register, formState: { errors, touchedFields, isSubmitted } } = useForm({
+const {
+  register,
+  formState: { errors, touchedFields, isSubmitted },
+} = useForm({
   mode: 'onBlur', // validate on blur, not on change
 });
 
@@ -735,10 +844,14 @@ function SkillsList() {
       {fields.map((field, index) => (
         <div key={field.id}>
           <input {...register(`skills.${index}.name`)} />
-          <button type="button" onClick={() => remove(index)}>Remove</button>
+          <button type="button" onClick={() => remove(index)}>
+            Remove
+          </button>
         </div>
       ))}
-      <button type="button" onClick={() => append({ name: '' })}>Add Skill</button>
+      <button type="button" onClick={() => append({ name: '' })}>
+        Add Skill
+      </button>
     </>
   );
 }
@@ -751,8 +864,11 @@ For simple uploads, use FormData with multipart:
 ```tsx path=null start=null
 const FileSchema = z
   .instanceof(File)
-  .refine(f => f.size <= 5 * 1024 * 1024, 'Max 5 MB')
-  .refine(f => ['image/jpeg', 'image/png', 'image/webp'].includes(f.type), 'JPEG, PNG, or WebP only');
+  .refine((f) => f.size <= 5 * 1024 * 1024, 'Max 5 MB')
+  .refine(
+    (f) => ['image/jpeg', 'image/png', 'image/webp'].includes(f.type),
+    'JPEG, PNG, or WebP only',
+  );
 
 // After form submission:
 async function uploadFile(file: File) {
