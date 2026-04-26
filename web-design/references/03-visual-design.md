@@ -234,7 +234,7 @@ Useful accents; poor all-page strategies. Contrast is hard to preserve, and they
 
 ## Dark mode
 
-Dark mode is no longer a power-user preference — between 55% and 82% of users have it enabled on at least one device. A website that forces bright white on a dark-mode user creates an uncomfortable, jarring experience, especially in low light. Treat dark mode as a parallel design system, not a CSS inversion filter.
+Dark mode is no longer a power-user preference. iOS and Android both expose a system-level dark theme; both auto-switch with sunset on default settings; a significant share of users keep it on across the day. A site that forces bright white on a dark-mode user creates a jarring experience, especially in low light. Treat dark mode as a parallel design system, not a CSS inversion filter.
 
 ### The core principle: dark does not mean black
 

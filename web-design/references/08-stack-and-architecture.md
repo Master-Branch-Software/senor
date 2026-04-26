@@ -964,7 +964,7 @@ Before adding a package, check:
 - Turborepo is the default task runner for pnpm workspaces. Remote caching on Vercel or a self-hosted store.
 - Nx is acceptable when the project needs graph-aware generators, code splitting, and tight framework plugins.
 - Moon is a newer contender worth evaluating for Rust-heavy or polyglot repositories.
-- Keep the number of root-level tools minimal; chapter 16 covers the exact setup.
+- Keep the number of root-level tools minimal; chapter 15 covers the exact setup.
 
 ### Supply-chain hygiene
 

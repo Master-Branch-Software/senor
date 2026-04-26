@@ -42,27 +42,27 @@ Match user intent to the primary reference file. Read it in full, then skim rela
 
 | Task | Primary | Also consider |
 |---|---|---|
-| New website from scratch | `15-discovery-and-communication.md` then `01`, `02`, `03`, `04`, `05`, `06`, `07`, `08`, `11`, `12`, `13`, `14`, `16` | `SUMMARY.md` for quick refresher |
-| Revise copy, voice, microcopy, SEO, structured data | `02-brand-and-copywriting.md` | `15-discovery-and-communication.md`, `09-anti-patterns-and-process.md` |
-| Audit/improve accessibility | `05-accessibility.md` | `12-testing.md`, `09-anti-patterns-and-process.md` |
-| Audit/improve performance (LCP, INP, CLS) | `06-performance.md` | `04-css-and-layout.md`, `07-javascript-and-html.md`, `11-browser-compatibility.md`, `08-stack-and-architecture.md` |
-| Harden security or respond to incident | `14-security.md` | `08-stack-and-architecture.md`, `16-code-style-and-quality.md`, `07-javascript-and-html.md` |
-| Add/expand internationalization | `13-internationalization.md` | `02-brand-and-copywriting.md`, `04-css-and-layout.md`, `05-accessibility.md` |
-| Pick/refactor stack, database, API style | `08-stack-and-architecture.md` | `16-code-style-and-quality.md`, `15-discovery-and-communication.md` |
-| Set up/strengthen tests | `12-testing.md` | `16-code-style-and-quality.md` |
-| Add component or pattern | `08-stack-and-architecture.md` | `05-accessibility.md`, `07-javascript-and-html.md`, `04-css-and-layout.md`, `16-code-style-and-quality.md` |
+| New website from scratch | `14-discovery-and-communication.md` then `01`, `02`, `03`, `04`, `05`, `06`, `07`, `08`, `10`, `11`, `12`, `13`, `15` | `SUMMARY.md` for quick refresher |
+| Revise copy, voice, microcopy, SEO, structured data | `02-brand-and-copywriting.md` | `14-discovery-and-communication.md`, `09-anti-patterns-and-process.md` |
+| Audit/improve accessibility | `05-accessibility.md` | `11-testing.md`, `09-anti-patterns-and-process.md` |
+| Audit/improve performance (LCP, INP, CLS) | `06-performance.md` | `04-css-and-layout.md`, `07-javascript-and-html.md`, `10-browser-compatibility.md`, `08-stack-and-architecture.md` |
+| Harden security or respond to incident | `13-security.md` | `08-stack-and-architecture.md`, `15-code-style-and-quality.md`, `07-javascript-and-html.md` |
+| Add/expand internationalization | `12-internationalization.md` | `02-brand-and-copywriting.md`, `04-css-and-layout.md`, `05-accessibility.md` |
+| Pick/refactor stack, database, API style | `08-stack-and-architecture.md` | `15-code-style-and-quality.md`, `14-discovery-and-communication.md` |
+| Set up/strengthen tests | `11-testing.md` | `15-code-style-and-quality.md` |
+| Add component or pattern | `08-stack-and-architecture.md` | `05-accessibility.md`, `07-javascript-and-html.md`, `04-css-and-layout.md`, `15-code-style-and-quality.md` |
 | Design tokens, colors, typography, dark mode | `03-visual-design.md` | `04-css-and-layout.md`, `05-accessibility.md` |
-| Browser support matrix or polyfill | `11-browser-compatibility.md` | `06-performance.md` |
+| Browser support matrix or polyfill | `10-browser-compatibility.md` | `06-performance.md` |
 | Pre-merge/code review | `09-anti-patterns-and-process.md` | Any chapters the diff touches |
-| Launch/pre-deploy checklist | `14-security.md`, `06-performance.md`, `05-accessibility.md`, `09-anti-patterns-and-process.md`, `16-code-style-and-quality.md` | `SUMMARY.md` |
+| Launch/pre-deploy checklist | `13-security.md`, `06-performance.md`, `05-accessibility.md`, `09-anti-patterns-and-process.md`, `15-code-style-and-quality.md` | `SUMMARY.md` |
 | Bug fix or review comment | Subject-matter chapter + `09-anti-patterns-and-process.md` | — |
-| Discovery, scoping, staged asks, red-flag phrases | `15-discovery-and-communication.md` | `SUMMARY.md` |
+| Discovery, scoping, staged asks, red-flag phrases | `14-discovery-and-communication.md` | `SUMMARY.md` |
 
 ## Operating principles
 
 1. Read the primary chapter before proposing any solution touching it.
 2. Apply rules silently; never paraphrase back into output.
-3. Ask only when the answer changes the output (`15-discovery-and-communication.md`).
+3. Ask only when the answer changes the output (`14-discovery-and-communication.md`).
 4. Written artifacts before code. Text reveals unclear thinking; code hides it.
 5. End every artifact with a one-line self-review naming deviations.
 6. Later stage never silently overwrites earlier artifact. Upstream flaw → fix upstream first.
@@ -93,9 +93,9 @@ Before starting stages, confirm at minimum:
 - Target feel (one adjective).
 - Success metric.
 - Deadline + scope bounds.
-- Browser matrix (`11-browser-compatibility.md` tier or explicit list).
-- Locales + RTL requirement (`13-internationalization.md`).
-- Compliance baseline (`14-security.md`: SOC 2, HIPAA, GDPR, PCI, none).
+- Browser matrix (`10-browser-compatibility.md` tier or explicit list).
+- Locales + RTL requirement (`12-internationalization.md`).
+- Compliance baseline (`13-security.md`: SOC 2, HIPAA, GDPR, PCI, none).
 - Brand assets, content status, technical constraints.
 - Stack preferences or hard constraints (`08-stack-and-architecture.md` recipe if selected).
 
@@ -116,8 +116,7 @@ When a more specialized skill is installed, consult it alongside this one:
 2. Load the primary chapter for the current task.
 3. Load SUMMARY.md only when context is tight and you need a quick refresher.
 4. Load USAGE.md when the user asks how to wire this guide into Warp, Cursor, Claude Projects, Copilot, or other tools.
-5. Load LINKS.md when you need external reference URLs.
-6. Do not load all reference files at once. Progressive disclosure keeps context usable.
+5. Do not load all reference files at once. Progressive disclosure keeps context usable.
 
 ## How to prompt an LLM using this guide
 

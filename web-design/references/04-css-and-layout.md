@@ -459,7 +459,7 @@ Put it in a `reset` layer and never think about `margin: 8px` on `body` again.
 
 ## CSS code style
 
-See chapter 16 for the cross-cutting formatting toolchain, linting stack, and naming conventions. This section covers the CSS-specific rules that chapter 16 defers here.
+See chapter 15 for the cross-cutting formatting toolchain, linting stack, and naming conventions. This section covers the CSS-specific rules that chapter 15 defers here.
 
 ### Property ordering
 
@@ -536,4 +536,4 @@ Do not invent ad-hoc custom properties mid-declaration. If a value is used twice
 - Single-line `/* */` for section dividers and rule intent.
 - Block comments for the file header when the file is not self-explanatory.
 - No commented-out code. Delete it; version control remembers.
-- Use `TODO:`, `FIXME:`, `HACK:` markers consistent with chapter 16, with an author initial or ticket reference.
+- Use `TODO:`, `FIXME:`, `HACK:` markers consistent with chapter 15, with an author initial or ticket reference.

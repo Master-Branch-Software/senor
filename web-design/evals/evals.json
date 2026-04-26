@@ -5,7 +5,7 @@
       "id": 1,
       "eval_name": "new-saas-landing-page",
       "prompt": "I need a landing page for my SaaS. It is a time-tracking app for remote engineering teams. We integrate with Jira, GitHub, and Slack. Our differentiator is that we automatically categorize time by project and client using AI, so managers get reports without anyone filling timesheets. Target audience: engineering managers at 50-500 person remote-first companies. I want it to feel calm and professional, not another loud productivity tool. I need it live in 3 weeks. No compliance requirements. English only for now. I have a logo and 3 product screenshots.",
-      "expected_output": "The agent follows the 11-stage running order from SKILL.md. It asks discovery questions one at a time, produces brief.md and constraints.md, then brand.md, then sitemap + wireframes, then copy, then tokens, then stack, then scaffold, then pages, then tests, then audits, then launch.md. It applies non-negotiables without being asked (img width/height/alt, WCAG contrast, font-display, prefers-reduced-motion, native HTML first, no positive tabindex, two-space indent). It does not dump all 16 chapters at once.",
+      "expected_output": "The agent follows the 11-stage running order from SKILL.md. It asks discovery questions one at a time, produces brief.md and constraints.md, then brand.md, then sitemap + wireframes, then copy, then tokens, then stack, then scaffold, then pages, then tests, then audits, then launch.md. It applies non-negotiables without being asked (img width/height/alt, WCAG contrast, font-display, prefers-reduced-motion, native HTML first, no positive tabindex, two-space indent). It does not dump all 15 chapters at once.",
       "files": []
     },
     {

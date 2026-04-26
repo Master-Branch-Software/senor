@@ -453,7 +453,7 @@ Conventions that apply equally to plain JavaScript and TypeScript. Formatter and
 - Always `throw new Error("...")` with a message that identifies the operation. Never `throw "string"`.
 - Use `Error` subclasses or `cause` to preserve context: `throw new Error("failed to load user", { cause: err })`.
 - Catch at boundaries (request handlers, job workers, CLI entry points). Inside business logic, let errors propagate unless there is a specific recovery.
-- Reference chapter 16 for the broader error-handling taxonomy and the `Result` pattern option.
+- Reference chapter 15 for the broader error-handling taxonomy and the `Result` pattern option.
 
 ### Modules
 
@@ -500,8 +500,59 @@ Consistent order inside a single tag makes scanning fast and diffs small:
 ### Indentation and wrapping
 
 - Two-space indentation.
-- Break long opening tags onto multiple lines when they exceed ~100 characters or carry more than three attributes. One attribute per line, closing `>` on its own line.
+- Break long opening tags onto multiple lines when they exceed ~100 characters or carry more than three attributes. One attribute per line, closing `>` on the last attribute line (Prettier's `bracketSameLine: true`) — never floating below.
 - Keep text content on the same line as the opening tag when it fits; break text out when the opening tag is multi-line.
+
+### Vertical rhythm
+
+Whitespace between elements is data for the reader, not the parser. The HTML spec has nothing to say about blank lines (the only normative guidance is that whitespace before `<html>` is dropped). The major style guides — Google, Idiomatic-HTML, Code Guide — say "use whitespace to improve readability" and stop there. Codify the rule so the source matches what Prettier preserves and what humans scan.
+
+Insert exactly one blank line:
+
+- Between top-level landmarks: `<header>` / `<main>` / `<footer>`, and between sibling `<section>`s inside `<main>`.
+- Between sibling cards in a grid or list of card-shaped components (`.feature`, `.step`, `.stat`, `.testimonial`). The card boundary is the unit of meaning; let the eye land on it.
+- Before an HTML comment that marks a structural region (`<!-- Hero -->`, `<!-- Features -->`).
+- Between a multi-line block of `<script>` or `<style>` and the markup that follows.
+- After the last element inside a long container, before the container's closing tag, only when the container exceeds ~30 lines and a visual break helps locate the boundary.
+
+Do not insert blank lines:
+
+- Inside tightly-coupled groups: short `<ul>`/`<ol>`, table rows, `<dt>`/`<dd>` pairs, dot-indicators, button groups, the children of a single card.
+- Between inline siblings (`<a>`, `<span>`, `<code>`, `<em>`). Whitespace there is rendered output, not source rhythm — Prettier strips it under the default `htmlWhitespaceSensitivity: "css"`.
+- Between an opening tag and its first child, or between the last child and the closing tag.
+- More than one in a row. Prettier collapses runs to a single blank; the source should match.
+
+Block sibling rhythm at a glance:
+
+```html path=null start=null
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Headline</h1>
+    <p class="lead">Lead paragraph.</p>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="feature">
+      <h3>One</h3>
+      <p>Description.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Two</h3>
+      <p>Description.</p>
+    </div>
+
+    <div class="feature">
+      <h3>Three</h3>
+      <p>Description.</p>
+    </div>
+  </section>
+</main>
+```
+
+The same pattern, written without blank lines between sibling cards, reads as a wall of `<div>`. With them, the unit of meaning becomes scannable.
 
 ### Semantic first
 

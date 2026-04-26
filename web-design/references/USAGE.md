@@ -34,13 +34,12 @@ canonical conventions for the rest of this session:
 - web-design/references/07-javascript-and-html.md
 - web-design/references/08-stack-and-architecture.md
 - web-design/references/09-anti-patterns-and-process.md
-- web-design/references/10-resources.md
-- web-design/references/11-browser-compatibility.md
-- web-design/references/12-testing.md
-- web-design/references/13-internationalization.md
-- web-design/references/14-security.md
-- web-design/references/15-discovery-and-communication.md
-- web-design/references/16-code-style-and-quality.md
+- web-design/references/10-browser-compatibility.md
+- web-design/references/11-testing.md
+- web-design/references/12-internationalization.md
+- web-design/references/13-security.md
+- web-design/references/14-discovery-and-communication.md
+- web-design/references/15-code-style-and-quality.md
 
 Apply every non-negotiable from SKILL.md without exception.
 When a rule conflicts with a habit, follow the rule. When a rule
@@ -95,13 +94,12 @@ Task-to-chapter mapping:
 - Framework choice, Tailwind v4, shadcn/ui, tokens, state, forms — `08-stack-and-architecture.md`.
 - Copywriting, hero sections, brand voice, SEO, structured data — `02-brand-and-copywriting.md`.
 - Design reviews, anti-pattern audits, pre-merge checks, AI pitfalls — `09-anti-patterns-and-process.md`.
-- Research or tool lookup — `10-resources.md`.
-- Browser support matrix, `@supports`/feature detection, polyfill choices, cross-browser testing — `11-browser-compatibility.md`.
-- Testing strategy, Vitest, Playwright, MSW, visual regression, CI — `12-testing.md`.
-- Internationalization, Intl API, RTL, hreflang, locale patterns — `13-internationalization.md`.
-- Security headers, CSP, XSS, CSRF, auth, CORS, OWASP — `14-security.md`.
-- Discovery questions for a new brief, what to default, when to ask, checkpoints, and communication patterns with the user — `15-discovery-and-communication.md`.
-- Code style and formatting, ESLint/Prettier/Biome/Stylelint setup, `tsconfig` baseline, repository hygiene, naming, imports, error handling, structured logging, dependency management, Conventional Commits, git hooks, CI enforcement — `16-code-style-and-quality.md`.
+- Browser support matrix, `@supports`/feature detection, polyfill choices, cross-browser testing — `10-browser-compatibility.md`.
+- Testing strategy, Vitest, Playwright, MSW, visual regression, CI — `11-testing.md`.
+- Internationalization, Intl API, RTL, hreflang, locale patterns — `12-internationalization.md`.
+- Security headers, CSP, XSS, CSRF, auth, CORS, OWASP — `13-security.md`.
+- Discovery questions for a new brief, what to default, when to ask, checkpoints, and communication patterns with the user — `14-discovery-and-communication.md`.
+- Code style and formatting, ESLint/Prettier/Biome/Stylelint setup, `tsconfig` baseline, repository hygiene, naming, imports, error handling, structured logging, dependency management, Conventional Commits, git hooks, CI enforcement — `15-code-style-and-quality.md`.
 
 ## Integrations
 

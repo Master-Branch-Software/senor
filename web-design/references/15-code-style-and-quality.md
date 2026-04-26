@@ -21,14 +21,16 @@ Canonical `.prettierrc.json`:
   "useTabs": false,
   "arrowParens": "always",
   "bracketSpacing": true,
-  "htmlWhitespaceSensitivity": "ignore",
+  "bracketSameLine": true,
+  "htmlWhitespaceSensitivity": "css",
   "endOfLine": "lf",
   "plugins": ["prettier-plugin-tailwindcss"]
 }
 ```
 - `trailingComma: "all"` is the Prettier 3 default and produces cleaner diffs when items are added to arrays, objects, or function signatures.
 - `printWidth: 100` balances legibility against diff noise. 80 is still defensible for prose-heavy codebases; above 120 is a code smell.
-- Use `htmlWhitespaceSensitivity: "ignore"` when Prettier output becomes hard to read because inline HTML text and tags are fragmented across lines.
+- `bracketSameLine: true` keeps the closing `>` of a multi-line HTML/JSX/Vue/Angular tag on the last attribute line instead of dropping it onto a fresh line. The default is `false`, which produces stray `>` characters floating below the attributes — readable in JSX where `/>` carries meaning, distracting in plain HTML. Flip it on for HTML-heavy projects; leave it off only when the team is JSX-first and prefers the dangling-bracket diff shape.
+- `htmlWhitespaceSensitivity: "css"` is the default and the right choice for hand-written HTML. Prettier reads each tag's CSS `display` value and treats whitespace around inline elements (`<a>`, `<span>`, `<code>`, `<em>`) as significant — because it is: `1<b> 2 </b>3` does not render the same as `1<b>2</b>3`. Block elements get reflowed freely. `"strict"` preserves all whitespace exactly as written (use only when authoring whitespace-pre templates). `"ignore"` reflows everything, including inline content, and is the cause of the common "stray `</a>` flushed left on its own line" output — never use it on marketing copy or any text-heavy template.
 - `endOfLine: "lf"` combined with a `.gitattributes` entry (see below) prevents line-ending wars between macOS, Linux, and Windows contributors.
 - `prettier-plugin-tailwindcss` sorts Tailwind utility classes into Tailwind's recommended order. Install it whenever Tailwind is in use.
 Canonical `.prettierignore`:
