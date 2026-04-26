@@ -36,23 +36,26 @@ Apply these on every task without asking:
 
 Match user intent to the primary reference file. Read it in full, then skim related.
 
-| Task | Primary | Also consider |
-|---|---|---|
-| New website from scratch | `14-discovery-and-communication.md` then `01`, `02`, `03`, `04`, `05`, `06`, `07`, `08`, `10`, `11`, `12`, `13`, `15` | `SUMMARY.md` for quick refresher |
-| Revise copy, voice, microcopy, SEO, structured data | `02-brand-and-copywriting.md` | `14-discovery-and-communication.md`, `09-anti-patterns-and-process.md` |
-| Audit/improve accessibility | `05-accessibility.md` | `11-testing.md`, `09-anti-patterns-and-process.md` |
-| Audit/improve performance (LCP, INP, CLS) | `06-performance.md` | `04-css-and-layout.md`, `07-javascript-and-html.md`, `10-browser-compatibility.md`, `08-stack-and-architecture.md` |
-| Harden security or respond to incident | `13-security.md` | `08-stack-and-architecture.md`, `15-code-style-and-quality.md`, `07-javascript-and-html.md` |
-| Add/expand internationalization | `12-internationalization.md` | `02-brand-and-copywriting.md`, `04-css-and-layout.md`, `05-accessibility.md` |
-| Pick/refactor stack, database, API style | `08-stack-and-architecture.md` | `15-code-style-and-quality.md`, `14-discovery-and-communication.md` |
-| Set up/strengthen tests | `11-testing.md` | `15-code-style-and-quality.md` |
-| Add component or pattern | `08-stack-and-architecture.md` | `05-accessibility.md`, `07-javascript-and-html.md`, `04-css-and-layout.md`, `15-code-style-and-quality.md` |
-| Design tokens, colors, typography, dark mode | `03-visual-design.md` | `04-css-and-layout.md`, `05-accessibility.md` |
-| Browser support matrix or polyfill | `10-browser-compatibility.md` | `06-performance.md` |
-| Pre-merge/code review | `09-anti-patterns-and-process.md` | Any chapters the diff touches |
-| Launch/pre-deploy checklist | `13-security.md`, `06-performance.md`, `05-accessibility.md`, `09-anti-patterns-and-process.md`, `15-code-style-and-quality.md` | `SUMMARY.md` |
-| Bug fix or review comment | Subject-matter chapter + `09-anti-patterns-and-process.md` | — |
-| Discovery, scoping, staged asks, red-flag phrases | `14-discovery-and-communication.md` | `SUMMARY.md` |
+| Task                                                                   | Primary                                                                                                                         | Also consider                                                                                                      |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| New website from scratch                                               | `14-discovery-and-communication.md` then `01`, `02`, `03`, `04`, `05`, `06`, `07`, `08`, `10`, `11`, `12`, `13`, `15`           | `SUMMARY.md` for quick refresher                                                                                   |
+| Revise copy, voice, microcopy, SEO, structured data                    | `02-brand-and-copywriting.md`                                                                                                   | `14-discovery-and-communication.md`, `09-anti-patterns-and-process.md`                                             |
+| Audit/improve accessibility                                            | `05-accessibility.md`                                                                                                           | `11-testing.md`, `09-anti-patterns-and-process.md`                                                                 |
+| Audit/improve performance (LCP, INP, CLS)                              | `06-performance.md`                                                                                                             | `04-css-and-layout.md`, `07-javascript-and-html.md`, `10-browser-compatibility.md`, `08-stack-and-architecture.md` |
+| Harden security or respond to incident                                 | `13-security.md`                                                                                                                | `08-stack-and-architecture.md`, `15-code-style-and-quality.md`, `07-javascript-and-html.md`                        |
+| Add/expand internationalization                                        | `12-internationalization.md`                                                                                                    | `02-brand-and-copywriting.md`, `04-css-and-layout.md`, `05-accessibility.md`                                       |
+| Pick/refactor stack, database, API style                               | `08-stack-and-architecture.md`                                                                                                  | `15-code-style-and-quality.md`, `14-discovery-and-communication.md`                                                |
+| Set up/strengthen tests                                                | `11-testing.md`                                                                                                                 | `15-code-style-and-quality.md`                                                                                     |
+| Add component or pattern                                               | `08-stack-and-architecture.md`                                                                                                  | `05-accessibility.md`, `07-javascript-and-html.md`, `04-css-and-layout.md`, `15-code-style-and-quality.md`         |
+| Design tokens, colors, typography, dark mode                           | `03-visual-design.md`                                                                                                           | `04-css-and-layout.md`, `05-accessibility.md`                                                                      |
+| Layout archetype, hero pattern, section flow                           | `03-visual-design.md`                                                                                                           | `04-css-and-layout.md`, `inspiration-gallery.md`                                                                   |
+| Need creative reference / browse examples by feel                      | `inspiration-gallery.md`                                                                                                        | `03-visual-design.md`                                                                                              |
+| Avoid AI design fingerprints (purple gradients, generic SaaS template) | `09-anti-patterns-and-process.md` § AI design fingerprints                                                                      | `03-visual-design.md` § Designing against AI defaults                                                              |
+| Browser support matrix or polyfill                                     | `10-browser-compatibility.md`                                                                                                   | `06-performance.md`                                                                                                |
+| Pre-merge/code review                                                  | `09-anti-patterns-and-process.md`                                                                                               | Any chapters the diff touches                                                                                      |
+| Launch/pre-deploy checklist                                            | `13-security.md`, `06-performance.md`, `05-accessibility.md`, `09-anti-patterns-and-process.md`, `15-code-style-and-quality.md` | `SUMMARY.md`                                                                                                       |
+| Bug fix or review comment                                              | Subject-matter chapter + `09-anti-patterns-and-process.md`                                                                      | —                                                                                                                  |
+| Discovery, scoping, staged asks, red-flag phrases                      | `14-discovery-and-communication.md`                                                                                             | `SUMMARY.md`                                                                                                       |
 
 ## Operating principles
 

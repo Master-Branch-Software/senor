@@ -8,6 +8,18 @@ Per `AGENTS.md`:
 - Cite the specific claim, not just the topic.
 - Mark uncited rules inline ("uncited — verify before publishing") rather than fabricating sources.
 
+## Layout archetypes and hero patterns
+
+- [Bruce & Eddy — 10 website layout examples for inspiration](https://www.bruceandeddy.com/website-layout-examples/) — single-column, F-pattern, Z-pattern, card, sidebar, hero, masonry, magazine, single-page.
+- [Orizon Design — Common hero section design layouts and when to use them](https://www.orizon.co/blog/common-hero-section-design-layouts-and-when-to-use-them) — fullbleed, split, minimalist, text-heavy, interactive, asymmetric heroes.
+- [LandingPageFlow — Z-pattern vs F-pattern for landing pages](https://www.landingpageflow.com/post/z-pattern-vs-f-pattern) — eye-flow models and applicability.
+- [Senorit — Bento grid design (CSS grid)](https://senorit.de/en/blog/bento-grid-design-trend-2025) — bento layout structure and CSS grid implementation.
+- [Saaspo — Hero section examples](https://saaspo.com/section-type/saas-hero-section-examples) — section-typed hero gallery for pattern study.
+
+## Inspiration gallery (curated)
+
+The full curated list of inspiration sources lives in [`inspiration-gallery.md`](inspiration-gallery.md). That file is loaded by skill consumers; this sidecar tracks provenance only.
+
 ## Design systems and principles
 
 - [Refactoring UI (Adam Wathan, Steve Schoger)](https://www.refactoringui.com/) — practical visual design heuristics.

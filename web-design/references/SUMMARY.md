@@ -63,6 +63,11 @@ Website serves specific person, specific goal, specific brand voice. Every choic
 - Imagery: real, specific, brand-owned; one icon system, optically matched to text.
 - Depth: consistent shadow scale; multi-layer shadows; never stack shadow + border + blur.
 - Design styles: Swiss, minimalism, maximalism, brutalism, editorial — pick one primary.
+- Layout archetypes: single column, F-pattern, Z-pattern, modular grid, bento, asymmetric, magazine, sidebar, single-page, card/feed, masonry, hub-and-spoke, fullbleed media. Pick one per page; mix at most one secondary.
+- Hero patterns: centered text, split text/media, fullbleed media, asymmetric collage, editorial text-rich, interactive/live. Match to the brand's argument, not the tutorial default.
+- Page sections are a vocabulary, not a checklist. Strong sites prune to 4–6; the AI default 9-section SaaS sequence reads as generated.
+- Designing against AI defaults: reject indigo→violet gradients, Inter-only typography, 3-icon feature grids, generic 3D blob illustrations, glassmorphism on every card, identical 8/12/16 px rounded corners. See chapter 09 § AI design fingerprints.
+- Browse [`inspiration-gallery.md`](inspiration-gallery.md) before generating from blank; pick 1–2 categories matching the brief, scan 5–10 examples, absorb structure not pixels.
 
 ## 04 — CSS and layout
 
@@ -154,6 +159,7 @@ Website serves specific person, specific goal, specific brand voice. Every choic
 - JS: `==`, silent catches, `innerHTML` with user input, tokens in `localStorage`.
 - React: misused `useEffect`, unstable list keys, new function references as props.
 - AI pitfalls: hallucinated imports, hardcoded pixels, missing `width`/`height`, ignoring reduced motion, defensive ARIA, reimplementing modals from scratch.
+- AI design fingerprints to refuse: indigo/violet gradient hero, blurred radial blobs behind centered text, Inter-only type, 3-icon feature grid, identical rounded-card+soft-shadow everywhere, lucide outline icon on every block, glassmorphism by default, 9-section SaaS template ordering, stock-photo team smiling at laptops, generated isometric 3D illustrations.
 - Pre-merge checklist covers correctness, design, a11y, performance, copy, and code quality.
 - Process: brief → content → wireframe → tokens → components → pages → a11y/perf → QA → staged launch → 30/90-day review.
 - Design review weekly, 15–30 minutes, seven lenses: hierarchy, consistency, brand, feel, copy, a11y, performance.
@@ -188,6 +194,7 @@ Website serves specific person, specific goal, specific brand voice. Every choic
 - Interop 2026 is tracked at `wpt.fyi/interop-2026`.
 
 ## 12 — Testing
+
 - The testing trophy: static analysis → integration (largest) → unit → E2E → visual regression.
 - Vitest replaces Jest for Vite-based projects: 4–10× faster, native TypeScript/ESM, Jest-compatible API.
 - MSW intercepts at the network layer — components call real `fetch`, tests exercise actual data-fetching code.
@@ -199,6 +206,7 @@ Website serves specific person, specific goal, specific brand voice. Every choic
 - CI: typecheck → lint → unit+integration → Playwright E2E → a11y. Fail the build on any failure.
 
 ## 13 — Internationalization
+
 - i18n (architectural) vs l10n (translation/adaptation). Retrofitting costs 3–5× more.
 - Intl API: `DateTimeFormat`, `NumberFormat`, `RelativeTimeFormat`, `ListFormat`, `PluralRules`, `Collator`, `Segmenter` — all built-in, zero bundle cost.
 - ICU MessageFormat for pluralization and interpolation. Never concatenate translated fragments with variables.
@@ -213,6 +221,7 @@ Website serves specific person, specific goal, specific brand voice. Every choic
 - WCAG 1.3.2: `lang` on `<html>` is Level A. Screen readers use it for speech synthesizer selection.
 
 ## 14 — Security
+
 - Security headers set on every response: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.
 - CSP: start with `Content-Security-Policy-Report-Only` to discover violations; use nonces for inline scripts; avoid `'unsafe-inline'` for `script-src`.
 - HSTS: `max-age=63072000; includeSubDomains; preload`. Start with `max-age=300` during testing.
@@ -227,6 +236,7 @@ Website serves specific person, specific goal, specific brand voice. Every choic
 - Secrets: never committed to source; rotated on schedule; rotate immediately if accidentally committed.
 
 ## 15 — Discovery and communication
+
 - Ask when the answer changes the output; default silently when a strong answer exists in this guide.
 - Minimum brief before building: audience, primary action, differentiator, target feel, success metric, deadline and scope, existing brand assets, content status, technical constraints, compliance, i18n, expected scale.
 - Stage-gated questions: brief → voice → sitemap → copy → tokens → components → pages → a11y/perf passes → launch. Do not ask ahead of the stage.

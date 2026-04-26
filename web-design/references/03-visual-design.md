@@ -64,6 +64,68 @@ Modern CSS Grid makes grids fluid:
 
 Use named grid lines or subgrid when related components must share alignment across levels.
 
+## Layout archetypes
+
+A layout encodes intent. Pick the archetype whose reading model matches the user's job; do not default to "hero + three feature cards" because the training data did. Each archetype has a native fit and a misuse.
+
+- **Single column** — vertical narrative. Long-form articles, manifestos, storytelling product pages. One idea per scroll-step. Misuse: dense reference content (use sidebar) or product comparison (use grid).
+- **F-pattern** — heavy left rail of headings and entry points; users scan top-and-left. Documentation, blog indexes, support, dashboards with side nav. Misuse: emotional brand pages (no story arc).
+- **Z-pattern** — diagonal eye flow from logo → headline → secondary → CTA. Sparse landing pages with one outcome. Misuse: content-dense pages; the Z collapses past two cycles.
+- **Modular grid (12-column)** — flexible default for marketing and editorial. Pairs with any other archetype.
+- **Bento grid** — modular cards of varying sizes, asymmetric, aligned on a shared grid. Strong fit for feature recap, capability overviews, multi-product portfolios. Misuse: every section bento'd — reads as AI default; mix with other section types.
+- **Asymmetric / broken grid** — overlapping elements, off-axis blocks, deliberate tension. Creative agencies, fashion, editorial. Misuse: cognitive-heavy tasks (forms, dashboards). Demands craft; sloppy asymmetry reads as broken.
+- **Magazine / editorial** — varied typography, hang-lines, pull quotes, image-text interleave. Long-form, journalism, brand storytelling. Misuse: utility apps.
+- **Sidebar (two-pane)** — persistent navigation or context column with main content. Documentation, settings, dashboards, e-commerce category. Misuse: small marketing sites — adds chrome without payoff.
+- **Single-page (long scroll with anchors)** — one URL, sectioned story, anchor nav. Product launches, events, portfolios, microsites. Misuse: large-IA sites needing deep linking.
+- **Card / feed** — equal-weight modular units. Social, browse pages, search results, dashboards. Misuse: hierarchy required (one item more important than another).
+- **Masonry** — variable-height tiles. Image galleries, Pinterest-style, mixed-content portfolios. Misuse: text-driven content (uneven baselines tire the eye).
+- **Hub-and-spoke** — central index linking to detail pages of equal weight. Component libraries, case-study indexes, course directories.
+- **Fullbleed media-first** — edge-to-edge image or video carries the message; copy is overlay. Cinematic brands, product reveals, fashion. Misuse: any context where contrast on overlaid text is unstable.
+
+Choose one primary archetype per page. Mix at most one secondary (e.g. modular grid hosting a bento section). Drift between archetypes section to section reads as a stitched-together AI page.
+
+## Hero patterns
+
+The hero encodes the bargain: who, what, why-now, what-to-do. Six recurring patterns, each with a default and a tradeoff:
+
+- **Centered text** — headline + subhead + CTA centered, no media. Use when the headline is the proof (manifesto, opinionated product, editorial). Strongest when typography is distinctive. Default AI choice — rescue with typographic confidence, not gradients.
+- **Split (text / media)** — copy on one side, product shot or photo on the other. Use when a single screenshot or visual carries the value prop. Place CTA inside the text column at headline's eyeline, not below the image.
+- **Fullbleed media** — full-width image or video; copy floats with overlay. Use for emotional brands and physical products. Requires a contrast scrim or a deliberately dark image; never let lazy gradients hide weak contrast.
+- **Asymmetric / collage** — overlapping shapes, pull-quotes, off-axis CTA. Use for creative brands. High craft cost; production designers, not AI defaults.
+- **Editorial / text-rich** — large headline + deck + lead paragraph + inline CTA. Use when SEO content and depth matter at first scroll (B2B, fintech, services).
+- **Interactive / live** — embedded demo, configurator, animated diagram, real product. Use when the product itself is the strongest argument (developer tools, design tools, calculators). The hero IS the onboarding.
+
+Disqualify combinations: two competing primary CTAs; autoplay carousel with > 3 slides; text on busy photo with no scrim; centered-text hero whose only differentiation is a purple-blue gradient.
+
+## Page section vocabulary
+
+A marketing page is a sequence of section archetypes. Treat them as a vocabulary, not a checklist; choose only the sections the audience needs to act, in the order that matches their decision arc. Common archetypes:
+
+- **Hero** — bargain in one screen.
+- **Trust strip** — logos, badges, ratings, "X customers / Y countries". Place above or directly below hero.
+- **Problem / agitation** — the cost of the status quo. Skip when the audience already feels the pain.
+- **Solution / how-it-works** — mechanism in 3–5 steps. Concrete verbs; no buzzwords.
+- **Feature recap** — bento or 2×2 grid of capabilities, each tied to a JTBD outcome.
+- **Deep features** — alternating split sections; one feature per section with proof.
+- **Social proof** — testimonials with face + role + outcome; avoid fictional avatars.
+- **Case studies / numbers** — specific outcomes with denominators ("cut churn 14% over 6 months on 12k customers").
+- **Comparison** — versus status quo or named alternative; honest table, not strawman.
+- **Pricing** — 2–4 tiers with anchored middle, "everything in X plus" pattern.
+- **FAQ** — handles the top 5 conversion-blocking objections; written from real sales conversations.
+- **Final CTA** — one sentence of stakes + one verb.
+- **Footer** — utility, legal, secondary nav.
+
+Skip ruthlessly. A SaaS homepage that runs hero → trust → problem → solution → features → testimonials → pricing → FAQ → CTA is the AI default. Strong sites prune to 4–6 sections that earn their place.
+
+## Inspiration sources
+
+Browse curated galleries before generating from a blank page. The curated list lives in [`inspiration-gallery.md`](inspiration-gallery.md). Use it as a human designer would: scan 5–10 examples in the relevant category to absorb structural patterns (hero composition, section pacing, type pairing, color temperament), then build from primitives with the brand's own voice and the rules in this chapter. Do not copy layouts; copy the _reasoning_ behind layouts that fit the brief.
+
+Two failure modes to avoid:
+
+- Treating one award-winning site as a template. The site won because of its specific brand fit; lifting its motion or color rarely fits a different brand.
+- Using inspiration galleries to generate sameness. If three competitor sites all use a centered hero with a purple gradient, that is a signal to do _something else_.
+
 ## Typography
 
 ### Choosing type
@@ -92,13 +154,13 @@ Example fluid scale (two-step derivation with Utopia or manual `clamp`):
 
 ```css path=null start=null
 :root {
-  --step--1: clamp(0.83rem, 0.80rem + 0.20vw, 0.94rem);
-  --step-0:  clamp(1.00rem, 0.95rem + 0.25vw, 1.13rem);
-  --step-1:  clamp(1.20rem, 1.13rem + 0.38vw, 1.41rem);
-  --step-2:  clamp(1.44rem, 1.33rem + 0.56vw, 1.76rem);
-  --step-3:  clamp(1.73rem, 1.57rem + 0.81vw, 2.20rem);
-  --step-4:  clamp(2.07rem, 1.85rem + 1.13vw, 2.75rem);
-  --step-5:  clamp(2.49rem, 2.17rem + 1.56vw, 3.44rem);
+  --step--1: clamp(0.83rem, 0.8rem + 0.2vw, 0.94rem);
+  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.13rem);
+  --step-1: clamp(1.2rem, 1.13rem + 0.38vw, 1.41rem);
+  --step-2: clamp(1.44rem, 1.33rem + 0.56vw, 1.76rem);
+  --step-3: clamp(1.73rem, 1.57rem + 0.81vw, 2.2rem);
+  --step-4: clamp(2.07rem, 1.85rem + 1.13vw, 2.75rem);
+  --step-5: clamp(2.49rem, 2.17rem + 1.56vw, 3.44rem);
 }
 ```
 
@@ -252,11 +314,11 @@ A subtle tonal quality — slightly warm, slightly cool, or slightly blue-tinted
 In light mode, depth is communicated through shadows. In dark mode, shadows are nearly invisible against dark backgrounds. Instead, use progressively lighter surface colors to indicate elevation:
 
 ```css path=null start=null
-[data-theme="dark"] {
-  --color-bg:         #121212; /* base page */
-  --color-surface-1:  #1e1e1e; /* cards, dialogs */
-  --color-surface-2:  #232323; /* raised cards */
-  --color-surface-3:  #2c2c2c; /* modals, popovers */
+[data-theme='dark'] {
+  --color-bg: #121212; /* base page */
+  --color-surface-1: #1e1e1e; /* cards, dialogs */
+  --color-surface-2: #232323; /* raised cards */
+  --color-surface-3: #2c2c2c; /* modals, popovers */
 }
 ```
 
@@ -266,15 +328,15 @@ Each level is slightly lighter. The visual rule: higher elevation = lighter surf
 
 Colors that work on white backgrounds often feel aggressive on dark backgrounds. Reduce saturation by 10–20% and increase lightness slightly:
 
-| Role | Light mode | Dark mode |
-| --- | --- | --- |
-| Primary blue | `#1976D2` | `#64B5F6` |
-| Success green | `#22C55E` | `#4ADE80` |
-| Warning amber | `#F59E0B` | `#FCD34D` |
-| Error red | `#EF4444` | `#F87171` |
-| Primary text | `#1D1729` | `rgba(255,255,255,0.87)` |
-| Secondary text | `#6B7280` | `rgba(255,255,255,0.60)` |
-| Disabled text | `#9CA3AF` | `rgba(255,255,255,0.38)` |
+| Role           | Light mode | Dark mode                |
+| -------------- | ---------- | ------------------------ |
+| Primary blue   | `#1976D2`  | `#64B5F6`                |
+| Success green  | `#22C55E`  | `#4ADE80`                |
+| Warning amber  | `#F59E0B`  | `#FCD34D`                |
+| Error red      | `#EF4444`  | `#F87171`                |
+| Primary text   | `#1D1729`  | `rgba(255,255,255,0.87)` |
+| Secondary text | `#6B7280`  | `rgba(255,255,255,0.60)` |
+| Disabled text  | `#9CA3AF`  | `rgba(255,255,255,0.38)` |
 
 Do not use pure white (`#FFFFFF`) for body text — use `rgba(255,255,255,0.87)` or `#ECECEC`. Pure white is too harsh and causes halation.
 
@@ -309,24 +371,24 @@ For photography, a subtle brightness reduction integrates the image with the dar
 
 /* System preference */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg:            #121212;
-    --surface:       #1e1e1e;
-    --text:          rgba(255, 255, 255, 0.87);
-    --text-secondary: rgba(255, 255, 255, 0.60);
-    --border:        rgba(255, 255, 255, 0.12);
-    --primary:       #64b5f6;
+  :root:not([data-theme='light']) {
+    --bg: #121212;
+    --surface: #1e1e1e;
+    --text: rgba(255, 255, 255, 0.87);
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --border: rgba(255, 255, 255, 0.12);
+    --primary: #64b5f6;
   }
 }
 
 /* Explicit override */
-[data-theme="dark"] {
-  --bg:            #121212;
-  --surface:       #1e1e1e;
-  --text:          rgba(255, 255, 255, 0.87);
-  --text-secondary: rgba(255, 255, 255, 0.60);
-  --border:        rgba(255, 255, 255, 0.12);
-  --primary:       #64b5f6;
+[data-theme='dark'] {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --text: rgba(255, 255, 255, 0.87);
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --border: rgba(255, 255, 255, 0.12);
+  --primary: #64b5f6;
 }
 ```
 
@@ -358,6 +420,18 @@ Always detect and apply the theme before the first paint to prevent the "flash o
 - Inconsistent text colors — mixing pure white with off-whites looks sloppy.
 - Only testing in mockups — test on a real phone in a dark room.
 - Treating dark mode as an afterthought — design both modes in parallel from the beginning.
+
+## Designing against AI defaults
+
+Generative tools converge on a recognizable visual fingerprint because training data over-represents Tailwind component galleries, dribbble shots, and SaaS landing-page boilerplate. Output the median and the work reads as anonymous. The fix is not "more creativity" — it is deliberate divergence on a few specific axes. Pick at least two:
+
+- **Color temperament.** Reject the `indigo-500` → `violet-500` gradient default. Every brand has a real color story (a logo, a printed material, a founder's reference, a category convention). Start there. If no asset exists, anchor on a single saturated brand hue and build a 12-step OKLCH scale; do not reach for the same blue-purple sweep.
+- **Typography conviction.** Inter / Roboto / generic Geist defaults erase voice. Pair a workhorse body with an editorial display, or commit to a single confident super-family with intentional weight contrast. Self-host. Pay for a paid face when budget allows; the audience reads it before they read words.
+- **Section count and sequence.** A 9-section "hero → trust → problem → solution → features → testimonials → pricing → FAQ → CTA" page is the AI baseline. Cut to 4–6 that the audience actually needs. Reorder to match the brand's argument, not the tutorial's.
+- **Component restraint.** Not every block needs a card with `border-radius: 16px`, `shadow-md`, and a tiny lucide icon. Some sections are stronger as plain prose, a single image, a wide table, or a quote at full bleed.
+- **Imagery sourcing.** Real screenshots of real product. Real customers. Real interfaces with real data. Generic 3D blob illustrations, isometric people, and AI-generated team photos read as filler.
+
+A short list of the most common AI design fingerprints lives in `09-anti-patterns-and-process.md`. Audit any generated draft against it before review.
 
 ## Feel targets
 

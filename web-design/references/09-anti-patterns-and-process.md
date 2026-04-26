@@ -95,6 +95,56 @@ The difference between professional and junior output rarely comes from knowing 
 - Passing new function references as props on every render, defeating memoization.
 - Mixing client and server state in the same store.
 
+## AI design fingerprints
+
+Generative tools converge on the median of their training data: Tailwind component galleries, SaaS landing-page tutorials, dribbble shots. The result is a recognizable "AI look" that signals lack of intent. Audit drafts against these fingerprints; if more than two appear without deliberate reason, the page reads as generated rather than designed.
+
+### Color and gradient tells
+
+- Indigo-500 / violet-500 / blue-purple gradients on the hero or primary CTA. Traceable to Tailwind UI's original `bg-indigo-500` examples five years ago, ingested into nearly every model.
+- Background gradient orbs / blurred radial blobs behind centered text. Once novel; now the universal default for "AI startup".
+- Identical "tech blue" for fintech, "calming green" for healthcare, "premium black + gold" for luxury — palettes lifted from industry-template generators rather than the brand.
+- Pure `#FFFFFF` body backgrounds with mid-gray text and a single accent — the "documentation site" look applied to every brand.
+
+### Typography tells
+
+- Inter, Geist, or Roboto across an entire site with no display face and no editorial weight contrast.
+- Headings at the exact same weight as body, distinguished only by size.
+- All-rounded everything: 8 px / 12 px / 16 px radii on every card, button, input, and image. Never a sharp edge.
+
+### Layout and component tells
+
+- Centered hero, headline + subhead + two CTAs ("Get Started" / "Learn More"), gradient background.
+- Below hero: a 3-column or 4-column "features" grid with a tiny outline icon, a 4-word title, and a 12-word blurb. Always three feature cards.
+- Generic bento grid where every block has the same radius, the same shadow, and no editorial variation in size or content type.
+- Six identical pricing cards at equal weight, no anchoring, no feature differentiation logic.
+- "Trust strip" of 6 monochrome logos with no permission and no relevance.
+- "Testimonials" with stock-photo headshots and quotes that read like marketing copy ("This product changed my life").
+- A 9-section page in the order: hero → logos → problem → solution → 3-feature grid → testimonials → pricing → FAQ → CTA. Reads as the SaaS template, not as the brand.
+
+### Imagery and iconography tells
+
+- 3D rendered blobs, isometric purple/blue gradients, generated "abstract tech" illustrations.
+- Lucide / Heroicons outline icons in every feature block, every nav item, every empty state — applied uniformly without weight or size variation.
+- AI-generated team photos with subtle hand artifacts.
+- Stock photography of diverse teams smiling at laptops in glass-walled offices.
+
+### Motion tells
+
+- Every section fades up on scroll with the same duration and easing.
+- "Staggered card entrance" animation copied from a tutorial, applied to elements that did not need to enter.
+- Mouse-follow gradient orb in the hero with no narrative purpose.
+
+### Effect tells
+
+- Glassmorphism on every card (backdrop-filter blur + low-alpha white) regardless of whether anything meaningful sits behind.
+- Soft shadows at exactly `0 4px 6px rgba(0,0,0,0.1)` — the Tailwind `shadow` default — across the entire UI.
+- Hover state = scale 1.02 + shadow grow on every card.
+
+### How to break the pattern
+
+Disagreement is the design move. For each fingerprint above that the brief does not explicitly require, choose the opposite or omit. Defaults are choices; an undeliberated default is the fingerprint itself. See `03-visual-design.md` § "Designing against AI defaults".
+
 ## AI-generated code pitfalls
 
 AI code generation tools optimize for visual output while generating near-zero semantic information for the accessibility layer. Testing across multiple tools consistently reveals the same patterns: `<div>` soup instead of semantic HTML, missing ARIA state attributes, absent keyboard handling, and landmarks that never appear. The render tree looks correct; the accessibility tree is broken.

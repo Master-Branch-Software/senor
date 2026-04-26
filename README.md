@@ -16,7 +16,7 @@ Built for LLM-assisted workflows where the default output fails in the same ways
 
 Upload `web-design/SKILL.md` plus the numbered chapters as knowledge files.
 
-### Direct prompt
+### Direct prompt example
 
 ```
 Read web-design/SKILL.md and drive a new website project per
@@ -25,37 +25,3 @@ questions you need — one at a time — produce the named artifact,
 and pause for my review. Ask only what changes the output. Do not
 restate the guide's rules in your answers.
 ```
-
-## Structure
-
-```
-web-design/
-├── SKILL.md              (navigation index + non-negotiables)
-├── references/
-│   ├── 01-philosophy-and-psychology.md
-│   ├── 02-brand-and-copywriting.md
-│   ├── 03-visual-design.md
-│   ├── 04-css-and-layout.md
-│   ├── 05-accessibility.md
-│   ├── 06-performance.md
-│   ├── 07-javascript-and-html.md
-│   ├── 08-stack-and-architecture.md
-│   ├── 09-anti-patterns-and-process.md
-│   ├── 10-browser-compatibility.md
-│   ├── 11-testing.md
-│   ├── 12-internationalization.md
-│   ├── 13-security.md
-│   ├── 14-discovery-and-communication.md
-│   ├── 15-code-style-and-quality.md
-│   ├── SUMMARY.md        (condensed cheat sheet)
-│   └── USAGE.md          (integration recipes for editors)
-└── evals/
-    └── evals.json        (test prompts)
-
-web-design-workspace/
-├── iteration-1/          (eval results with/without skill)
-└── iteration-2/          (6-eval run with summary)
-
-index.html                (landing page for the skill)
-```
-
