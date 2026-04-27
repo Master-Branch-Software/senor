@@ -1,6 +1,6 @@
 # The goal of this project
 
-AI is getting good at coding but it's still a unrealiable. AI usually creates a mess from existing codebases and doesn't do good architectural decisions in new ones. AI doesnt follow good practices and doesn't do good architectural decisions. Security is also a concern, not just code.
+AI is getting good at coding but it's still a unreliable. AI usually creates a mess from existing codebases and doesn't do good architectural decisions in new ones. AI doesnt follow good practices and doesn't do good architectural decisions. Security is also a concern, not just code.
 
 We're trying to build comprehensive guidelines by analyzing tons of blog posts from real software professionals, official documentations, and professional grade codebases. We're hoping to close this gap and make LLMs more usable, more human. LLMs shouldn't create unnecessary abstractions, overengineer code, but find balance and create optimal solution.
 
