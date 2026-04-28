@@ -1,4 +1,6 @@
-# SeñorDevBot
+<p align="center">
+  <img src="logo.webp" alt="SeñorDevBot logo" width="300" height="300">
+</p>
 
 **AI-assisted code is unreliable.** It mishandles existing codebases, ducks the architectural decisions that matter, ignores security, over-engineers easy problems, and hallucinates the rest. These guidelines give an AI agent a structured reference drawn from real engineering practice, so the output looks human, holds up under review, and reflects your project rather than the average of its training data.
 
@@ -9,10 +11,6 @@ Domains currently cover front-end work, security, architecture, copywriting, doc
 The deeper rationale (progressive disclosure, citation requirements, how rules are validated) lives in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 > This is still early in development. Contributions are very welcome!
-
-<p align="center">
-  <img src="logo.webp" alt="SeñorDevBot logo" width="200" height="204">
-</p>
 
 ---
 
