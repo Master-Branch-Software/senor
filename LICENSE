@@ -1,479 +1,243 @@
-MASTER BRANCH LICENCE
+MASTER BRANCH SOURCE LICENSE
 
-Version 1.0
-Copyright (c) 2024–present Master Branch, LLC. All rights reserved.
-
-ADDITIONAL TERMS AND CONDITIONS
-
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License (CC BY-NC-SA 4.0), subject to additional terms that take precedence where they conflict.
-
-1. PERMITTED USE
-
-These guidelines may be used for any lawful purpose, including loading them into AI agents or coding tools as part of a commercial project, provided compliance with the stated restrictions and CC BY-NC-SA 4.0 terms. The websites, applications, and software you build using these guidelines are entirely yours and may be used or sold commercially without restriction.
-
-2. RESTRICTIONS
-
-NO REPACKAGING OR RESALE: You may not repackage, redistribute, sublicense, or sell these guidelines as a standalone product, competing product, SaaS feature, or premium add-on.
-
-NO PAID API OR INFERENCE SERVICES: You may not use these guidelines to provide access to them as a paid API service or AI product feature, whether directly or indirectly, including via paywalls, subscriptions, or usage-based billing.
-
-COMMERCIAL SOFTWARE INTEGRATION: Commercial software operators wishing to incorporate these guidelines into a product or service must obtain a separate written agreement from the Licensor. Contact: bert@masterbranchsoftware.com or masterbranchsoftware.com/contact.
-
-3. ATTRIBUTION
-
-Must include "Master Branch" in attribution notices. Any fork, derivative work, or subsequent release must retain the "Master Branch" name prominently.
-
-4. SHARE-ALIKE
-
-Variations, improvements, derivative works, or modified versions released publicly must use this same license with equivalent terms.
-
-5. DISCLAIMER
-
-This license is provided "as-is." The Licensor makes no representations regarding enforceability or legal sufficiency. Independent legal advice is encouraged.
-
-6. CONTRIBUTIONS
-
-By submitting contributions to this project:
-- Contributions fall under this Master Branch Licence.
-- The Licensor receives a perpetual, worldwide, non-exclusive, royalty-free license for all uses.
-- The contributor represents legal ownership or authority to submit.
+Version 2.1
+Copyright (c) 2026–present Master Branch, LLC. All rights reserved.
 
 =======================================================================
 
-Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
-Public License
-
-Creative Commons Corporation ("Creative Commons") is not a law firm and
-does not provide legal services or legal advice. Distribution of
-Creative Commons public licenses does not create a lawyer-client or
-other relationship. Creative Commons makes its licenses and related
-information available on an "as-is" basis. Creative Commons gives no
-warranties regarding its licenses, any material licensed under their
-terms and conditions, or any related information. Creative Commons
-disclaims all liability for damages resulting from their use to the
-fullest extent possible.
-
-Using Creative Commons Public Licenses
-
-Creative Commons public licenses provide a standard set of terms and
-conditions that creators and other rights holders may use to share
-original works of authorship and other material subject to copyright
-and certain other rights specified in the public license below. The
-following considerations are for informational purposes only, are not
-exhaustive, and do not form part of our licenses.
-
-     Considerations for licensors: Our public licenses are
-     intended for use by those authorized to give the public
-     permission to use material in ways otherwise restricted by
-     copyright and certain other rights. Our licenses are
-     irrevocable. Licensors should read and understand the terms
-     and conditions of the license they choose before applying it.
-     Licensors should also secure all rights necessary before
-     applying our licenses so that the public can reuse the
-     material as expected. Licensors should clearly mark any
-     material not subject to the license. This includes other CC-
-     licensed material, or material used under an exception or
-     limitation to copyright. More considerations for licensors:
-    wiki.creativecommons.org/Considerations_for_licensors
-
-     Considerations for the public: By using one of our public
-     licenses, a licensor grants the public permission to use the
-     licensed material under specified terms and conditions. If
-     the licensor's permission is not necessary for any reason--for
-     example, because of any applicable exception or limitation to
-     copyright--then that use is not regulated by the license. Our
-     licenses grant only permissions under copyright and certain
-     other rights that a licensor has authority to grant. Use of
-     the licensed material may still be restricted for other
-     reasons, including because others have copyright or other
-     rights in the material. A licensor may make special requests,
-     such as asking that all changes be marked or described.
-     Although not required by our licenses, you are encouraged to
-     respect those requests where reasonable. More considerations
-     for the public:
-    wiki.creativecommons.org/Considerations_for_licensees
-
-=======================================================================
-
-Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
-Public License
-
-By exercising the Licensed Rights (defined below), You accept and agree
-to be bound by the terms and conditions of this Creative Commons
-Attribution-NonCommercial-ShareAlike 4.0 International Public License
-("Public License"). To the extent this Public License may be
-interpreted as a contract, You are granted the Licensed Rights in
-consideration of Your acceptance of these terms and conditions, and the
-Licensor grants You such rights in consideration of benefits the
-Licensor receives from making the Licensed Material available under
-these terms and conditions.
-
-
-Section 1 -- Definitions.
-
-  a. Adapted Material means material subject to Copyright and Similar
-     Rights that is derived from or based upon the Licensed Material
-     and in which the Licensed Material is translated, altered,
-     arranged, transformed, or otherwise modified in a manner requiring
-     permission under the Copyright and Similar Rights held by the
-     Licensor. For purposes of this Public License, where the Licensed
-     Material is a musical work, performance, or sound recording,
-     Adapted Material is always produced where the Licensed Material is
-     synched in timed relation with a moving image.
-
-  b. Adapter's License means the license You apply to Your Copyright
-     and Similar Rights in Your contributions to Adapted Material in
-     accordance with the terms and conditions of this Public License.
-
-  c. BY-NC-SA Compatible License means a license listed at
-     creativecommons.org/compatiblelicenses, approved by Creative
-     Commons as essentially the equivalent of this Public License.
-
-  d. Copyright and Similar Rights means copyright and/or similar rights
-     closely related to copyright including, without limitation,
-     performance, broadcast, sound recording, and Sui Generis Database
-     Rights, without regard to how the rights are labeled or
-     categorized. For purposes of this Public License, the rights
-     specified in Section 2(b)(1)-(2) are not Copyright and Similar
-     Rights.
-
-  e. Effective Technological Measures means those measures that, in the
-     absence of proper authority, may not be circumvented under laws
-     fulfilling obligations under Article 11 of the WIPO Copyright
-     Treaty adopted on December 20, 1996, and/or similar international
-     agreements.
-
-  f. Exceptions and Limitations means fair use, fair dealing, and/or
-     any other exception or limitation to Copyright and Similar Rights
-     that applies to Your use of the Licensed Material.
-
-  g. License Elements means the license attributes listed in the name
-     of a Creative Commons Public License. The License Elements of this
-     Public License are Attribution, NonCommercial, and ShareAlike.
-
-  h. Licensed Material means the artistic or literary work, database,
-     or other material to which the Licensor applied this Public
-     License.
-
-  i. Licensed Rights means the rights granted to You subject to the
-     terms and conditions of this Public License, which are limited to
-     all Copyright and Similar Rights that apply to Your use of the
-     Licensed Material and that the Licensor has authority to license.
-
-  j. Licensor means the individual(s) or entity(ies) granting rights
-     under this Public License.
-
-  k. NonCommercial means not primarily intended for or directed towards
-     commercial advantage or monetary compensation. For purposes of
-     this Public License, the exchange of the Licensed Material for
-     other material subject to Copyright and Similar Rights by digital
-     file-sharing or similar means is NonCommercial provided there is
-     no payment of monetary compensation in connection with the
-     exchange.
-
-  l. Share means to provide material to the public by any means or
-     process that requires permission under the Licensed Rights, such
-     as reproduction, public display, public performance, distribution,
-     dissemination, communication, or importation, and to make material
-     available to the public including in ways that members of the
-     public may access the material from a place and at a time
-     individually chosen by them.
-
-  m. Sui Generis Database Rights means rights other than copyright
-     resulting from Directive 96/9/EC of the European Parliament and of
-     the Council of 11 March 1996 on the legal protection of databases,
-     as amended and/or succeeded, as well as other essentially
-     equivalent rights anywhere in the world.
-
-  n. You means the individual or entity exercising the Licensed Rights
-     under this Public License. Your has a corresponding meaning.
-
-
-Section 2 -- Scope.
-
-  a. License grant.
-
-       1. Subject to the terms and conditions of this Public License,
-          the Licensor hereby grants You a worldwide, royalty-free,
-          non-sublicensable, non-exclusive, irrevocable license to
-          exercise the Licensed Rights in the Licensed Material to:
-
-            a. reproduce and Share the Licensed Material, in whole or
-               in part, for NonCommercial purposes only; and
-
-            b. produce, reproduce, and Share Adapted Material for
-               NonCommercial purposes only.
-
-       2. Exceptions and Limitations. For the avoidance of doubt, where
-          Exceptions and Limitations apply to Your use, this Public
-          License does not apply, and You do not need to comply with
-          its terms and conditions.
-
-       3. Term. The term of this Public License is specified in Section
-          6(a).
-
-       4. Media and formats; technical modifications allowed. The
-          Licensor authorizes You to exercise the Licensed Rights in
-          all media and formats whether now known or hereafter created,
-          and to make technical modifications necessary to do so. The
-          Licensor waives and/or agrees not to assert any right or
-          authority to forbid You from making technical modifications
-          necessary to exercise the Licensed Rights, including
-          technical modifications necessary to circumvent Effective
-          Technological Measures. For purposes of this Public License,
-          simply making modifications authorized by this Section 2(a)
-          (4) never produces Adapted Material.
-
-       5. Downstream recipients.
-
-            a. Offer from the Licensor -- Licensed Material. Every
-               recipient of the Licensed Material automatically
-               receives an offer from the Licensor to exercise the
-               Licensed Rights under the terms and conditions of this
-               Public License.
-
-            b. Additional offer from the Licensor -- Adapted Material.
-               Every recipient of Adapted Material from You
-               automatically receives an offer from the Licensor to
-               exercise the Licensed Rights in the Adapted Material
-               under the conditions of the Adapter's License You apply.
-
-            c. No downstream restrictions. You may not offer or impose
-               any additional or different terms or conditions on, or
-               apply any Effective Technological Measures to, the
-               Licensed Material if doing so restricts exercise of the
-               Licensed Rights by any recipient of the Licensed
-               Material.
-
-       6. No endorsement. Nothing in this Public License constitutes or
-          may be construed as permission to assert or imply that You
-          are, or that Your use of the Licensed Material is, connected
-          with, or sponsored, endorsed, or granted official status by,
-          the Licensor or others designated to receive attribution as
-          provided in Section 3(a)(1)(A)(i).
-
-  b. Other rights.
-
-       1. Moral rights, such as the right of integrity, are not
-          licensed under this Public License, nor are publicity,
-          privacy, and/or other similar personality rights; however, to
-          the extent possible, the Licensor waives and/or agrees not to
-          assert any such rights held by the Licensor to the limited
-          extent necessary to allow You to exercise the Licensed
-          Rights, but not otherwise.
-
-       2. Patent and trademark rights are not licensed under this
-          Public License.
-
-       3. To the extent possible, the Licensor waives any right to
-          collect royalties from You for the exercise of the Licensed
-          Rights, whether directly or through a collecting society
-          under any voluntary or waivable statutory or compulsory
-          licensing scheme. In all other cases the Licensor expressly
-          reserves any right to collect such royalties, including when
-          the Licensed Material is used other than for NonCommercial
-          purposes.
-
-
-Section 3 -- License Conditions.
-
-Your exercise of the Licensed Rights is expressly made subject to the
-following conditions.
-
-  a. Attribution.
-
-       1. If You Share the Licensed Material (including in modified
-          form), You must:
-
-            a. retain the following if it is supplied by the Licensor
-               with the Licensed Material:
-
-                 i. identification of the creator(s) of the Licensed
-                    Material and any others designated to receive
-                    attribution, in any reasonable manner requested by
-                    the Licensor (including by pseudonym if
-                    designated);
-
-                ii. a copyright notice;
-
-               iii. a notice that refers to this Public License;
-
-                iv. a notice that refers to the disclaimer of
-                    warranties;
-
-                 v. a URI or hyperlink to the Licensed Material to the
-                    extent reasonably practicable;
-
-            b. indicate if You modified the Licensed Material and
-               retain an indication of any previous modifications; and
-
-            c. indicate the Licensed Material is licensed under this
-               Public License, and include the text of, or the URI or
-               hyperlink to, this Public License.
-
-       2. You may satisfy the conditions in Section 3(a)(1) in any
-          reasonable manner based on the medium, means, and context in
-          which You Share the Licensed Material. For example, it may be
-          reasonable to satisfy the conditions by providing a URI or
-          hyperlink to a resource that includes the required
-          information.
-
-       3. If requested by the Licensor, You must remove any of the
-          information required by Section 3(a)(1)(A) to the extent
-          reasonably practicable.
-
-  b. ShareAlike.
-
-     In addition to the conditions in Section 3(a), if You Share
-     Adapted Material You produce, the following conditions also apply.
-
-       1. The Adapter's License You apply must be a Creative Commons
-          license with the same License Elements, this version or
-          later, or a BY-NC-SA Compatible License.
-
-       2. You must include the text of, or the URI or hyperlink to, the
-          Adapter's License You apply. You may satisfy this condition
-          in any reasonable manner based on the medium, means, and
-          context in which You Share Adapted Material.
-
-       3. You may not offer or impose any additional or different terms
-          or conditions on, or apply any Effective Technological
-          Measures to, Adapted Material that restrict exercise of the
-          rights granted under the Adapter's License You apply.
-
-
-Section 4 -- Sui Generis Database Rights.
-
-Where the Licensed Rights include Sui Generis Database Rights that
-apply to Your use of the Licensed Material:
-
-  a. for the avoidance of doubt, Section 2(a)(1) grants You the right
-     to extract, reuse, reproduce, and Share all or a substantial
-     portion of the contents of the database for NonCommercial purposes
-     only;
-
-  b. if You include all or a substantial portion of the database
-     contents in a database in which You have Sui Generis Database
-     Rights, then the database in which You have Sui Generis Database
-     Rights (but not its individual contents) is Adapted Material,
-     including for purposes of Section 3(b); and
-
-  c. you must comply with the conditions in Section 3(a) if You Share
-     all or a substantial portion of the contents of the database.
-
-For the avoidance of doubt, this Section 4 supplements and does not
-replace Your obligations under this Public License where the Licensed
-Rights include other Copyright and Similar Rights.
-
-
-Section 5 -- Disclaimer of Warranties and Limitation of Liability.
-
-  a. UNLESS OTHERWISE SEPARATELY UNDERTAKEN BY THE LICENSOR, TO THE
-     EXTENT POSSIBLE, THE LICENSOR OFFERS THE LICENSED MATERIAL AS-IS
-     AND AS-AVAILABLE, AND MAKES NO REPRESENTATIONS OR WARRANTIES OF
-     ANY KIND CONCERNING THE LICENSED MATERIAL, WHETHER EXPRESS,
-     IMPLIED, STATUTORY, OR OTHER. THIS INCLUDES, WITHOUT LIMITATION,
-     WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR
-     PURPOSE, NON-INFRINGEMENT, ABSENCE OF LATENT OR OTHER DEFECTS,
-     ACCURACY, OR THE PRESENCE OR ABSENCE OF ERRORS, WHETHER OR NOT
-     KNOWN OR DISCOVERABLE. WHERE DISCLAIMERS OF WARRANTIES ARE NOT
-     ALLOWED IN FULL OR IN PART, THIS DISCLAIMER MAY NOT APPLY TO YOU.
-
-  b. TO THE EXTENT POSSIBLE, IN NO EVENT WILL THE LICENSOR BE LIABLE
-     TO YOU ON ANY LEGAL THEORY (INCLUDING, WITHOUT LIMITATION,
-     NEGLIGENCE) OR OTHERWISE FOR ANY DIRECT, SPECIAL, INDIRECT,
-     INCIDENTAL, CONSEQUENTIAL, PUNITIVE, EXEMPLARY, OR OTHER LOSSES,
-     COSTS, EXPENSES, OR DAMAGES ARISING OUT OF THIS PUBLIC LICENSE OR
-     USE OF THE LICENSED MATERIAL, EVEN IF THE LICENSOR HAS BEEN
-     ADVISED OF THE POSSIBILITY OF SUCH LOSSES, COSTS, EXPENSES, OR
-     DAMAGES. WHERE A LIMITATION OF LIABILITY IS NOT ALLOWED IN FULL OR
-     IN PART, THIS LIMITATION MAY NOT APPLY TO YOU.
-
-  c. The disclaimer of warranties and limitation of liability provided
-     above shall be interpreted in a manner that, to the extent
-     possible, most closely approximates an absolute disclaimer and
-     waiver of all liability.
-
-
-Section 6 -- Term and Termination.
-
-  a. This Public License applies for the term of the Copyright and
-     Similar Rights licensed here. However, if You fail to comply with
-     this Public License, then Your rights under this Public License
-     terminate automatically.
-
-  b. Where Your right to use the Licensed Material has terminated under
-     Section 6(a), it reinstates:
-
-       1. automatically as of the date the violation is cured, provided
-          it is cured within 30 days of Your discovery of the
-          violation; or
-
-       2. upon express reinstatement by the Licensor.
-
-     For the avoidance of doubt, this Section 6(b) does not affect any
-     right the Licensor may have to seek remedies for Your violations
-     of this Public License.
-
-  c. For the avoidance of doubt, the Licensor may also offer the
-     Licensed Material under separate terms or conditions or stop
-     distributing the Licensed Material at any time; however, doing so
-     will not terminate this Public License.
-
-  d. Sections 1, 5, 6, 7, and 8 survive termination of this Public
-     License.
-
-
-Section 7 -- Other Terms and Conditions.
-
-  a. The Licensor shall not be bound by any additional or different
-     terms or conditions communicated by You unless expressly agreed.
-
-  b. Any arrangements, understandings, or agreements regarding the
-     Licensed Material not stated herein are separate from and
-     independent of the terms and conditions of this Public License.
-
-
-Section 8 -- Interpretation.
-
-  a. For the avoidance of doubt, this Public License does not, and
-     shall not be interpreted to, reduce, limit, restrict, or impose
-     conditions on any use of the Licensed Material that could lawfully
-     be made without permission under this Public License.
-
-  b. To the extent possible, if any provision of this Public License is
-     deemed unenforceable, it shall be automatically reformed to the
-     minimum extent necessary to make it enforceable. If the provision
-     cannot be reformed, it shall be severed from this Public License
-     without affecting the enforceability of the remaining terms and
-     conditions.
-
-  c. No term or condition of this Public License will be waived and no
-     failure to comply consented to unless expressly agreed to by the
-     Licensor.
-
-  d. Nothing in this Public License constitutes or may be interpreted
-     as a limitation upon, or waiver of, any privileges and immunities
-     that apply to the Licensor or You, including from the legal
-     processes of any jurisdiction or authority.
-
-=======================================================================
-
-Creative Commons is not a party to its public licenses.
-Notwithstanding, Creative Commons may elect to apply one of its public
-licenses to material it publishes and in those instances will be
-considered the "Licensor." The text of the Creative Commons public
-licenses is dedicated to the public domain under the CC0 Public Domain
-Dedication. Except for the limited purpose of indicating that material
-is shared under a Creative Commons public license or as otherwise
-permitted by the Creative Commons policies published at
-creativecommons.org/policies, Creative Commons does not authorize the
-use of the trademark "Creative Commons" or any other trademark or logo
-of Creative Commons without its prior written consent including,
-without limitation, in connection with any unauthorized modifications
-to any of its public licenses or any other arrangements,
-understandings, or agreements concerning use of licensed material. For
-the avoidance of doubt, this paragraph does not form part of the
-public licenses.
-
-Creative Commons may be contacted at creativecommons.org.
+1. ACCEPTANCE
+
+By downloading, cloning, copying, accessing, loading, executing, or
+otherwise Using the Materials, You agree to all of the terms and
+conditions below. If You do not agree, You must not download, clone,
+copy, access, load, execute, or otherwise Use the Materials.
+
+2. COPYRIGHT LICENSE
+
+Subject to Sections 3 and 4 below, the Licensor grants You a
+non-exclusive, royalty-free, worldwide, non-sublicensable,
+non-transferable license to use, copy, distribute, make available, and
+prepare derivative works of the Materials.
+
+3. LIMITATIONS
+
+3.1 Hosted Service. You may not provide the Materials to third parties
+as a hosted or managed service where that service provides users with
+access to a substantial portion of the Materials' content or
+functionality. "Substantial portion" means any use that allows third
+parties to read, search, browse, or query the Materials in a manner
+that materially substitutes for direct access to the Materials.
+
+3.2 Repackaging. You may not redistribute or sell the Materials, in
+whole or in substantial part, as a standalone product, a Competing
+Product, a SaaS feature, a premium add-on, or a paid API service —
+whether directly or indirectly, including via paywalls, subscriptions,
+or usage-based billing.
+
+3.3 AI Embedding. Except as permitted under Section 4, You may not
+incorporate the Materials, or any substantial portion of them, as a
+Permanently Embedded Component of any Commercial AI Product.
+
+3.4 Notices and Trademarks. You may not alter, remove, or obscure any
+licensing, copyright, attribution, or other notices contained in the
+Materials. The Licensor's trademarks, service marks, trade names, and
+logos (including "Master Branch" and "Master Branch Software") are
+reserved; this license does not grant any right to use them, except
+for nominative fair use to identify the Materials or the Licensor as
+their source.
+
+4. COMMERCIAL INTEGRATION
+
+Notwithstanding Section 3, if You operate a Commercial AI Product and
+wish to incorporate the Materials as a Permanently Embedded Component,
+You must obtain a separate written agreement from the Licensor.
+
+Loading the Materials into an AI agent on a per-session or per-project
+basis to assist You in producing Your Own Work Product is permitted
+under Section 5 and does not require an agreement, regardless of
+whether the resulting work product is commercial.
+
+Contact: bert@masterbranchsoftware.com
+
+5. PERMITTED USE
+
+5.1 Your Own Work Product. The websites, applications, designs,
+documents, and other work product You create using the Materials
+("Your Own Work Product") are entirely Yours and may be used,
+distributed, or sold, on a commercial basis or otherwise, without
+restriction under this license. This license applies to the Materials
+themselves, not to Your Own Work Product.
+
+5.2 AI-Assisted Use. Loading the Materials into an AI agent —
+including by reference, file inclusion, system prompt, project rules,
+or context window — to assist You in producing Your Own Work Product
+is permitted, on a per-session or per-project basis, regardless of
+whether the resulting work product is commercial. This permission does
+not extend to incorporating the Materials as a Permanently Embedded
+Component of a Commercial AI Product, which is governed by Section 4.
+
+5.3 Internal and Instructional Copies. You may make, modify, and
+circulate copies of the Materials within Your own organization for
+internal use, reference, or instruction (for example, by pasting
+chapter files into a project's editor-rules directory). Internal and
+instructional copies are exempt from the redistribution and
+modification-notice obligations in Section 7, but if You publish or
+distribute such copies outside Your organization, Section 7 applies in
+full.
+
+6. PATENTS
+
+To the extent the Materials include any patentable subject matter, the
+Licensor grants You a license, under any patent claims the Licensor
+can license, or becomes able to license, to make, have made, use,
+sell, offer for sale, import, and otherwise transfer the Materials.
+This license does not cover any patent claims that You cause to be
+infringed by modifications or additions to the Materials. If You or
+Your Company make any written claim that the Materials infringe or
+contribute to infringement of any patent, Your patent license for the
+Materials granted under these terms ends immediately. If Your Company
+makes such a claim, Your patent license ends immediately for work on
+behalf of Your Company.
+
+7. NOTICES
+
+7.1 Distribution Notice. If You distribute the Materials, or any
+substantial portion of them, to a third party outside Your own
+organization, You must ensure that the recipient also receives a copy
+of these terms.
+
+7.2 Modification Notice. If You modify the Materials and distribute
+the modified copies outside Your own organization, You must include in
+those copies prominent notices stating that You have modified the
+Materials and identifying the date or version of the modification.
+
+7.3 Internal Copies Excepted. Sections 7.1 and 7.2 do not apply to
+internal or instructional copies described in Section 5.3.
+
+8. NO OTHER RIGHTS
+
+These terms do not imply any licenses other than those expressly
+granted in these terms.
+
+9. CONTRIBUTIONS
+
+9.1 License Grant to Licensor. By submitting a contribution to this
+project (whether by pull request, patch, issue attachment, or
+otherwise), You grant the Licensor a perpetual, irrevocable, worldwide,
+non-exclusive, royalty-free, fully paid-up, sublicensable, and
+transferable license to use, copy, modify, distribute, prepare
+derivative works of, publicly display, publicly perform, and otherwise
+exploit the contribution for any purpose, including under this Master
+Branch Source License or any other license terms the Licensor elects.
+For the avoidance of doubt, this Section 9.1 is a license, not an
+assignment; You retain ownership of Your contribution.
+
+9.2 Outbound License. Each contribution is also made available to
+downstream recipients under the then-current Master Branch Source
+License.
+
+9.3 Representations. You represent that (a) You own the contribution
+or have sufficient rights to submit it under these terms, (b) the
+contribution is Your original work or You have identified any
+third-party material together with its applicable licensing, and
+(c) submission of the contribution does not violate any obligation You
+owe to a third party.
+
+9.4 Moral Rights. To the extent permitted by applicable law, You waive
+any moral rights in the contribution as against the Licensor and its
+successors and assigns.
+
+10. TERMINATION
+
+If You use the Materials in violation of these terms, such use is not
+licensed, and Your Licenses will automatically terminate. If the
+Licensor provides You with a notice of Your violation, and You cease
+all violation no later than 30 days after You receive that notice,
+Your Licenses will automatically reinstate unless the Licensor
+notifies You otherwise. If You violate these terms after reinstatement,
+any additional violation will cause Your Licenses to terminate
+automatically and permanently. The Licensor is not obligated to send a
+notice of violation, and absent a notice and timely cure, terminated
+licenses do not reinstate. Termination of Your Licenses does not limit
+any other rights or remedies available to the Licensor.
+
+11. NO LIABILITY
+
+As far as the law allows, the Materials come as is, without any
+warranty or condition, and the Licensor will not be liable to You for
+any damages arising out of these terms or the use or nature of the
+Materials, under any kind of legal claim.
+
+12. VERSIONING
+
+The Licensor may publish revised versions of this license, each
+identified by a distinct version number. The Materials as You received
+them are licensed under the version identified at the top of this
+document, and that version continues to govern Your Use of those
+Materials unless You affirmatively elect a later version published by
+the Licensor. The Licensor is not obligated to publish further
+versions, and no later version applies retroactively without Your
+election.
+
+13. DEFINITIONS
+
+"Licensor" means Master Branch, LLC.
+
+"Materials" means the content the Licensor makes available under these
+terms — including, without limitation, the guidelines, rules,
+chapters, references, citations, prompts, Markdown files, scripts,
+code, and any other text or files in the licensed repository — and any
+portion of it.
+
+"You" and "Your" refer to the individual or entity agreeing to these
+terms.
+
+"Your Company" is any legal entity, sole proprietorship, or other kind
+of organization You work for, plus all organizations that have control
+over, are under the control of, or are under common control with that
+organization. "Control" means ownership of substantially all the
+assets of an entity, or the power to direct its management and legal
+affairs.
+
+"Your Licenses" are all the licenses granted to You for the Materials
+under these terms.
+
+"Your Own Work Product" has the meaning given in Section 5.1.
+
+"Use" (and "Using") means to access, view, download, clone, copy,
+reproduce, install, load, execute, run, modify, prepare derivative
+works of, distribute, transmit, display, perform, or otherwise
+interact with the Materials, in whole or in part.
+
+"Commercial" means undertaken with the primary purpose of, or as part
+of an enterprise organized for, monetary or other commercial
+advantage, including the sale, licensing, or paid distribution of
+products or services.
+
+"Commercial AI Product" means any AI model, language model, AI agent,
+AI-powered application, or AI-powered service that is offered,
+distributed, or made available to third parties on a Commercial basis.
+A natural person's individual use of an AI tool to assist with their
+own work is not a Commercial AI Product, even if that work is itself
+commercial.
+
+"Permanently Embedded Component" means inclusion of the Materials in a
+manner intended to persist as part of a distributed product or
+service, such that end users of that product or service receive the
+benefit of the Materials without separately loading them. This
+includes, without limitation: (a) use of the Materials as training
+data or fine-tuning data for a model that is then distributed or made
+available to third parties; (b) inclusion of the Materials in a system
+prompt, prompt template, or instruction set that ships with, is
+bundled into, or is fetched at runtime by a distributed product or
+service; and (c) inclusion of the Materials in any binary, container
+image, deployment artifact, or model weights distributed or operated
+for third parties. Loading the Materials into an AI agent on a
+per-session or per-project basis to assist with Your Own Work Product
+is not a Permanently Embedded Component, even if that loading is
+automated or repeated across sessions or projects.
+
+"Competing Product" means any product or service whose principal value
+proposition is to provide users with structured AI-readable
+engineering guidelines, rules, or skill files of the kind contained in
+the Materials.

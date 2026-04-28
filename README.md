@@ -161,15 +161,17 @@ The short version: every new rule needs a human-authored source. AI-generated co
 
 ## License
 
-Use these guidelines for whatever you'd like, including loading them into AI agents as part of a commercial project! You MAY NOT repackage these guidelines and sell them, and any variations or improvements you release must remain under the same license and must include the Master Branch name.
+Use these guidelines to build your own work — portfolios, client sites, apps, internal tools, anything else — commercial or not. Load them into AI agents on a per-session or per-project basis, drop them into Claude Code or Cursor, reference them in a system prompt while you build. The websites, apps, and software you produce are entirely yours.
 
-You MAY NOT bundle these guidelines into a paid product, SaaS feature, or AI service. If you run a commercial software package or AI tool and wish to incorporate these guidelines into your product, shoot us an email to work out an agreement! We promise we're easy to work with. bert@masterbranchsoftware.com — or reach us through [masterbranchsoftware.com](https://masterbranchsoftware.com/contact). Outside of the stipulations listed above, this license is effectively a variation of Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
+You **may not** ship the guidelines as part of a commercial AI product. Specifically: no repackaging or selling them as a standalone product, no bundling into a paid SaaS feature or AI service, and no embedding them as a permanent component of a distributed AI tool, language model, or AI-powered product — including as training data, fine-tuning data, or a system prompt that ships with your product.
 
-Please keep the Master Branch name in any future forks or releases!
+If you run a commercial AI tool or product and want to incorporate these guidelines, get in touch and we'll work out an agreement — we're easy to work with. bert@masterbranchsoftware.com or via [masterbranchsoftware.com](https://masterbranchsoftware.com/contact).
+
+A note on the integration recipes above: pasting chapter files into your own project (e.g., `.cursor/rules/`, `.github/copilot-instructions.md`) is fine for internal use within your organization. If you publish or redistribute those copies — say, in a public template repo — Section 7 of the LICENSE asks you to include the LICENSE terms with the copies and flag any modifications.
+
+This project is licensed under the [Master Branch Source License v2.1](LICENSE). The LICENSE file is authoritative; this section is a plain-language summary for orientation.
 
 This license was inspired by [CorridorKey](https://github.com/nikopueringer/CorridorKey) by Corridor Digital — go check out their work and show them some support!
-
-See [LICENSE](LICENSE) for the full legal terms.
 
 ---
 
