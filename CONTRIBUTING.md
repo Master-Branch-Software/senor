@@ -1,6 +1,6 @@
 # Contributing
 
-This repository is a library of AI-readable skills, the kind of structured guidelines that make LLM-assisted coding more reliable, more human, and harder to get wrong. This document explains the structure so you can add or improve content without breaking how agents consume it.
+This document explains the structure so you can add or improve content without breaking how agents consume it.
 
 ## Repository structure
 

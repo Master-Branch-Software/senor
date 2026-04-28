@@ -1,19 +1,24 @@
-<p align="center">
-  <img src="logo.webp" alt="SeñorDevBot logo" width="200" height="200">
-</p>
-
 # SeñorDevBot
 
-**AI-assisted code tends to look the same.** Generic layouts, predictable color choices, copy that could describe any product, code that looks fine on screen but fails under inspection. These guidelines give an AI agent a structured reference to draw from instead, so the output reflects your project rather than the average of its training data.
+**AI-assisted code is unreliable.** It mishandles existing codebases, ducks the architectural decisions that matter, ignores security, over-engineers easy problems, and hallucinates the rest. These guidelines give an AI agent a structured reference drawn from real engineering practice, so the output looks human, holds up under review, and reflects your project rather than the average of its training data.
+
+SeñorDevBot is a library of plain-Markdown guidelines, organized by domain and split into chapters the agent loads only when the task calls for them. Every rule is backed by a citation to a human-authored source like an official spec, MDN, an established engineering blog, a book, or a production codebase. AI-generated material does not qualify.
+
+Domains currently cover front-end work, security, architecture, copywriting, documentation, and Ruby. Drop the repo into your project and a compatible agent uses it as a working reference while it builds. The aim is code that makes sound architectural and security decisions, avoids over-engineering, and stays grounded instead of hallucinating, while keeping the token cost of loading context low so the agent only pulls in what the task calls for.
+
+The deeper rationale (progressive disclosure, citation requirements, how rules are validated) lives in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 > This is still early in development. Contributions are very welcome!
+
+<p align="center">
+  <img src="logo.webp" alt="SeñorDevBot logo" width="200" height="204">
+</p>
 
 ---
 
 ## Table of contents
 
-- [Contents](#contents)
-- [What this is](#what-this-is)
+- [Layout](#layout)
 - [Compatibility](#compatibility)
 - [How to use](#how-to-use)
 - [Tooling](#tooling)
@@ -23,7 +28,7 @@
 
 ---
 
-## Contents
+## Layout
 
 ```
 .
@@ -36,16 +41,6 @@
 ├── CONTRIBUTING.md                   ← how to add a domain, chapter, or citation
 └── LICENSE
 ```
-
----
-
-## What this is
-
-AI coding tools fall back to the average of their training data. Without a structured reference to read, the output blurs into the same patterns over and over. The fix is context the agent can actually navigate, written for how language models load and apply information rather than for how a human skims a PDF.
-
-This project is that reference. It's a library of plain-Markdown guidelines, organized by domain, each split into chapters the agent loads only when the task calls for them. Drop the repo into your project, and a compatible agent uses it as a working reference while it builds.
-
-The deeper rationale (progressive disclosure, citation requirements, how rules are validated) lives in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
