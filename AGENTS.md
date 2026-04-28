@@ -80,6 +80,12 @@ ruby/                                Ruby language, idioms, best practices.
 architecture/                        Cross-stack architectural patterns and decisions.
   AGENTS.md                          Skill entry point (stub — in progress).
   references/                        Chapter files added as content is written.
+
+documentation/                       READMEs, contributing guides, changelogs, architecture docs.
+  AGENTS.md                          Skill entry point.
+  references/
+    NN-topic.md                      Chapter (loaded by skill consumers).
+    NN-topic.sources.md              Citations for that chapter (developer-only).
 ```
 
 ## Two audiences, two file sets

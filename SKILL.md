@@ -13,6 +13,7 @@ Skills are organized by domain. Each domain has an `AGENTS.md` that routes to ch
 | Security | `security/AGENTS.md` | Security audits, pen testing, threat modeling, hardening |
 | Ruby | `ruby/AGENTS.md` | Ruby language, idioms, best practices |
 | Architecture | `architecture/AGENTS.md` | Software architecture patterns and decisions |
+| Documentation | `documentation/AGENTS.md` | READMEs, contributing guides, changelogs, architecture docs |
 
 ## Operating principles
 
