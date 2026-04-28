@@ -7,13 +7,14 @@ Load this file before any domain skill when context allows.
 
 Skills are organized by domain. Each domain has an `AGENTS.md` that routes to chapter files.
 
-| Domain | Entry point | Covers |
-| --- | --- | --- |
-| Front-end | `front-end/AGENTS.md` | Web design, HTML/CSS/JS/TS, copywriting, a11y, performance, stack selection |
-| Security | `security/AGENTS.md` | Security audits, pen testing, threat modeling, hardening |
-| Ruby | `ruby/AGENTS.md` | Ruby language, idioms, best practices |
-| Architecture | `architecture/AGENTS.md` | Software architecture patterns and decisions |
-| Documentation | `documentation/AGENTS.md` | READMEs, contributing guides, changelogs, architecture docs |
+| Domain        | Entry point               | Covers                                                                            |
+| ------------- | ------------------------- | --------------------------------------------------------------------------------- |
+| Front-end     | `front-end/AGENTS.md`     | Web design, HTML/CSS/JS/TS, web copy, a11y, performance, stack selection          |
+| Copywriting   | `copywriting/AGENTS.md`   | Cross-genre prose: register, voice, blogs, marketing, technical writing, research |
+| Security      | `security/AGENTS.md`      | Security audits, pen testing, threat modeling, hardening                          |
+| Ruby          | `ruby/AGENTS.md`          | Ruby language, idioms, best practices                                             |
+| Architecture  | `architecture/AGENTS.md`  | Software architecture patterns and decisions                                      |
+| Documentation | `documentation/AGENTS.md` | READMEs, contributing guides, changelogs, architecture docs                       |
 
 ## Operating principles
 

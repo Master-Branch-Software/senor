@@ -50,15 +50,15 @@ The deeper rationale — progressive disclosure, citation requirements, how rule
 
 Plain Markdown files. Any AI agent that can read files can use them.
 
-| Tool | Integration |
-| --- | --- |
-| **Claude Code** | Clone into `.claude/skills/` — auto-discovered from SKILL.md frontmatter |
-| **Windsurf** | Clone into your skills directory — same SKILL.md convention |
-| **Cursor** | Drop `front-end/AGENTS.md` into `.cursor/rules/` as a `.mdc` file |
-| **GitHub Copilot** | Copy `front-end/references/SUMMARY.md` into `.github/copilot-instructions.md` |
-| **ChatGPT (OpenAI)** | Attach the files to a project, or paste relevant chapters into custom instructions |
-| **Cline** | Reference the repo path in your project rules |
-| **Any AI with file access** | Point the agent at `SKILL.md` or the relevant `AGENTS.md` in a prompt |
+| Tool                        | Integration                                                                        |
+| --------------------------- | ---------------------------------------------------------------------------------- |
+| **Claude Code**             | Clone into `.claude/skills/` — auto-discovered from SKILL.md frontmatter           |
+| **Windsurf**                | Clone into your skills directory — same SKILL.md convention                        |
+| **Cursor**                  | Drop `front-end/AGENTS.md` into `.cursor/rules/` as a `.mdc` file                  |
+| **GitHub Copilot**          | Copy `front-end/AGENTS.md` into `.github/copilot-instructions.md`                  |
+| **ChatGPT (OpenAI)**        | Attach the files to a project, or paste relevant chapters into custom instructions |
+| **Cline**                   | Reference the repo path in your project rules                                      |
+| **Any AI with file access** | Point the agent at `SKILL.md` or the relevant `AGENTS.md` in a prompt              |
 
 ---
 
@@ -90,11 +90,11 @@ Ask only what changes the output. Do not restate the guide's rules.
 
 The `scripts/` directory holds utilities for working with AI context. Today the set is small and focused on maintaining this repository; the intent is to grow it into more general-purpose territory — file conversion, scraping, validation, and other work that goes into preparing reliable context for a model. Suggestions and pull requests are welcome.
 
-| Script | What it does |
-| --- | --- |
-| `scripts/new-domain <name>` | Scaffolds a new domain directory with a filled AGENTS.md template |
+| Script                           | What it does                                                           |
+| -------------------------------- | ---------------------------------------------------------------------- |
+| `scripts/new-domain <name>`      | Scaffolds a new domain directory with a filled AGENTS.md template      |
 | `scripts/check-sources [domain]` | Verifies every chapter file has a matching `.sources.md` citation file |
-| `scripts/format [--check]` | Runs Prettier across all non-ignored files; `--check` mode for CI |
+| `scripts/format [--check]`       | Runs Prettier across all non-ignored files; `--check` mode for CI      |
 
 Scripts require Bash and — for `format` — Node.js with `npx` available.
 
