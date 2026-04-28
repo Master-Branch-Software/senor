@@ -1,0 +1,751 @@
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - link "USPTO .report" [ref=e5] [cursor=pointer]:
+          - /url: https://uspto.report/
+          - text: USPTO
+          - generic [ref=e6]: .report
+        - list [ref=e7]:
+          - listitem [ref=e8]:
+            - link "Trademarks" [ref=e9] [cursor=pointer]:
+              - /url: https://uspto.report/TM/
+          - listitem [ref=e10]:
+            - link "Patents" [ref=e11] [cursor=pointer]:
+              - /url: https://uspto.report/patent
+          - listitem [ref=e12]:
+            - link "Copyright" [ref=e13] [cursor=pointer]:
+              - /url: https://uspto.report/copyright
+      - grid [ref=e15]:
+        - row [ref=e16]:
+          - gridcell [ref=e17]:
+            - textbox "Patent / Trademark Search" [ref=e18]:
+              - /placeholder: Search
+          - gridcell [ref=e19]
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - heading "LORE" [level=1] [ref=e22]
+      - heading "Lore Products" [level=2] [ref=e23]
+      - navigation "breadcrumb" [ref=e24]:
+        - list [ref=e25]:
+          - listitem [ref=e26]:
+            - link "USPTO Trademarks" [ref=e27] [cursor=pointer]:
+              - /url: https://uspto.report/TM/
+          - text: ›
+          - listitem [ref=e28]:
+            - text: /
+            - link "Lore Products" [ref=e29] [cursor=pointer]:
+              - /url: https://uspto.report/company/Lore-Products
+          - text: ›
+          - listitem [ref=e30]:
+            - text: /
+            - 'link "Lore Application #98187719" [ref=e31] [cursor=pointer]':
+              - /url: https://uspto.report/TM/98187719/
+      - generic [ref=e32]: "Application Filed: 2023-09-19"
+      - insertion [ref=e34]
+      - generic [ref=e36]:
+        - generic [ref=e37]: Trademark Application Details
+        - generic [ref=e38]:
+          - figure [ref=e39]:
+            - img "Trademark Logo LORE" [ref=e40]
+          - generic [ref=e41]:
+            - generic [ref=e42]:
+              - heading "Status" [level=4] [ref=e43]
+              - link "⟳ Refresh" [ref=e44] [cursor=pointer]:
+                - /url: /TM/98187719/refresh
+                - button "⟳ Refresh" [ref=e45]
+            - generic [ref=e46]: "630"
+            - generic [ref=e47]: Live/Pending
+          - generic [ref=e49]: NEW APPLICATION - RECORD INITIALIZED NOT ASSIGNED TO EXAMINER
+          - table [ref=e50]:
+            - rowgroup [ref=e51]:
+              - row "Research OneLook Acronym Finder" [ref=e52]:
+                - cell "Research" [ref=e53]
+                - cell "OneLook Acronym Finder" [ref=e54]:
+                  - link [ref=e55] [cursor=pointer]:
+                    - /url: https://en.wikipedia.org/w/index.php?search=%22LORE%22
+                    - img [ref=e56]
+                  - link [ref=e57] [cursor=pointer]:
+                    - /url: https://twitter.com/search?q=%22LORE%22
+                    - img [ref=e58]
+                  - link [ref=e59] [cursor=pointer]:
+                    - /url: https://nitter.domain.glass/search?f=tweets&q=%22LORE%22
+                    - img [ref=e60]
+                  - link [ref=e61] [cursor=pointer]:
+                    - /url: https://translate.google.com/#view=home&op=translate&sl=auto&tl=en&text=LORE
+                    - img [ref=e62]
+                  - link [ref=e63] [cursor=pointer]:
+                    - /url: https://www.wolframalpha.com/input/?i=LORE
+                    - img [ref=e64]
+                  - link "OneLook" [ref=e65] [cursor=pointer]:
+                    - /url: https://www.onelook.com/?w=%22LORE%22
+                  - link "Acronym Finder" [ref=e66] [cursor=pointer]:
+                    - /url: https://www.acronymfinder.com/~/search/af.aspx?Acronym=%22LORE%22&string=exact
+              - row "Serial Number 98187719" [ref=e67]:
+                - cell "Serial Number" [ref=e68]
+                - cell "98187719" [ref=e69]
+              - 'row "Mark Drawing Code 4000: Illustration: Drawing with word(s)/letter(s)/number(s) in Block form" [ref=e70]':
+                - cell "Mark Drawing Code" [ref=e71]
+                - 'cell "4000: Illustration: Drawing with word(s)/letter(s)/number(s) in Block form" [ref=e72]'
+              - row "Attorney Name Ashish D. Patel" [ref=e73]:
+                - cell "Attorney Name" [ref=e74]
+                - cell "Ashish D. Patel" [ref=e75]
+          - heading "Timeline" [level=3] [ref=e76]
+          - table [ref=e77]:
+            - rowgroup [ref=e78]:
+              - row "2023-09-19 Application Filed" [ref=e79]:
+                - cell "2023-09-19" [ref=e80]
+                - cell "Application Filed" [ref=e81]
+              - 'row "2023-09-22 Location: NEW APPLICATION PROCESSING" [ref=e82]':
+                - cell "2023-09-22" [ref=e83]
+                - 'cell "Location: NEW APPLICATION PROCESSING" [ref=e84]'
+              - 'row "2023-09-22 Status: Live/Pending" [ref=e85]':
+                - cell "2023-09-22" [ref=e86]
+                - 'cell "Status: Live/Pending" [ref=e87]'
+              - row "2023-09-22 Transaction Date" [ref=e88]:
+                - cell "2023-09-22" [ref=e89]
+                - cell "Transaction Date" [ref=e90]
+      - generic [ref=e91]:
+        - heading "Trademark Applicants & Owners" [level=4] [ref=e93]
+        - table [ref=e95]:
+          - rowgroup [ref=e96]:
+            - 'row "Owner: Lore Products" [ref=e97]':
+              - cell "Owner:" [ref=e98]
+              - cell "Lore Products" [ref=e99]:
+                - link "Lore Products" [ref=e100] [cursor=pointer]:
+                  - /url: /company/Lore-Products
+                  - img [ref=e101]
+                  - text: Lore Products
+            - row "Address 10 Cliffside Drive Rockport ME 04856" [ref=e102]:
+              - cell "Address" [ref=e103]
+              - cell "10 Cliffside Drive Rockport ME 04856" [ref=e104]: 10 Cliffside Drive Rockport ME 04856
+            - row "Legal Entity Type Corporation" [ref=e105]:
+              - cell "Legal Entity Type" [ref=e106]
+              - cell "Corporation" [ref=e107]
+            - row "Legal Entity State ME" [ref=e108]:
+              - cell "Legal Entity State" [ref=e109]
+              - cell "ME" [ref=e110]
+      - generic [ref=e111]:
+        - heading "Documents" [level=4] [ref=e113]
+        - paragraph [ref=e115]: Click the blue "Refresh" button to load certificates, specimines, application, and other documents.
+      - generic [ref=e116]:
+        - heading "Attorney of Record" [level=4] [ref=e118]
+        - generic [ref=e119]:
+          - text: ASHISH D. PATEL
+          - text: THOMPSON HINE LLP
+          - text: 3560 LENOX ROAD
+          - text: SUITE 1600
+          - text: ATLANTA, GA 30326
+          - table:
+            - rowgroup:
+              - row
+      - generic [ref=e120]:
+        - heading "Good, Services, and Codes" [level=4] [ref=e122]
+        - generic [ref=e123]:
+          - table [ref=e124]:
+            - rowgroup [ref=e125]:
+              - 'row "International Codes: 12" [ref=e126]':
+                - cell "International Codes:" [ref=e127]
+                - cell "12" [ref=e128]
+              - 'row "U.S. Codes: 019,021,023,031,035,044" [ref=e129]':
+                - cell "U.S. Codes:" [ref=e130]
+                - cell "019,021,023,031,035,044" [ref=e131]
+          - table [ref=e132]:
+            - rowgroup [ref=e133]:
+              - row "Type Code Type" [ref=e134]:
+                - columnheader "Type Code" [ref=e135]
+                - columnheader "Type" [ref=e136]
+              - row "GS0121 vehicle parts and accessories, namely doors, tube doors, door windows, door panels, door consoles, door consoles featuring retractable windows, door consoles featuring retractable panels, side steps, roll cages, roof racks, and rock sliders" [ref=e137]:
+                - cell "GS0121" [ref=e138]
+                - cell "vehicle parts and accessories, namely doors, tube doors, door windows, door panels, door consoles, door consoles featuring retractable windows, door consoles featuring retractable panels, side steps, roll cages, roof racks, and rock sliders" [ref=e139]
+      - generic [ref=e140]:
+        - heading "Trademark Filing History" [level=4] [ref=e142]
+        - table [ref=e144]:
+          - rowgroup [ref=e145]:
+            - row "Description Date Event Coding" [ref=e146]:
+              - columnheader "Description" [ref=e147]
+              - columnheader "Date" [ref=e148]
+              - columnheader "Event Coding" [ref=e149]
+            - row "NEW APPLICATION ENTERED 2023-09-22 1 NWAP I:Incoming Correspondence" [ref=e150]:
+              - cell "NEW APPLICATION ENTERED" [ref=e151]
+              - cell "2023-09-22" [ref=e152]
+              - cell "1 NWAP I:Incoming Correspondence" [ref=e153]
+            - row "NEW APPLICATION OFFICE SUPPLIED DATA ENTERED 2023-10-05 2 NWOS I:Incoming Correspondence" [ref=e154]:
+              - cell "NEW APPLICATION OFFICE SUPPLIED DATA ENTERED" [ref=e155]
+              - cell "2023-10-05" [ref=e156]
+              - cell "2 NWOS I:Incoming Correspondence" [ref=e157]
+            - row "ASSIGNED TO EXAMINER 2024-05-14 3 DOCK D:Assigned to Examiner" [ref=e158]:
+              - cell "ASSIGNED TO EXAMINER" [ref=e159]
+              - cell "2024-05-14" [ref=e160]
+              - cell "3 DOCK D:Assigned to Examiner" [ref=e161]
+            - row "APPROVED FOR PUB - PRINCIPAL REGISTER 2024-05-18 4 CNSA P:" [ref=e162]:
+              - cell "APPROVED FOR PUB - PRINCIPAL REGISTER" [ref=e163]
+              - cell "2024-05-18" [ref=e164]
+              - cell "4 CNSA P:" [ref=e165]
+            - row "NOTIFICATION OF NOTICE OF PUBLICATION E-MAILED 2024-06-05 5 NONP E:E-Mail" [ref=e166]:
+              - cell "NOTIFICATION OF NOTICE OF PUBLICATION E-MAILED" [ref=e167]
+              - cell "2024-06-05" [ref=e168]
+              - cell "5 NONP E:E-Mail" [ref=e169]
+            - row "PUBLISHED FOR OPPOSITION 2024-06-25 6 PUBO A:Allowance for Publication" [ref=e170]:
+              - cell "PUBLISHED FOR OPPOSITION" [ref=e171]
+              - cell "2024-06-25" [ref=e172]
+              - cell "6 PUBO A:Allowance for Publication" [ref=e173]
+            - row "OFFICIAL GAZETTE PUBLICATION CONFIRMATION E-MAILED 2024-06-25 7 NPUB E:E-Mail" [ref=e174]:
+              - cell "OFFICIAL GAZETTE PUBLICATION CONFIRMATION E-MAILED" [ref=e175]
+              - cell "2024-06-25" [ref=e176]
+              - cell "7 NPUB E:E-Mail" [ref=e177]
+            - row "NOA E-MAILED - SOU REQUIRED FROM APPLICANT 2024-08-20 8 NOAM E:E-Mail" [ref=e178]:
+              - cell "NOA E-MAILED - SOU REQUIRED FROM APPLICANT" [ref=e179]
+              - cell "2024-08-20" [ref=e180]
+              - cell "8 NOAM E:E-Mail" [ref=e181]
+      - generic [ref=e182]:
+        - heading "Similar Marks" [level=4] [ref=e184]
+        - table [ref=e186]:
+          - rowgroup [ref=e187]:
+            - row "Mark Image Registration | Serial Company Trademark Application Date" [ref=e188]:
+              - columnheader "Mark Image Registration | Serial" [ref=e189]:
+                - generic [ref=e190]: Mark Image
+                - generic [ref=e191]: Registration | Serial
+              - columnheader "Company Trademark Application Date" [ref=e192]:
+                - generic [ref=e193]: Company
+                - generic [ref=e194]:
+                  - text: Trademark
+                  - text: Application Date
+            - row "LORE LORE 98754447 not registered Live/Pending Pixite Inc. 2024-09-17" [ref=e195]:
+              - cell "LORE LORE 98754447 not registered Live/Pending" [ref=e196]:
+                - link "LORE LORE 98754447 not registered Live/Pending":
+                  - /url: /TM/98754447
+                  - generic [ref=e197] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e198]: LORE
+                  - generic [ref=e199] [cursor=pointer]: 98754447 not registered Live/Pending
+              - cell "Pixite Inc. 2024-09-17" [ref=e200]:
+                - link "Pixite Inc. 2024-09-17":
+                  - /url: /TM/98754447
+                  - generic [ref=e201] [cursor=pointer]: Pixite Inc.
+                  - generic [ref=e202] [cursor=pointer]: 2024-09-17
+            - row "LORE LORE 98541884 not registered Live/Pending SmellCo Inc. 2024-05-09" [ref=e203]:
+              - cell "LORE LORE 98541884 not registered Live/Pending" [ref=e204]:
+                - link "LORE LORE 98541884 not registered Live/Pending":
+                  - /url: /TM/98541884
+                  - generic [ref=e205] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e206]: LORE
+                  - generic [ref=e207] [cursor=pointer]: 98541884 not registered Live/Pending
+              - cell "SmellCo Inc. 2024-05-09" [ref=e208]:
+                - link "SmellCo Inc. 2024-05-09":
+                  - /url: /TM/98541884
+                  - generic [ref=e209] [cursor=pointer]: SmellCo Inc.
+                  - generic [ref=e210] [cursor=pointer]: 2024-05-09
+            - row "LORE LORE 98389632 not registered Live/Pending Lore The Band LLC 2024-02-02" [ref=e211]:
+              - cell "LORE LORE 98389632 not registered Live/Pending" [ref=e212]:
+                - link "LORE LORE 98389632 not registered Live/Pending":
+                  - /url: /TM/98389632
+                  - generic [ref=e213] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e214]: LORE
+                  - generic [ref=e215] [cursor=pointer]: 98389632 not registered Live/Pending
+              - cell "Lore The Band LLC 2024-02-02" [ref=e216]:
+                - link "Lore The Band LLC 2024-02-02":
+                  - /url: /TM/98389632
+                  - generic [ref=e217] [cursor=pointer]: Lore The Band LLC
+                  - generic [ref=e218] [cursor=pointer]: 2024-02-02
+            - row "LORE LORE 98187719 not registered Live/Pending Lore Products 2023-09-19" [ref=e219]:
+              - cell "LORE LORE 98187719 not registered Live/Pending" [ref=e220]:
+                - link "LORE LORE 98187719 not registered Live/Pending":
+                  - /url: /TM/98187719
+                  - generic [ref=e221] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e222]: LORE
+                  - generic [ref=e223] [cursor=pointer]: 98187719 not registered Live/Pending
+              - cell "Lore Products 2023-09-19" [ref=e224]:
+                - link "Lore Products 2023-09-19":
+                  - /url: /TM/98187719
+                  - generic [ref=e225] [cursor=pointer]: Lore Products
+                  - generic [ref=e226] [cursor=pointer]: 2023-09-19
+            - row "LORE LORE 98125746 not registered Live/Pending RAM Eufaula Hospitality Two, LLC 2023-08-10" [ref=e227]:
+              - cell "LORE LORE 98125746 not registered Live/Pending" [ref=e228]:
+                - link "LORE LORE 98125746 not registered Live/Pending":
+                  - /url: /TM/98125746
+                  - generic [ref=e229] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e230]: LORE
+                  - generic [ref=e231] [cursor=pointer]: 98125746 not registered Live/Pending
+              - cell "RAM Eufaula Hospitality Two, LLC 2023-08-10" [ref=e232]:
+                - link "RAM Eufaula Hospitality Two, LLC 2023-08-10":
+                  - /url: /TM/98125746
+                  - generic [ref=e233] [cursor=pointer]: RAM Eufaula Hospitality Two, LLC
+                  - generic [ref=e234] [cursor=pointer]: 2023-08-10
+            - row "LORE LORE 97891011 not registered Live/Pending Allparts Music Corp. 2023-04-17" [ref=e235]:
+              - cell "LORE LORE 97891011 not registered Live/Pending" [ref=e236]:
+                - link "LORE LORE 97891011 not registered Live/Pending":
+                  - /url: /TM/97891011
+                  - generic [ref=e237] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e238]: LORE
+                  - generic [ref=e239] [cursor=pointer]: 97891011 not registered Live/Pending
+              - cell "Allparts Music Corp. 2023-04-17" [ref=e240]:
+                - link "Allparts Music Corp. 2023-04-17":
+                  - /url: /TM/97891011
+                  - generic [ref=e241] [cursor=pointer]: Allparts Music Corp.
+                  - generic [ref=e242] [cursor=pointer]: 2023-04-17
+            - row "LORE LORE 97888764 not registered Live/Pending Shuttle Labs LLC 2023-04-14" [ref=e243]:
+              - cell "LORE LORE 97888764 not registered Live/Pending" [ref=e244]:
+                - link "LORE LORE 97888764 not registered Live/Pending":
+                  - /url: /TM/97888764
+                  - generic [ref=e245] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e246]: LORE
+                  - generic [ref=e247] [cursor=pointer]: 97888764 not registered Live/Pending
+              - cell "Shuttle Labs LLC 2023-04-14" [ref=e248]:
+                - link "Shuttle Labs LLC 2023-04-14":
+                  - /url: /TM/97888764
+                  - generic [ref=e249] [cursor=pointer]: Shuttle Labs LLC
+                  - generic [ref=e250] [cursor=pointer]: 2023-04-14
+            - row "LORE LORE 97724583 not registered Live/Pending Refractor, Inc. 2022-12-20" [ref=e251]:
+              - cell "LORE LORE 97724583 not registered Live/Pending" [ref=e252]:
+                - link "LORE LORE 97724583 not registered Live/Pending":
+                  - /url: /TM/97724583
+                  - generic [ref=e253] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e254]: LORE
+                  - generic [ref=e255] [cursor=pointer]: 97724583 not registered Live/Pending
+              - cell "Refractor, Inc. 2022-12-20" [ref=e256]:
+                - link "Refractor, Inc. 2022-12-20":
+                  - /url: /TM/97724583
+                  - generic [ref=e257] [cursor=pointer]: Refractor, Inc.
+                  - generic [ref=e258] [cursor=pointer]: 2022-12-20
+            - row "LORE LORE 97665976 not registered Live/Pending LORE HEALTH LLC 2022-11-07" [ref=e259]:
+              - cell "LORE LORE 97665976 not registered Live/Pending" [ref=e260]:
+                - link "LORE LORE 97665976 not registered Live/Pending":
+                  - /url: /TM/97665976
+                  - generic [ref=e261] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e262]: LORE
+                  - generic [ref=e263] [cursor=pointer]: 97665976 not registered Live/Pending
+              - cell "LORE HEALTH LLC 2022-11-07" [ref=e264]:
+                - link "LORE HEALTH LLC 2022-11-07":
+                  - /url: /TM/97665976
+                  - generic [ref=e265] [cursor=pointer]: LORE HEALTH LLC
+                  - generic [ref=e266] [cursor=pointer]: 2022-11-07
+            - row "LORE LORE 97251298 not registered Live/Pending Lorena Perry 2022-02-03" [ref=e267]:
+              - cell "LORE LORE 97251298 not registered Live/Pending" [ref=e268]:
+                - link "LORE LORE 97251298 not registered Live/Pending":
+                  - /url: /TM/97251298
+                  - generic [ref=e269] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e270]: LORE
+                  - generic [ref=e271] [cursor=pointer]: 97251298 not registered Live/Pending
+              - cell "Lorena Perry 2022-02-03" [ref=e272]:
+                - link "Lorena Perry 2022-02-03":
+                  - /url: /TM/97251298
+                  - generic [ref=e273] [cursor=pointer]: Lorena Perry
+                  - generic [ref=e274] [cursor=pointer]: 2022-02-03
+            - row "LORE LORE 90744975 not registered Live/Pending City state games 2021-05-31" [ref=e275]:
+              - cell "LORE LORE 90744975 not registered Live/Pending" [ref=e276]:
+                - link "LORE LORE 90744975 not registered Live/Pending":
+                  - /url: /TM/90744975
+                  - generic [ref=e277] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e278]: LORE
+                  - generic [ref=e279] [cursor=pointer]: 90744975 not registered Live/Pending
+              - cell "City state games 2021-05-31" [ref=e280]:
+                - link "City state games 2021-05-31":
+                  - /url: /TM/90744975
+                  - generic [ref=e281] [cursor=pointer]: City state games
+                  - generic [ref=e282] [cursor=pointer]: 2021-05-31
+            - row "LORE LORE 90612946 not registered Live/Pending Impact Biosystems, Inc. 2021-03-30" [ref=e283]:
+              - cell "LORE LORE 90612946 not registered Live/Pending" [ref=e284]:
+                - link "LORE LORE 90612946 not registered Live/Pending":
+                  - /url: /TM/90612946
+                  - generic [ref=e285] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e286]: LORE
+                  - generic [ref=e287] [cursor=pointer]: 90612946 not registered Live/Pending
+              - cell "Impact Biosystems, Inc. 2021-03-30" [ref=e288]:
+                - link "Impact Biosystems, Inc. 2021-03-30":
+                  - /url: /TM/90612946
+                  - generic [ref=e289] [cursor=pointer]: Impact Biosystems, Inc.
+                  - generic [ref=e290] [cursor=pointer]: 2021-03-30
+            - row "LORE LORE 90560834 not registered Live/Pending Reeves, John 2021-03-04" [ref=e291]:
+              - cell "LORE LORE 90560834 not registered Live/Pending" [ref=e292]:
+                - link "LORE LORE 90560834 not registered Live/Pending":
+                  - /url: /TM/90560834
+                  - generic [ref=e293] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e294]: LORE
+                  - generic [ref=e295] [cursor=pointer]: 90560834 not registered Live/Pending
+              - cell "Reeves, John 2021-03-04" [ref=e296]:
+                - link "Reeves, John 2021-03-04":
+                  - /url: /TM/90560834
+                  - generic [ref=e297] [cursor=pointer]: Reeves, John
+                  - generic [ref=e298] [cursor=pointer]: 2021-03-04
+            - row "LORE LORE 90382999 not registered Live/Pending Drake Labs, Inc. 2020-12-15" [ref=e299]:
+              - cell "LORE LORE 90382999 not registered Live/Pending" [ref=e300]:
+                - link "LORE LORE 90382999 not registered Live/Pending":
+                  - /url: /TM/90382999
+                  - generic [ref=e301] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e302]: LORE
+                  - generic [ref=e303] [cursor=pointer]: 90382999 not registered Live/Pending
+              - cell "Drake Labs, Inc. 2020-12-15" [ref=e304]:
+                - link "Drake Labs, Inc. 2020-12-15":
+                  - /url: /TM/90382999
+                  - generic [ref=e305] [cursor=pointer]: Drake Labs, Inc.
+                  - generic [ref=e306] [cursor=pointer]: 2020-12-15
+            - row "LORE LORE 88551806 not registered Live/Pending Tan Qi 2019-07-31" [ref=e307]:
+              - cell "LORE LORE 88551806 not registered Live/Pending" [ref=e308]:
+                - link "LORE LORE 88551806 not registered Live/Pending":
+                  - /url: /TM/88551806
+                  - generic [ref=e309] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e310]: LORE
+                  - generic [ref=e311] [cursor=pointer]: 88551806 not registered Live/Pending
+              - cell "Tan Qi 2019-07-31" [ref=e312]:
+                - link "Tan Qi 2019-07-31":
+                  - /url: /TM/88551806
+                  - generic [ref=e313] [cursor=pointer]: Tan Qi
+                  - generic [ref=e314] [cursor=pointer]: 2019-07-31
+            - row "LORE LORE 88412987 not registered Live/Pending Ashcombe Estates LLP 2019-05-02" [ref=e315]:
+              - cell "LORE LORE 88412987 not registered Live/Pending" [ref=e316]:
+                - link "LORE LORE 88412987 not registered Live/Pending":
+                  - /url: /TM/88412987
+                  - generic [ref=e317] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e318]: LORE
+                  - generic [ref=e319] [cursor=pointer]: 88412987 not registered Live/Pending
+              - cell "Ashcombe Estates LLP 2019-05-02" [ref=e320]:
+                - link "Ashcombe Estates LLP 2019-05-02":
+                  - /url: /TM/88412987
+                  - generic [ref=e321] [cursor=pointer]: Ashcombe Estates LLP
+                  - generic [ref=e322] [cursor=pointer]: 2019-05-02
+            - row "LORE LORE 88227178 not registered Live/Pending Louise Kljubin, LLC 2018-12-12" [ref=e323]:
+              - cell "LORE LORE 88227178 not registered Live/Pending" [ref=e324]:
+                - link "LORE LORE 88227178 not registered Live/Pending":
+                  - /url: /TM/88227178
+                  - generic [ref=e325] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e326]: LORE
+                  - generic [ref=e327] [cursor=pointer]: 88227178 not registered Live/Pending
+              - cell "Louise Kljubin, LLC 2018-12-12" [ref=e328]:
+                - link "Louise Kljubin, LLC 2018-12-12":
+                  - /url: /TM/88227178
+                  - generic [ref=e329] [cursor=pointer]: Louise Kljubin, LLC
+                  - generic [ref=e330] [cursor=pointer]: 2018-12-12
+            - row "LORE LORE 88078306 5697323 Live/Registered Amazon Technologies, Inc. 2018-08-14" [ref=e331]:
+              - cell "LORE LORE 88078306 5697323 Live/Registered" [ref=e332]:
+                - link "LORE LORE 88078306 5697323 Live/Registered":
+                  - /url: /TM/88078306
+                  - generic [ref=e333] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e334]: LORE
+                  - generic [ref=e335] [cursor=pointer]: 88078306 5697323 Live/Registered
+              - cell "Amazon Technologies, Inc. 2018-08-14" [ref=e336]:
+                - link "Amazon Technologies, Inc. 2018-08-14":
+                  - /url: /TM/88078306
+                  - generic [ref=e337] [cursor=pointer]: Amazon Technologies, Inc.
+                  - generic [ref=e338] [cursor=pointer]: 2018-08-14
+            - row "LORE LORE 88064935 not registered Dead/Abandoned MT Suds, LLC 2018-08-03" [ref=e339]:
+              - cell "LORE LORE 88064935 not registered Dead/Abandoned" [ref=e340]:
+                - link "LORE LORE 88064935 not registered Dead/Abandoned":
+                  - /url: /TM/88064935
+                  - generic [ref=e341] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e342]: LORE
+                  - generic [ref=e343] [cursor=pointer]: 88064935 not registered Dead/Abandoned
+              - cell "MT Suds, LLC 2018-08-03" [ref=e344]:
+                - link "MT Suds, LLC 2018-08-03":
+                  - /url: /TM/88064935
+                  - generic [ref=e345] [cursor=pointer]: MT Suds, LLC
+                  - generic [ref=e346] [cursor=pointer]: 2018-08-03
+            - row "LORE LORE 88060897 not registered Live/Pending Global Holdings Management Group (UK) Ltd 2018-08-01" [ref=e347]:
+              - cell "LORE LORE 88060897 not registered Live/Pending" [ref=e348]:
+                - link "LORE LORE 88060897 not registered Live/Pending":
+                  - /url: /TM/88060897
+                  - generic [ref=e349] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e350]: LORE
+                  - generic [ref=e351] [cursor=pointer]: 88060897 not registered Live/Pending
+              - cell "Global Holdings Management Group (UK) Ltd 2018-08-01" [ref=e352]:
+                - link "Global Holdings Management Group (UK) Ltd 2018-08-01":
+                  - /url: /TM/88060897
+                  - generic [ref=e353] [cursor=pointer]: Global Holdings Management Group (UK) Ltd
+                  - generic [ref=e354] [cursor=pointer]: 2018-08-01
+            - row "LORE LORE 88060889 not registered Live/Pending Global Holdings Management Group (UK) Ltd 2018-08-01" [ref=e355]:
+              - cell "LORE LORE 88060889 not registered Live/Pending" [ref=e356]:
+                - link "LORE LORE 88060889 not registered Live/Pending":
+                  - /url: /TM/88060889
+                  - generic [ref=e357] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e358]: LORE
+                  - generic [ref=e359] [cursor=pointer]: 88060889 not registered Live/Pending
+              - cell "Global Holdings Management Group (UK) Ltd 2018-08-01" [ref=e360]:
+                - link "Global Holdings Management Group (UK) Ltd 2018-08-01":
+                  - /url: /TM/88060889
+                  - generic [ref=e361] [cursor=pointer]: Global Holdings Management Group (UK) Ltd
+                  - generic [ref=e362] [cursor=pointer]: 2018-08-01
+            - row "LORE LORE 87978727 5624284 Live/Registered EVERMORE PARK, LLC 2017-10-16" [ref=e363]:
+              - cell "LORE LORE 87978727 5624284 Live/Registered" [ref=e364]:
+                - link "LORE LORE 87978727 5624284 Live/Registered":
+                  - /url: /TM/87978727
+                  - generic [ref=e365] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e366]: LORE
+                  - generic [ref=e367] [cursor=pointer]: 87978727 5624284 Live/Registered
+              - cell "EVERMORE PARK, LLC 2017-10-16" [ref=e368]:
+                - link "EVERMORE PARK, LLC 2017-10-16":
+                  - /url: /TM/87978727
+                  - generic [ref=e369] [cursor=pointer]: EVERMORE PARK, LLC
+                  - generic [ref=e370] [cursor=pointer]: 2017-10-16
+            - row "LORE LORE 87927818 not registered Live/Pending Lore, LLC 2018-05-18" [ref=e371]:
+              - cell "LORE LORE 87927818 not registered Live/Pending" [ref=e372]:
+                - link "LORE LORE 87927818 not registered Live/Pending":
+                  - /url: /TM/87927818
+                  - generic [ref=e373] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e374]: LORE
+                  - generic [ref=e375] [cursor=pointer]: 87927818 not registered Live/Pending
+              - cell "Lore, LLC 2018-05-18" [ref=e376]:
+                - link "Lore, LLC 2018-05-18":
+                  - /url: /TM/87927818
+                  - generic [ref=e377] [cursor=pointer]: Lore, LLC
+                  - generic [ref=e378] [cursor=pointer]: 2018-05-18
+            - row "LORE LORE 87799064 not registered Live/Pending East Coast Seafood Group, LLC 2018-02-15" [ref=e379]:
+              - cell "LORE LORE 87799064 not registered Live/Pending" [ref=e380]:
+                - link "LORE LORE 87799064 not registered Live/Pending":
+                  - /url: /TM/87799064
+                  - generic [ref=e381] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e382]: LORE
+                  - generic [ref=e383] [cursor=pointer]: 87799064 not registered Live/Pending
+              - cell "East Coast Seafood Group, LLC 2018-02-15" [ref=e384]:
+                - link "East Coast Seafood Group, LLC 2018-02-15":
+                  - /url: /TM/87799064
+                  - generic [ref=e385] [cursor=pointer]: East Coast Seafood Group, LLC
+                  - generic [ref=e386] [cursor=pointer]: 2018-02-15
+            - row "LORE LORE 87647085 not registered Live/Pending EVERMORE PARK, LLC 2017-10-16" [ref=e387]:
+              - cell "LORE LORE 87647085 not registered Live/Pending" [ref=e388]:
+                - link "LORE LORE 87647085 not registered Live/Pending":
+                  - /url: /TM/87647085
+                  - generic [ref=e389] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e390]: LORE
+                  - generic [ref=e391] [cursor=pointer]: 87647085 not registered Live/Pending
+              - cell "EVERMORE PARK, LLC 2017-10-16" [ref=e392]:
+                - link "EVERMORE PARK, LLC 2017-10-16":
+                  - /url: /TM/87647085
+                  - generic [ref=e393] [cursor=pointer]: EVERMORE PARK, LLC
+                  - generic [ref=e394] [cursor=pointer]: 2017-10-16
+            - row "LORE LORE 87023672 5135993 Live/Registered LaCoste, Mary E. 2016-05-03" [ref=e395]:
+              - cell "LORE LORE 87023672 5135993 Live/Registered" [ref=e396]:
+                - link "LORE LORE 87023672 5135993 Live/Registered":
+                  - /url: /TM/87023672
+                  - generic [ref=e397] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e398]: LORE
+                  - generic [ref=e399] [cursor=pointer]: 87023672 5135993 Live/Registered
+              - cell "LaCoste, Mary E. 2016-05-03" [ref=e400]:
+                - link "LaCoste, Mary E. 2016-05-03":
+                  - /url: /TM/87023672
+                  - generic [ref=e401] [cursor=pointer]: LaCoste, Mary E.
+                  - generic [ref=e402] [cursor=pointer]: 2016-05-03
+            - row "LORE LORE 86680698 5286791 Live/Registered Beam Suntory UK Ltd. 2015-07-01" [ref=e403]:
+              - cell "LORE LORE 86680698 5286791 Live/Registered" [ref=e404]:
+                - link "LORE LORE 86680698 5286791 Live/Registered":
+                  - /url: /TM/86680698
+                  - generic [ref=e405] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e406]: LORE
+                  - generic [ref=e407] [cursor=pointer]: 86680698 5286791 Live/Registered
+              - cell "Beam Suntory UK Ltd. 2015-07-01" [ref=e408]:
+                - link "Beam Suntory UK Ltd. 2015-07-01":
+                  - /url: /TM/86680698
+                  - generic [ref=e409] [cursor=pointer]: Beam Suntory UK Ltd.
+                  - generic [ref=e410] [cursor=pointer]: 2015-07-01
+            - row "LORE LORE 86317332 not registered Dead/Abandoned Sid Katari 2014-06-23" [ref=e411]:
+              - cell "LORE LORE 86317332 not registered Dead/Abandoned" [ref=e412]:
+                - link "LORE LORE 86317332 not registered Dead/Abandoned":
+                  - /url: /TM/86317332
+                  - generic [ref=e413] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e414]: LORE
+                  - generic [ref=e415] [cursor=pointer]: 86317332 not registered Dead/Abandoned
+              - cell "Sid Katari 2014-06-23" [ref=e416]:
+                - link "Sid Katari 2014-06-23":
+                  - /url: /TM/86317332
+                  - generic [ref=e417] [cursor=pointer]: Sid Katari
+                  - generic [ref=e418] [cursor=pointer]: 2014-06-23
+            - row "LORE LORE 85587173 not registered Dead/Abandoned LORE, INC. 2012-04-02" [ref=e419]:
+              - cell "LORE LORE 85587173 not registered Dead/Abandoned" [ref=e420]:
+                - link "LORE LORE 85587173 not registered Dead/Abandoned":
+                  - /url: /TM/85587173
+                  - generic [ref=e421] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e422]: LORE
+                  - generic [ref=e423] [cursor=pointer]: 85587173 not registered Dead/Abandoned
+              - cell "LORE, INC. 2012-04-02" [ref=e424]:
+                - link "LORE, INC. 2012-04-02":
+                  - /url: /TM/85587173
+                  - generic [ref=e425] [cursor=pointer]: LORE, INC.
+                  - generic [ref=e426] [cursor=pointer]: 2012-04-02
+            - row "LORE LORE 85470176 4641532 Live/Registered Lonza AG (Lonza Ltd.) 2011-11-11" [ref=e427]:
+              - cell "LORE LORE 85470176 4641532 Live/Registered" [ref=e428]:
+                - link "LORE LORE 85470176 4641532 Live/Registered":
+                  - /url: /TM/85470176
+                  - generic [ref=e429] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e430]: LORE
+                  - generic [ref=e431] [cursor=pointer]: 85470176 4641532 Live/Registered
+              - cell "Lonza AG (Lonza Ltd.) 2011-11-11" [ref=e432]:
+                - link "Lonza AG (Lonza Ltd.) 2011-11-11":
+                  - /url: /TM/85470176
+                  - generic [ref=e433] [cursor=pointer]: Lonza AG (Lonza Ltd.)
+                  - generic [ref=e434] [cursor=pointer]: 2011-11-11
+            - row "LORE LORE 79106089 4204182 Dead/Cancelled Lonza AG (Lonza Ltd.) 2011-11-14" [ref=e435]:
+              - cell "LORE LORE 79106089 4204182 Dead/Cancelled" [ref=e436]:
+                - link "LORE LORE 79106089 4204182 Dead/Cancelled":
+                  - /url: /TM/79106089
+                  - generic [ref=e437] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e438]: LORE
+                  - generic [ref=e439] [cursor=pointer]: 79106089 4204182 Dead/Cancelled
+              - cell "Lonza AG (Lonza Ltd.) 2011-11-14" [ref=e440]:
+                - link "Lonza AG (Lonza Ltd.) 2011-11-14":
+                  - /url: /TM/79106089
+                  - generic [ref=e441] [cursor=pointer]: Lonza AG (Lonza Ltd.)
+                  - generic [ref=e442] [cursor=pointer]: 2011-11-14
+            - row "LORE LORE 78921051 3218107 Dead/Cancelled SOP Services, Inc. 2006-06-30" [ref=e443]:
+              - cell "LORE LORE 78921051 3218107 Dead/Cancelled" [ref=e444]:
+                - link "LORE LORE 78921051 3218107 Dead/Cancelled":
+                  - /url: /TM/78921051
+                  - generic [ref=e445] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e446]: LORE
+                  - generic [ref=e447] [cursor=pointer]: 78921051 3218107 Dead/Cancelled
+              - cell "SOP Services, Inc. 2006-06-30" [ref=e448]:
+                - link "SOP Services, Inc. 2006-06-30":
+                  - /url: /TM/78921051
+                  - generic [ref=e449] [cursor=pointer]: SOP Services, Inc.
+                  - generic [ref=e450] [cursor=pointer]: 2006-06-30
+            - row "LORE LORE 77066104 not registered Dead/Abandoned Kaia Canales 2006-12-18" [ref=e451]:
+              - cell "LORE LORE 77066104 not registered Dead/Abandoned" [ref=e452]:
+                - link "LORE LORE 77066104 not registered Dead/Abandoned":
+                  - /url: /TM/77066104
+                  - generic [ref=e453] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e454]: LORE
+                  - generic [ref=e455] [cursor=pointer]: 77066104 not registered Dead/Abandoned
+              - cell "Kaia Canales 2006-12-18" [ref=e456]:
+                - link "Kaia Canales 2006-12-18":
+                  - /url: /TM/77066104
+                  - generic [ref=e457] [cursor=pointer]: Kaia Canales
+                  - generic [ref=e458] [cursor=pointer]: 2006-12-18
+            - row "LORE LORE 74725050 2001235 Dead/Cancelled Heather, Rodney K., Jr. 1995-09-05" [ref=e459]:
+              - cell "LORE LORE 74725050 2001235 Dead/Cancelled" [ref=e460]:
+                - link "LORE LORE 74725050 2001235 Dead/Cancelled":
+                  - /url: /TM/74725050
+                  - generic [ref=e461] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e462]: LORE
+                  - generic [ref=e463] [cursor=pointer]: 74725050 2001235 Dead/Cancelled
+              - cell "Heather, Rodney K., Jr. 1995-09-05" [ref=e464]:
+                - link "Heather, Rodney K., Jr. 1995-09-05":
+                  - /url: /TM/74725050
+                  - generic [ref=e465] [cursor=pointer]: Heather, Rodney K., Jr.
+                  - generic [ref=e466] [cursor=pointer]: 1995-09-05
+            - row "LORE LORE 74480098 1907481 Dead/Cancelled PARAMOUNT PICTURES CORPORATION 1994-01-14" [ref=e467]:
+              - cell "LORE LORE 74480098 1907481 Dead/Cancelled" [ref=e468]:
+                - link "LORE LORE 74480098 1907481 Dead/Cancelled":
+                  - /url: /TM/74480098
+                  - generic [ref=e469] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e470]: LORE
+                  - generic [ref=e471] [cursor=pointer]: 74480098 1907481 Dead/Cancelled
+              - cell "PARAMOUNT PICTURES CORPORATION 1994-01-14" [ref=e472]:
+                - link "PARAMOUNT PICTURES CORPORATION 1994-01-14":
+                  - /url: /TM/74480098
+                  - generic [ref=e473] [cursor=pointer]: PARAMOUNT PICTURES CORPORATION
+                  - generic [ref=e474] [cursor=pointer]: 1994-01-14
+            - row "LORE LORE 73397777 not registered Dead/Abandoned Lore Lingerie, Inc. 1982-09-30" [ref=e475]:
+              - cell "LORE LORE 73397777 not registered Dead/Abandoned" [ref=e476]:
+                - link "LORE LORE 73397777 not registered Dead/Abandoned":
+                  - /url: /TM/73397777
+                  - generic [ref=e477] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e478]: LORE
+                  - generic [ref=e479] [cursor=pointer]: 73397777 not registered Dead/Abandoned
+              - cell "Lore Lingerie, Inc. 1982-09-30" [ref=e480]:
+                - link "Lore Lingerie, Inc. 1982-09-30":
+                  - /url: /TM/73397777
+                  - generic [ref=e481] [cursor=pointer]: Lore Lingerie, Inc.
+                  - generic [ref=e482] [cursor=pointer]: 1982-09-30
+            - row "LORE LORE 73119467 1087385 Dead/Expired CAULFIELD, LORE 1977-03-17" [ref=e483]:
+              - cell "LORE LORE 73119467 1087385 Dead/Expired" [ref=e484]:
+                - link "LORE LORE 73119467 1087385 Dead/Expired":
+                  - /url: /TM/73119467
+                  - generic [ref=e485] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e486]: LORE
+                  - generic [ref=e487] [cursor=pointer]: 73119467 1087385 Dead/Expired
+              - cell "CAULFIELD, LORE 1977-03-17" [ref=e488]:
+                - link "CAULFIELD, LORE 1977-03-17":
+                  - /url: /TM/73119467
+                  - generic [ref=e489] [cursor=pointer]: CAULFIELD, LORE
+                  - generic [ref=e490] [cursor=pointer]: 1977-03-17
+            - row "LORE LORE 72257707 0836430 Dead/Expired W. GOEBEL PORZELLANFABRIK OESLAU UND WILHELMSFELD 1966-11-01" [ref=e491]:
+              - cell "LORE LORE 72257707 0836430 Dead/Expired" [ref=e492]:
+                - link "LORE LORE 72257707 0836430 Dead/Expired":
+                  - /url: /TM/72257707
+                  - generic [ref=e493] [cursor=pointer]:
+                    - img "LORE"
+                    - generic [ref=e494]: LORE
+                  - generic [ref=e495] [cursor=pointer]: 72257707 0836430 Dead/Expired
+              - cell "W. GOEBEL PORZELLANFABRIK OESLAU UND WILHELMSFELD 1966-11-01" [ref=e496]:
+                - link "W. GOEBEL PORZELLANFABRIK OESLAU UND WILHELMSFELD 1966-11-01":
+                  - /url: /TM/72257707
+                  - generic [ref=e497] [cursor=pointer]: W. GOEBEL PORZELLANFABRIK OESLAU UND WILHELMSFELD
+                  - generic [ref=e498] [cursor=pointer]: 1966-11-01
+    - separator [ref=e499]
+    - generic [ref=e500]:
+      - paragraph [ref=e501]: uspto.report is an independent third-party trademark research tool that is not affiliated, endorsed, or sponsored by the United States Patent and Trademark Office (USPTO) or any other governmental organization. The information provided by uspto.report is based on publicly available data at the time of writing and is intended for informational purposes only.
+      - paragraph [ref=e502]: While we strive to provide accurate and up-to-date information, we do not guarantee the accuracy, completeness, reliability, or suitability of the information displayed on this site. The use of this site is at your own risk. Any reliance you place on such information is therefore strictly at your own risk.
+      - paragraph [ref=e503]: All official trademark data, including owner information, should be verified by visiting the official USPTO website at www.uspto.gov. This site is not intended to replace professional legal advice and should not be used as a substitute for consulting with a legal professional who is knowledgeable about trademark law.
+    - text: © 2026 USPTO.report |
+    - link "Privacy Policy" [ref=e504] [cursor=pointer]:
+      - /url: /privacy_policy.php
+    - text: "|"
+    - link "Resources" [ref=e505] [cursor=pointer]:
+      - /url: /resources/
+    - text: "|"
+    - link "RSS Feed of Trademarks" [ref=e506] [cursor=pointer]:
+      - /url: /tm.rss
+      - img "RSS Feed of Trademarks" [ref=e507]
+    - text: "|"
+    - link "Trademark Filings Twitter Feed" [ref=e508] [cursor=pointer]:
+      - /url: https://twitter.com/trademarktrader
+      - img "Trademark Filings Twitter Feed" [ref=e509]
+  - dialog "This site asks for consent to use your data" [active] [ref=e513]:
+    - generic [ref=e515]:
+      - generic [ref=e516]:
+        - paragraph [ref=e518]: Welcome
+        - heading "This site asks for consent to use your data" [level=1] [ref=e519]
+      - list [ref=e521]:
+        - listitem [ref=e522]:
+          - img [ref=e525]
+          - generic [ref=e527]: Personalised advertising and content, advertising and content measurement, audience research and services development
+        - listitem [ref=e528]:
+          - img [ref=e531]
+          - generic [ref=e533]: Store and/or access information on a device
+      - button "Learn more" [ref=e534] [cursor=pointer]:
+        - img [ref=e537]
+        - generic [ref=e539]: Learn more
+      - generic [ref=e540]:
+        - paragraph [ref=e541]:
+          - text: Your personal data will be processed and information from your device (cookies, unique identifiers, and other device data) may be stored by, accessed by and shared with 211 partners, or used specifically by this site. We and our partners may use precise geolocation data.
+          - button "List of partners." [ref=e542] [cursor=pointer]
+        - paragraph [ref=e543]: Some vendors may process your personal data on the basis of legitimate interest, which you can object to by managing your options below. Look for a link at the bottom of this page or in the site menu to manage or withdraw consent in privacy and cookie settings.
+    - generic [ref=e546]:
+      - button "Consent" [ref=e547] [cursor=pointer]:
+        - paragraph [ref=e549]: Consent
+      - button "Manage options" [ref=e550] [cursor=pointer]:
+        - paragraph [ref=e552]: Manage options

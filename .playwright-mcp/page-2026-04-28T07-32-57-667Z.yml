@@ -1,0 +1,299 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e5]:
+        - generic:
+          - generic:
+            - link "United States Patent and Trademark Office - An Agency of the Department of Commerce" [ref=e6] [cursor=pointer]:
+              - /url: http://www.uspto.gov
+            - generic [ref=e7]:
+              - link "About Us" [ref=e9] [cursor=pointer]:
+                - /url: http://www.uspto.gov/about-us
+              - link "Careers" [ref=e11] [cursor=pointer]:
+                - /url: http://www.uspto.gov/careers
+              - link "Contact Us" [ref=e13] [cursor=pointer]:
+                - /url: http://www.uspto.gov/about-us/contact-us
+      - navigation [ref=e16]:
+        - list [ref=e17]:
+          - listitem [ref=e18]:
+            - link "Patents" [ref=e19] [cursor=pointer]:
+              - /url: http://www.uspto.gov/patent
+          - listitem [ref=e20]:
+            - link "Trademarks" [ref=e21] [cursor=pointer]:
+              - /url: http://www.uspto.gov/trademark
+          - listitem [ref=e22]:
+            - link "Learning and Resources" [ref=e23] [cursor=pointer]:
+              - /url: http://www.uspto.gov/learning-resources
+    - generic [ref=e25]:
+      - link "USPTO" [ref=e26] [cursor=pointer]:
+        - /url: http://www.uspto.gov/
+      - text: ">"
+      - link "Trademark" [ref=e27] [cursor=pointer]:
+        - /url: http://www.uspto.gov/trademarks/index.jsp
+      - text: ">"
+      - link "TSDR" [ref=e28] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e29]:
+        - text: ">"
+        - link "Trademark Search" [ref=e30] [cursor=pointer]:
+          - /url: javascript:;
+      - link "FAQ" [ref=e31] [cursor=pointer]:
+        - /url: /faqview
+        - img "FAQ" [ref=e32]
+    - generic [ref=e33]:
+      - generic [ref=e36]:
+        - text: For assistance with TSDR, email
+        - link "teas@uspto.gov" [ref=e37] [cursor=pointer]:
+          - /url: mailto:teas@uspto.gov
+        - text: and include your serial number, the document you are looking for, and a screenshot of any error messages you have received.
+      - heading "Trademark Status & Document Retrieval (TSDR) Help" [level=2] [ref=e38]:
+        - generic [ref=e39]: Trademark Status & Document Retrieval (TSDR)
+        - link "Help" [ref=e40] [cursor=pointer]:
+          - /url: javascript:page.helpOverlay.open( 'tdr_search' )
+          - img "Help" [ref=e41]
+      - generic "search input tabs" [ref=e42]:
+        - generic [ref=e43]:
+          - list [ref=e44]:
+            - listitem [ref=e45]:
+              - 'link "Search Tab: in focus" [ref=e46] [cursor=pointer]':
+                - /url: javascript:;
+                - text: Search
+            - listitem [ref=e47]:
+              - 'link "Multi-Search Tab: activate to focus" [ref=e48] [cursor=pointer]':
+                - /url: javascript:;
+                - text: Multi-Search
+          - link "Help" [ref=e49] [cursor=pointer]:
+            - /url: javascript:page.helpOverlay.open( 'cert_search' )
+            - img "Help" [ref=e50]
+        - list [ref=e52]:
+          - listitem [ref=e53]:
+            - generic [ref=e56]:
+              - combobox "application type" [ref=e58]:
+                - option "US Serial, Registration, or Reference No." [selected]
+                - option "International Registration No."
+                - option "Expungement/Reexamination Petition or Proceeding No."
+              - textbox "case number" [ref=e60]: "76412073"
+              - button "status search submit" [ref=e62] [cursor=pointer]: Status
+              - button "document search submit" [ref=e64] [cursor=pointer]: Documents
+      - generic [ref=e66]:
+        - generic [ref=e67]: retrieving status ...
+        - generic [ref=e68]:
+          - list [ref=e69]:
+            - listitem [ref=e70]:
+              - link "Status" [ref=e71] [cursor=pointer]:
+                - /url: javascript:;
+            - listitem [ref=e72]:
+              - link "Documents" [ref=e73] [cursor=pointer]:
+                - /url: javascript:;
+            - listitem [ref=e155]:
+              - link "Maintenance" [ref=e156] [cursor=pointer]:
+                - /url: javascript:;
+          - link "Help" [ref=e75] [cursor=pointer]:
+            - /url: javascript:page.helpOverlay.open( 'tab_results' )
+            - img "Help" [ref=e76]
+          - generic [ref=e77]:
+            - generic "Download PDF or Original (p or o)" [ref=e78]:
+              - link "Download" [ref=e79] [cursor=pointer]:
+                - /url: javascript:;
+                - generic [ref=e80]: Download
+            - link "Print Preview" [ref=e82] [cursor=pointer]:
+              - /url: javascript:;
+        - list [ref=e84]:
+          - listitem [ref=e157]:
+            - generic [ref=e158]:
+              - generic [ref=e159]:
+                - generic [ref=e161]:
+                  - generic [ref=e162]: "Generated on:"
+                  - generic [ref=e163]: This page was generated by TSDR on 2026-04-28 03:32:20 EDT
+                - generic [ref=e165]:
+                  - generic [ref=e166]: "Mark:"
+                  - generic [ref=e167]: SAGE
+                  - generic [ref=e169]:
+                    - link "Trademark image":
+                      - /url: javascript:;
+                      - img "Trademark image" [ref=e170] [cursor=pointer]
+                - generic [ref=e171]:
+                  - generic [ref=e172]:
+                    - generic [ref=e173]: "US Serial Number:"
+                    - generic [ref=e174]: "75590576"
+                    - generic [ref=e175]: "Application Filing Date:"
+                    - generic [ref=e176]: Nov. 18, 1998
+                  - generic [ref=e177]:
+                    - generic [ref=e178]: "US Registration Number:"
+                    - generic [ref=e179]: "2880566"
+                    - generic [ref=e180]: "Registration Date:"
+                    - generic [ref=e181]: Sep. 07, 2004
+                - generic [ref=e182]:
+                  - generic [ref=e183]:
+                    - generic [ref=e184]: "Register:"
+                    - generic [ref=e185]: Principal
+                  - generic [ref=e186]:
+                    - generic [ref=e187]: "Mark Type:"
+                    - generic [ref=e188]: Trademark
+                - generic [ref=e190]:
+                  - generic [ref=e191]: "TM5 Common Status Descriptor:"
+                  - img "TM5 Common Status image" [ref=e194]
+                  - generic [ref=e195]:
+                    - paragraph [ref=e196]: LIVE/REGISTRATION/Issued and Active
+                    - paragraph [ref=e197]: The trademark application has been registered with the Office.
+                - generic [ref=e198]:
+                  - generic [ref=e199]:
+                    - generic [ref=e200]: "Status:"
+                    - generic [ref=e201]: The registration has been renewed.
+                  - generic [ref=e202]:
+                    - generic [ref=e203]: "Status Date:"
+                    - generic [ref=e204]: Jan. 13, 2025
+              - generic [ref=e206]:
+                - generic [ref=e207]: "Publication Date:"
+                - generic [ref=e208]: Jun. 15, 2004
+            - generic [ref=e211]:
+              - generic "expand/collapse all sections (x)" [ref=e212] [cursor=pointer]
+              - heading "Mark Information" [level=2] [ref=e214] [cursor=pointer]:
+                - link "Mark Information" [ref=e216]:
+                  - /url: javascript:;
+              - heading "Related Properties Information" [level=2] [ref=e218] [cursor=pointer]:
+                - link "Related Properties Information" [ref=e220]:
+                  - /url: javascript:;
+              - generic [ref=e221]:
+                - heading "Goods and Services" [level=2] [ref=e222] [cursor=pointer]:
+                  - link "Goods and Services" [ref=e224]:
+                    - /url: javascript:;
+                - generic [ref=e257]:
+                  - generic [ref=e258]:
+                    - strong [ref=e259]: "Note:"
+                    - generic [ref=e260]: "The following symbols indicate that the registrant/owner has amended the goods/services:"
+                    - list [ref=e261]:
+                      - listitem [ref=e262]: Brackets [..] indicate deleted goods/services;
+                      - listitem [ref=e263]: Double parenthesis ((..)) identify any goods/services not claimed in a Section 15 affidavit of incontestability; and
+                      - listitem [ref=e264]: Asterisks *..* identify additional (new) wording in the goods/services.
+                  - generic [ref=e266]:
+                    - generic [ref=e267]: "For:"
+                    - generic [ref=e268]: computer software, namely, applications for providing access to and control of databases containing text and graphics, and programs for providing on-line access to a database containing information regarding the promotional products and business forms industries * ; * [; digital data storage media, namely, CD-ROMS, and floppy disks containing information regarding the promotional products and business forms industries; ] and accompanying documentation for use with all of the above
+                  - generic [ref=e270]:
+                    - generic [ref=e271]: "International Class(es):"
+                    - generic [ref=e272]: 009 - Primary Class
+                    - generic [ref=e273]: "U.S Class(es):"
+                    - generic [ref=e274]: 021, 023, 026, 036, 038
+                  - generic [ref=e276]:
+                    - generic [ref=e277]: "Class Status:"
+                    - generic [ref=e278]: ACTIVE
+                  - generic [ref=e280]:
+                    - generic [ref=e281]: "First Use:"
+                    - generic [ref=e282]: Jan. 1992
+                    - generic [ref=e283]: "Use in Commerce:"
+                    - generic [ref=e284]: Jan. 1992
+              - heading "Basis Information (Case Level)" [level=2] [ref=e226] [cursor=pointer]:
+                - link "Basis Information (Case Level)" [ref=e228]:
+                  - /url: javascript:;
+              - heading "Current Owner(s) Information" [level=2] [ref=e230] [cursor=pointer]:
+                - link "Current Owner(s) Information" [ref=e232]:
+                  - /url: javascript:;
+              - heading "Attorney/Correspondence Information" [level=2] [ref=e234] [cursor=pointer]:
+                - link "Attorney/Correspondence Information" [ref=e236]:
+                  - /url: javascript:;
+              - heading "Prosecution History" [level=2] [ref=e238] [cursor=pointer]:
+                - link "Prosecution History" [ref=e240]:
+                  - /url: javascript:;
+              - heading "TM Staff and Location Information" [level=2] [ref=e242] [cursor=pointer]:
+                - link "TM Staff and Location Information" [ref=e244]:
+                  - /url: javascript:;
+              - heading "Assignment Abstract Of Title Information - Click to Load" [level=2] [ref=e246] [cursor=pointer]:
+                - link "Assignment Abstract Of Title Information - Click to Load" [ref=e248]:
+                  - /url: javascript:;
+              - heading "Proceedings - Click to Load" [level=2] [ref=e250] [cursor=pointer]:
+                - link "Proceedings - Click to Load" [ref=e252]:
+                  - /url: javascript:;
+        - generic [ref=e86]:
+          - paragraph [ref=e87]:
+            - link "Download Adobe Reader" [ref=e88] [cursor=pointer]:
+              - /url: http://get.adobe.com/reader/
+          - paragraph [ref=e89]:
+            - text: If you are the applicant or the applicant's attorney and have questions about this file, please contact the
+            - link "Trademark Assistance Center" [ref=e90] [cursor=pointer]:
+              - /url: mailto:TrademarkAssistanceCenter@uspto.gov
+  - contentinfo [ref=e91]:
+    - generic [ref=e92]:
+      - link "US Department of Commerce" [ref=e94] [cursor=pointer]:
+        - /url: http://www.uspto.gov/
+        - img "US Department of Commerce" [ref=e95]
+      - generic [ref=e96]:
+        - heading "Browse By Topic" [level=2] [ref=e97]
+        - list [ref=e98]:
+          - listitem [ref=e99]:
+            - link "Patents" [ref=e100] [cursor=pointer]:
+              - /url: http://www.uspto.gov/patent
+          - listitem [ref=e101]:
+            - link "Trademarks" [ref=e102] [cursor=pointer]:
+              - /url: http://www.uspto.gov/trademark
+          - listitem [ref=e103]:
+            - link "Learning & Resources" [ref=e104] [cursor=pointer]:
+              - /url: http://www.uspto.gov/learning-resources
+          - listitem [ref=e105]:
+            - link "About the USPTO" [ref=e106] [cursor=pointer]:
+              - /url: http://www.uspto.gov/about-us
+          - listitem [ref=e107]:
+            - link "Glossary" [ref=e108] [cursor=pointer]:
+              - /url: http://www.uspto.gov/learning-and-resources/glossary
+          - listitem [ref=e109]:
+            - link "Careers" [ref=e110] [cursor=pointer]:
+              - /url: http://www.uspto.gov/careers
+          - listitem [ref=e111]:
+            - link "Contact Us" [ref=e112] [cursor=pointer]:
+              - /url: http://www.uspto.gov/about-us/contact-us
+      - generic [ref=e113]:
+        - heading "About This Site" [level=2] [ref=e114]
+        - list [ref=e115]:
+          - listitem [ref=e116]:
+            - link "Accessibility" [ref=e117] [cursor=pointer]:
+              - /url: http://www.uspto.gov/using-usptogov/accessibility-uspto-website
+          - listitem [ref=e118]:
+            - link "Privacy Policy" [ref=e119] [cursor=pointer]:
+              - /url: http://www.uspto.gov/privacy-policy
+          - listitem [ref=e120]:
+            - link "Terms of Use" [ref=e121] [cursor=pointer]:
+              - /url: http://www.uspto.gov/terms-use-uspto-website
+          - listitem [ref=e122]:
+            - link "Security" [ref=e123] [cursor=pointer]:
+              - /url: http://www.uspto.gov/about-us/security
+          - listitem [ref=e124]:
+            - link "Systems Status" [ref=e125] [cursor=pointer]:
+              - /url: "http://www.uspto.gov/blog/ebiz/ "
+          - listitem [ref=e126]:
+            - link "Site Map" [ref=e127] [cursor=pointer]:
+              - /url: http://www.uspto.gov/sitemap
+      - generic [ref=e128]:
+        - heading "USPTO Background" [level=2] [ref=e129]
+        - list [ref=e130]:
+          - listitem [ref=e131]:
+            - link "Federal Activity Inventory Reform Act (FAIR)" [ref=e132] [cursor=pointer]:
+              - /url: http://www.uspto.gov/about-us/performance-and-planning/federal-activities-inventory-reform-fair-act
+          - listitem [ref=e133]:
+            - link "USPTO Budget and Performance" [ref=e134] [cursor=pointer]:
+              - /url: http://www.uspto.gov/about-us/performance-and-planning
+          - listitem [ref=e135]:
+            - link "Freedom of Information Act" [ref=e136] [cursor=pointer]:
+              - /url: http://www.uspto.gov/learning-and-resources/ip-policy/electronic-freedom-information-act-e-foia
+          - listitem [ref=e137]:
+            - link "Information Quality Guidelines" [ref=e138] [cursor=pointer]:
+              - /url: http://www.uspto.gov/learning-and-resources/information-quality-guidelines
+      - generic [ref=e139]:
+        - heading "Federal Government" [level=2] [ref=e140]
+        - list [ref=e141]:
+          - listitem [ref=e142]:
+            - link "Regulations.gov" [ref=e143] [cursor=pointer]:
+              - /url: http://www.regulations.gov
+          - listitem [ref=e144]:
+            - link "StopFakes.gov" [ref=e145] [cursor=pointer]:
+              - /url: http://www.stopfakes.gov
+          - listitem [ref=e146]:
+            - link "USA.gov" [ref=e147] [cursor=pointer]:
+              - /url: http://www.usa.gov
+          - listitem [ref=e148]:
+            - link "Department of Commerce" [ref=e149] [cursor=pointer]:
+              - /url: http://www.commerce.gov
+          - listitem [ref=e150]:
+            - link "Strategy Targeting Organized Piracy" [ref=e151] [cursor=pointer]:
+              - /url: http://www.uspto.gov/learning-and-resources/ip-policy/enforcement/strategy-targeting-organized-piracy-stop
+      - img "US Department of Commerce" [ref=e153]
+  - button "Feedback" [ref=e253] [cursor=pointer]:
+    - generic [ref=e255]: Feedback

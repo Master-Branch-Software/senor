@@ -26,7 +26,34 @@ We're trying to do something better. Something that isn't creating another frict
 
 6. **Match existing voice and structure.** Reference voice: terse, imperative, no hedging ("Two-space indentation." not "Generally prefer two spaces."). No emojis. Numbered chapter files (`web-design/references/NN-topic.md`) are curated — extend existing chapters; new chapters or top-level files require user approval.
 
-7. **Compress for LLM reading.** Drop fluff and restatement. Token count is a budget. Chapters are read by agents at every task — every saved token is leverage. Trim to the smallest form that preserves information.
+7. **Compress for LLM reading.** Chapters are loaded into agent context on every task; every saved token is leverage. Write to be parsed, not enjoyed.
+
+   Compression hierarchy — apply most aggressively where load frequency is highest:
+   - `<domain>/AGENTS.md` (loaded every task in the domain) — tightest. No prose paragraphs > 2 sentences.
+   - `references/NN-topic.md` (loaded only when the task touches the chapter) — tight, but must read standalone.
+   - `references/*.sources.md` (developer-only, never loaded by consumers) — lowest priority.
+
+   Cut these:
+   - Warm-up first sentences ("In this chapter we will explore …", "It is important to understand …"). Lead with the rule.
+   - Transitional and meta-commentary phrases ("It is worth noting", "Furthermore", "As mentioned above").
+   - Restatement. Two consecutive sentences carrying the same information → delete one.
+   - Conjoined claims. One claim, one sentence; split.
+   - Worked examples that don't teach beyond the rule. Two examples making the same point → keep the strongest.
+   - Prose where order doesn't carry reasoning. Convert to bullets or a table.
+
+   Preserve (do NOT cut):
+   - Non-negotiables — every bullet.
+   - Citations and canonical names inline (Joos 1962, Diátaxis, IMRaD, NN/g, named style guides). They anchor authority.
+   - Worked examples that _are_ the rule — bad/good pairs, before/after, register-shift demonstrations. The example carries information the rule alone does not.
+   - Multi-dimensional tables. Rows that look formulaic usually encode different data per row.
+   - Inline content the chapter needs to make sense standalone, even if it duplicates content elsewhere.
+
+   Cross-reference vs inline:
+   - Cross-reference for _deeper detail_ the reader can opt into (full lists, full procedures, related chapters).
+   - Keep _inline_ the content the current chapter's argument relies on. A chapter that reads as a stub of pointers has lost data, not compressed it.
+   - When extending an existing chapter, prefer compressing surrounding prose to make room rather than appending.
+
+   Trim to the smallest form that preserves the information. If a sentence can be removed without an agent losing knowledge, remove it. If removing it forces the next agent to load another file to understand the current paragraph, leave it.
 
 8. **Replace, don't layer.** Edit rules in place. No "we previously said X, now Y" phrasing. Git history carries the audit trail.
 
@@ -56,17 +83,22 @@ scripts/
 .prettierrc.json                     Formatter config (per chapter 15).
 .prettierignore                      Hand-formatted files, eval outputs, standard exclusions.
 
-front-end/                           Web design, HTML/CSS/JS/TS, copywriting, a11y, performance.
+front-end/                           Web design, HTML/CSS/JS/TS, web copy, a11y, performance.
   AGENTS.md                          Skill entry point. Loaded by skill consumers.
   index.html                         Landing page. Hand-formatted; in .prettierignore.
   evals/                             Eval prompt definitions.
   references/
     NN-topic.md                      Chapter (loaded by skill consumers; NN runs 01–15).
     NN-topic.sources.md              Citations + curated tool catalogs for that chapter (developer-only).
-    SUMMARY.md                       Condensed cross-cutting reference.
     inspiration-gallery.md           Curated design references by feel and category.
   workspace/
     iteration-N/                     Eval runs (recorded outputs; in .prettierignore).
+
+copywriting/                         Cross-genre prose — register, voice, blogs, marketing, technical, research.
+  AGENTS.md                          Skill entry point.
+  references/
+    NN-topic.md                      Chapter (loaded by skill consumers).
+    NN-topic.sources.md              Citations for that chapter (developer-only).
 
 security/                            Security audits, hardening, threat modeling.
   AGENTS.md                          Skill entry point (stub — in progress).
@@ -80,6 +112,12 @@ ruby/                                Ruby language, idioms, best practices.
 architecture/                        Cross-stack architectural patterns and decisions.
   AGENTS.md                          Skill entry point (stub — in progress).
   references/                        Chapter files added as content is written.
+
+documentation/                       READMEs, contributing guides, changelogs, architecture docs.
+  AGENTS.md                          Skill entry point.
+  references/
+    NN-topic.md                      Chapter (loaded by skill consumers).
+    NN-topic.sources.md              Citations for that chapter (developer-only).
 ```
 
 ## Two audiences, two file sets
