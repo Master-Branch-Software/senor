@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Web Designer — Guidelines for AI that builds like humans</title>
+  <meta name="description" content="15 chapters of professional web design guidelines for Claude Code. Architecture, accessibility, performance, security, and copy — all in one skill.">
+  <meta property="og:title" content="AI Web Designer">
+  <meta property="og:description" content="15 chapters that make your AI write code a senior engineer would.">
+  <meta property="og:type" content="website">
+
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+
+  <style>
+    /* ============================================================
+     * TOKENS
+     * ============================================================ */
+    :root {
+      /* Type scale — ratio 1.333, large display emphasis */
+      --step--1: clamp(0.75rem,  0.72rem + 0.15vw, 0.875rem);
+      --step-0:  clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+      --step-1:  clamp(1.25rem,  1.19rem + 0.30vw, 1.50rem);
+      --step-2:  clamp(1.56rem,  1.47rem + 0.45vw, 2.00rem);
+      --step-3:  clamp(1.95rem,  1.82rem + 0.65vw, 2.66rem);
+      --step-4:  clamp(2.44rem,  2.25rem + 0.95vw, 3.55rem);
+      --step-5:  clamp(3.05rem,  2.75rem + 1.50vw, 4.74rem);
+      --step-6:  clamp(3.81rem,  3.40rem + 2.05vw, 6.00rem);
+
+      /* Spacing */
+      --sp-1:  0.25rem;
+      --sp-2:  0.5rem;
+      --sp-3:  0.75rem;
+      --sp-4:  1rem;
+      --sp-6:  1.5rem;
+      --sp-8:  2rem;
+      --sp-12: 3rem;
+      --sp-16: 4rem;
+      --sp-24: 6rem;
+      --sp-32: 8rem;
+
+      --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+
+      /* Light palette — stark black/white + acid yellow */
+      --c-bg:        #ffffff;
+      --c-bg-subtle: #f5f5f5;
+      --c-text:      #0a0a0a;
+      --c-text-2:    #3a3a3a;
+      --c-text-3:    #777777;
+      --c-border:    #0a0a0a;
+      --c-border-light: #d0d0d0;
+      --c-accent:    oklch(0.92 0.18 98);
+      --c-accent-text: #0a0a0a;
+    }
+
+    /* Intentional harsh contrast — brutalist aesthetic, deliberate departure
+       from "safe rules". Pure black on white is a design choice here, not an
+       oversight. See chapter 03 § "Each rule can be broken deliberately." */
+    [data-theme='dark'] {
+      --c-bg:        #0a0a0a;
+      --c-bg-subtle: #161616;
+      --c-text:      #f0f0f0;
+      --c-text-2:    #b0b0b0;
+      --c-text-3:    #666666;
+      --c-border:    #f0f0f0;
+      --c-border-light: #333333;
+      --c-accent:    oklch(0.92 0.18 98);
+      --c-accent-text: #0a0a0a;
+    }
+
+    /* ============================================================
+     * RESET
+     * ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      color-scheme: light dark;
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--c-accent);
+      outline-offset: 2px;
+    }
+
+    body {
+      background-color: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--font-body);
+      font-size: var(--step-0);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-block-size: 100dvh;
+    }
+
+    img, svg { display: block; max-inline-size: 100%; }
+
+    /* ============================================================
+     * SKIP LINK
+     * ============================================================ */
+    .skip-link {
+      position: fixed;
+      inset-block-start: -100%;
+      inset-inline-start: var(--sp-4);
+      background: var(--c-accent);
+      color: var(--c-accent-text);
+      padding: var(--sp-2) var(--sp-6);
+      font-weight: 700;
+      text-decoration: none;
+      z-index: 200;
+      transition: inset-block-start 0.2s;
+    }
+    .skip-link:focus { inset-block-start: var(--sp-4); }
+
+    /* ============================================================
+     * LAYOUT
+     * ============================================================ */
+    .container {
+      max-inline-size: 80rem;
+      margin-inline: auto;
+      padding-inline: clamp(var(--sp-6), 5vw, var(--sp-16));
+    }
+
+    /* ============================================================
+     * NAVIGATION
+     * ============================================================ */
+    .nav {
+      border-block-end: 3px solid var(--c-border);
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 10;
+      background: var(--c-bg);
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      min-block-size: 56px;
+    }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      padding-inline: var(--sp-6);
+      font-weight: 700;
+      font-size: var(--step-0);
+      color: var(--c-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      border-inline-end: 3px solid var(--c-border);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: stretch;
+      list-style: none;
+      margin-inline-start: auto;
+    }
+
+    @media (max-width: 40rem) {
+      .nav__links { display: none; }
+    }
+
+    .nav__link {
+      display: flex;
+      align-items: center;
+      padding-inline: var(--sp-6);
+      color: var(--c-text-2);
+      text-decoration: none;
+      font-size: var(--step--1);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-inline-start: 1px solid var(--c-border-light);
+      transition: background 0.1s, color 0.1s;
+    }
+    .nav__link:hover {
+      background: var(--c-accent);
+      color: var(--c-accent-text);
+      border-color: transparent;
+    }
+
+    .nav__cta {
+      display: flex;
+      align-items: center;
+      padding-inline: var(--sp-8);
+      background: var(--c-text);
+      color: var(--c-bg);
+      text-decoration: none;
+      font-size: var(--step--1);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-inline-start: 3px solid var(--c-border);
+      transition: background 0.1s, color 0.1s;
+    }
+    .nav__cta:hover {
+      background: var(--c-accent);
+      color: var(--c-accent-text);
+    }
+
+    .nav__toggle {
+      display: flex;
+      align-items: center;
+      padding-inline: var(--sp-4);
+      background: transparent;
+      border: none;
+      border-inline-start: 1px solid var(--c-border-light);
+      cursor: pointer;
+      color: var(--c-text-2);
+      font-size: var(--step-0);
+      transition: background 0.1s, color 0.1s;
+    }
+    .nav__toggle:hover { background: var(--c-accent); color: var(--c-accent-text); }
+
+    /* ============================================================
+     * HERO
+     * ============================================================ */
+    .hero {
+      border-block-end: 3px solid var(--c-border);
+      padding-block: clamp(var(--sp-16), 10vw, var(--sp-32));
+    }
+
+    .hero__inner {
+      display: grid;
+      gap: var(--sp-12);
+    }
+
+    @media (min-width: 60rem) {
+      .hero__inner {
+        grid-template-columns: 3fr 2fr;
+        gap: var(--sp-16);
+        align-items: end;
+      }
+    }
+
+    .hero__h1 {
+      font-size: var(--step-6);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      text-wrap: balance;
+      margin-block-end: var(--sp-8);
+    }
+
+    .hero__h1 mark {
+      background: var(--c-accent);
+      color: var(--c-accent-text);
+      padding-inline: var(--sp-2);
+    }
+
+    .hero__sub {
+      font-size: var(--step-1);
+      color: var(--c-text-2);
+      max-inline-size: 42ch;
+      line-height: 1.55;
+      margin-block-end: var(--sp-8);
+      font-weight: 300;
+      text-wrap: pretty;
+    }
+
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      background: var(--c-text);
+      color: var(--c-bg);
+      padding: var(--sp-4) var(--sp-8);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: var(--step-0);
+      letter-spacing: 0.02em;
+      box-shadow: 4px 4px 0 var(--c-accent);
+      transition: box-shadow 0.1s, transform 0.1s;
+      min-block-size: 44px;
+    }
+    .hero__cta:hover {
+      box-shadow: 6px 6px 0 var(--c-accent);
+      transform: translate(-1px, -1px);
+    }
+    .hero__cta:active {
+      box-shadow: 2px 2px 0 var(--c-accent);
+      transform: translate(2px, 2px);
+    }
+
+    .hero__aside {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-6);
+    }
+
+    .hero__stat {
+      border: 3px solid var(--c-border);
+      padding: var(--sp-6);
+    }
+
+    .hero__stat-num {
+      font-size: var(--step-4);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--c-accent);
+      background: var(--c-text);
+      display: inline-block;
+      padding: var(--sp-1) var(--sp-3);
+      margin-block-end: var(--sp-3);
+    }
+
+    .hero__stat-label {
+      font-size: var(--step-0);
+      font-weight: 600;
+    }
+
+    .hero__stat-desc {
+      font-size: var(--step--1);
+      color: var(--c-text-2);
+      margin-block-start: var(--sp-2);
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+     * SECTIONS
+     * ============================================================ */
+    .section {
+      padding-block: clamp(var(--sp-16), 8vw, var(--sp-24));
+      border-block-end: 3px solid var(--c-border);
+    }
+
+    .section--alt { background: var(--c-bg-subtle); }
+
+    .section-label {
+      display: block;
+      font-size: var(--step--1);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-text-3);
+      margin-block-end: var(--sp-6);
+      padding-block-end: var(--sp-3);
+      border-block-end: 1px solid var(--c-border-light);
+    }
+
+    .section-h2 {
+      font-size: var(--step-4);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    /* ============================================================
+     * PROBLEM
+     * ============================================================ */
+    .problem__layout {
+      display: grid;
+      gap: var(--sp-12);
+    }
+
+    @media (min-width: 52rem) {
+      .problem__layout {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--sp-16);
+      }
+    }
+
+    .problem__col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-6);
+    }
+
+    .problem__col p {
+      font-size: var(--step-0);
+      color: var(--c-text-2);
+      line-height: 1.7;
+    }
+
+    .problem__col strong {
+      color: var(--c-text);
+      font-weight: 700;
+    }
+
+    .problem__quote {
+      border-inline-start: 6px solid var(--c-accent);
+      padding-inline-start: var(--sp-6);
+      padding-block: var(--sp-3);
+      font-size: var(--step-1);
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--c-text);
+    }
+
+    /* ============================================================
+     * CHAPTERS TABLE
+     * ============================================================ */
+    .chapters-table {
+      inline-size: 100%;
+      border-collapse: collapse;
+      margin-block-start: var(--sp-12);
+    }
+
+    .chapters-table th {
+      text-align: start;
+      font-size: var(--step--1);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-text-3);
+      padding: var(--sp-3) var(--sp-4);
+      border-block-end: 3px solid var(--c-border);
+    }
+
+    .chapters-table td {
+      padding: var(--sp-4);
+      border-block-end: 1px solid var(--c-border-light);
+      vertical-align: top;
+    }
+
+    .chapters-table tr:hover td {
+      background: var(--c-accent);
+      color: var(--c-accent-text);
+    }
+
+    .chapters-table tr:hover .ch-num,
+    .chapters-table tr:hover .ch-desc {
+      color: var(--c-accent-text);
+    }
+
+    .ch-num {
+      font-size: var(--step--1);
+      font-weight: 700;
+      color: var(--c-text-3);
+      white-space: nowrap;
+    }
+
+    .ch-name {
+      font-weight: 600;
+      font-size: var(--step-0);
+    }
+
+    .ch-desc {
+      font-size: var(--step--1);
+      color: var(--c-text-2);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 52rem) {
+      .ch-desc { display: none; }
+    }
+
+    /* ============================================================
+     * COMING MODULES
+     * ============================================================ */
+    .coming-modules {
+      margin-block-start: var(--sp-12);
+      padding-block-start: var(--sp-8);
+      border-block-start: 3px solid var(--c-border);
+    }
+
+    .coming-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+      margin-block-start: var(--sp-4);
+    }
+
+    .coming-pill {
+      padding: var(--sp-2) var(--sp-4);
+      border: 2px dashed var(--c-border-light);
+      font-size: var(--step--1);
+      color: var(--c-text-3);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+     * STEPS
+     * ============================================================ */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+      gap: 3px;
+      background: var(--c-border);
+      border: 3px solid var(--c-border);
+      margin-block-start: var(--sp-12);
+    }
+
+    .step {
+      background: var(--c-bg);
+      padding: var(--sp-8);
+    }
+
+    .step__num {
+      font-size: var(--step-5);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--c-accent);
+      background: var(--c-text);
+      display: inline-block;
+      padding: var(--sp-1) var(--sp-3);
+      margin-block-end: var(--sp-6);
+    }
+
+    .step__title {
+      font-size: var(--step-1);
+      font-weight: 700;
+      margin-block-end: var(--sp-3);
+      line-height: 1.25;
+    }
+
+    .step__desc {
+      color: var(--c-text-2);
+      line-height: 1.7;
+    }
+
+    .step__code {
+      display: block;
+      margin-block-start: var(--sp-4);
+      background: var(--c-text);
+      color: var(--c-accent);
+      padding: var(--sp-3) var(--sp-4);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: var(--step--1);
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+
+    /* ============================================================
+     * CTA
+     * ============================================================ */
+    .cta-section {
+      background: var(--c-text);
+      color: var(--c-bg);
+    }
+
+    .cta-section__inner {
+      padding-block: clamp(var(--sp-16), 8vw, var(--sp-24));
+      display: grid;
+      gap: var(--sp-8);
+    }
+
+    @media (min-width: 52rem) {
+      .cta-section__inner {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+    }
+
+    .cta-section__h2 {
+      font-size: var(--step-4);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    .cta-section__h2 mark {
+      background: var(--c-accent);
+      color: var(--c-accent-text);
+      padding-inline: var(--sp-2);
+    }
+
+    .cta-section__actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      align-items: flex-start;
+      white-space: nowrap;
+    }
+
+    .btn-cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      background: var(--c-accent);
+      color: var(--c-accent-text);
+      padding: var(--sp-4) var(--sp-8);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: var(--step-0);
+      letter-spacing: 0.02em;
+      transition: opacity 0.1s;
+      min-block-size: 44px;
+    }
+    .btn-cta-primary:hover { opacity: 0.85; }
+
+    .btn-cta-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      color: oklch(0.65 0.008 225);
+      text-decoration: none;
+      font-size: var(--step--1);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-block-end: 1px solid oklch(0.35 0.008 225);
+      transition: color 0.1s, border-color 0.1s;
+    }
+    .btn-cta-ghost:hover { color: var(--c-accent); border-color: var(--c-accent); }
+
+    /* ============================================================
+     * FOOTER
+     * ============================================================ */
+    .footer {
+      border-block-start: 3px solid var(--c-border);
+      padding-block: var(--sp-8);
+    }
+
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+
+    .footer__copy {
+      font-size: var(--step--1);
+      font-weight: 600;
+      color: var(--c-text-3);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: var(--sp-6);
+      list-style: none;
+    }
+
+    .footer__link {
+      font-size: var(--step--1);
+      font-weight: 600;
+      color: var(--c-text-2);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-block-end: 2px solid transparent;
+      transition: border-color 0.1s, color 0.1s;
+    }
+    .footer__link:hover { color: var(--c-text); border-color: var(--c-accent); }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AI Web Designer",
+    "description": "15 chapters of professional web design guidelines for AI coding assistants.",
+    "url": "https://master-branch-software.github.io/ai-web-designer"
+  }
+  </script>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav__inner container">
+      <a href="/" class="nav__logo" aria-label="AI Web Designer — home">AI·WD</a>
+      <ul class="nav__links" role="list">
+        <li><a href="#problem" class="nav__link">Problem</a></li>
+        <li><a href="#chapters" class="nav__link">Chapters</a></li>
+        <li><a href="#how-to-use" class="nav__link">Setup</a></li>
+        <li><a href="https://github.com/Master-Branch-Software/ai-web-designer" class="nav__link">GitHub</a></li>
+      </ul>
+      <button class="nav__toggle" id="theme-btn" type="button" aria-label="Toggle colour scheme">◐</button>
+      <a href="https://github.com/Master-Branch-Software/ai-web-designer" class="nav__cta">Get guidelines →</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <section class="hero" aria-labelledby="hero-h1">
+      <div class="container">
+        <div class="hero__inner">
+          <div>
+            <h1 class="hero__h1" id="hero-h1">
+              AI slop<br>is <mark>real.</mark><br>Fix it.
+            </h1>
+            <p class="hero__sub">
+              Guidelines for Claude Code. Every rule a senior engineer follows: architecture, accessibility, security, copy. Web design is live. More languages in progress.
+            </p>
+            <a href="https://github.com/Master-Branch-Software/ai-web-designer" class="hero__cta">
+              Get the skill
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <aside class="hero__aside" aria-label="Project stats">
+            <div class="hero__stat">
+              <div class="hero__stat-num" aria-label="15">15</div>
+              <p class="hero__stat-label">Reference chapters</p>
+              <p class="hero__stat-desc">From architecture to copywriting, accessibility to security. Each chapter reads like a senior engineer talking.</p>
+            </div>
+            <div class="hero__stat">
+              <div class="hero__stat-num" aria-label="24">24</div>
+              <p class="hero__stat-label">AI copy fingerprints documented</p>
+              <p class="hero__stat-desc">Specific patterns — not platitudes — that research identifies in LLM output. Every one gets cut.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="problem" aria-labelledby="problem-h2">
+      <div class="container">
+        <span class="section-label">The problem</span>
+        <div class="problem__layout">
+          <div>
+            <h2 class="section-h2" id="problem-h2">AI outputs the median.<br>The median is bad.</h2>
+          </div>
+          <div class="problem__col">
+            <p>Every model trains on the same corpus: Tailwind tutorials, dribbble shots, SaaS landing-page boilerplate. The output is predictable. Indigo gradients. Div soup with no semantic structure. Copy full of "empower" and "streamline." Three feature cards. Always three.</p>
+            <p><strong>It's not a hallucination problem.</strong> It's a training-data problem. The median web is mediocre, and AI produces the median with impressive consistency.</p>
+            <blockquote class="problem__quote">
+              "The code we want to generate should look human, have good architectural and security decisions. It shouldn't create unnecessary abstractions — but find balance and create optimal solutions."
+            </blockquote>
+            <p>These guidelines are built from engineering blogs, official documentation, and professional codebases. Concrete rules. Not platitudes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="chapters" aria-labelledby="chapters-h2">
+      <div class="container">
+        <span class="section-label">Module 01 · Web Design</span>
+        <h2 class="section-h2" id="chapters-h2">15 chapters, every layer covered.</h2>
+        <table class="chapters-table" aria-label="List of 15 guideline chapters">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Chapter</th>
+              <th scope="col">Covers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ch-num">01</td>
+              <td class="ch-name">Philosophy &amp; Psychology</td>
+              <td class="ch-desc">Laws of UX, Gestalt, cognitive load, emotional design, craft mindset</td>
+            </tr>
+            <tr>
+              <td class="ch-num">02</td>
+              <td class="ch-name">Brand &amp; Copywriting</td>
+              <td class="ch-desc">Voice, tone, copy frameworks, 24 AI fingerprints to cut</td>
+            </tr>
+            <tr>
+              <td class="ch-num">03</td>
+              <td class="ch-name">Visual Design</td>
+              <td class="ch-desc">OKLCH palettes, type scales, dark mode, designing against AI defaults</td>
+            </tr>
+            <tr>
+              <td class="ch-num">04</td>
+              <td class="ch-name">CSS &amp; Layout</td>
+              <td class="ch-desc">Logical properties, fluid type, container queries, intrinsic layouts</td>
+            </tr>
+            <tr>
+              <td class="ch-num">05</td>
+              <td class="ch-name">Accessibility</td>
+              <td class="ch-desc">WCAG 2.2 AA, ARIA patterns, keyboard navigation, focus management</td>
+            </tr>
+            <tr>
+              <td class="ch-num">06</td>
+              <td class="ch-name">Performance</td>
+              <td class="ch-desc">Core Web Vitals, LCP, INP, CLS, font loading, image pipeline</td>
+            </tr>
+            <tr>
+              <td class="ch-num">07</td>
+              <td class="ch-name">JavaScript &amp; HTML</td>
+              <td class="ch-desc">Semantic markup, DOM patterns, progressive enhancement</td>
+            </tr>
+            <tr>
+              <td class="ch-num">08</td>
+              <td class="ch-name">Stack &amp; Architecture</td>
+              <td class="ch-desc">Framework selection by project type, deployment recipes</td>
+            </tr>
+            <tr>
+              <td class="ch-num">09</td>
+              <td class="ch-name">Anti-patterns &amp; Process</td>
+              <td class="ch-desc">AI fingerprints to audit, review checklist, brief-to-launch process</td>
+            </tr>
+            <tr>
+              <td class="ch-num">10</td>
+              <td class="ch-name">Browser Compatibility</td>
+              <td class="ch-desc">Support matrix, progressive enhancement, polyfill decisions</td>
+            </tr>
+            <tr>
+              <td class="ch-num">11</td>
+              <td class="ch-name">Testing</td>
+              <td class="ch-desc">Vitest, Testing Library, Playwright, axe, MSW, visual regression</td>
+            </tr>
+            <tr>
+              <td class="ch-num">12</td>
+              <td class="ch-name">Internationalization</td>
+              <td class="ch-desc">RTL layout, locale negotiation, plural rules, date formatting</td>
+            </tr>
+            <tr>
+              <td class="ch-num">13</td>
+              <td class="ch-name">Security</td>
+              <td class="ch-desc">CSP, CORS, HTTP headers baseline, OWASP top 10 for frontend</td>
+            </tr>
+            <tr>
+              <td class="ch-num">14</td>
+              <td class="ch-name">Discovery &amp; Communication</td>
+              <td class="ch-desc">Brief templates, staged disclosure, scope trade-offs</td>
+            </tr>
+            <tr>
+              <td class="ch-num">15</td>
+              <td class="ch-name">Code Style &amp; Quality</td>
+              <td class="ch-desc">Naming, file structure, linting, formatting, PR hygiene</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="coming-modules">
+          <p class="section-label" style="color:var(--c-text-3)">More modules on the way</p>
+          <div class="coming-grid">
+            <span class="coming-pill">02 · Backend Architecture</span>
+            <span class="coming-pill">03 · TypeScript Patterns</span>
+            <span class="coming-pill">04 · Python &amp; APIs</span>
+            <span class="coming-pill">05 · Security &amp; DevOps</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-to-use" aria-labelledby="howto-h2">
+      <div class="container">
+        <span class="section-label">Setup</span>
+        <h2 class="section-h2" id="howto-h2">Clone. Copy. Build.</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step__num" aria-hidden="true">01</div>
+            <h3 class="step__title">Clone the repository</h3>
+            <p class="step__desc">Plain Markdown files. No install, no build step, no dependencies.</p>
+            <code class="step__code">git clone github.com/Master-Branch-Software/ai-web-designer</code>
+          </div>
+          <div class="step">
+            <div class="step__num" aria-hidden="true">02</div>
+            <h3 class="step__title">Add to Claude Code</h3>
+            <p class="step__desc">Copy SKILL.md into your project's <code>.claude/</code> folder. It loads on every task automatically.</p>
+            <code class="step__code">cp web-design/SKILL.md .claude/web-design.md</code>
+          </div>
+          <div class="step">
+            <div class="step__num" aria-hidden="true">03</div>
+            <h3 class="step__title">Ask Claude to build</h3>
+            <p class="step__desc">No prompt engineering. No reminders. Claude reads the guidelines on every web task and follows the rules. That's it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" aria-labelledby="cta-h2">
+      <div class="container">
+        <div class="cta-section__inner">
+          <div>
+            <h2 class="cta-section__h2" id="cta-h2">
+              Your next project<br>shouldn't look like<br>every <mark>AI project.</mark>
+            </h2>
+          </div>
+          <div class="cta-section__actions">
+            <a href="https://github.com/Master-Branch-Software/ai-web-designer" class="btn-cta-primary">
+              Get the skill →
+            </a>
+            <a href="https://github.com/Master-Branch-Software/ai-web-designer" class="btn-cta-ghost">Read on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <p class="footer__copy">Built with its own guidelines. MIT licensed.</p>
+        <ul class="footer__links" role="list">
+          <li><a href="https://github.com/Master-Branch-Software/ai-web-designer" class="footer__link">GitHub</a></li>
+          <li><a href="https://github.com/Master-Branch-Software/ai-web-designer/blob/main/web-design/SKILL.md" class="footer__link">Skill.md</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('theme-btn').addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  </script>
+</body>
+</html>
