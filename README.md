@@ -161,9 +161,15 @@ The short version: every new rule needs a human-authored source. AI-generated co
 
 ## License
 
-Free to use in any personal or commercial project. You can fork, modify, and redistribute — with attribution and under the same license. You may not sell these guidelines as a standalone product.
+Use these guidelines for whatever you'd like, including loading them into AI agents as part of a commercial project! You MAY NOT repackage these guidelines and sell them, and any variations or improvements you release must remain under the same license and must include the Master Branch name.
 
-See [LICENSE](LICENSE) for the full terms. For commercial bundling or other arrangements, open an issue.
+You MAY NOT bundle these guidelines into a paid product, SaaS feature, or AI service. If you run a commercial software package or AI tool and wish to incorporate these guidelines into your product, shoot us an email to work out an agreement! We promise we're easy to work with. bert@masterbranchsoftware.com — or reach us through [masterbranchsoftware.com](https://masterbranchsoftware.com/contact). Outside of the stipulations listed above, this license is effectively a variation of Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
+
+Please keep the Master Branch name in any future forks or releases!
+
+This license was inspired by [CorridorKey](https://github.com/nikopueringer/CorridorKey) by Corridor Digital — go check out their work and show them some support!
+
+See [LICENSE](LICENSE) for the full legal terms.
 
 ---
 
