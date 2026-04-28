@@ -124,5 +124,4 @@ This license was inspired by [CorridorKey](https://github.com/nikopueringer/Corr
 
 If these guidelines save you time, consider supporting continued development.
 
-[![Donate with PayPal](https://img.shields.io/badge/Donate-PayPal-0070ba?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/YOURUSERNAME)
-[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support-ff5f5f?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/YOURUSERNAME)
+[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support-ff5f5f?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/masterbranch)
