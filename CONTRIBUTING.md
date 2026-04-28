@@ -11,9 +11,8 @@ CONTRIBUTING.md        This file.
 
 <domain>/
   AGENTS.md            Skill entry point — task routing, non-negotiables, running order.
-  references/
-    NN-topic.md        Chapter file — the actual guidelines (NN = two-digit number, e.g. 02).
-    NN-topic.sources.md  Citations backing that chapter (developer artifact, not loaded by agents).
+  topic.md             Chapter file — the actual guidelines (slug only, no number prefix).
+  topic.sources.md     Citations backing that chapter (developer artifact, not loaded by agents).
   evals/               Eval prompt definitions.
   workspace/           Recorded eval runs (never formatted, listed in .prettierignore).
 ```
@@ -24,10 +23,10 @@ Current domains: `front-end/`, `copywriting/`, `documentation/`, `security/`, `r
 
 Every file in this repo is written for one of two audiences. Keep them separate.
 
-| Audience                                                | Files                                                            | Purpose                                                  |
-| ------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------- |
-| **Skill consumers** — AI agents helping users           | `SKILL.md`, `<domain>/AGENTS.md`, `references/NN-topic.md`       | Loaded at task time to guide agent behavior              |
-| **Developers** — humans and agents working in this repo | `AGENTS.md`, `references/NN-topic.sources.md`, `CONTRIBUTING.md` | Editorial and process tooling, never loaded by consumers |
+| Audience                                                | Files                                                       | Purpose                                                  |
+| ------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------- |
+| **Skill consumers** — AI agents helping users           | `SKILL.md`, `<domain>/AGENTS.md`, `<domain>/topic.md`       | Loaded at task time to guide agent behavior              |
+| **Developers** — humans and agents working in this repo | `AGENTS.md`, `<domain>/topic.sources.md`, `CONTRIBUTING.md` | Editorial and process tooling, never loaded by consumers |
 
 ## Branching model
 
@@ -47,7 +46,7 @@ Maintainers periodically merge `development` → `master` when the branch is sta
 
 1. **Find the right chapter.** Check `<domain>/AGENTS.md` for the task-to-chapter map. Extend an existing chapter before creating a new one.
 2. **Edit the chapter file.** Follow the voice in `AGENTS.md` rule 6, which means terse, imperative, no hedging. One claim, one sentence.
-3. **Add a citation.** Every new or changed rule needs a source in the matching `NN-topic.sources.md`. Use human-authored sources only, drawn from official specs, MDN, established engineering blogs, production codebases, and books. No AI-generated content.
+3. **Add a citation.** Every new or changed rule needs a source in the matching `topic.sources.md`. Use human-authored sources only, drawn from official specs, MDN, established engineering blogs, production codebases, and books. No AI-generated content.
 4. **Run an eval.** New or significantly changed rules belong in `workspace/iteration-N/` as a WITH-skill vs WITHOUT-skill comparison. Guidance that doesn't change agent behavior is dead weight.
 5. **Run Prettier.** `npx prettier --write <file>` on every file you touch except those in `.prettierignore`.
 
@@ -55,7 +54,7 @@ Maintainers periodically merge `development` → `master` when the branch is sta
 
 1. Scaffold the directory: `./scripts/new-domain <domain>` (creates `<domain>/` and a stub `AGENTS.md`).
 2. Fill `<domain>/AGENTS.md` per the [domain entry-point structure](#domain-entry-point-structure).
-3. Add `<domain>/references/` once you have a chapter to write.
+3. Add chapter files (`<domain>/topic.md` + `<domain>/topic.sources.md`) directly under the domain folder once you have content to write.
 4. Wire routing per [Routing edits](#routing-edits).
 5. Add any eval-output directories to `.prettierignore`.
 
@@ -63,17 +62,17 @@ Maintainers periodically merge `development` → `master` when the branch is sta
 
 `<domain>/AGENTS.md` is the file skill consumers load first. It is a contract between the domain and the agent. Sections appear in the order below, and required sections must be present.
 
-| Order | Section                            | Required                                         | Contents                                                                                                                                                             |
-| ----- | ---------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | YAML frontmatter                   | yes                                              | `name`, `description`. See [frontmatter rules](#frontmatter-rules).                                                                                                  |
-| 2     | `# <Domain> Guide`                 | yes                                              | H1 title only.                                                                                                                                                       |
-| 3     | Pointer to `SKILL.md`              | yes                                              | One sentence: "General operating principles live in `SKILL.md` at the repository root. Read it first."                                                               |
-| 4     | `## Non-negotiables`               | yes                                              | Bulleted absolute minimums. One rule per bullet. No category headers within the list.                                                                                |
-| 5     | `## Task-to-chapter map`           | yes                                              | Three-column table: Task / Primary / Also consider. One row per likely user intent. Cells are chapter filenames (`NN-topic.md`) or paths to other domains' chapters. |
-| 6     | `## Domain checklists`             | yes once chapters exist                          | Bullets pointing to specific chapter sections (`references/NN-topic.md` § Section). Run before submitting any artifact.                                              |
-| 7     | `## Running order for <task type>` | when the domain has a multi-stage workflow       | Numbered list. Each step names an artifact and what to confirm.                                                                                                      |
-| 8     | `## Context shape`                 | when the domain has substantial inputs to gather | Bullets of facts to confirm before starting. The agent asks for missing items.                                                                                       |
-| 9     | `## Skill connections`             | yes                                              | Bullets: `<other skill or path> → <when to reach for it>`. Includes both in-repo (`<domain>/AGENTS.md`) and external (if installed) skills.                          |
+| Order | Section                            | Required                                         | Contents                                                                                                                                                          |
+| ----- | ---------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | YAML frontmatter                   | yes                                              | `name`, `description`. See [frontmatter rules](#frontmatter-rules).                                                                                               |
+| 2     | `# <Domain> Guide`                 | yes                                              | H1 title only.                                                                                                                                                    |
+| 3     | Pointer to `SKILL.md`              | yes                                              | One sentence: "General operating principles live in `SKILL.md` at the repository root. Read it first."                                                            |
+| 4     | `## Non-negotiables`               | yes                                              | Bulleted absolute minimums. One rule per bullet. No category headers within the list.                                                                             |
+| 5     | `## Task-to-chapter map`           | yes                                              | Three-column table: Task / Primary / Also consider. One row per likely user intent. Cells are chapter filenames (`topic.md`) or paths to other domains' chapters. |
+| 6     | `## Domain checklists`             | yes once chapters exist                          | Bullets pointing to specific chapter sections (`topic.md` § Section). Run before submitting any artifact.                                                         |
+| 7     | `## Running order for <task type>` | when the domain has a multi-stage workflow       | Numbered list. Each step names an artifact and what to confirm.                                                                                                   |
+| 8     | `## Context shape`                 | when the domain has substantial inputs to gather | Bullets of facts to confirm before starting. The agent asks for missing items.                                                                                    |
+| 9     | `## Skill connections`             | yes                                              | Bullets: `<other skill or path> → <when to reach for it>`. Includes both in-repo (`<domain>/AGENTS.md`) and external (if installed) skills.                       |
 
 ### Frontmatter rules
 
@@ -103,11 +102,11 @@ description: |
 
 ## Chapter file structure
 
-Chapter files (`<domain>/references/NN-topic.md`) carry the actual guidelines.
+Chapter files (`<domain>/topic.md`) carry the actual guidelines.
 
-- **Naming** — `NN-topic.md` where `NN` is two digits. Next number = `max(existing NN) + 1`. Topic slug is short and lowercase, hyphenated.
-- **Curation** — numbered chapter files are curated. New chapters require maintainer approval, so extend an existing chapter first.
-- **Required sidecar** — every `NN-topic.md` has a paired `NN-topic.sources.md` in the same commit. CI (`./scripts/check-sources <domain>`) enforces.
+- **Naming** — short, lowercase, hyphenated topic slug (e.g. `accessibility.md`, `voice-and-perspective.md`). No numeric prefix — file order is reading order in the directory listing only; the task-to-chapter map in `<domain>/AGENTS.md` carries any precedence the agent needs.
+- **Curation** — chapter files are curated. New chapters require maintainer approval, so extend an existing chapter first.
+- **Required sidecar** — every `topic.md` has a paired `topic.sources.md` in the same commit. CI (`./scripts/check-sources <domain>`) enforces.
 - **Voice** — terse, imperative, no hedging ("Two-space indentation." not "Generally prefer two spaces."). No emojis. No conversational filler.
 
 ### Required structure
@@ -172,11 +171,11 @@ After tightening:
 
 ## Sources sidecar structure
 
-`<domain>/references/NN-topic.sources.md` is developer-facing. Skill consumers do not load it.
+`<domain>/topic.sources.md` is developer-facing. Skill consumers do not load it.
 
 | Order | Section                   | Required        | Contents                                                                                                                                                                                      |
 | ----- | ------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | `# Sources — NN <Title>`  | yes             | Matches the chapter filename and title.                                                                                                                                                       |
+| 1     | `# Sources — <topic>.md`  | yes             | Matches the chapter filename.                                                                                                                                                                 |
 | 2     | `## Primary citations`    | yes             | Bulleted list. Every entry carries an author, title, publisher/year, URL where available, and a one-sentence note on what the source backs in the chapter.                                    |
 | 3     | `## Secondary references` | when applicable | Same format as primary. Use for sources that strengthen but are not load-bearing.                                                                                                             |
 | 4     | `## Curated tool catalog` | when applicable | Tools the chapter recommends or implies. Every entry carries a name, a one-line purpose, and a link. Tool entries that become load-bearing for a rule must be promoted to a primary citation. |
@@ -217,9 +216,8 @@ Add a block to the project-layout code fence. Match the indentation and line-up 
 
 +<domain>/                            <one-line scope, same as SKILL.md row>.
 +  AGENTS.md                          Skill entry point.
-+  references/
-+    NN-topic.md                      Chapter (loaded by skill consumers).
-+    NN-topic.sources.md              Citations for that chapter (developer-only).
++  topic.md                           Chapter (loaded by skill consumers).
++  topic.sources.md                   Citations for that chapter (developer-only).
 ```
 
 ### 3. `CONTRIBUTING.md` — current domains list

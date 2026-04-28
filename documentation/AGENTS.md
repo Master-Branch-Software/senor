@@ -28,18 +28,18 @@ Apply these on every task without asking:
 
 ## Task-to-chapter map
 
-| Task                                                  | Primary           | Also consider |
-| ----------------------------------------------------- | ----------------- | ------------- |
-| Write a README from scratch                           | `01-readme.md`    | —             |
-| Audit / rewrite an existing README                    | `01-readme.md`    | —             |
-| Decide what belongs in README vs `docs/`              | `01-readme.md` § Length and scope | — |
-| Pick badges, screenshots, or GIFs for a project page  | `01-readme.md` § Visuals and badges | — |
+| Task                                                 | Primary                                | Also consider |
+| ---------------------------------------------------- | -------------------------------------- | ------------- |
+| Write a README from scratch                          | `readme-guide.md`                      | —             |
+| Audit / rewrite an existing README                   | `readme-guide.md`                      | —             |
+| Decide what belongs in README vs `docs/`             | `readme-guide.md` § Length and scope   | —             |
+| Pick badges, screenshots, or GIFs for a project page | `readme-guide.md` § Visuals and badges | —             |
 
 ## Domain checklists
 
 Run these before submitting any artifact:
 
-- README pre-publish checklist — `references/01-readme.md` § Pre-publish checklist. Address every miss.
+- README pre-publish checklist — `readme-guide.md` § Pre-publish checklist. Address every miss.
 
 ## Running order for a new README
 
@@ -47,11 +47,11 @@ Run these before submitting any artifact:
 2. Draft — title, one-liner, install, minimal usage example. Stop and confirm the example runs.
 3. Expand — description, visuals (only if they earn their bytes), configuration, project status.
 4. Contribution surface — contributing pointer, maintainers, license. Link out rather than inline long policies.
-5. Self-review — run the pre-publish checklist in `01-readme.md`.
+5. Self-review — run the pre-publish checklist in `readme-guide.md`.
 
 ## Skill connections
 
 When a more specialized skill is installed, consult it alongside this one:
 
-- Front-end / web copy voice — `front-end/references/02-brand-and-copywriting.md` for tone and AI-fingerprint avoidance.
+- Front-end / web copy voice — `front-end/brand-and-copywriting.md` for tone and AI-fingerprint avoidance.
 - Architecture write-ups longer than a README section — `architecture/AGENTS.md` (when populated).

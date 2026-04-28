@@ -19,7 +19,7 @@ if [[ -d "$DIR" ]]; then
   exit 1
 fi
 
-mkdir -p "$DIR/references"
+mkdir -p "$DIR"
 
 cat > "$DIR/AGENTS.md" << TEMPLATE
 ---
@@ -43,13 +43,13 @@ General operating principles live in \`SKILL.md\` at the repository root. Read i
 
 | Task | Primary | Also consider |
 | --- | --- | --- |
-| [task] | \`NN-topic.md\` | \`NN-topic.md\` |
+| [task] | \`topic.md\` | \`topic.md\` |
 
 ## Domain checklists
 
 Run before submitting:
 
-- [item referencing a specific section: \`references/NN-topic.md\` § Section]
+- [item referencing a specific section: \`topic.md\` § Section]
 
 ## Running order for [task type]
 
@@ -61,13 +61,13 @@ Run before submitting:
 
 ## Status
 
-In progress. Chapter files live in \`$DOMAIN/references/\` following the
-\`NN-topic.md\` convention. See \`CONTRIBUTING.md\` for entry-point structure,
+In progress. Chapter files live directly under \`$DOMAIN/\` as \`topic.md\` +
+\`topic.sources.md\` pairs. See \`CONTRIBUTING.md\` for entry-point structure,
 chapter structure, sources sidecar structure, and routing edits.
 TEMPLATE
 
 echo "Created $DIR/AGENTS.md"
 echo "Next:"
 echo "  1. Fill AGENTS.md per CONTRIBUTING.md § Domain entry-point structure."
-echo "  2. Add chapter files to $DIR/references/ (NN-topic.md + NN-topic.sources.md)."
+echo "  2. Add chapter files directly under $DIR/ (topic.md + topic.sources.md)."
 echo "  3. Wire routing per CONTRIBUTING.md § Routing edits (SKILL.md, AGENTS.md, CONTRIBUTING.md)."
