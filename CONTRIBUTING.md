@@ -1,6 +1,6 @@
 # Contributing
 
-This repository is a library of AI-readable skills — structured guidelines that make LLM-assisted coding more reliable, more human, and harder to get wrong. This document explains the structure so you can add or improve content without breaking how agents consume it.
+This repository is a library of AI-readable skills, the kind of structured guidelines that make LLM-assisted coding more reliable, more human, and harder to get wrong. This document explains the structure so you can add or improve content without breaking how agents consume it.
 
 ## Repository structure
 
@@ -15,7 +15,7 @@ CONTRIBUTING.md        This file.
     NN-topic.md        Chapter file — the actual guidelines (NN = two-digit number, e.g. 02).
     NN-topic.sources.md  Citations backing that chapter (developer artifact, not loaded by agents).
   evals/               Eval prompt definitions.
-  workspace/           Recorded eval runs (never formatted; in .prettierignore).
+  workspace/           Recorded eval runs (never formatted, listed in .prettierignore).
 ```
 
 Current domains: `front-end/`, `copywriting/`, `documentation/`, `security/`, `ruby/`, `architecture/`.
@@ -27,7 +27,7 @@ Every file in this repo is written for one of two audiences. Keep them separate.
 | Audience                                                | Files                                                            | Purpose                                                  |
 | ------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------- |
 | **Skill consumers** — AI agents helping users           | `SKILL.md`, `<domain>/AGENTS.md`, `references/NN-topic.md`       | Loaded at task time to guide agent behavior              |
-| **Developers** — humans and agents working in this repo | `AGENTS.md`, `references/NN-topic.sources.md`, `CONTRIBUTING.md` | Editorial and process tooling; never loaded by consumers |
+| **Developers** — humans and agents working in this repo | `AGENTS.md`, `references/NN-topic.sources.md`, `CONTRIBUTING.md` | Editorial and process tooling, never loaded by consumers |
 
 ## Branching model
 
@@ -46,8 +46,8 @@ Maintainers periodically merge `development` → `master` when the branch is sta
 ## Adding content to an existing domain
 
 1. **Find the right chapter.** Check `<domain>/AGENTS.md` for the task-to-chapter map. Extend an existing chapter before creating a new one.
-2. **Edit the chapter file.** Follow the voice in `AGENTS.md` rule 6: terse, imperative, no hedging. One claim, one sentence.
-3. **Add a citation.** Every new or changed rule needs a source in the matching `NN-topic.sources.md`. Human-authored sources only — official specs, MDN, established engineering blogs, production codebases, books. No AI-generated content.
+2. **Edit the chapter file.** Follow the voice in `AGENTS.md` rule 6, which means terse, imperative, no hedging. One claim, one sentence.
+3. **Add a citation.** Every new or changed rule needs a source in the matching `NN-topic.sources.md`. Use human-authored sources only, drawn from official specs, MDN, established engineering blogs, production codebases, and books. No AI-generated content.
 4. **Run an eval.** New or significantly changed rules belong in `workspace/iteration-N/` as a WITH-skill vs WITHOUT-skill comparison. Guidance that doesn't change agent behavior is dead weight.
 5. **Run Prettier.** `npx prettier --write <file>` on every file you touch except those in `.prettierignore`.
 
@@ -61,7 +61,7 @@ Maintainers periodically merge `development` → `master` when the branch is sta
 
 ## Domain entry-point structure
 
-`<domain>/AGENTS.md` is the file skill consumers load first. It is a contract between the domain and the agent. Sections appear in this order; required sections must be present.
+`<domain>/AGENTS.md` is the file skill consumers load first. It is a contract between the domain and the agent. Sections appear in the order below, and required sections must be present.
 
 | Order | Section                            | Required                                         | Contents                                                                                                                                                             |
 | ----- | ---------------------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -79,7 +79,7 @@ Maintainers periodically merge `development` → `master` when the branch is sta
 
 ```yaml
 ---
-name: <domain> # exactly the directory name; lowercase, kebab-case
+name: <domain> # exactly the directory name, lowercase, kebab-case
 description: |
   Multi-sentence trigger description. Specific scope, common task verbs,
   and "even if the user does not say X explicitly" disambiguators. Used
@@ -90,7 +90,7 @@ description: |
 ```
 
 - `name` matches directory name verbatim. No alternate forms.
-- `description` is loaded into every agent's prompt; spend the tokens on disambiguation, not marketing.
+- `description` is loaded into every agent's prompt, so spend the tokens on disambiguation rather than marketing.
 - Mention surfaces and verbs the agent will see in user requests ("hero section", "audit", "writing", "harden").
 - Name the negative disambiguators when the domain is easy to confuse with a sibling ("for README structure read `documentation/AGENTS.md`").
 
@@ -106,7 +106,7 @@ description: |
 Chapter files (`<domain>/references/NN-topic.md`) carry the actual guidelines.
 
 - **Naming** — `NN-topic.md` where `NN` is two digits. Next number = `max(existing NN) + 1`. Topic slug is short and lowercase, hyphenated.
-- **Curation** — numbered chapter files are curated. New chapters require maintainer approval; extend an existing chapter first.
+- **Curation** — numbered chapter files are curated. New chapters require maintainer approval, so extend an existing chapter first.
 - **Required sidecar** — every `NN-topic.md` has a paired `NN-topic.sources.md` in the same commit. CI (`./scripts/check-sources <domain>`) enforces.
 - **Voice** — terse, imperative, no hedging ("Two-space indentation." not "Generally prefer two spaces."). No emojis. No conversational filler.
 
@@ -117,20 +117,20 @@ Chapter files (`<domain>/references/NN-topic.md`) carry the actual guidelines.
 | 1     | `# Title`                          | Sentence-case noun phrase. Matches the file slug.                                             |
 | 2     | One-paragraph orientation          | What the chapter covers, what it does not, where related material lives. ≤ 3 sentences.       |
 | 3     | `## Section` headers               | Each names a single concept. Sub-sections (`###`) only when a section has 4+ named sub-rules. |
-| 4     | Tables, lists, and worked examples | Tables and lists default; prose only when sequence matters.                                   |
+| 4     | Tables, lists, and worked examples | Tables and lists are the default, with prose used only when sequence matters.                 |
 | 5     | Cross-references                   | Inline by path and section header.                                                            |
 
 ### Compression rules
 
-See `AGENTS.md` rule 7 for the full set (compression hierarchy, what to cut, what to preserve, cross-reference vs inline). Same rules apply to chapter files; this section adds chapter-specific procedure.
+See `AGENTS.md` rule 7 for the full set (compression hierarchy, what to cut, what to preserve, cross-reference vs inline). The same rules apply to chapter files, and this section adds chapter-specific procedure on top.
 
 ### Tightening an existing chapter or domain
 
-Use this procedure when the task is to compress a chapter or a domain that already exists. Does not apply when adding new material.
+Use this procedure when the task is to compress a chapter or a domain that already exists. It does not apply when you're adding new material.
 
 #### Order of passes
 
-Apply in this order. Each pass has one job; do not blend passes.
+Apply the passes in this order, and let each pass do its one job without blending in work from another.
 
 1. **Read end-to-end first.** Note structure, repeated patterns, prose-vs-list balance, where cross-references already live. Compression without first reading produces uneven cuts.
 2. **Cut warm-up sentences and meta-commentary.** Paragraph leads that announce ("In this section we …", "It is worth noting …"). Lowest-risk cut.
@@ -138,9 +138,9 @@ Apply in this order. Each pass has one job; do not blend passes.
 4. **Collapse restatement.** Two consecutive sentences carrying the same information → delete the weaker one.
 5. **Split conjoined claims.** One sentence with `and`/`which` doing structural work → two sentences.
 6. **Audit worked examples.** Two examples making the same point → keep the strongest. Examples that _are_ the rule (bad/good pairs, before/after) stay.
-7. **Tighten the entry point hardest.** `<domain>/AGENTS.md` is loaded every task — bullets ≤ 1 sentence, no prose blocks > 2 sentences.
+7. **Tighten the entry point hardest.** `<domain>/AGENTS.md` is loaded every task, so keep bullets to ≤ 1 sentence and no prose blocks longer than 2 sentences.
 
-Do not run a cross-chapter dedupe pass without explicit user approval. Same content appearing in 2–3 chapters is usually contextualized for each chapter's reader; replacing inline content with cross-references is data loss disguised as compression. The exception: identical multi-paragraph blocks between two chapters, where one is genuinely a duplicate. Even then, ask first.
+Do not run a cross-chapter dedupe pass without explicit user approval. The same content appearing in 2–3 chapters is usually contextualized for each chapter's reader, and replacing inline content with cross-references is data loss disguised as compression. There is one exception, which is identical multi-paragraph blocks between two chapters where one is genuinely a duplicate. Even then, ask first.
 
 #### What to preserve
 
@@ -174,13 +174,13 @@ After tightening:
 
 `<domain>/references/NN-topic.sources.md` is developer-facing. Skill consumers do not load it.
 
-| Order | Section                   | Required        | Contents                                                                                                                                                              |
-| ----- | ------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | `# Sources — NN <Title>`  | yes             | Matches the chapter filename and title.                                                                                                                               |
-| 2     | `## Primary citations`    | yes             | Bulleted list. Each entry: author, title, publisher/year, URL where available, one-sentence note on what the source backs in the chapter.                             |
-| 3     | `## Secondary references` | when applicable | Same format as primary. Use for sources that strengthen but are not load-bearing.                                                                                     |
-| 4     | `## Curated tool catalog` | when applicable | Tools the chapter recommends or implies. Each: name, one-line purpose, link. Tool entries that become load-bearing for a rule must be promoted to a primary citation. |
-| 5     | `## Notes for editors`    | when applicable | Editorial guidance for future contributors — what's stable, what to verify before extending, naming/synthesis decisions.                                              |
+| Order | Section                   | Required        | Contents                                                                                                                                                                                      |
+| ----- | ------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | `# Sources — NN <Title>`  | yes             | Matches the chapter filename and title.                                                                                                                                                       |
+| 2     | `## Primary citations`    | yes             | Bulleted list. Every entry carries an author, title, publisher/year, URL where available, and a one-sentence note on what the source backs in the chapter.                                    |
+| 3     | `## Secondary references` | when applicable | Same format as primary. Use for sources that strengthen but are not load-bearing.                                                                                                             |
+| 4     | `## Curated tool catalog` | when applicable | Tools the chapter recommends or implies. Every entry carries a name, a one-line purpose, and a link. Tool entries that become load-bearing for a rule must be promoted to a primary citation. |
+| 5     | `## Notes for editors`    | when applicable | Editorial guidance for future contributors, covering what's stable, what to verify before extending, and any naming or synthesis decisions.                                                   |
 
 Source rules:
 
@@ -190,7 +190,7 @@ Source rules:
 
 ## Routing edits
 
-When adding a new domain, three files need a routing edit. Each is a localized insert; do not reorganize surrounding content.
+When adding a new domain, three files need a routing edit. Each one is a localized insert, so do not reorganize the surrounding content.
 
 ### 1. Root `SKILL.md` — domain table
 
@@ -204,7 +204,7 @@ Add a row to the routing table. Keep alphabetical or grouped order if the existi
  | Security      | `security/AGENTS.md`      | Security audits, pen testing, threat modeling, hardening                  |
 ```
 
-The `Covers` cell is the disambiguator agents read first; spend the tokens on scope, not marketing.
+The `Covers` cell is the disambiguator agents read first, so spend the tokens on scope rather than marketing.
 
 ### 2. Root `AGENTS.md` — project layout
 
@@ -233,13 +233,13 @@ Add the new domain to the inline list.
 
 ### 4. Cross-skill pointers (when applicable)
 
-If the new domain pairs with an existing one, add a `Skill connections` bullet to that domain's `AGENTS.md` so agents working there know to load yours too. Symmetric pointers — both directions — when the pairing is genuine.
+If the new domain pairs with an existing one, add a `Skill connections` bullet to that domain's `AGENTS.md` so agents working there know to load yours too. Make the pointers symmetric (both directions) when the pairing is genuine.
 
 ## Eval convention
 
 Evals live in `<domain>/workspace/iteration-N/`. Each eval compares WITH-skill vs WITHOUT-skill agent output on a representative task. The goal is to prove that a rule change actually changes agent behavior — not just reads well.
 
-Record format: raw agent output, unformatted, with a `summary.md` describing what changed and why.
+Record raw agent output unformatted, alongside a `summary.md` describing what changed and why.
 
 ## What not to do
 

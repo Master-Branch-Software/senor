@@ -1,8 +1,8 @@
 # AI-Readable Engineering Guidelines
 
-**AI-assisted code tends to look the same.** Generic layouts, predictable color choices, copy that could describe any product, code that looks fine on screen but fails under inspection. These guidelines give an AI agent a structured reference to draw from instead — so the output reflects your project, not the average of its training data.
+**AI-assisted code tends to look the same.** Generic layouts, predictable color choices, copy that could describe any product, code that looks fine on screen but fails under inspection. These guidelines give an AI agent a structured reference to draw from instead, so the output reflects your project rather than the average of its training data.
 
-> Early development. Expect gaps. Contributions are welcome.
+> This is still early in development, so expect gaps. Contributions very welcome!
 
 ---
 
@@ -38,11 +38,11 @@
 
 ## What this is
 
-AI coding tools fall back to the average of their training data. Without a structured reference to read, the output blurs into the same patterns over and over. The fix is context the agent can actually navigate — written for how language models load and apply information, not for how a human skims a PDF.
+AI coding tools fall back to the average of their training data. Without a structured reference to read, the output blurs into the same patterns over and over. The fix is context the agent can actually navigate, written for how language models load and apply information rather than for how a human skims a PDF.
 
-This project is that reference. A library of plain-Markdown guidelines, organized by domain, each split into chapters the agent loads only when the task calls for them. Drop the repo into your project, and a compatible agent uses it as a working reference while it builds.
+This project is that reference. It's a library of plain-Markdown guidelines, organized by domain, each split into chapters the agent loads only when the task calls for them. Drop the repo into your project, and a compatible agent uses it as a working reference while it builds.
 
-The deeper rationale — progressive disclosure, citation requirements, how rules are validated — lives in [CONTRIBUTING.md](CONTRIBUTING.md).
+The deeper rationale (progressive disclosure, citation requirements, how rules are validated) lives in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
@@ -52,8 +52,8 @@ Plain Markdown files. Any AI agent that can read files can use them.
 
 | Tool                        | Integration                                                                        |
 | --------------------------- | ---------------------------------------------------------------------------------- |
-| **Claude Code**             | Clone into `.claude/skills/` — auto-discovered from SKILL.md frontmatter           |
-| **Windsurf**                | Clone into your skills directory — same SKILL.md convention                        |
+| **Claude Code**             | Clone into `.claude/skills/`, auto-discovered from SKILL.md frontmatter            |
+| **Windsurf**                | Clone into your skills directory, same SKILL.md convention                         |
 | **Cursor**                  | Drop `front-end/AGENTS.md` into `.cursor/rules/` as a `.mdc` file                  |
 | **GitHub Copilot**          | Copy `front-end/AGENTS.md` into `.github/copilot-instructions.md`                  |
 | **ChatGPT (OpenAI)**        | Attach the files to a project, or paste relevant chapters into custom instructions |
@@ -88,39 +88,39 @@ Ask only what changes the output. Do not restate the guide's rules.
 
 ## Tooling
 
-The `scripts/` directory holds utilities for working with AI context. Today the set is small and focused on maintaining this repository; the intent is to grow it into more general-purpose territory — file conversion, scraping, validation, and other work that goes into preparing reliable context for a model. Suggestions and pull requests are welcome.
+The `scripts/` directory holds utilities for working with AI context. Right now the set is small and focused on maintaining this repository, but we'd like to grow it into more general-purpose territory that covers file conversion, scraping, validation, and the other work that goes into preparing reliable context for a model. Suggestions and pull requests welcome!
 
-| Script                           | What it does                                                           |
-| -------------------------------- | ---------------------------------------------------------------------- |
-| `scripts/new-domain <name>`      | Scaffolds a new domain directory with a filled AGENTS.md template      |
-| `scripts/check-sources [domain]` | Verifies every chapter file has a matching `.sources.md` citation file |
-| `scripts/format [--check]`       | Runs Prettier across all non-ignored files; `--check` mode for CI      |
+| Script                           | What it does                                                             |
+| -------------------------------- | ------------------------------------------------------------------------ |
+| `scripts/new-domain <name>`      | Scaffolds a new domain directory with a filled AGENTS.md template        |
+| `scripts/check-sources [domain]` | Verifies every chapter file has a matching `.sources.md` citation file   |
+| `scripts/format [--check]`       | Runs Prettier across all non-ignored files, with a `--check` mode for CI |
 
-Scripts require Bash and — for `format` — Node.js with `npx` available.
+Scripts require Bash, and `format` additionally requires Node.js with `npx` available.
 
 ---
 
 ## Contributing
 
-Contributions that improve the chapter files, add citations, or build out new domains are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request — it covers file structure, voice rules, citation requirements, and how to validate that a rule change actually changes agent behavior.
+Contributions that improve the chapter files, add citations, or build out new domains are very welcome! Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request, since it covers file structure, voice rules, citation requirements, and how to validate that a rule change actually changes agent behavior.
 
-The short version: every new rule needs a human-authored source. AI-generated content does not qualify as a citation.
+The short version is that every new rule needs a human-authored source. AI-generated content doesn't qualify as a citation.
 
 ---
 
 ## License
 
-Use these guidelines to build your own work — portfolios, client sites, apps, internal tools, anything else — commercial or not. Load them into AI agents on a per-session or per-project basis, drop them into Claude Code or Cursor, reference them in a system prompt while you build. The websites, apps, and software you produce are entirely yours.
+Use these guidelines to build your own work, whether that's portfolios, client sites, apps, internal tools, or anything else, and whether it's commercial or not. Load them into AI agents on a per-session or per-project basis, drop them into Claude Code or Cursor, reference them in a system prompt while you build. The websites, apps, and software you produce are entirely yours.
 
-You **may not** ship the guidelines as part of a commercial product. Specifically: no repackaging or selling them as a standalone product, no bundling into a paid SaaS feature, AI service, or other commercial offering, and no embedding them as a permanent component of any distributed product or service — including as training data, fine-tuning data, or a system prompt that ships with your product.
+You **may not** ship the guidelines as part of a commercial product. That means no repackaging or selling them as a standalone product, no bundling them into a paid SaaS feature or AI service or other commercial offering, and no embedding them as a permanent component of any distributed product or service. The same goes for using them as training data, fine-tuning data, or a system prompt that ships with your product.
 
-If you run a commercial product and want to incorporate these guidelines — whether it's an AI tool, a SaaS platform, a developer tool, or anything else — get in touch and we'll work out an agreement. We're easy to work with. bert@masterbranchsoftware.com or via [masterbranchsoftware.com](https://masterbranchsoftware.com/contact).
+Run a commercial product and want to incorporate these guidelines, whether it's an AI tool, a SaaS platform, a developer tool, or something else? Get in touch and we'll work out an agreement. We're easy to work with! Reach us at bert@masterbranchsoftware.com or via [masterbranchsoftware.com](https://masterbranchsoftware.com/contact).
 
-A note on the integration recipes above: pasting chapter files into your own project (e.g., `.cursor/rules/`, `.github/copilot-instructions.md`) is fine for internal use within your organization. If you publish or redistribute those copies — say, in a public template repo — Section 7 of the LICENSE asks you to include the LICENSE terms with the copies and flag any modifications.
+One note on the integration recipes above. Pasting chapter files into your own project (e.g., `.cursor/rules/`, `.github/copilot-instructions.md`) is fine for internal use within your organization. If you publish or redistribute those copies in a public template repo, Section 7 of the LICENSE asks you to include the LICENSE terms with the copies and flag any modifications.
 
-This project is licensed under the [Master Branch Source License v2.1](LICENSE). The LICENSE file is authoritative; this section is a plain-language summary for orientation.
+This project is licensed under the [Master Branch Source License v2.1](LICENSE). The LICENSE file is authoritative, and this section is just a plain-language summary for orientation.
 
-This license was inspired by [CorridorKey](https://github.com/nikopueringer/CorridorKey) by Corridor Digital — go check out their work and show them some support!
+This license was inspired by [CorridorKey](https://github.com/nikopueringer/CorridorKey) by Corridor Digital. Go check out their work and show them some support!
 
 ---
 
