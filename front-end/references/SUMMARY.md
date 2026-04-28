@@ -153,13 +153,13 @@ Website serves specific person, specific goal, specific brand voice. Every choic
 - Typography: body under 16 px, `vw`-only type, three unrelated typefaces.
 - Color: pure `#000` on pure `#FFF`, color-only meaning, blind-inverted dark mode.
 - Motion: full-page parallax, scroll-jacking, animating `width`/`height`.
-- Layout: `100vh` on mobile (use `100dvh`), hard-coded widths, missing `min-width: 0` on flex children.
+- Layout: `100vh` on mobile (use `100dvh`), hard-coded widths, missing `min-width: 0` on flex children, `<pre>`/`<code>` without `overflow-x: auto` (commands overflow), `overflow: hidden` sized to cap-height clips descenders (`g`, `y`, `p`, `q`).
 - HTML: `<div onClick>`, `<a href="#">` as button, missing `alt`.
 - CSS: `!important` outside utility layers, z-index spiral, `position: absolute` for layout.
 - JS: `==`, silent catches, `innerHTML` with user input, tokens in `localStorage`.
 - React: misused `useEffect`, unstable list keys, new function references as props.
 - AI pitfalls: hallucinated imports, hardcoded pixels, missing `width`/`height`, ignoring reduced motion, defensive ARIA, reimplementing modals from scratch.
-- AI design fingerprints to refuse: indigo/violet gradient hero, blurred radial blobs behind centered text, Inter-only type, 3-icon feature grid, identical rounded-card+soft-shadow everywhere, lucide outline icon on every block, glassmorphism by default, 9-section SaaS template ordering, stock-photo team smiling at laptops, generated isometric 3D illustrations.
+- AI design fingerprints to refuse: indigo/violet gradient hero, blurred radial blobs behind centered text, Inter-only type, 3-icon feature grid, identical rounded-card+soft-shadow everywhere, lucide outline icon on every block, glassmorphism by default, 9-section SaaS template ordering, stock-photo team smiling at laptops, generated isometric 3D illustrations, announcement pill / eyebrow badge above the hero headline, category/type tag pills beneath feature cards.
 - Pre-merge checklist covers correctness, design, a11y, performance, copy, and code quality.
 - Process: brief → content → wireframe → tokens → components → pages → a11y/perf → QA → staged launch → 30/90-day review.
 - Design review weekly, 15–30 minutes, seven lenses: hierarchy, consistency, brand, feel, copy, a11y, performance.

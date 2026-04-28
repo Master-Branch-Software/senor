@@ -1,0 +1,52 @@
+AI-Readable Engineering Guidelines
+Copyright (c) 2024–present Master Branch Software
+
+─────────────────────────────────────────────────────────────────────────────
+PERMISSIONS
+─────────────────────────────────────────────────────────────────────────────
+
+You are free to:
+
+  USE      — Load these guidelines into any AI agent or coding tool for
+             personal or commercial software projects at no cost.
+
+  MODIFY   — Fork, extend, and adapt the guidelines to fit your stack,
+             team conventions, or domain.
+
+  SHARE    — Redistribute original or modified versions, provided the
+             conditions below are met.
+
+─────────────────────────────────────────────────────────────────────────────
+CONDITIONS
+─────────────────────────────────────────────────────────────────────────────
+
+  ATTRIBUTION
+  Include a visible link back to the original repository in any public
+  distribution or derivative work:
+  https://github.com/Master-Branch-Software/ai-web-designer
+
+  SHARE-ALIKE
+  Derivatives (modified versions of these guidelines) must be released
+  under this same license and kept publicly accessible.
+
+  NO RESALE
+  You may not sell these guidelines, or any substantially similar
+  derivative, as a standalone product, SaaS feature, or premium add-on.
+  Incorporating them into a commercial project you build is permitted;
+  selling the guidelines themselves is not.
+
+─────────────────────────────────────────────────────────────────────────────
+NO WARRANTY
+─────────────────────────────────────────────────────────────────────────────
+
+These guidelines are provided "as is" without warranty of any kind. The
+authors make no guarantees about fitness for a particular purpose. Use at
+your own risk.
+
+─────────────────────────────────────────────────────────────────────────────
+COMMERCIAL LICENSING
+─────────────────────────────────────────────────────────────────────────────
+
+If your use case falls outside these terms — for example, you want to bundle
+these guidelines into a commercial AI product or tool — contact us to discuss
+a separate arrangement.

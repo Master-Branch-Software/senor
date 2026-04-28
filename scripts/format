@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# format — run Prettier on all files not excluded by .prettierignore
+# Usage: ./scripts/format [--check]
+# --check mode exits non-zero if any file would change (for CI).
+
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+if [[ "${1:-}" == "--check" ]]; then
+  npx prettier --check .
+else
+  npx prettier --write .
+  echo "Done."
+fi

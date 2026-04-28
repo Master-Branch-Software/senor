@@ -54,6 +54,8 @@ The difference between professional and junior output rarely comes from knowing 
 - Ignoring tall, narrow viewports (foldables, split screens).
 - Content trapped inside a fixed-height container that overflows.
 - Flexbox children with no `min-width: 0`, causing overflow at narrow widths.
+- `<pre>` and `<code>` blocks without `overflow-x: auto`. Long commands (`git clone https://github.com/...`) overflow their container on narrow viewports. Always set `overflow-x: auto` on `<pre>`.
+- `overflow: hidden` on a container sized to exactly match text cap-height or x-height clips descenders on characters like `g`, `y`, `p`, `q`. Use `overflow: visible` or add enough `padding-block` to accommodate descenders.
 
 ## Code anti-patterns
 
@@ -121,6 +123,8 @@ Generative tools converge on the median of their training data: Tailwind compone
 - "Trust strip" of 6 monochrome logos with no permission and no relevance.
 - "Testimonials" with stock-photo headshots and quotes that read like marketing copy ("This product changed my life").
 - A 9-section page in the order: hero → logos → problem → solution → 3-feature grid → testimonials → pricing → FAQ → CTA. Reads as the SaaS template, not as the brand.
+- **Announcement pill / hero eyebrow badge above the headline.** A centered floating pill — `"✦ Open-source · Claude Code"`, `"New: Feature name"`, `"Now in beta"` — above the hero headline. Present on nearly every AI-generated SaaS landing page. A real announcement belongs in prose copy; a decorative pill signals template. Remove or replace with a concrete sentence in the headline or subhead.
+- **Category / type labels beneath feature cards.** Pill tags like `"Design"`, `"Performance"`, `"Code Quality"` appended to feature tiles or section cards. They classify without informing. Editorial hierarchy lives in heading weight and section order, not decorative metadata badges. Remove them.
 
 ### Imagery and iconography tells
 

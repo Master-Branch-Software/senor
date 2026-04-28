@@ -45,26 +45,46 @@ We're trying to do something better. Something that isn't creating another frict
 ```
 GOAL.md                              Premise.
 README.md                            Public-facing description.
-AGENTS.md                            This file.
+AGENTS.md                            This file (developer rules for working in this repo).
+SKILL.md                             Cross-domain operating rules for AI skill consumers.
+CONTRIBUTING.md                      Contributor guide — structure, conventions, how to add a domain.
+LICENSE                              License terms.
+scripts/
+  new-domain                         Scaffold a new skill domain directory.
+  check-sources                      Verify every chapter has a matching sources file.
+  format                             Run Prettier across all non-ignored files.
 .prettierrc.json                     Formatter config (per chapter 15).
-.prettierignore                      index.html, eval outputs, standard exclusions.
+.prettierignore                      Hand-formatted files, eval outputs, standard exclusions.
 
-web-design/
-  SKILL.md                           Skill entry point. Loaded by skill consumers.
+front-end/                           Web design, HTML/CSS/JS/TS, copywriting, a11y, performance.
+  AGENTS.md                          Skill entry point. Loaded by skill consumers.
   index.html                         Landing page. Hand-formatted; in .prettierignore.
   evals/                             Eval prompt definitions.
   references/
     NN-topic.md                      Chapter (loaded by skill consumers; NN runs 01–15).
     NN-topic.sources.md              Citations + curated tool catalogs for that chapter (developer-only).
-    SUMMARY.md, USAGE.md             Cross-cutting docs.
+    SUMMARY.md                       Condensed cross-cutting reference.
+    inspiration-gallery.md           Curated design references by feel and category.
+  workspace/
+    iteration-N/                     Eval runs (recorded outputs; in .prettierignore).
 
-web-design-workspace/
-  iteration-N/                       Eval runs (recorded outputs; in .prettierignore).
+security/                            Security audits, hardening, threat modeling.
+  AGENTS.md                          Skill entry point (stub — in progress).
+  references/                        Chapter files added as content is written.
+
+ruby/                                Ruby language, idioms, best practices.
+  AGENTS.md                          Skill entry point (stub — in progress).
+  rails/                             Rails-specific guidelines (planned).
+  references/                        Chapter files added as content is written.
+
+architecture/                        Cross-stack architectural patterns and decisions.
+  AGENTS.md                          Skill entry point (stub — in progress).
+  references/                        Chapter files added as content is written.
 ```
 
 ## Two audiences, two file sets
 
-- **Skill consumers** (agents helping users build websites) load `SKILL.md`, then chapter files (`NN-topic.md`), then `SUMMARY.md` / `USAGE.md` on demand. They do not load `*.sources.md`.
+- **Skill consumers** (agents helping users) load root `SKILL.md`, then the relevant domain `AGENTS.md`, then chapter files (`NN-topic.md`), then `SUMMARY.md` on demand. They do not load `*.sources.md`.
 - **Developers** (agents and humans editing this repo) load `AGENTS.md`, edit chapters and sidecars together, run evals to validate. When working in this repo, you are a developer.
 
 ## Tooling

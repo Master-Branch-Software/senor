@@ -2,12 +2,12 @@
 # which contradicts the chapter 7 rule (and WHATWG: the slash has no
 # effect, can interact badly with unquoted attribute values). See
 # AGENTS.md and references/16-code-style-and-quality.sources.md.
-web-design/index.html
+front-end/index.html
 
 # Eval inputs and recorded LLM outputs — formatting would alter the
 # data under test. These are artifacts, not source.
-web-design/evals/
-web-design-workspace/
+front-end/evals/
+front-end/workspace/
 
 # Standard exclusions
 node_modules

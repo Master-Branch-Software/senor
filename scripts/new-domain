@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# new-domain — scaffold a new skill domain directory
+# Usage: ./scripts/new-domain <domain-name>
+# Example: ./scripts/new-domain python
+
+set -euo pipefail
+
+if [[ $# -lt 1 ]]; then
+  echo "Usage: $0 <domain-name>" >&2
+  exit 1
+fi
+
+DOMAIN="$1"
+ROOT="$(git rev-parse --show-toplevel)"
+DIR="$ROOT/$DOMAIN"
+
+if [[ -d "$DIR" ]]; then
+  echo "Error: $DIR already exists." >&2
+  exit 1
+fi
+
+mkdir -p "$DIR/references"
+
+cat > "$DIR/AGENTS.md" << TEMPLATE
+---
+name: $DOMAIN
+description: |
+  One to three sentences describing when an AI agent should load this skill.
+  Be specific — the description is used by agents to decide relevance.
+---
+
+# ${DOMAIN^} Guide
+
+General operating principles live in \`SKILL.md\` at the repository root. Read it first.
+
+## Non-negotiables
+
+Apply these on every task without asking:
+
+- [list the absolute minimums for this domain]
+
+## Task-to-chapter map
+
+| Task | Primary | Also consider |
+| --- | --- | --- |
+| [task] | \`NN-topic.md\` | \`NN-topic.md\` |
+
+## Domain checklists
+
+Run these before submitting any artifact:
+
+- [checklist item referencing a specific section in a chapter file]
+
+## Running order for [main task type]
+
+1. [stage] — [artifact name]. [What to produce and confirm.]
+
+## Skill connections
+
+When a more specialized skill is installed, consult it alongside this one:
+
+- [related skill] → [when to reach for it]
+
+## Status
+
+In progress. Chapter files will live in \`$DOMAIN/references/\` following the
+\`NN-topic.md\` convention. See \`CONTRIBUTING.md\`.
+TEMPLATE
+
+echo "Created $DIR/AGENTS.md"
+echo "Next: add chapter files in $DIR/references/ and update SKILL.md routing table."
