@@ -16,22 +16,22 @@ We're trying to do something better. Something that isn't creating another frict
 
 1. **Verify, don't assume.** Open files for paths, line numbers, function names, quotes, version numbers. Memory is not a source. Cannot verify in the moment? Mark inline ("uncited — verify before publishing") rather than fabricate.
 
-2. **Cite human sources only.** Every new or changed rule in `references/NN-topic.md` requires a citation in `references/NN-topic.sources.md` in the same edit. Sources must be human-authored: official specs (W3C, WHATWG, ECMA), MDN, established engineering blogs, production codebases, books. AI-generated content does not qualify.
+2. **Cite human sources only.** Every new or changed rule in `<domain>/topic.md` requires a citation in `<domain>/topic.sources.md` in the same edit. Sources must be human-authored: official specs (W3C, WHATWG, ECMA), MDN, established engineering blogs, production codebases, books. AI-generated content does not qualify.
 
 3. **Surface confusion and tradeoffs.** Don't paper over uncertainty. State alternatives when more than one answer is defensible. Name the trade-off, then recommend.
 
-4. **Flag tool-vs-guideline conflicts.** When a recommended tool's default contradicts a written rule (e.g., Prettier emits `/>` on void elements while chapter 07 forbids it), state the tension. Let the user decide; don't pick silently.
+4. **Flag tool-vs-guideline conflicts.** When a recommended tool's default contradicts a written rule (e.g., Prettier emits `/>` on void elements while `front-end/javascript-and-html.md` forbids it), state the tension. Let the user decide; don't pick silently.
 
 5. **Opinionated is fine if reasoned.** Document the reasoning inline. If the opinion contradicts authoritative documentation, name the contradiction and ask before overriding.
 
-6. **Match existing voice and structure.** Reference voice: terse, imperative, no hedging ("Two-space indentation." not "Generally prefer two spaces."). No emojis. Numbered chapter files (`web-design/references/NN-topic.md`) are curated — extend existing chapters; new chapters or top-level files require user approval.
+6. **Match existing voice and structure.** Reference voice: terse, imperative, no hedging ("Two-space indentation." not "Generally prefer two spaces."). No emojis. Chapter files (`<domain>/topic.md`) are curated — extend existing chapters; new chapters or top-level files require user approval.
 
 7. **Compress for LLM reading.** Chapters are loaded into agent context on every task; every saved token is leverage. Write to be parsed, not enjoyed.
 
    Compression hierarchy — apply most aggressively where load frequency is highest:
    - `<domain>/AGENTS.md` (loaded every task in the domain) — tightest. No prose paragraphs > 2 sentences.
-   - `references/NN-topic.md` (loaded only when the task touches the chapter) — tight, but must read standalone.
-   - `references/*.sources.md` (developer-only, never loaded by consumers) — lowest priority.
+   - `<domain>/topic.md` (loaded only when the task touches the chapter) — tight, but must read standalone.
+   - `<domain>/*.sources.md` (developer-only, never loaded by consumers) — lowest priority.
 
    Cut these:
    - Warm-up first sentences ("In this chapter we will explore …", "It is important to understand …"). Lead with the rule.
@@ -59,7 +59,7 @@ We're trying to do something better. Something that isn't creating another frict
 
 9. **Touch only what the task requires.** No drive-by refactors. Clean up only what the current change introduces. Files in `.prettierignore` (e.g., `web-design/index.html`) stay hand-formatted unless the user says otherwise.
 
-10. **Validate material guidance via evals.** New or changed rules in `references/` belong in `web-design-workspace/iteration-N/` as a WITH-skill vs WITHOUT-skill comparison. Guidance that doesn't change agent behavior is dead weight.
+10. **Validate material guidance via evals.** New or changed rules in any chapter belong in `<domain>/workspace/iteration-N/` as a WITH-skill vs WITHOUT-skill comparison. Guidance that doesn't change agent behavior is dead weight.
 
 11. **Keep sources current.** When a rule changes, update its sidecar in the same commit. When a cited URL rots, replace or remove. When a tool-catalog entry in a sidecar becomes load-bearing for a chapter rule, add a primary citation alongside it.
 
@@ -80,49 +80,43 @@ scripts/
   new-domain                         Scaffold a new skill domain directory.
   check-sources                      Verify every chapter has a matching sources file.
   format                             Run Prettier across all non-ignored files.
-.prettierrc.json                     Formatter config (per chapter 15).
+.prettierrc.json                     Formatter config (per `front-end/code-style-and-quality.md`).
 .prettierignore                      Hand-formatted files, eval outputs, standard exclusions.
 
 front-end/                           Web design, HTML/CSS/JS/TS, web copy, a11y, performance.
   AGENTS.md                          Skill entry point. Loaded by skill consumers.
   index.html                         Landing page. Hand-formatted; in .prettierignore.
+  topic.md                           Chapter (loaded by skill consumers).
+  topic.sources.md                   Citations + curated tool catalogs for that chapter (developer-only).
+  inspiration-gallery.md             Curated design references by feel and category.
   evals/                             Eval prompt definitions.
-  references/
-    NN-topic.md                      Chapter (loaded by skill consumers; NN runs 01–15).
-    NN-topic.sources.md              Citations + curated tool catalogs for that chapter (developer-only).
-    inspiration-gallery.md           Curated design references by feel and category.
   workspace/
     iteration-N/                     Eval runs (recorded outputs; in .prettierignore).
 
 copywriting/                         Cross-genre prose — register, voice, blogs, marketing, technical, research.
   AGENTS.md                          Skill entry point.
-  references/
-    NN-topic.md                      Chapter (loaded by skill consumers).
-    NN-topic.sources.md              Citations for that chapter (developer-only).
+  topic.md                           Chapter (loaded by skill consumers).
+  topic.sources.md                   Citations for that chapter (developer-only).
 
 security/                            Security audits, hardening, threat modeling.
   AGENTS.md                          Skill entry point (stub — in progress).
-  references/                        Chapter files added as content is written.
 
 ruby/                                Ruby language, idioms, best practices.
   AGENTS.md                          Skill entry point (stub — in progress).
   rails/                             Rails-specific guidelines (planned).
-  references/                        Chapter files added as content is written.
 
 architecture/                        Cross-stack architectural patterns and decisions.
   AGENTS.md                          Skill entry point (stub — in progress).
-  references/                        Chapter files added as content is written.
 
 documentation/                       READMEs, contributing guides, changelogs, architecture docs.
   AGENTS.md                          Skill entry point.
-  references/
-    NN-topic.md                      Chapter (loaded by skill consumers).
-    NN-topic.sources.md              Citations for that chapter (developer-only).
+  topic.md                           Chapter (loaded by skill consumers).
+  topic.sources.md                   Citations for that chapter (developer-only).
 ```
 
 ## Two audiences, two file sets
 
-- **Skill consumers** (agents helping users) load root `SKILL.md`, then the relevant domain `AGENTS.md`, then chapter files (`NN-topic.md`), then `SUMMARY.md` on demand. They do not load `*.sources.md`.
+- **Skill consumers** (agents helping users) load root `SKILL.md`, then the relevant domain `AGENTS.md`, then chapter files (`<domain>/topic.md`), then `SUMMARY.md` on demand. They do not load `*.sources.md`.
 - **Developers** (agents and humans editing this repo) load `AGENTS.md`, edit chapters and sidecars together, run evals to validate. When working in this repo, you are a developer.
 
 ## Tooling

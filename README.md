@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.webp" alt="SeñorDevBot logo" width="200" height="200">
+</p>
+
 # SeñorDevBot
 
 **AI-assisted code tends to look the same.** Generic layouts, predictable color choices, copy that could describe any product, code that looks fine on screen but fails under inspection. These guidelines give an AI agent a structured reference to draw from instead, so the output reflects your project rather than the average of its training data.
@@ -26,9 +30,8 @@
 ├── SKILL.md                          ← AI operating rules — start here
 ├── front-end/                        ← a domain (front-end, security, ruby, etc.)
 │   ├── AGENTS.md                     ← entry point — tells the agent which chapter to load
-│   └── references/
-│       ├── 01-topic.md               ← chapter — terse, imperative guidelines
-│       └── 01-topic.sources.md       ← citations backing every claim
+│   ├── topic.md                      ← chapter — terse, imperative guidelines
+│   └── topic.sources.md              ← citations backing every claim
 ├── scripts/                          ← utilities for working with AI context
 ├── CONTRIBUTING.md                   ← how to add a domain, chapter, or citation
 └── LICENSE

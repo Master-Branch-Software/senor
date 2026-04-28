@@ -32,22 +32,22 @@
   {
     "query": "I need to pick a stack for a static marketing site with a blog and one interactive pricing calculator. Should I use Astro, Next.js, or SvelteKit? Also need to choose between tRPC and REST for a partner API.",
     "should_trigger": true,
-    "notes": "Stack selection + architecture — chapter 08"
+    "notes": "Stack selection + architecture — stack-and-architecture.md"
   },
   {
     "query": "Set up tests for my Next.js app. I need unit tests for utility functions, integration tests for API routes, and E2E tests for the checkout flow. Also want visual regression on the design system components.",
     "should_trigger": true,
-    "notes": "Testing strategy — chapter 11"
+    "notes": "Testing strategy — testing.md"
   },
   {
     "query": "Add Dutch and French locales to my existing React app. Need to handle RTL for Arabic later too. Current setup uses plain strings everywhere.",
     "should_trigger": true,
-    "notes": "Internationalization — chapter 12"
+    "notes": "Internationalization — internationalization.md"
   },
   {
     "query": "Audit my app for security. It's a Next.js app with Postgres, Clerk auth, and Stripe payments. I think my CSP might be too permissive and I'm not sure about my session cookie settings.",
     "should_trigger": true,
-    "notes": "Security audit — chapter 13"
+    "notes": "Security audit — security.md"
   },
   {
     "query": "Write a Python script to download all images from a given URL and resize them to 800px wide using Pillow. Output as WebP.",
@@ -82,7 +82,7 @@
   {
     "query": "Set up a CI/CD pipeline using GitHub Actions that runs lint, test, and deploy to AWS ECS on every push to main.",
     "should_trigger": false,
-    "notes": "DevOps/CI pipeline — web-design covers CI in chapter 15 but this is a pure infrastructure task"
+    "notes": "DevOps/CI pipeline — front-end covers CI in code-style-and-quality.md but this is a pure infrastructure task"
   },
   {
     "query": "My WiFi keeps dropping on Ubuntu 22.04. The router is fine, other devices work. dmesg shows iwlwifi errors. How do I fix this?",

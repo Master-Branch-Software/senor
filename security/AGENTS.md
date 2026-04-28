@@ -14,7 +14,6 @@ General operating principles live in `SKILL.md` at the repository root. Read it 
 
 ## Status
 
-In progress. Chapter files will live in `security/references/` following the same
-`NN-topic.md` convention as `front-end/references/`.
+In progress. Chapter files will live directly under `security/` as `topic.md` + `topic.sources.md` pairs, matching the convention in `front-end/` and `copywriting/`.
 
 Contributions welcome — see `CONTRIBUTING.md`.
