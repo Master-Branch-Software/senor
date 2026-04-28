@@ -34,9 +34,9 @@ Product, a SaaS feature, a premium add-on, or a paid API service —
 whether directly or indirectly, including via paywalls, subscriptions,
 or usage-based billing.
 
-3.3 AI Embedding. Except as permitted under Section 4, You may not
-incorporate the Materials, or any substantial portion of them, as a
-Permanently Embedded Component of any Commercial AI Product.
+3.3 Commercial Embedding. Except as permitted under Section 4, You
+may not incorporate the Materials, or any substantial portion of them,
+as a Permanently Embedded Component of any Commercial Product.
 
 3.4 Notices and Trademarks. You may not alter, remove, or obscure any
 licensing, copyright, attribution, or other notices contained in the
@@ -48,7 +48,7 @@ their source.
 
 4. COMMERCIAL INTEGRATION
 
-Notwithstanding Section 3, if You operate a Commercial AI Product and
+Notwithstanding Section 3, if You operate a Commercial Product and
 wish to incorporate the Materials as a Permanently Embedded Component,
 You must obtain a separate written agreement from the Licensor.
 
@@ -74,7 +74,7 @@ or context window — to assist You in producing Your Own Work Product
 is permitted, on a per-session or per-project basis, regardless of
 whether the resulting work product is commercial. This permission does
 not extend to incorporating the Materials as a Permanently Embedded
-Component of a Commercial AI Product, which is governed by Section 4.
+Component of a Commercial Product, which is governed by Section 4.
 
 5.3 Internal and Instructional Copies. You may make, modify, and
 circulate copies of the Materials within Your own organization for
@@ -214,12 +214,12 @@ of an enterprise organized for, monetary or other commercial
 advantage, including the sale, licensing, or paid distribution of
 products or services.
 
-"Commercial AI Product" means any AI model, language model, AI agent,
-AI-powered application, or AI-powered service that is offered,
-distributed, or made available to third parties on a Commercial basis.
-A natural person's individual use of an AI tool to assist with their
-own work is not a Commercial AI Product, even if that work is itself
-commercial.
+"Commercial Product" means any product, application, service,
+platform, AI model, language model, AI agent, or other offering that
+is offered, distributed, sold, licensed, or otherwise made available
+to third parties on a Commercial basis. A natural person's individual
+use of a tool to assist with their own work is not a Commercial
+Product, even if the resulting work is itself commercial.
 
 "Permanently Embedded Component" means inclusion of the Materials in a
 manner intended to persist as part of a distributed product or
