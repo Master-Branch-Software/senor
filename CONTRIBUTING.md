@@ -30,6 +30,20 @@ Every file in this repo is written for one of two audiences. Keep them separate.
 | **Skill consumers** — AI agents helping users | `SKILL.md`, `<domain>/AGENTS.md`, `references/NN-topic.md`, `references/SUMMARY.md` | Loaded at task time to guide agent behavior |
 | **Developers** — humans and agents working in this repo | `AGENTS.md`, `references/NN-topic.sources.md`, `CONTRIBUTING.md` | Editorial and process tooling; never loaded by consumers |
 
+## Branching model
+
+- `master` — production. Merges here only from `development` via a maintainer PR. Never commit directly.
+- `development` — the working branch. All PRs target this branch.
+
+To contribute:
+
+1. Fork the repository.
+2. Create a feature branch from `development` in your fork (`git checkout -b my-change development`).
+3. Make your changes and push to your fork.
+4. Open a pull request from your fork's feature branch into `development` on the main repo.
+
+Maintainers periodically merge `development` → `master` when the branch is stable.
+
 ## Adding content to an existing domain
 
 1. **Find the right chapter.** Check `<domain>/AGENTS.md` for the task-to-chapter map. Extend an existing chapter before creating a new one.
