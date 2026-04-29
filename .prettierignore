@@ -1,6 +1,6 @@
 # Artifacts
-front-end/evals/
-front-end/workspace/
+**/evals/
+**/workspace/
 
 # Standard exclusions
 node_modules
