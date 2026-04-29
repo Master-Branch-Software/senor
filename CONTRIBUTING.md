@@ -7,45 +7,41 @@ This document explains the structure so you can add or improve content without b
 ```
 SKILL.md               Cross-domain operating rules (read by AI agents before any domain skill).
 AGENTS.md              Developer rules for working in this repo (read this file and AGENTS.md first).
-CONTRIBUTING.md        This file.
 
 <domain>/
   AGENTS.md            Skill entry point — task routing, non-negotiables, running order.
-  topic.md             Chapter file — the actual guidelines (slug only, no number prefix).
+  topic.md             Chapter file — the actual guidelines.
   topic.sources.md     Citations backing that chapter (developer artifact, not loaded by agents).
   evals/               Eval prompt definitions.
   workspace/           Recorded eval runs (never formatted, listed in .prettierignore).
 ```
 
-Current domains: `front-end/`, `copywriting/`, `documentation/`, `security/`, `ruby/`, `architecture/`.
+Example domains: `front-end/`, `copywriting/`, `documentation/`, `security/`, `ruby/`, `architecture/`.
 
 ## Two file audiences
 
 Every file in this repo is written for one of two audiences. Keep them separate.
 
-| Audience                                                | Files                                                       | Purpose                                                  |
-| ------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------- |
-| **Skill consumers** — AI agents helping users           | `SKILL.md`, `<domain>/AGENTS.md`, `<domain>/topic.md`       | Loaded at task time to guide agent behavior              |
-| **Developers** — humans and agents working in this repo | `AGENTS.md`, `<domain>/topic.sources.md`, `CONTRIBUTING.md` | Editorial and process tooling, never loaded by consumers |
+| Audience                                                | Files                                                                    | Purpose                                                  |
+| ------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------- |
+| **Skill consumers** — AI agents                         | `SKILL.md`, `<domain>/AGENTS.md`, `<domain>/topic.md`                    | Loaded at task time to guide agent behavior              |
+| **Developers** — humans and agents working in this repo | `AGENTS.md`, `<domain>/topic.sources.md`, `CONTRIBUTING.md`, and similar | Editorial and process tooling, never loaded by consumers |
 
 ## Branching model
 
-- `master` — production. Merges here only from `development` via a maintainer PR. Never commit directly.
-- `development` — the working branch. All PRs target this branch.
+- `master` — the working branch. All PRs target this branch.
 
 To contribute:
 
 1. Fork the repository.
-2. Create a feature branch from `development` in your fork (`git checkout -b my-change development`).
+2. Create a feature branch from `master` in your fork (`git checkout -b my-change master`).
 3. Make your changes and push to your fork.
-4. Open a pull request from your fork's feature branch into `development` on the main repo.
-
-Maintainers periodically merge `development` → `master` when the branch is stable.
+4. Open a pull request from your fork's feature branch into `master` on the main repo.
 
 ## Adding content to an existing domain
 
 1. **Find the right chapter.** Check `<domain>/AGENTS.md` for the task-to-chapter map. Extend an existing chapter before creating a new one.
-2. **Edit the chapter file.** Follow the voice in `AGENTS.md` rule 6, which means terse, imperative, no hedging. One claim, one sentence.
+2. **Edit the chapter file.** Follow the voice in [AGENTS.md](AGENTS.md) rule 6, which means terse, imperative, no hedging. One claim, one sentence.
 3. **Add a citation.** Every new or changed rule needs a source in the matching `topic.sources.md`. Use human-authored sources only, drawn from official specs, MDN, established engineering blogs, production codebases, and books. No AI-generated content.
 4. **Run an eval.** New or significantly changed rules belong in `workspace/iteration-N/` as a WITH-skill vs WITHOUT-skill comparison. Guidance that doesn't change agent behavior is dead weight.
 5. **Run Prettier.** `npx prettier --write <file>` on every file you touch except those in `.prettierignore`.
@@ -56,7 +52,6 @@ Maintainers periodically merge `development` → `master` when the branch is sta
 2. Fill `<domain>/AGENTS.md` per the [domain entry-point structure](#domain-entry-point-structure).
 3. Add chapter files (`<domain>/topic.md` + `<domain>/topic.sources.md`) directly under the domain folder once you have content to write.
 4. Wire routing per [Routing edits](#routing-edits).
-5. Add any eval-output directories to `.prettierignore`.
 
 ## Domain entry-point structure
 
