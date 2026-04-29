@@ -14,10 +14,22 @@ STATE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/senor"
 STATE_FILE="$STATE_DIR/state"
 
 # Agent registry: name|template|project_relpath|home_abspath|display
-# project_relpath is joined with target dir for project/custom scope.
-# home_abspath is used as-is for home scope (__HOME__ expands to $HOME).
-# Empty home_abspath means the agent has no documented user-global file path.
+#
+# Why two install modes:
+#   - File-mode agents (Cursor, Windsurf, Cline, Copilot, Codex) read a
+#     single rule file. We write that file with the absolute path to SKILL.md
+#     baked in via __SENOR_SKILL__ substitution. Tiny, fast, no filesystem
+#     permissions required.
+#   - Directory-mode agents (Claude Code) load the whole skill directory
+#     (SKILL.md plus per-domain AGENTS.md plus chapters). We can't fake that
+#     with a one-line file, and we don't want to copy ~10MB of guidelines on
+#     every update, so we symlink the target back at this checkout. Empty
+#     template field = symlink mode (junction on Windows via mklink /J).
+#
+# Empty home_abspath means the agent has no documented user-global file path
+# (Cursor, Copilot) and will be skipped under home scope.
 AGENTS=(
+  "claude-code||.claude/skills/senor|__HOME__/.claude/skills/senor|Claude Code"
   "cursor|cursor.mdc|.cursor/rules/senor.mdc||Cursor"
   "windsurf|windsurf.md|.windsurf/rules/senor.md|__HOME__/.codeium/windsurf/memories/global_rules.md|Windsurf"
   "cline|cline.md|.clinerules/senor.md|__HOME__/Documents/Cline/Rules/senor.md|Cline"
@@ -64,7 +76,8 @@ ${BOLD}Señor installer${RESET}
 Usage: ./install [options]
 
 Options:
-  --agents LIST       Comma-separated agents (cursor,windsurf,cline,copilot,codex)
+  --agents LIST       Comma-separated agents (claude-code,cursor,windsurf,cline,
+                      copilot,codex)
   --scope WHERE       project | home | <path>  (default: prompt)
                         project — write to <cwd>/<rel-path> for each agent
                         home    — write to each agent's user-global discovery path
@@ -265,13 +278,102 @@ resolve_target_for_agent() {
   esac
 }
 
+create_symlink_or_junction() {
+  # Cross-platform link from $1 (existing source dir) to $2 (target path).
+  # Returns 0 on success, non-zero on failure.
+  local source="$1" target="$2"
+
+  if ln -sfn "$source" "$target" 2>/dev/null; then
+    return 0
+  fi
+
+  # Native-Windows fallback: directory junction. No admin or Developer Mode needed.
+  local os; os="$(uname -s)"
+  case "$os" in
+    MINGW*|MSYS*|CYGWIN*)
+      local win_source win_target
+      win_source="$(cygpath -w "$source" 2>/dev/null || printf '%s' "$source")"
+      win_target="$(cygpath -w "$target" 2>/dev/null || printf '%s' "$target")"
+      # /J = junction (directories, same drive, no admin)
+      cmd //c mklink //J "$win_target" "$win_source" >/dev/null 2>&1
+      return $?
+      ;;
+  esac
+  return 1
+}
+
+install_agent_symlink() {
+  local idx="$1"
+  local display target action
+  display="$(agent_field "$idx" 4)"
+  target="$(resolve_target_for_agent "$idx")"
+
+  if [[ -z "$target" ]]; then
+    warn "$display has no user-global path; skipping (use project scope instead)"
+    return
+  fi
+
+  # No-op if the target already points at this checkout (idempotent install).
+  if [[ -e "$target" ]] && [[ "$(realpath -- "$target" 2>/dev/null)" == "$(realpath -- "$SCRIPT_DIR" 2>/dev/null)" ]]; then
+    ok "$display → $target (already linked)"
+    return
+  fi
+
+  mkdir -p "$(dirname "$target")"
+
+  if [[ -L "$target" || -e "$target" ]]; then
+    if [[ -n "$CONFLICT_MODE" ]]; then
+      action="$CONFLICT_MODE"
+    else
+      printf '\n'
+      if [[ -L "$target" ]]; then
+        warn "$target is a symlink to $(readlink -- "$target")"
+      else
+        warn "$target exists (not a symlink)"
+      fi
+      while true; do
+        local choice=""
+        read -rp "[s]kip / [o]verwrite > " choice </dev/tty
+        case "$choice" in
+          s|S) action=skip; break ;;
+          o|O) action=overwrite; break ;;
+        esac
+      done
+    fi
+    case "$action" in
+      skip)
+        note "  Skipped $target ($display)"
+        return ;;
+      overwrite|append)
+        rm -rf -- "$target"
+        ;;
+      *) die "unexpected conflict action: $action" ;;
+    esac
+  fi
+
+  if create_symlink_or_junction "$SCRIPT_DIR" "$target"; then
+    ok "$display → $target"
+  else
+    warn "Could not create link at $target. Clone senor directly to that path, or"
+    note "  copy this checkout there manually."
+  fi
+}
+
 install_agent() {
   local name="$1"
   local idx
   idx="$(agent_index_by_name "$name")" || die "unknown agent: $name"
 
+  local template_basename
+  template_basename="$(agent_field "$idx" 1)"
+
+  if [[ -z "$template_basename" ]]; then
+    install_agent_symlink "$idx"
+    return
+  fi
+
   local template_file display target content action
-  template_file="$TEMPLATES_DIR/$(agent_field "$idx" 1)"
+  template_file="$TEMPLATES_DIR/$template_basename"
   display="$(agent_field "$idx" 4)"
   target="$(resolve_target_for_agent "$idx")"
 

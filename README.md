@@ -46,41 +46,25 @@ The deeper rationale (progressive disclosure, citation requirements, how rules a
 
 ## How to use
 
-The agent reads `SKILL.md` for cross-domain rules, then loads the relevant `AGENTS.md` when the task matches a domain.
-
-### Quick install
-
-Clone the repo to a folder named `senor` anywhere you like (your home dir, `~/Documents`, a projects folder), then run the installer:
-
 ```bash
 git clone https://github.com/Master-Branch-Software/senor
 cd senor
 ./install
 ```
 
-You'll get an interactive menu to pick which agents to set up (Cursor, Windsurf, Cline, Codex CLI, GitHub Copilot), the install scope (this project, user-global, or a custom path), and whether to enable an auto-update task that pulls the latest content and reinstalls. Frequency defaults to weekly (Sundays 3am local time) and can be set to daily with `--update-frequency daily` or via the prompt. The task runs through cron on macOS/Linux and Task Scheduler on Windows (from Git Bash).
+The installer prompts for which agents to configure (Claude Code, Cursor, Windsurf, Cline, Codex CLI, GitHub Copilot), the install scope (this project, user-global, or a custom path), and whether to schedule weekly auto-updates. After pulling new content later, run `./update`.
 
-The user-global scope writes to each agent's documented user-level discovery path: `~/.codex/AGENTS.md` for Codex, `~/.codeium/windsurf/memories/global_rules.md` for Windsurf, `~/Documents/Cline/Rules/senor.md` for Cline. Cursor and Copilot have no documented user-global file path and will be skipped under the global scope; install them per-project instead.
+**No git?** Paste this into any agent that can run shell commands:
 
-For Claude Code, clone the repo into `.claude/skills/senor/` (project) or `~/.claude/skills/senor/` (user) — it auto-loads `SKILL.md` from there. The installer doesn't manage Claude Code; the clone is enough.
+> Clone `github.com/Master-Branch-Software/senor` into `~/senor`. Ask whether to install for this project or globally and which agents I use. Then `cd ~/senor && ./install --scope <my-answer> --agents <my-tools> --no-auto-update`.
 
-### Via your AI agent
-
-Don't have git or want help? Paste this into Claude Code, ChatGPT, Cursor's chat, or any other agent that can run shell commands:
-
-> Clone `github.com/Master-Branch-Software/ai-web-designer` into a folder named `senor` (in my home directory by default). Ask me whether to install for this project or globally, and which agents I use. Then `cd senor && ./install --scope <my-answer> --agents <my-tools> --no-auto-update`.
-
-### Non-interactive
+**Scripted / headless:**
 
 ```bash
 ./install --agents cursor,windsurf --scope project --no-auto-update --conflict skip
 ```
 
-Run `./install --help` for the full flag list. To re-run after pulling new content, use `./update` (it reads the saved selections and reinstalls).
-
-### Supported agents
-
-Cursor, Windsurf, Cline, Codex CLI, GitHub Copilot, Claude Code (clone-only). For ChatGPT or anything else, point the agent at `SKILL.md` or a domain's `AGENTS.md` in a prompt.
+See `./install --help` for every flag. For ChatGPT or anything else not in the list above, point the agent at `SKILL.md` in a prompt.
 
 ---
 
