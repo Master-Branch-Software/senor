@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="logo.webp" alt="SeñorDevBot logo" width="300" height="300">
+  <img src="logo.webp" alt="SeñorDeveloper logo" width="300" height="300">
 </p>
 
 **AI-assisted code is unreliable.** It mishandles existing codebases, ducks the architectural decisions that matter, ignores security, over-engineers easy problems, and hallucinates the rest. These guidelines give an AI agent a structured reference drawn from real engineering practice, so the output looks human, holds up under review, and reflects your project rather than the average of its training data.
 
-SeñorDevBot is a library of plain-Markdown guidelines, organized by domain and split into chapters the agent loads only when the task calls for them. Every rule is backed by a citation to a human-authored source like an official spec, MDN, an established engineering blog, a book, or a production codebase. AI-generated material does not qualify.
+SeñorDeveloper is a library of plain-Markdown guidelines, organized by domain and split into chapters the agent loads only when the task calls for them. Every rule is backed by a citation to a human-authored source like an official spec, MDN, an established engineering blog, a book, or a production codebase. AI-generated material does not qualify.
 
 The deeper rationale (progressive disclosure, citation requirements, how rules are validated) lives in [CONTRIBUTING.md](CONTRIBUTING.md).
 
