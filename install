@@ -60,6 +60,27 @@ warn() { printf '%s!%s %s\n' "$YELLOW" "$RESET" "$*"; }
 ok() { printf '%s✓%s %s\n' "$GREEN" "$RESET" "$*"; }
 note() { printf '%s%s%s\n' "$DIM" "$*" "$RESET"; }
 
+print_banner() {
+  # Mascot above "Senor Installer". The bot wears a sombrero, has two
+  # glowing eyes, and a curly mustache — same vibes as logo.webp.
+  # The /\/ in the text's top row is a stylized Spanish tilde over the n
+  # of "Senor".
+  printf '%s' "$CYAN"
+  cat <<'EOF'
+                       _____
+                    __/_____\__
+                     | o   o |
+                     |  vMv  |
+                      \_____/
+
+  ___      /\/            ___         _        _ _
+ / __| ___ _ _  ___ _ _  |_ _|_ _  __| |_ __ _| | |___ _ _
+ \__ \/ -_) ' \/ _ \ '_|  | || ' \(_-<  _/ _` | | / -_) '_|
+ |___/\___|_||_\___/_|   |___|_||_/__/\__\__,_|_|_\___|_|
+EOF
+  printf '%s\n' "$RESET"
+}
+
 # ---- Defaults / flags ---------------------------------------------------
 
 SCOPE_KIND=""         # project | home | custom
@@ -87,7 +108,8 @@ Options:
   --auto-update       Install scheduled auto-update task (cron / Task Scheduler)
   --no-auto-update    Skip the auto-update prompt
   --update-frequency X
-                      daily | weekly  (default: weekly. Only used with --auto-update)
+                      daily | weekly | <N>  (default: weekly. <N> = a positive
+                      integer meaning "every N days". Only used with --auto-update)
   --conflict MODE     skip | overwrite | append  (default: prompt per file)
   -h, --help          Show this help
 
@@ -126,7 +148,11 @@ parse_flags() {
   if [[ -n "$UPDATE_FREQUENCY" ]]; then
     case "$UPDATE_FREQUENCY" in
       daily|weekly) ;;
-      *) die "invalid --update-frequency: $UPDATE_FREQUENCY (use 'daily' or 'weekly')" ;;
+      *)
+        if [[ ! "$UPDATE_FREQUENCY" =~ ^[0-9]+$ ]] || [[ "$UPDATE_FREQUENCY" -le 0 ]]; then
+          die "invalid --update-frequency: $UPDATE_FREQUENCY (use 'daily', 'weekly', or a positive number of days)"
+        fi
+        ;;
     esac
   fi
 }
@@ -151,107 +177,280 @@ agent_index_by_name() {
 
 # ---- Multi-select TUI ---------------------------------------------------
 
+load_prev_agents() {
+  # Read the AGENTS list from the saved state in a subshell so we don't pollute
+  # other globals. Sets PREV_AGENTS to a comma-separated list (or empty).
+  PREV_AGENTS=""
+  [[ -f "$STATE_FILE" ]] || return 0
+  # shellcheck disable=SC1090  # state file path is dynamic by design
+  PREV_AGENTS="$(. "$STATE_FILE" 2>/dev/null && printf '%s' "${AGENTS:-}")"
+}
+
 multiselect() {
-  local -a marked
+  # Sets the global SELECTED_AGENTS to a comma-separated list. Visual output
+  # goes to /dev/tty so we don't lose the UI when stdout is piped or captured
+  # somewhere up the call stack.
+  local -a marked is_installed
   local cursor=0 i drew=0
+  local status_msg=""  # set when user tries to continue with nothing selected
 
-  for ((i=0; i<N_AGENTS; i++)); do marked[i]=0; done
+  for ((i=0; i<N_AGENTS; i++)); do marked[i]=0; is_installed[i]=0; done
 
-  printf '%s' "${CSI}?25l"  # hide cursor
-  trap 'printf "%s" "${CSI}?25h"' EXIT INT TERM
+  # Pre-mark agents from the previous install (if any) and tag them as
+  # "installed" in the menu so the user can see what's currently set up.
+  if [[ -n "${PREV_AGENTS:-}" ]]; then
+    local IFS=','
+    local -a prev_arr
+    read -ra prev_arr <<< "$PREV_AGENTS"
+    unset IFS
+    local p
+    for p in "${prev_arr[@]}"; do
+      for ((i=0; i<N_AGENTS; i++)); do
+        if [[ "$(agent_field "$i" 0)" == "$p" ]]; then
+          marked[i]=1
+          is_installed[i]=1
+          break
+        fi
+      done
+    done
+  fi
+
+  printf '%s' "${CSI}?25l" >/dev/tty  # hide cursor
+  # Two traps: EXIT for normal returns (just restore cursor), INT/TERM for
+  # signals like Ctrl+C (restore cursor and abort the whole script with 130).
+  trap 'printf "%s" "${CSI}?25h" >/dev/tty' EXIT
+  trap 'printf "%s" "${CSI}?25h" >/dev/tty; exit 130' INT TERM
 
   draw() {
     if [[ $drew -eq 1 ]]; then
-      printf '%s' "${CSI}$((N_AGENTS + 3))A"
+      printf '%s' "${CSI}$((N_AGENTS + 3))A" >/dev/tty
     fi
     drew=1
 
-    printf '%sSelect agents%s %s(↑/↓ navigate · space toggle · c or enter to continue · q to abort)%s\n' \
-      "$BOLD" "$RESET" "$DIM" "$RESET"
+    # Header (short — won't wrap on any sensible terminal width).
+    printf '%sSelect agents%s%s\n' "$BOLD" "$RESET" "${CSI}K" >/dev/tty
 
     for ((i=0; i<N_AGENTS; i++)); do
       local mark="[ ]"
       [[ ${marked[$i]} -eq 1 ]] && mark="[${GREEN}x${RESET}]"
       local pre="  "
       [[ $i -eq $cursor ]] && pre="${CYAN}>${RESET} "
-      printf '%s%s %s%s\n' "$pre" "$mark" "$(agent_field "$i" 3)" "${CSI}K"
+      local tag=""
+      [[ ${is_installed[$i]} -eq 1 ]] && tag=" ${DIM}(installed)${RESET}"
+      printf '%s%s %s%s%s\n' "$pre" "$mark" "$(agent_field "$i" 4)" "$tag" "${CSI}K" >/dev/tty
     done
 
-    printf '%s\n' "${CSI}K"
-    printf '%s  Press %sc%s or %sEnter%s to continue%s%s\n' \
-      "$DIM" "$RESET$BOLD" "$RESET$DIM" "$RESET$BOLD" "$RESET$DIM" "$RESET" "${CSI}K"
+    if [[ -n "$status_msg" ]]; then
+      printf '  %s%s%s%s\n' "$YELLOW" "$status_msg" "$RESET" "${CSI}K" >/dev/tty
+    else
+      printf '%s\n' "${CSI}K" >/dev/tty
+    fi
+    # Footer hint on its own line (kept short to avoid line-wrap, which would
+    # break the redraw offset above).
+    printf '%s↑↓ navigate · space toggle · enter continue · q/ctrl-c abort%s%s\n' \
+      "$DIM" "$RESET" "${CSI}K" >/dev/tty
   }
 
   draw
   while true; do
     local key
-    IFS= read -rsn1 key || true
+    IFS= read -rsn1 key </dev/tty || true
     if [[ "$key" == $'\033' ]]; then
       local rest=""
-      IFS= read -rsn2 -t 0.01 rest || true
+      IFS= read -rsn2 -t 0.01 rest </dev/tty || true
       key="$key$rest"
     fi
+    # Cursor wraps with modular arithmetic (top↑ → bottom, bottom↓ → top).
     case "$key" in
-      $'\033[A') ((cursor > 0)) && ((cursor--)) ;;
-      $'\033[B') ((cursor < N_AGENTS - 1)) && ((cursor++)) ;;
-      ' ')       marked[cursor]=$((1 - marked[cursor])) ;;
-      ''|$'\n'|c|C) break ;;
-      q|Q)       printf '%s' "${CSI}?25h"; exit 130 ;;
+      $'\033[A') cursor=$(( (cursor - 1 + N_AGENTS) % N_AGENTS )); status_msg="" ;;
+      $'\033[B') cursor=$(( (cursor + 1) % N_AGENTS ));            status_msg="" ;;
+      ' ')       marked[cursor]=$((1 - marked[cursor]));           status_msg="" ;;
+      ''|$'\n'|c|C)
+        local any=0
+        for ((i=0; i<N_AGENTS; i++)); do
+          if [[ ${marked[$i]} -eq 1 ]]; then any=1; break; fi
+        done
+        if [[ $any -eq 1 ]]; then break; fi
+        status_msg="Select at least one agent (space to toggle)"
+        ;;
+      q|Q)       printf '%s' "${CSI}?25h" >/dev/tty; exit 130 ;;
     esac
     draw
   done
 
-  printf '%s' "${CSI}?25h"
+  printf '%s' "${CSI}?25h" >/dev/tty
   trap - EXIT INT TERM
 
   local sel=()
   for ((i=0; i<N_AGENTS; i++)); do
     [[ ${marked[$i]} -eq 1 ]] && sel+=("$(agent_field "$i" 0)")
   done
-  (IFS=,; printf '%s' "${sel[*]}")
+  SELECTED_AGENTS="$(IFS=,; printf '%s' "${sel[*]}")"
 }
+
+
 
 # ---- Scope prompt -------------------------------------------------------
 
-prompt_scope() {
-  printf '\n%sWhere should rule files be installed?%s\n' "$BOLD" "$RESET"
-  printf '  [1] This project (%s)\n' "$PWD"
-  printf '  [2] User-global (each agent has its own discovery path)\n'
-  printf '  [3] Custom project path\n'
+single_select() {
+  # Generic arrow-driven single-select menu. Sets the global SELECT_INDEX
+  # to the chosen option index (0-based).
+  # Args:
+  #   $1     header text (one line)
+  #   $2...  option labels
+  local header="$1"; shift
+  local labels=("$@")
+  local n=${#labels[@]}
+  local cursor=0 drew=0 i
+
+  printf '\n' >/dev/tty
+  printf '%s' "${CSI}?25l" >/dev/tty
+  trap 'printf "%s" "${CSI}?25h" >/dev/tty' EXIT
+  trap 'printf "%s" "${CSI}?25h" >/dev/tty; exit 130' INT TERM
+
+  draw() {
+    if [[ $drew -eq 1 ]]; then
+      printf '%s' "${CSI}$((n + 2))A" >/dev/tty
+    fi
+    drew=1
+    # Header on its own short line so it never wraps.
+    printf '%s%s%s%s\n' "$BOLD" "$header" "$RESET" "${CSI}K" >/dev/tty
+    for ((i=0; i<n; i++)); do
+      if [[ $i -eq $cursor ]]; then
+        printf '%s>%s %s%s%s%s\n' "$CYAN" "$RESET" "$BOLD" "${labels[$i]}" "$RESET" "${CSI}K" >/dev/tty
+      else
+        printf '  %s%s\n' "${labels[$i]}" "${CSI}K" >/dev/tty
+      fi
+    done
+    printf '%s↑↓ navigate · enter select · q/ctrl-c abort%s%s\n' \
+      "$DIM" "$RESET" "${CSI}K" >/dev/tty
+  }
+
+  draw
   while true; do
-    local choice="" custom=""
-    read -rp "Choice [1]: " choice </dev/tty
-    choice="${choice:-1}"
-    case "$choice" in
-      1) SCOPE_KIND=project; SCOPE_PATH="$PWD"; return ;;
-      2) SCOPE_KIND=home; SCOPE_PATH=""; return ;;
-      3) read -rp "Path: " custom </dev/tty
-         [[ -d "$custom" ]] || { warn "$custom is not a directory"; continue; }
-         SCOPE_KIND=custom; SCOPE_PATH="$custom"; return ;;
-      *) ;;
+    local key
+    IFS= read -rsn1 key </dev/tty || true
+    if [[ "$key" == $'\033' ]]; then
+      local rest=""
+      IFS= read -rsn2 -t 0.01 rest </dev/tty || true
+      key="$key$rest"
+    fi
+    # Cursor wraps with modular arithmetic.
+    case "$key" in
+      $'\033[A') cursor=$(( (cursor - 1 + n) % n )) ;;
+      $'\033[B') cursor=$(( (cursor + 1) % n )) ;;
+      ''|$'\n')  break ;;
+      q|Q)       printf '%s' "${CSI}?25h" >/dev/tty; exit 130 ;;
     esac
+    draw
   done
+
+  printf '%s' "${CSI}?25h" >/dev/tty
+  trap - EXIT INT TERM
+  SELECT_INDEX=$cursor
+}
+
+prompt_scope() {
+  # Sets SCOPE_KIND and SCOPE_PATH.
+  single_select "Where should rule files be installed?" \
+    "This project ($PWD)" \
+    "User-global (each agent's own discovery path)" \
+    "Custom project path"
+  case $SELECT_INDEX in
+    0) SCOPE_KIND=project; SCOPE_PATH="$PWD" ;;
+    1) SCOPE_KIND=home;    SCOPE_PATH="" ;;
+    2)
+      SCOPE_KIND=custom
+      while true; do
+        local custom=""
+        printf '\n' >/dev/tty
+        read -rp "Path: " custom </dev/tty
+        if [[ -z "$custom" ]]; then
+          warn "Path can't be empty"
+          continue
+        fi
+        # Expand ~ to $HOME (read doesn't do tilde expansion).
+        custom="${custom/#\~/$HOME}"
+        if [[ ! -d "$custom" ]]; then
+          warn "$custom is not a directory"
+          continue
+        fi
+        SCOPE_PATH="$custom"
+        break
+      done
+      ;;
+  esac
+}
+
+prompt_auto_update() {
+  # Sets AUTO_UPDATE.
+  single_select "Enable auto-update? (scheduled git pull + reinstall)" \
+    "Yes" \
+    "No"
+  case $SELECT_INDEX in
+    0) AUTO_UPDATE=yes ;;
+    1) AUTO_UPDATE=no ;;
+  esac
+}
+
+prompt_frequency() {
+  # Sets UPDATE_FREQUENCY to "weekly", "daily", or a positive integer (days).
+  single_select "Update frequency?" \
+    "Weekly (Sundays, 3am)" \
+    "Daily (3am)" \
+    "Every N days (custom)"
+  case $SELECT_INDEX in
+    0) UPDATE_FREQUENCY=weekly ;;
+    1) UPDATE_FREQUENCY=daily ;;
+    2)
+      while true; do
+        local n=""
+        printf '\n' >/dev/tty
+        read -rp "Days between updates: " n </dev/tty
+        if [[ "$n" =~ ^[0-9]+$ ]] && [[ "$n" -gt 0 ]]; then
+          UPDATE_FREQUENCY="$n"
+          break
+        fi
+        warn "Enter a positive integer"
+      done
+      ;;
+  esac
 }
 
 # ---- Conflict prompt ----------------------------------------------------
 
-prompt_conflict() {
+show_colored_diff() {
+  # Print a unified diff with red/green/cyan/bold ANSI coloring. Capped at
+  # 80 lines so a giant diff doesn't shove the menu off-screen.
   local target="$1" new_content="$2"
+  printf '\n' >/dev/tty
+  { diff -u "$target" <(printf '%s' "$new_content") || true; } | head -80 | while IFS= read -r line; do
+    case "$line" in
+      ---*|+++*) printf '%s%s%s\n' "$BOLD" "$line" "$RESET" >/dev/tty ;;
+      +*)        printf '%s%s%s\n' "$GREEN" "$line" "$RESET" >/dev/tty ;;
+      -*)        printf '%s%s%s\n' "$RED" "$line" "$RESET" >/dev/tty ;;
+      @@*)       printf '%s%s%s\n' "$CYAN" "$line" "$RESET" >/dev/tty ;;
+      *)         printf '%s\n' "$line" >/dev/tty ;;
+    esac
+  done
+}
+
+prompt_conflict() {
+  # Sets the global CONFLICT_RESULT to skip|overwrite|append.
+  local target="$1" new_content="$2"
+  CONFLICT_RESULT=""
+  printf '\n%s!%s Conflict: %s already exists\n' "$YELLOW" "$RESET" "$target" >/dev/tty
   while true; do
-    printf '\n'
-    warn "Conflict: $target already exists"
-    local choice=""
-    read -rp "[s]kip / [o]verwrite / [a]ppend / [d]iff > " choice </dev/tty
-    case "$choice" in
-      s|S) printf '%s' "skip"; return ;;
-      o|O) printf '%s' "overwrite"; return ;;
-      a|A) printf '%s' "append"; return ;;
-      d|D)
-        printf '\n'
-        diff -u "$target" <(printf '%s' "$new_content") | sed -n '1,80p' || true
-        printf '\n'
-        ;;
-      *) ;;
+    single_select "What now?" \
+      "Skip" \
+      "Overwrite" \
+      "Append" \
+      "Show diff"
+    case $SELECT_INDEX in
+      0) CONFLICT_RESULT=skip; return ;;
+      1) CONFLICT_RESULT=overwrite; return ;;
+      2) CONFLICT_RESULT=append; return ;;
+      3) show_colored_diff "$target" "$new_content" ;;
     esac
   done
 }
@@ -389,7 +588,23 @@ install_agent() {
   mkdir -p "$(dirname "$target")"
 
   if [[ -e "$target" ]]; then
-    action="${CONFLICT_MODE:-$(prompt_conflict "$target" "$content")}"
+    # If the file is already exactly what we'd write, no real conflict —
+    # skip silently. (Bash $(...) strips trailing newlines, so comparing
+    # the captured value against $content correctly matches a file written
+    # by a previous run.)
+    local existing
+    existing="$(cat "$target")"
+    if [[ "$existing" == "$content" ]]; then
+      note "  Up to date: $target ($display)"
+      return
+    fi
+
+    if [[ -n "$CONFLICT_MODE" ]]; then
+      action="$CONFLICT_MODE"
+    else
+      prompt_conflict "$target" "$content"
+      action="$CONFLICT_RESULT"
+    fi
     case "$action" in
       skip)
         note "  Skipped $target ($display)"
@@ -430,7 +645,21 @@ setup_autoupdate() {
       schtasks_args="//SC WEEKLY //D SUN //ST 03:00"
       human="3am Sunday (weekly)"
       ;;
-    *) die "internal: invalid frequency $frequency" ;;
+    *)
+      if [[ "$frequency" =~ ^[0-9]+$ ]] && [[ "$frequency" -gt 0 ]]; then
+        # Cron's `*/N` resets at month boundaries (Jan 31 → Feb 1 is one tick),
+        # but it's good enough for practical N. schtasks /MO N is exact.
+        cron_schedule="0 3 */$frequency * *"
+        schtasks_args="//SC DAILY //MO $frequency //ST 03:00"
+        if [[ "$frequency" -eq 1 ]]; then
+          human="3am every day"
+        else
+          human="3am every $frequency days"
+        fi
+      else
+        die "internal: invalid frequency $frequency"
+      fi
+      ;;
   esac
 
   case "$os" in
@@ -494,14 +723,15 @@ save_state() {
 main() {
   parse_flags "$@"
 
-  printf '%sSeñor installer%s\n\n' "$BOLD" "$RESET"
+  print_banner
 
   # Sanity: templates dir exists
   [[ -d "$TEMPLATES_DIR" ]] || die "templates dir not found: $TEMPLATES_DIR"
 
-  # Agents
+  # Agents — pre-load previous install so multiselect can mark them
+  load_prev_agents
   if [[ -z "$SELECTED_AGENTS" ]]; then
-    SELECTED_AGENTS="$(multiselect)"
+    multiselect
   fi
   if [[ -z "$SELECTED_AGENTS" ]]; then
     warn "No agents selected. Nothing to do."
@@ -537,19 +767,11 @@ main() {
 
   # Auto-update
   if [[ -z "$AUTO_UPDATE" ]]; then
-    printf '\n'
-    local choice=""
-    read -rp "Enable auto-update (scheduled git pull + reinstall)? [y/N] " choice </dev/tty
-    [[ "$choice" =~ ^[yY]$ ]] && AUTO_UPDATE=yes || AUTO_UPDATE=no
+    prompt_auto_update
   fi
   if [[ "$AUTO_UPDATE" == "yes" ]]; then
     if [[ -z "$UPDATE_FREQUENCY" ]]; then
-      local freq=""
-      read -rp "Frequency — [w]eekly (default) or [d]aily? " freq </dev/tty
-      case "$freq" in
-        d|D|daily) UPDATE_FREQUENCY=daily ;;
-        *)         UPDATE_FREQUENCY=weekly ;;
-      esac
+      prompt_frequency
     fi
     setup_autoupdate
   fi
