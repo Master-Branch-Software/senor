@@ -22,15 +22,6 @@ fi
 mkdir -p "$DIR"
 
 cat > "$DIR/AGENTS.md" << TEMPLATE
----
-name: $DOMAIN
-description: |
-  Multi-sentence trigger description. Specific scope, common task verbs,
-  and "even if the user does not say X explicitly" disambiguators.
-  Used by skill-loading systems to score relevance — write for that
-  scoring, not for human readers.
----
-
 # ${DOMAIN^} Guide
 
 General operating principles live in \`SKILL.md\` at the repository root. Read it first.

@@ -1,12 +1,17 @@
 # Contributing
 
-This document explains the structure so you can add or improve content without breaking how agents consume it.
+This document explains the structure so you can add or improve content without breaking how agents consume it. When working in this repo (editing chapters, writing rules, adding domains), you are a developer. Read this file in full before any action.
 
 ## Repository structure
 
 ```
-SKILL.md               Cross-domain operating rules (read by AI agents before any domain skill).
-AGENTS.md              Developer rules for working in this repo (read this file and AGENTS.md first).
+SKILL.md               Cross-domain operating rules (loaded by AI agents before any domain skill).
+CONTRIBUTING.md        Developer rules, conventions, and contribution procedure (this file).
+README.md              Public-facing project description.
+LICENSE                License terms.
+.prettierrc.json       Formatter config.
+.prettierignore        Hand-formatted files, eval outputs, standard exclusions.
+scripts/               Repo utilities (`new-domain`, `check-sources`, `format`).
 
 <domain>/
   AGENTS.md            Skill entry point — task routing, non-negotiables, running order.
@@ -16,16 +21,82 @@ AGENTS.md              Developer rules for working in this repo (read this file 
   workspace/           Recorded eval runs (never formatted, listed in .prettierignore).
 ```
 
-Example domains: `front-end/`, `copywriting/`, `documentation/`, `security/`, `ruby/`, `architecture/`.
+Current domains: `front-end/`, `copywriting/`, `documentation/`, `security/`, `ruby/`, `architecture/`.
 
 ## Two file audiences
 
 Every file in this repo is written for one of two audiences. Keep them separate.
 
-| Audience                                                | Files                                                                    | Purpose                                                  |
-| ------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------- |
-| **Skill consumers** — AI agents                         | `SKILL.md`, `<domain>/AGENTS.md`, `<domain>/topic.md`                    | Loaded at task time to guide agent behavior              |
-| **Developers** — humans and agents working in this repo | `AGENTS.md`, `<domain>/topic.sources.md`, `CONTRIBUTING.md`, and similar | Editorial and process tooling, never loaded by consumers |
+| Audience                                                | Files                                                       | Purpose                                                  |
+| ------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------- |
+| **Skill consumers** — AI agents                         | `SKILL.md`, `<domain>/AGENTS.md`, `<domain>/topic.md`       | Loaded at task time to guide agent behavior              |
+| **Developers** — humans and agents working in this repo | `CONTRIBUTING.md`, `<domain>/topic.sources.md`, and similar | Editorial and process tooling, never loaded by consumers |
+
+## Working principles
+
+These apply to every edit in the repo.
+
+1. **Verify, don't assume.** Open files for paths, line numbers, function names, quotes, version numbers. Memory is not a source. Cannot verify in the moment? Mark inline ("uncited — verify before publishing") rather than fabricate.
+
+2. **Cite human sources only.** Every new or changed rule in `<domain>/topic.md` requires a citation in `<domain>/topic.sources.md` in the same edit. Sources must be human-authored: official specs (W3C, WHATWG, ECMA), MDN, established engineering blogs, production codebases, books. AI-generated content does not qualify.
+
+3. **Surface confusion and tradeoffs.** Don't paper over uncertainty. State alternatives when more than one answer is defensible. Name the trade-off, then recommend.
+
+4. **Flag tool-vs-guideline conflicts.** When a recommended tool's default contradicts a written rule (e.g., Prettier emits `/>` on void elements while `front-end/javascript-and-html.md` forbids it), state the tension. Let the user decide; don't pick silently.
+
+5. **Opinionated is fine if reasoned.** Document the reasoning inline. If the opinion contradicts authoritative documentation, name the contradiction and ask before overriding.
+
+6. **Match existing voice and structure.** Reference voice: terse, imperative, no hedging ("Two-space indentation." not "Generally prefer two spaces."). No emojis. Chapter files (`<domain>/topic.md`) are curated — extend existing chapters; new chapters or top-level files require user approval.
+
+7. **Compress for LLM reading.** Chapters are loaded into agent context on every task; every saved token is leverage. Write to be parsed, not enjoyed.
+
+   Compression hierarchy — apply most aggressively where load frequency is highest:
+   - `<domain>/AGENTS.md` (loaded every task in the domain) — tightest. No prose paragraphs > 2 sentences.
+   - `<domain>/topic.md` (loaded only when the task touches the chapter) — tight, but must read standalone.
+   - `<domain>/*.sources.md` (developer-only, never loaded by consumers) — lowest priority.
+
+   Cut these:
+   - Warm-up first sentences ("In this chapter we will explore …", "It is important to understand …"). Lead with the rule.
+   - Transitional and meta-commentary phrases ("It is worth noting", "Furthermore", "As mentioned above").
+   - Restatement. Two consecutive sentences carrying the same information → delete one.
+   - Conjoined claims. One claim, one sentence; split.
+   - Worked examples that don't teach beyond the rule. Two examples making the same point → keep the strongest.
+   - Prose where order doesn't carry reasoning. Convert to bullets or a table.
+
+   Preserve (do NOT cut):
+   - Non-negotiables — every bullet.
+   - Citations and canonical names inline (Joos 1962, Diátaxis, IMRaD, NN/g, named style guides). They anchor authority.
+   - Worked examples that _are_ the rule — bad/good pairs, before/after, register-shift demonstrations. The example carries information the rule alone does not.
+   - Multi-dimensional tables. Rows that look formulaic usually encode different data per row.
+   - Inline content the chapter needs to make sense standalone, even if it duplicates content elsewhere.
+
+   Cross-reference vs inline:
+   - Cross-reference for _deeper detail_ the reader can opt into (full lists, full procedures, related chapters).
+   - Keep _inline_ the content the current chapter's argument relies on. A chapter that reads as a stub of pointers has lost data, not compressed it.
+   - When extending an existing chapter, prefer compressing surrounding prose to make room rather than appending.
+
+   Trim to the smallest form that preserves the information. If a sentence can be removed without an agent losing knowledge, remove it. If removing it forces the next agent to load another file to understand the current paragraph, leave it.
+
+8. **Replace, don't layer.** Edit rules in place. No "we previously said X, now Y" phrasing. Git history carries the audit trail.
+
+9. **Touch only what the task requires.** No drive-by refactors. Clean up only what the current change introduces. Files in `.prettierignore` (e.g., `web-design/index.html`) stay hand-formatted unless the user says otherwise.
+
+10. **Validate material guidance via evals.** New or changed rules in any chapter belong in `<domain>/workspace/iteration-N/` as a WITH-skill vs WITHOUT-skill comparison. Guidance that doesn't change agent behavior is dead weight.
+
+11. **Keep sources current.** When a rule changes, update its sidecar in the same commit. When a cited URL rots, replace or remove. When a tool-catalog entry in a sidecar becomes load-bearing for a chapter rule, add a primary citation alongside it.
+
+12. **Ask before breaking a rule.** Any of the above can be wrong in a specific case. Surface the case, propose the deviation, wait for the user.
+
+13. **Don't rely on memory, always search online.** Look through articles from professionals, documentation, professional-grade codebases. Doubt your knowledge, always verify.
+
+## Tooling
+
+- **Prettier** is the configured formatter (`.prettierrc.json`). Run `npx prettier --write <file>` on any file you edit. Existing files were authored before this config and have not been bulk-formatted; format them on next edit, not pre-emptively.
+- **Scripts** in `scripts/`:
+  - `scripts/new-domain <name>` — scaffold a new domain directory.
+  - `scripts/check-sources [domain]` — verify every chapter has a matching sources file.
+  - `scripts/format [--check]` — run Prettier across non-ignored files.
+- **Eval harness** lives in `<domain>/workspace/iteration-N/`. New rules need a paired eval comparing WITH-skill vs WITHOUT-skill output. Recorded responses are not formatted.
 
 ## Branching model
 
@@ -41,7 +112,7 @@ To contribute:
 ## Adding content to an existing domain
 
 1. **Find the right chapter.** Check `<domain>/AGENTS.md` for the task-to-chapter map. Extend an existing chapter before creating a new one.
-2. **Edit the chapter file.** Follow the voice in [AGENTS.md](AGENTS.md) rule 6, which means terse, imperative, no hedging. One claim, one sentence.
+2. **Edit the chapter file.** Follow the voice in [§ Working principles, rule 6](#working-principles) — terse, imperative, no hedging. One claim, one sentence.
 3. **Add a citation.** Every new or changed rule needs a source in the matching `topic.sources.md`. Use human-authored sources only, drawn from official specs, MDN, established engineering blogs, production codebases, and books. No AI-generated content.
 4. **Run an eval.** New or significantly changed rules belong in `workspace/iteration-N/` as a WITH-skill vs WITHOUT-skill comparison. Guidance that doesn't change agent behavior is dead weight.
 5. **Run Prettier.** `npx prettier --write <file>` on every file you touch except those in `.prettierignore`.
@@ -59,34 +130,16 @@ To contribute:
 
 | Order | Section                            | Required                                         | Contents                                                                                                                                                          |
 | ----- | ---------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | YAML frontmatter                   | yes                                              | `name`, `description`. See [frontmatter rules](#frontmatter-rules).                                                                                               |
-| 2     | `# <Domain> Guide`                 | yes                                              | H1 title only.                                                                                                                                                    |
-| 3     | Pointer to `SKILL.md`              | yes                                              | One sentence: "General operating principles live in `SKILL.md` at the repository root. Read it first."                                                            |
-| 4     | `## Non-negotiables`               | yes                                              | Bulleted absolute minimums. One rule per bullet. No category headers within the list.                                                                             |
-| 5     | `## Task-to-chapter map`           | yes                                              | Three-column table: Task / Primary / Also consider. One row per likely user intent. Cells are chapter filenames (`topic.md`) or paths to other domains' chapters. |
-| 6     | `## Domain checklists`             | yes once chapters exist                          | Bullets pointing to specific chapter sections (`topic.md` § Section). Run before submitting any artifact.                                                         |
-| 7     | `## Running order for <task type>` | when the domain has a multi-stage workflow       | Numbered list. Each step names an artifact and what to confirm.                                                                                                   |
-| 8     | `## Context shape`                 | when the domain has substantial inputs to gather | Bullets of facts to confirm before starting. The agent asks for missing items.                                                                                    |
-| 9     | `## Skill connections`             | yes                                              | Bullets: `<other skill or path> → <when to reach for it>`. Includes both in-repo (`<domain>/AGENTS.md`) and external (if installed) skills.                       |
+| 1     | `# <Domain> Guide`                 | yes                                              | H1 title only.                                                                                                                                                    |
+| 2     | Pointer to `SKILL.md`              | yes                                              | One sentence: "General operating principles live in `SKILL.md` at the repository root. Read it first."                                                            |
+| 3     | `## Non-negotiables`               | yes                                              | Bulleted absolute minimums. One rule per bullet. No category headers within the list.                                                                             |
+| 4     | `## Task-to-chapter map`           | yes                                              | Three-column table: Task / Primary / Also consider. One row per likely user intent. Cells are chapter filenames (`topic.md`) or paths to other domains' chapters. |
+| 5     | `## Domain checklists`             | yes once chapters exist                          | Bullets pointing to specific chapter sections (`topic.md` § Section). Run before submitting any artifact.                                                         |
+| 6     | `## Running order for <task type>` | when the domain has a multi-stage workflow       | Numbered list. Each step names an artifact and what to confirm.                                                                                                   |
+| 7     | `## Context shape`                 | when the domain has substantial inputs to gather | Bullets of facts to confirm before starting. The agent asks for missing items.                                                                                    |
+| 8     | `## Skill connections`             | yes                                              | Bullets: `<other skill or path> → <when to reach for it>`. Includes both in-repo (`<domain>/AGENTS.md`) and external (if installed) skills.                       |
 
-### Frontmatter rules
-
-```yaml
----
-name: <domain> # exactly the directory name, lowercase, kebab-case
-description: |
-  Multi-sentence trigger description. Specific scope, common task verbs,
-  and "even if the user does not say X explicitly" disambiguators. Used
-  by skill-loading systems to score relevance — write for that scoring,
-  not for human readers. End with cross-skill pointers when the domain
-  pairs naturally with another (e.g., front-end ↔ copywriting).
----
-```
-
-- `name` matches directory name verbatim. No alternate forms.
-- `description` is loaded into every agent's prompt, so spend the tokens on disambiguation rather than marketing.
-- Mention surfaces and verbs the agent will see in user requests ("hero section", "audit", "writing", "harden").
-- Name the negative disambiguators when the domain is easy to confuse with a sibling ("for README structure read `documentation/AGENTS.md`").
+Routing across domains is carried by root `SKILL.md`'s domain table. Per-domain entry points do not carry YAML frontmatter — anything an external skill loader would read from frontmatter belongs in `SKILL.md` instead.
 
 ### Section conventions
 
@@ -116,7 +169,7 @@ Chapter files (`<domain>/topic.md`) carry the actual guidelines.
 
 ### Compression rules
 
-See `AGENTS.md` rule 7 for the full set (compression hierarchy, what to cut, what to preserve, cross-reference vs inline). The same rules apply to chapter files, and this section adds chapter-specific procedure on top.
+See [§ Working principles, rule 7](#working-principles) for the full set (compression hierarchy, what to cut, what to preserve, cross-reference vs inline). The same rules apply to chapter files; this section adds chapter-specific procedure on top.
 
 ### Tightening an existing chapter or domain
 
@@ -143,7 +196,6 @@ Do not run a cross-chapter dedupe pass without explicit user approval. The same 
 - Worked examples that demonstrate the rule by being it (bad/good headline pairs, register-shift examples, before/after edits).
 - Multi-dimensional tables — rows that look formulaic usually encode different data per row.
 - Inline content the chapter needs to read standalone, even if duplicated in another chapter.
-- Frontmatter `description` text used by skill loaders for relevance scoring.
 
 #### Stopping criteria
 
@@ -184,7 +236,7 @@ Source rules:
 
 ## Routing edits
 
-When adding a new domain, three files need a routing edit. Each one is a localized insert, so do not reorganize the surrounding content.
+When adding a new domain, two files need a routing edit. Each one is a localized insert, so do not reorganize the surrounding content.
 
 ### 1. Root `SKILL.md` — domain table
 
@@ -194,37 +246,22 @@ Add a row to the routing table. Keep alphabetical or grouped order if the existi
  | Domain        | Entry point               | Covers                                                                    |
  | ------------- | ------------------------- | ------------------------------------------------------------------------- |
  | Front-end     | `front-end/AGENTS.md`     | Web design, HTML/CSS/JS/TS, web copy, a11y, performance, stack selection  |
-+| <Domain>      | `<domain>/AGENTS.md`      | <one-line scope — same wording as the frontmatter, ≤ 80 chars>            |
++| <Domain>      | `<domain>/AGENTS.md`      | <one-line scope — concrete subjects, ≤ 80 chars>                          |
  | Security      | `security/AGENTS.md`      | Security audits, pen testing, threat modeling, hardening                  |
 ```
 
 The `Covers` cell is the disambiguator agents read first, so spend the tokens on scope rather than marketing.
 
-### 2. Root `AGENTS.md` — project layout
+### 2. `CONTRIBUTING.md` — current domains list
 
-Add a block to the project-layout code fence. Match the indentation and line-up of existing blocks.
-
-```diff
- front-end/                           Web design, HTML/CSS/JS/TS, web copy, a11y, performance.
-   AGENTS.md                          Skill entry point. Loaded by skill consumers.
-   ...
-
-+<domain>/                            <one-line scope, same as SKILL.md row>.
-+  AGENTS.md                          Skill entry point.
-+  topic.md                           Chapter (loaded by skill consumers).
-+  topic.sources.md                   Citations for that chapter (developer-only).
-```
-
-### 3. `CONTRIBUTING.md` — current domains list
-
-Add the new domain to the inline list.
+Add the new domain to the inline list at [§ Repository structure](#repository-structure).
 
 ```diff
 -Current domains: `front-end/`, `copywriting/`, `documentation/`, `security/`, `ruby/`, `architecture/`.
 +Current domains: `front-end/`, `copywriting/`, `documentation/`, `<domain>/`, `security/`, `ruby/`, `architecture/`.
 ```
 
-### 4. Cross-skill pointers (when applicable)
+### 3. Cross-skill pointers (when applicable)
 
 If the new domain pairs with an existing one, add a `Skill connections` bullet to that domain's `AGENTS.md` so agents working there know to load yours too. Make the pointers symmetric (both directions) when the pairing is genuine.
 
@@ -240,4 +277,4 @@ Record raw agent output unformatted, alongside a `summary.md` describing what ch
 - Do not write AI-generated content as a source citation.
 - Do not add a rule without a citation in the matching `*.sources.md`.
 - Do not format files in `.prettierignore` — they are intentionally hand-formatted or artifact data.
-- Do not edit `SKILL.md` (root) or `AGENTS.md` (root) for domain-specific content — those are cross-cutting files.
+- Do not edit `SKILL.md` (root) for domain-specific content — it is cross-cutting.

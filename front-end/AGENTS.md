@@ -1,22 +1,3 @@
----
-name: front-end
-description: |
-  Professional-grade web design, frontend engineering, and copywriting guidelines.
-  Use this skill whenever the user asks about websites, landing pages, web apps,
-  UI components, CSS, layout, responsive design, accessibility, performance,
-  Core Web Vitals, color palettes, typography, design tokens, brand voice,
-  copywriting, microcopy, SEO, structured data, web security headers,
-  browser compatibility, testing strategies, internationalization, or stack selection.
-  Also use for: reviewing web code, picking frameworks, scaffolding repos,
-  writing HTML/CSS/JS/TS, choosing hosting, or auditing an existing site.
-  Even if the user does not say "design" or "website" explicitly — if the task
-  produces or modifies anything rendered in a browser, this skill applies.
-  When a more specialized skill is installed (security, devops, database-design),
-  read it too for deeper coverage of that subdomain. For prose work that goes
-  beyond web pages — long-form blogs, ad copy, technical writing, research,
-  formality registers, narrative voice — also load `copywriting/AGENTS.md`.
----
-
 # Front-end Guide
 
 General operating principles live in `SKILL.md` at the repository root. Read it first.

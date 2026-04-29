@@ -1,19 +1,3 @@
----
-name: copywriting
-description: |
-  Cross-genre prose — formality registers, narrative voice and persona,
-  long-form blogs, marketing copy beyond websites, technical writing,
-  research and academic writing. Use whenever the task is to write,
-  edit, or audit prose: blog posts, white papers, op-eds, newsletters,
-  email campaigns, scripts, ad copy, tutorials, API guides, research
-  papers, abstracts, case studies. Even when the user does not say
-  "copywriting" — if the deliverable is words a human will read, this
-  skill applies. For web-specific page patterns (hero, pricing, microcopy,
-  CTAs, SEO, structured data) read `front-end/brand-and-copywriting.md`
-  alongside this skill. For README and project-doc structure read
-  `documentation/AGENTS.md`.
----
-
 # Copywriting Guide
 
 General operating principles live in `SKILL.md` at the repository root. Read it first.

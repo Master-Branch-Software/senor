@@ -1,57 +1,49 @@
----
-name: documentation
-description: |
-  Guidelines for writing project documentation — READMEs, contributing guides,
-  changelogs, architecture docs, API docs. Use this skill whenever the user
-  asks to write, audit, or rewrite documentation files at the root of a
-  repository or under `docs/`. Even if the user does not say "documentation"
-  explicitly — if the task produces or edits a `README`, `CONTRIBUTING`,
-  `CHANGELOG`, `ARCHITECTURE`, or any prose that ships with code, this skill
-  applies.
----
-
 # Documentation Guide
 
 General operating principles live in `SKILL.md` at the repository root. Read it first.
 
 ## Non-negotiables
 
-Apply these on every task without asking:
-
-- A repository without a README is broken. If one is missing, write one before doing anything else.
-- README lives at the repo root as `README.md` (English) or `README.<BCP-47>.md` (translations). One README per repo.
-- Title, one-line description, install, usage. These four are not optional unless the project is a documentation-only repo.
-- Every code block declares its language for syntax highlighting.
-- Every install/usage command is copy-paste runnable. No placeholders that fail when pasted verbatim.
-- License section is present and named. Link to the actual `LICENSE` file.
-- No AI fingerprints in prose: no "delve," "leverage," "robust," "seamless," "unlock," em-dashes used as commas, or marketing-deck hedging.
+- A repo without a README is broken. Write one before any other doc work.
+- Every code block declares its language. Every install/usage command runs as pasted on a clean checkout.
+- Docstrings document _how to use_ a symbol. Comments document _why_ this code exists. Do not collapse the two.
+- No AI fingerprints in any artifact (`delve`, `leverage`, `seamless`, `robust`, marketing hedging, em-dashes as commas). Cross-reference the full list in `front-end/brand-and-copywriting.md` § Quick checklist.
+- No placeholder text shipped (`[YOUR EMAIL]`, `<!-- TODO -->`, `lorem ipsum`).
 
 ## Task-to-chapter map
 
-| Task                                                 | Primary                                | Also consider |
-| ---------------------------------------------------- | -------------------------------------- | ------------- |
-| Write a README from scratch                          | `readme-guide.md`                      | —             |
-| Audit / rewrite an existing README                   | `readme-guide.md`                      | —             |
-| Decide what belongs in README vs `docs/`             | `readme-guide.md` § Length and scope   | —             |
-| Pick badges, screenshots, or GIFs for a project page | `readme-guide.md` § Visuals and badges | —             |
+| Task                                                                                                                             | Primary                  | Also                                 |
+| -------------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------------ |
+| README — write, audit, scope vs `docs/`                                                                                          | `readme-guide.md`        | —                                    |
+| `CONTRIBUTING.md`, commit conventions, PR/review rules, DCO/CLA                                                                  | `contributing-guide.md`  | `repo-meta-files.md`                 |
+| `CHANGELOG.md`, release notes, semver coupling, generation tooling                                                               | `changelog-guide.md`     | `contributing-guide.md`              |
+| `LICENSE`, `CODE_OF_CONDUCT`, `SECURITY`, `SUPPORT`, `GOVERNANCE`, `FUNDING`, `CODEOWNERS`, issue / PR templates, `CITATION.cff` | `repo-meta-files.md`     | —                                    |
+| `docs/` directory or dedicated docs site (Diátaxis, framework, versioning, search)                                               | `docs-site-structure.md` | `copywriting/technical-writing.md`   |
+| Docstrings, in-source comments, generated reference                                                                              | `inline-code-docs.md`    | `docs-site-structure.md` (Reference) |
 
 ## Domain checklists
 
-Run these before submitting any artifact:
+Run before submitting; pointers to chapter sections:
 
-- README pre-publish checklist — `readme-guide.md` § Pre-publish checklist. Address every miss.
+- README pre-publish — `readme-guide.md` § Pre-publish checklist.
+- CONTRIBUTING pre-publish — `contributing-guide.md` § Pre-publish checklist.
+- Changelog pre-release — `changelog-guide.md` § Pre-release checklist.
+- Repo meta files (per file) — `repo-meta-files.md` § Pre-publish checklist.
+- Docs site pre-publish — `docs-site-structure.md` § Pre-publish checklist.
+- Inline code docs pre-commit — `inline-code-docs.md` § Pre-commit checklist.
 
-## Running order for a new README
+## Running order
 
-1. Brief — confirm: project name, one-sentence purpose, primary audience (end-user, integrator, contributor), install method, license.
-2. Draft — title, one-liner, install, minimal usage example. Stop and confirm the example runs.
-3. Expand — description, visuals (only if they earn their bytes), configuration, project status.
-4. Contribution surface — contributing pointer, maintainers, license. Link out rather than inline long policies.
-5. Self-review — run the pre-publish checklist in `readme-guide.md`.
+1. Brief — confirm artifact, audience, scope. No brief, no draft.
+2. Read the primary chapter; read "Also" only if the task crosses domains.
+3. Draft to the chapter's required structure. Stop before extending; chapters define the order for a reason.
+4. Verify — paste every command into a clean shell; check every link; run the chapter's checklist.
+5. Self-review — name what was cut and what the reader will want next that you deliberately did not write.
 
 ## Skill connections
 
-When a more specialized skill is installed, consult it alongside this one:
-
-- Front-end / web copy voice — `front-end/brand-and-copywriting.md` for tone and AI-fingerprint avoidance.
-- Architecture write-ups longer than a README section — `architecture/AGENTS.md` (when populated).
+- Voice, Diátaxis, code-sample standards, instructions/warnings → `copywriting/technical-writing.md`.
+- AI-fingerprint vocabulary, web copy voice → `front-end/brand-and-copywriting.md`.
+- Architecture write-ups beyond a README section → `architecture/AGENTS.md` (when populated).
+- Security policy implementation, threat models → `security/AGENTS.md` (when populated).
+- Translated docs sites → `front-end/internationalization.md`.

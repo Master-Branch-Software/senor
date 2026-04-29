@@ -16,6 +16,7 @@ The deeper rationale (progressive disclosure, citation requirements, how rules a
 
 - [Layout](#layout)
 - [How to use](#how-to-use)
+- [Prompt frameworks](#prompt-frameworks)
 - [Tooling](#tooling)
 - [Contributing](#contributing)
 - [License](#license)
@@ -53,15 +54,74 @@ git clone https://github.com/Master-Branch-Software/ai-web-designer .claude/skil
 
 The agent reads `SKILL.md` for cross-domain rules, then loads the relevant `AGENTS.md` when the task matches a domain.
 
-| Tool                        | Integration                                                                        |
-| --------------------------- | ---------------------------------------------------------------------------------- |
-| **Claude Code**             | Clone into `.claude/skills/`, auto-discovered from SKILL.md frontmatter            |
-| **Windsurf**                | Clone into your skills directory, same SKILL.md convention                         |
-| **Cursor**                  | Drop `front-end/AGENTS.md` into `.cursor/rules/` as a `.mdc` file                  |
-| **GitHub Copilot**          | Copy `front-end/AGENTS.md` into `.github/copilot-instructions.md`                  |
-| **ChatGPT**                 | Attach the files to a project, or paste relevant chapters into custom instructions |
-| **Cline**                   | Reference the repo path in your project rules                                      |
-| **Any other AI**            | Point the agent at `SKILL.md` or the relevant `AGENTS.md` in a prompt              |
+| Tool               | Integration                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| **Claude Code**    | Clone into `.claude/skills/`, auto-discovered from SKILL.md frontmatter            |
+| **Windsurf**       | Clone into your skills directory, same SKILL.md convention                         |
+| **Cursor**         | Drop `front-end/AGENTS.md` into `.cursor/rules/` as a `.mdc` file                  |
+| **GitHub Copilot** | Copy `front-end/AGENTS.md` into `.github/copilot-instructions.md`                  |
+| **ChatGPT**        | Attach the files to a project, or paste relevant chapters into custom instructions |
+| **Cline**          | Reference the repo path in your project rules                                      |
+| **Any other AI**   | Point the agent at `SKILL.md` or the relevant `AGENTS.md` in a prompt              |
+
+---
+
+## Prompt frameworks
+
+These structures align with Señor's operating rules and reduce back-and-forth.
+
+### Role, Context, Task, Output
+
+The pattern recommended by [Anthropic's prompt engineering guide](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).
+
+```text
+Role: Senior frontend engineer.
+Context: Marketing site for a B2B SaaS targeting CFOs. Design tokens in src/styles/tokens.css.
+Task: Draft the hero section in HTML/CSS.
+Output: Single .html file, no JS, ≤ 60 lines.
+```
+
+### Pre-fill the brief
+
+When a task is open-ended, Señor's rules tell the agent to ask for audience, purpose, scope, length, voice, and hard constraints. Volunteering them up front skips the asking round.
+
+```text
+Write a launch announcement for our new export-to-CSV feature.
+- Audience: Existing customers, mostly data analysts.
+- Purpose: Drive adoption in the next 30 days.
+- Length: 400–600 words.
+- Voice: Plain, technical, no marketing-deck adjectives.
+- Hard constraints: Must mention rate limits and the new permission scope.
+```
+
+### Vague briefs get questions, not guesses
+
+Señor's rules require asking for missing context before drafting. Vague briefs are fine.
+
+```text
+You: Write an article about Iceland.
+
+Señor: A few questions before I draft.
+
+1. Who's the audience?
+2. What format? Blog, brochure, academic brief?
+3. What length and voice?
+4. What angle? Culture, geography, climate, history, food?
+
+Answer what matters. I'll pick defaults for the rest.
+```
+
+### Anchor with examples
+
+For style-heavy work (changelogs, blog posts, microcopy), paste one to three examples of the desired output. Examples beat description.
+
+```text
+Write a changelog entry in this style:
+
+[2 prior entries pasted in full]
+
+For: Added export-to-CSV in the reports tab.
+```
 
 ---
 

@@ -101,6 +101,16 @@ Scan order:
 | Technical | Conditional sprawl, encyclopedic tutorials, missing verification, stale screenshots                 | `technical-writing.md` § Common failures                     |
 | Research  | Buried thesis, unnamed limitations, citation chains, methods that aren't reproducible               | `research-and-academic.md` § Common failures                 |
 
+## Prose punctuation anti-patterns
+
+Three patterns surface in AI prose and read as machine-generated even when the underlying sentences are fine. Cut on every editing pass.
+
+- **Semicolons in prose.** Replace with a period. Two short sentences read more confidently than one long one strung together. Reserve semicolons for code samples and lists with internal commas.
+- **Colon-list sentences (`X: a, b, c`).** "The campaign covers three regions: north, central, and south." Rewrite as a sentence ("The campaign covers the north, central, and south regions") or as a real bullet list. The colon-list form reads as filler that pads paragraph length.
+- **Em-dash list wrappers.** "Three things matter — speed, clarity, and trust." Same pathology as the colon-list — a sentence pretending to be a list. Use either a sentence or a list, not the hybrid.
+
+These hit hardest in marketing, technical writing, and any reference-toned prose where AI output is most often mistaken for human writing.
+
 ## Hedging — the difference
 
 ### Calibrated (keep)

@@ -2,7 +2,7 @@
 
 Citations backing claims in [`readme-guide.md`](readme-guide.md). Developer artifact — not loaded by skill consumers. Update in the same commit when chapter rules change.
 
-Per `AGENTS.md`:
+Per `CONTRIBUTING.md`:
 
 - Human-authored sources only (specs, established engineering blogs, production codebases, books). No AI-generated content.
 - Cite the specific claim, not just the topic.
