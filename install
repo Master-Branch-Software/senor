@@ -35,7 +35,11 @@ AGENTS=(
   "cline|cline.md|.clinerules/senor.md|__HOME__/Documents/Cline/Rules/senor.md|Cline"
   "copilot|copilot.md|.github/copilot-instructions.md||GitHub Copilot"
   "codex|codex.md|AGENTS.md|__HOME__/.codex/AGENTS.md|Codex CLI"
-  "warp|warp.md|WARP.md||Warp"
+  "warp|warp.md|AGENTS.md||Warp"
+  "aider|aider.md|CONVENTIONS.md||Aider"
+  "gemini|gemini.md|GEMINI.md|__HOME__/.gemini/GEMINI.md|Gemini CLI"
+  "continue|continue.md|.continue/rules/senor.md|__HOME__/.continue/rules/senor.md|Continue"
+  "zed|zed.md|.rules||Zed"
 )
 N_AGENTS=${#AGENTS[@]}
 
@@ -98,8 +102,8 @@ ${BOLD}Señor installer${RESET}
 Usage: ./install [options]
 
 Options:
-  --agents LIST       Comma-separated agents (claude-code,cursor,windsurf,cline,
-                      copilot,codex,warp)
+  --agents LIST       Comma-separated agents (claude-code, cursor, windsurf,
+                      cline, copilot, codex, warp, aider, gemini, continue, zed)
   --scope WHERE       project | home | <path>  (default: prompt)
                         project — write to <cwd>/<rel-path> for each agent
                         home    — write to each agent's user-global discovery path

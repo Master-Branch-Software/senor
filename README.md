@@ -52,7 +52,7 @@ cd senor
 ./install
 ```
 
-The installer prompts for which agents to configure (Claude Code, Cursor, Windsurf, Cline, Codex CLI, GitHub Copilot, Warp), the install scope (this project, user-global, or a custom path), and whether to schedule weekly auto-updates. After pulling new content later, run `./update`.
+The installer prompts for which agents to configure (Claude Code, Cursor, Windsurf, Cline, Codex CLI, GitHub Copilot, Warp, Aider, Gemini CLI, Continue, Zed), the install scope (this project, user-global, or a custom path), and whether to schedule weekly auto-updates. After pulling new content later, run `./update`.
 
 **No git?** Paste this into any agent that can run shell commands:
 
@@ -66,7 +66,12 @@ The installer prompts for which agents to configure (Claude Code, Cursor, Windsu
 
 See `./install --help` for every flag. For ChatGPT or anything else not in the list above, point the agent at `SKILL.md` in a prompt.
 
-Warp is covered both by its own `WARP.md` install option and implicitly by Codex/Cline/Copilot — Warp's discovery reads any of `WARP.md`, `AGENTS.md`, `.clinerules`, `.github/copilot-instructions.md`, and several others.
+A few agents read multiple rule formats and are covered implicitly by other installs:
+
+- **Warp** uses `AGENTS.md` as its primary rules file (same as Codex CLI), and also picks up `WARP.md`, `.clinerules`, `.github/copilot-instructions.md`, and several others. Installing either Warp or Codex covers both.
+- **Zed** picks up `.rules`, `.cursorrules`, `.windsurfrules`, `AGENTS.md`, `CLAUDE.md` in priority order.
+
+**Aider caveat:** Aider doesn't auto-load `CONVENTIONS.md`. Either invoke `aider --read CONVENTIONS.md` or add `read: CONVENTIONS.md` to your `.aider.conf.yml`.
 
 ---
 
