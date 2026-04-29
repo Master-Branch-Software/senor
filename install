@@ -1,0 +1,460 @@
+#!/usr/bin/env bash
+# Señor installer — set up rule files for selected AI agents.
+# Usage: ./install [--agents LIST] [--scope WHERE] [--auto-update|--no-auto-update]
+#                  [--conflict skip|overwrite|append] [-h]
+
+set -euo pipefail
+
+# ---- Constants ----------------------------------------------------------
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+SENOR_SKILL="$SCRIPT_DIR/SKILL.md"
+TEMPLATES_DIR="$SCRIPT_DIR/templates"
+STATE_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/senor"
+STATE_FILE="$STATE_DIR/state"
+
+# Agent registry: name|template|project_relpath|home_abspath|display
+# project_relpath is joined with target dir for project/custom scope.
+# home_abspath is used as-is for home scope (__HOME__ expands to $HOME).
+# Empty home_abspath means the agent has no documented user-global file path.
+AGENTS=(
+  "cursor|cursor.mdc|.cursor/rules/senor.mdc||Cursor"
+  "windsurf|windsurf.md|.windsurf/rules/senor.md|__HOME__/.codeium/windsurf/memories/global_rules.md|Windsurf"
+  "cline|cline.md|.clinerules/senor.md|__HOME__/Documents/Cline/Rules/senor.md|Cline"
+  "copilot|copilot.md|.github/copilot-instructions.md||GitHub Copilot"
+  "codex|codex.md|AGENTS.md|__HOME__/.codex/AGENTS.md|Codex CLI"
+)
+N_AGENTS=${#AGENTS[@]}
+
+# ---- ANSI ---------------------------------------------------------------
+
+ESC=$'\033'
+CSI="${ESC}["
+BOLD="${CSI}1m"
+DIM="${CSI}2m"
+RESET="${CSI}0m"
+GREEN="${CSI}32m"
+RED="${CSI}31m"
+YELLOW="${CSI}33m"
+CYAN="${CSI}36m"
+
+# Disable colour if stdout isn't a TTY.
+if [[ ! -t 1 ]]; then
+  BOLD=""; DIM=""; RESET=""; GREEN=""; RED=""; YELLOW=""; CYAN=""
+fi
+
+die() { printf '%serror:%s %s\n' "$RED" "$RESET" "$*" >&2; exit 1; }
+warn() { printf '%s!%s %s\n' "$YELLOW" "$RESET" "$*"; }
+ok() { printf '%s✓%s %s\n' "$GREEN" "$RESET" "$*"; }
+note() { printf '%s%s%s\n' "$DIM" "$*" "$RESET"; }
+
+# ---- Defaults / flags ---------------------------------------------------
+
+SCOPE_KIND=""         # project | home | custom
+SCOPE_PATH=""         # used for project (cwd) and custom (user-supplied)
+SELECTED_AGENTS=""
+AUTO_UPDATE=""        # empty = prompt
+UPDATE_FREQUENCY=""     # daily | weekly  (only used when AUTO_UPDATE=yes)
+CONFLICT_MODE=""      # empty = prompt per file
+
+show_help() {
+  cat <<EOF
+${BOLD}Señor installer${RESET}
+
+Usage: ./install [options]
+
+Options:
+  --agents LIST       Comma-separated agents (cursor,windsurf,cline,copilot,codex)
+  --scope WHERE       project | home | <path>  (default: prompt)
+                        project — write to <cwd>/<rel-path> for each agent
+                        home    — write to each agent's user-global discovery path
+                                  (Cursor and Copilot have no global file path
+                                  and will be skipped under this scope)
+                        <path>  — same layout as 'project', rooted at <path>
+  --auto-update       Install scheduled auto-update task (cron / Task Scheduler)
+  --no-auto-update    Skip the auto-update prompt
+  --update-frequency X
+                      daily | weekly  (default: weekly. Only used with --auto-update)
+  --conflict MODE     skip | overwrite | append  (default: prompt per file)
+  -h, --help          Show this help
+
+With no flags, runs interactively.
+EOF
+}
+
+apply_scope_flag() {
+  case "$1" in
+    project) SCOPE_KIND=project; SCOPE_PATH="$PWD" ;;
+    home)    SCOPE_KIND=home;    SCOPE_PATH="" ;;
+    *)       SCOPE_KIND=custom;  SCOPE_PATH="$1" ;;
+  esac
+}
+
+parse_flags() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --agents)         SELECTED_AGENTS="$2"; shift 2 ;;
+      --scope)          apply_scope_flag "$2"; shift 2 ;;
+      --auto-update)    AUTO_UPDATE=yes; shift ;;
+      --no-auto-update) AUTO_UPDATE=no; shift ;;
+      --update-frequency) UPDATE_FREQUENCY="$2"; shift 2 ;;
+      --conflict)       CONFLICT_MODE="$2"; shift 2 ;;
+      -h|--help)        show_help; exit 0 ;;
+      *)                die "unknown flag: $1" ;;
+    esac
+  done
+
+  if [[ -n "$CONFLICT_MODE" ]]; then
+    case "$CONFLICT_MODE" in
+      skip|overwrite|append) ;;
+      *) die "invalid --conflict mode: $CONFLICT_MODE" ;;
+    esac
+  fi
+  if [[ -n "$UPDATE_FREQUENCY" ]]; then
+    case "$UPDATE_FREQUENCY" in
+      daily|weekly) ;;
+      *) die "invalid --update-frequency: $UPDATE_FREQUENCY (use 'daily' or 'weekly')" ;;
+    esac
+  fi
+}
+
+# ---- Agent registry helpers --------------------------------------------
+
+agent_field() {
+  local idx="$1" field="$2" line="${AGENTS[$1]}"
+  local IFS='|'
+  # shellcheck disable=SC2206
+  local parts=($line)
+  printf '%s' "${parts[$field]}"
+}
+
+agent_index_by_name() {
+  local name="$1" i
+  for ((i=0; i<N_AGENTS; i++)); do
+    [[ "$(agent_field "$i" 0)" == "$name" ]] && { printf '%s' "$i"; return 0; }
+  done
+  return 1
+}
+
+# ---- Multi-select TUI ---------------------------------------------------
+
+multiselect() {
+  local -a marked
+  local cursor=0 i drew=0
+
+  for ((i=0; i<N_AGENTS; i++)); do marked[i]=0; done
+
+  printf '%s' "${CSI}?25l"  # hide cursor
+  trap 'printf "%s" "${CSI}?25h"' EXIT INT TERM
+
+  draw() {
+    if [[ $drew -eq 1 ]]; then
+      printf '%s' "${CSI}$((N_AGENTS + 3))A"
+    fi
+    drew=1
+
+    printf '%sSelect agents%s %s(↑/↓ navigate · space toggle · c or enter to continue · q to abort)%s\n' \
+      "$BOLD" "$RESET" "$DIM" "$RESET"
+
+    for ((i=0; i<N_AGENTS; i++)); do
+      local mark="[ ]"
+      [[ ${marked[$i]} -eq 1 ]] && mark="[${GREEN}x${RESET}]"
+      local pre="  "
+      [[ $i -eq $cursor ]] && pre="${CYAN}>${RESET} "
+      printf '%s%s %s%s\n' "$pre" "$mark" "$(agent_field "$i" 3)" "${CSI}K"
+    done
+
+    printf '%s\n' "${CSI}K"
+    printf '%s  Press %sc%s or %sEnter%s to continue%s%s\n' \
+      "$DIM" "$RESET$BOLD" "$RESET$DIM" "$RESET$BOLD" "$RESET$DIM" "$RESET" "${CSI}K"
+  }
+
+  draw
+  while true; do
+    local key
+    IFS= read -rsn1 key || true
+    if [[ "$key" == $'\033' ]]; then
+      local rest=""
+      IFS= read -rsn2 -t 0.01 rest || true
+      key="$key$rest"
+    fi
+    case "$key" in
+      $'\033[A') ((cursor > 0)) && ((cursor--)) ;;
+      $'\033[B') ((cursor < N_AGENTS - 1)) && ((cursor++)) ;;
+      ' ')       marked[cursor]=$((1 - marked[cursor])) ;;
+      ''|$'\n'|c|C) break ;;
+      q|Q)       printf '%s' "${CSI}?25h"; exit 130 ;;
+    esac
+    draw
+  done
+
+  printf '%s' "${CSI}?25h"
+  trap - EXIT INT TERM
+
+  local sel=()
+  for ((i=0; i<N_AGENTS; i++)); do
+    [[ ${marked[$i]} -eq 1 ]] && sel+=("$(agent_field "$i" 0)")
+  done
+  (IFS=,; printf '%s' "${sel[*]}")
+}
+
+# ---- Scope prompt -------------------------------------------------------
+
+prompt_scope() {
+  printf '\n%sWhere should rule files be installed?%s\n' "$BOLD" "$RESET"
+  printf '  [1] This project (%s)\n' "$PWD"
+  printf '  [2] User-global (each agent has its own discovery path)\n'
+  printf '  [3] Custom project path\n'
+  while true; do
+    local choice="" custom=""
+    read -rp "Choice [1]: " choice </dev/tty
+    choice="${choice:-1}"
+    case "$choice" in
+      1) SCOPE_KIND=project; SCOPE_PATH="$PWD"; return ;;
+      2) SCOPE_KIND=home; SCOPE_PATH=""; return ;;
+      3) read -rp "Path: " custom </dev/tty
+         [[ -d "$custom" ]] || { warn "$custom is not a directory"; continue; }
+         SCOPE_KIND=custom; SCOPE_PATH="$custom"; return ;;
+      *) ;;
+    esac
+  done
+}
+
+# ---- Conflict prompt ----------------------------------------------------
+
+prompt_conflict() {
+  local target="$1" new_content="$2"
+  while true; do
+    printf '\n'
+    warn "Conflict: $target already exists"
+    local choice=""
+    read -rp "[s]kip / [o]verwrite / [a]ppend / [d]iff > " choice </dev/tty
+    case "$choice" in
+      s|S) printf '%s' "skip"; return ;;
+      o|O) printf '%s' "overwrite"; return ;;
+      a|A) printf '%s' "append"; return ;;
+      d|D)
+        printf '\n'
+        diff -u "$target" <(printf '%s' "$new_content") | sed -n '1,80p' || true
+        printf '\n'
+        ;;
+      *) ;;
+    esac
+  done
+}
+
+# ---- Install one agent --------------------------------------------------
+
+resolve_target_for_agent() {
+  # Echoes the absolute target path for a given agent index, or empty if the
+  # agent does not support the current scope (caller should warn+skip).
+  local idx="$1"
+  local proj_rel home_abs
+  proj_rel="$(agent_field "$idx" 2)"
+  home_abs="$(agent_field "$idx" 3)"
+
+  case "$SCOPE_KIND" in
+    home)
+      [[ -n "$home_abs" ]] || { printf ''; return; }
+      printf '%s' "${home_abs//__HOME__/$HOME}"
+      ;;
+    project|custom)
+      printf '%s/%s' "$SCOPE_PATH" "$proj_rel"
+      ;;
+    *) die "internal: unknown SCOPE_KIND=$SCOPE_KIND" ;;
+  esac
+}
+
+install_agent() {
+  local name="$1"
+  local idx
+  idx="$(agent_index_by_name "$name")" || die "unknown agent: $name"
+
+  local template_file display target content action
+  template_file="$TEMPLATES_DIR/$(agent_field "$idx" 1)"
+  display="$(agent_field "$idx" 4)"
+  target="$(resolve_target_for_agent "$idx")"
+
+  if [[ -z "$target" ]]; then
+    warn "$display has no user-global file path; skipping (use project scope instead)"
+    return
+  fi
+
+  [[ -f "$template_file" ]] || die "missing template: $template_file"
+
+  content="$(sed "s|__SENOR_SKILL__|$SENOR_SKILL|g" "$template_file")"
+
+  mkdir -p "$(dirname "$target")"
+
+  if [[ -e "$target" ]]; then
+    action="${CONFLICT_MODE:-$(prompt_conflict "$target" "$content")}"
+    case "$action" in
+      skip)
+        note "  Skipped $target ($display)"
+        return ;;
+      overwrite)
+        printf '%s\n' "$content" > "$target" ;;
+      append)
+        {
+          printf '\n<!-- senor pointer -->\n'
+          printf '%s\n' "$content"
+        } >> "$target"
+        ;;
+      *) die "unexpected conflict action: $action" ;;
+    esac
+  else
+    printf '%s\n' "$content" > "$target"
+  fi
+  ok "$display → $target"
+}
+
+# ---- Auto-update --------------------------------------------------------
+
+setup_autoupdate() {
+  local update_path="$SCRIPT_DIR/update"
+  local frequency="${UPDATE_FREQUENCY:-weekly}"
+  local os; os="$(uname -s)"
+
+  # Cron schedule fields and human-readable description
+  local cron_schedule schtasks_args human
+  case "$frequency" in
+    daily)
+      cron_schedule="0 3 * * *"
+      schtasks_args="//SC DAILY //ST 03:00"
+      human="3am daily"
+      ;;
+    weekly)
+      cron_schedule="0 3 * * 0"  # Sunday 3am
+      schtasks_args="//SC WEEKLY //D SUN //ST 03:00"
+      human="3am Sunday (weekly)"
+      ;;
+    *) die "internal: invalid frequency $frequency" ;;
+  esac
+
+  case "$os" in
+    Darwin|Linux)
+      local entry="$cron_schedule $update_path >/dev/null 2>&1 # senor-update"
+      local existing=""
+      existing="$(crontab -l 2>/dev/null | grep -v '# senor-update' || true)"
+      if [[ -n "$existing" ]]; then
+        printf '%s\n%s\n' "$existing" "$entry" | crontab -
+      else
+        printf '%s\n' "$entry" | crontab -
+      fi
+      ok "Cron entry installed ($human)."
+      note "  Remove with: crontab -l | grep -v 'senor-update' | crontab -"
+      ;;
+    MINGW*|MSYS*|CYGWIN*)
+      local bash_path
+      bash_path="$(command -v bash || true)"
+      [[ -n "$bash_path" ]] || { warn "bash not on PATH; skipping auto-update setup"; return; }
+
+      # Convert /c/Users/... to C:\Users\... for schtasks
+      local win_update win_bash
+      win_update="$(cygpath -w "$update_path" 2>/dev/null || printf '%s' "$update_path")"
+      win_bash="$(cygpath -w "$bash_path" 2>/dev/null || printf '%s' "$bash_path")"
+
+      local tr_value="\"$win_bash\" --login -i -- \"$win_update\""
+
+      # shellcheck disable=SC2086  # we want $schtasks_args word-split
+      if schtasks //Create //TN senor-update //TR "$tr_value" $schtasks_args //F >/dev/null 2>&1 \
+         || schtasks /Create /TN senor-update /TR "$tr_value" ${schtasks_args//\/\//\/} /F >/dev/null 2>&1; then
+        ok "Task Scheduler entry installed ($human)."
+        note "  Remove with: schtasks /Delete /TN senor-update /F"
+      else
+        warn "Could not install Task Scheduler entry. Run manually:"
+        printf '    schtasks /Create /TN senor-update /TR %q %s /F\n' "$tr_value" "${schtasks_args//\/\//\/}"
+      fi
+      ;;
+    *)
+      warn "Unknown OS ($os); skipping auto-update setup."
+      note "  Run ./update manually when you want to refresh."
+      ;;
+  esac
+}
+
+# ---- State persistence --------------------------------------------------
+
+save_state() {
+  mkdir -p "$STATE_DIR"
+  {
+    printf 'SENOR_REPO=%q\n' "$SCRIPT_DIR"
+    printf 'SCOPE_KIND=%q\n' "$SCOPE_KIND"
+    printf 'SCOPE_PATH=%q\n' "$SCOPE_PATH"
+    printf 'AGENTS=%q\n' "$SELECTED_AGENTS"
+    printf 'AUTO_UPDATE=%q\n' "$AUTO_UPDATE"
+  } > "$STATE_FILE"
+  note "State saved to $STATE_FILE"
+}
+
+# ---- Main ---------------------------------------------------------------
+
+main() {
+  parse_flags "$@"
+
+  printf '%sSeñor installer%s\n\n' "$BOLD" "$RESET"
+
+  # Sanity: templates dir exists
+  [[ -d "$TEMPLATES_DIR" ]] || die "templates dir not found: $TEMPLATES_DIR"
+
+  # Agents
+  if [[ -z "$SELECTED_AGENTS" ]]; then
+    SELECTED_AGENTS="$(multiselect)"
+  fi
+  if [[ -z "$SELECTED_AGENTS" ]]; then
+    warn "No agents selected. Nothing to do."
+    exit 0
+  fi
+
+  # Validate names
+  IFS=',' read -ra _agent_list <<< "$SELECTED_AGENTS"
+  for a in "${_agent_list[@]}"; do
+    agent_index_by_name "$a" >/dev/null || die "unknown agent: $a"
+  done
+
+  # Scope
+  if [[ -z "$SCOPE_KIND" ]]; then
+    prompt_scope
+  fi
+  case "$SCOPE_KIND" in
+    project|custom) [[ -d "$SCOPE_PATH" ]] || die "target dir does not exist: $SCOPE_PATH" ;;
+    home) ;;
+    *) die "no scope set" ;;
+  esac
+
+  if [[ "$SCOPE_KIND" == home ]]; then
+    printf '\n%sScope:%s user-global\n' "$BOLD" "$RESET"
+  else
+    printf '\n%sScope:%s %s (%s)\n' "$BOLD" "$RESET" "$SCOPE_KIND" "$SCOPE_PATH"
+  fi
+  printf '%sAgents:%s %s\n\n' "$BOLD" "$RESET" "$SELECTED_AGENTS"
+
+  for a in "${_agent_list[@]}"; do
+    install_agent "$a"
+  done
+
+  # Auto-update
+  if [[ -z "$AUTO_UPDATE" ]]; then
+    printf '\n'
+    local choice=""
+    read -rp "Enable auto-update (scheduled git pull + reinstall)? [y/N] " choice </dev/tty
+    [[ "$choice" =~ ^[yY]$ ]] && AUTO_UPDATE=yes || AUTO_UPDATE=no
+  fi
+  if [[ "$AUTO_UPDATE" == "yes" ]]; then
+    if [[ -z "$UPDATE_FREQUENCY" ]]; then
+      local freq=""
+      read -rp "Frequency — [w]eekly (default) or [d]aily? " freq </dev/tty
+      case "$freq" in
+        d|D|daily) UPDATE_FREQUENCY=daily ;;
+        *)         UPDATE_FREQUENCY=weekly ;;
+      esac
+    fi
+    setup_autoupdate
+  fi
+
+  save_state
+  printf '\n'
+  ok "Done."
+}
+
+main "$@"

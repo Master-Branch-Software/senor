@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# sync-rules — regenerate the root-level contributor rule files from templates/.
+# Usage: ./scripts/sync-rules [--check]
+# --check mode exits non-zero if any file would change (for CI).
+#
+# The same templates feed two outputs:
+#   - This script writes contributor files at the senor root with
+#     __SENOR_SKILL__ replaced by `./SKILL.md` (works when an agent is run
+#     from inside the senor repo itself).
+#   - The ./install script writes user files with __SENOR_SKILL__ replaced
+#     by the absolute path to SKILL.md.
+
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+# template_basename | contributor_target_relpath
+RULES=(
+  "cursor.mdc|.cursor/rules/senor.mdc"
+  "windsurf.md|.windsurf/rules/senor.md"
+  "cline.md|.clinerules/senor.md"
+  "copilot.md|.github/copilot-instructions.md"
+  "codex.md|AGENTS.md"
+)
+
+CHECK=0
+[[ "${1:-}" == "--check" ]] && CHECK=1
+
+drift=0
+
+for entry in "${RULES[@]}"; do
+  IFS='|' read -r tpl target <<< "$entry"
+  src="templates/$tpl"
+  [[ -f "$src" ]] || { echo "missing template: $src" >&2; exit 1; }
+
+  generated="$(sed 's|__SENOR_SKILL__|./SKILL.md|g' "$src")"
+
+  if [[ -f "$target" ]] && diff -q <(printf '%s\n' "$generated") "$target" >/dev/null 2>&1; then
+    [[ $CHECK -eq 0 ]] && echo "unchanged: $target"
+    continue
+  fi
+
+  if [[ $CHECK -eq 1 ]]; then
+    echo "drift: $target would change"
+    drift=1
+  else
+    mkdir -p "$(dirname "$target")"
+    printf '%s\n' "$generated" > "$target"
+    echo "synced: $target ← templates/$tpl"
+  fi
+done
+
+[[ $drift -eq 1 ]] && exit 1
+exit 0

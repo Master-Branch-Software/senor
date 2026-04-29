@@ -9,6 +9,12 @@ SKILL.md               Cross-domain operating rules (loaded by AI agents before 
 CONTRIBUTING.md        Developer rules, conventions, and contribution procedure (this file).
 README.md              Public-facing project description.
 LICENSE                License terms.
+install                Interactive installer that writes rule files for non-Claude agents.
+update                 Non-interactive `git pull` + reinstall used by the auto-update task.
+templates/             Single source of truth for rule-file content. `__SENOR_SKILL__` is replaced at install time:
+                       - `./install` substitutes the absolute path to SKILL.md (for installed users).
+                       - `scripts/sync-rules` substitutes `./SKILL.md` and writes the root contributor files
+                         (`AGENTS.md`, `.cursor/rules/senor.mdc`, etc.). Re-run after editing a template.
 .prettierrc.json       Formatter config.
 .prettierignore        Hand-formatted files, eval outputs, standard exclusions.
 scripts/               Repo utilities (`new-domain`, `check-sources`, `format`).
@@ -96,6 +102,7 @@ These apply to every edit in the repo.
   - `scripts/new-domain <name>` — scaffold a new domain directory.
   - `scripts/check-sources [domain]` — verify every chapter has a matching sources file.
   - `scripts/format [--check]` — run Prettier across non-ignored files.
+  - `scripts/sync-rules [--check]` — regenerate the root contributor rule files (`.cursor/rules/senor.mdc`, `AGENTS.md`, etc.) from `templates/`. Run after editing anything in `templates/`. `--check` mode reports drift without writing — wire into CI.
 - **Eval harness** lives in `<domain>/workspace/iteration-N/`. New rules need a paired eval comparing WITH-skill vs WITHOUT-skill output. Recorded responses are not formatted.
 
 ## Branching model
