@@ -2,6 +2,8 @@
 
 This document explains the structure so you can add or improve content without breaking how agents consume it. When working in this repo (editing chapters, writing rules, adding domains), you are a developer. Read this file in full before any action.
 
+This document is meant for both human and AI contributors.
+
 ## Repository structure
 
 ```
@@ -9,7 +11,7 @@ SKILL.md               Cross-domain operating rules (loaded by AI agents before 
 CONTRIBUTING.md        Developer rules, conventions, and contribution procedure (this file).
 README.md              Public-facing project description.
 LICENSE                License terms.
-install                Interactive installer that writes rule files for non-Claude agents.
+install                Interactive installer that writes rule files for agents.
 update                 Non-interactive `git pull` + reinstall used by the auto-update task.
 templates/             Single source of truth for rule-file content. `__SENOR_SKILL__` is replaced at install time:
                        - `./install` substitutes the absolute path to SKILL.md (for installed users).
@@ -17,17 +19,18 @@ templates/             Single source of truth for rule-file content. `__SENOR_SK
                          (`AGENTS.md`, `.cursor/rules/senor.mdc`, etc.). Re-run after editing a template.
 .prettierrc.json       Formatter config.
 .prettierignore        Hand-formatted files, eval outputs, standard exclusions.
-scripts/               Repo utilities (`new-domain`, `check-sources`, `format`).
+scripts/               Utilities (`new-domain`, `check-sources`, `format`).
 
 <domain>/
-  AGENTS.md            Skill entry point — task routing, non-negotiables, running order.
+  AGENTS.md            Skill entry point — task routing, running order.
   topic.md             Chapter file — the actual guidelines.
   topic.sources.md     Citations backing that chapter (developer artifact, not loaded by agents).
   evals/               Eval prompt definitions.
   workspace/           Recorded eval runs (never formatted, listed in .prettierignore).
 ```
 
-Current domains: `front-end/`, `copywriting/`, `documentation/`, `security/`, `ruby/`, `architecture/`.
+Current domains: `front-end/`, `copywriting/`, `documentation/`
+Coming up next: `security/`, `architecture/`.
 
 ## Two file audiences
 
